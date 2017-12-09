@@ -1,0 +1,50 @@
+fieldset, div.fieldset {
+    border: 1px solid $btsyellow;
+    border-radius: 3px;
+    margin: 1em 0;
+    padding: 1.5em;
+    position: relative;
+    
+    legend, & > h1.legend {
+        background: transparent;
+        border: none;
+        color: $btsyellow;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1em;
+        margin-bottom: 0;
+        margin-left: -0.5em;
+        padding: 0 0.5em;
+        text-align: left;
+        width: auto;
+        
+        & + p {
+            margin-top: 0;
+        }
+    }
+    & > h1.legend {
+        background: #000;
+        margin-top: -0.65em;
+        position: absolute;
+        top: 0;
+    }
+    & > h1 {
+        font-size: 1.733em;
+        text-align: left;
+    }
+    
+    &.alt {
+        border-color: #555;
+        border-width: 2px;
+    }
+}
+
+#modal {
+    fieldset, div.fieldset {
+        border-color: #000;
+        
+        legend, & > h1.legend {
+            color: #000;
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@import "../vars";
+@import "../mixins";
+
+body[page-section*="auth"] {
+    @import "auth";
+}
+
+body[page-section*="awards"] {
+    @import "awards";
+}
+
+body[page-section*="committee"] {
+    @import "committee";
+}
+
+body[page-section*="contact"] {
+    @import "contact";
+}
+
+body[page-section*="elections"] {
+    @import "elections";
+}
+
+body[page-section*="equipment"] {
+    @import "equipment";
+}
+
+body[page-section*="events"] {
+    @import "events";
+}
+
+body[page-section*="media"] {
+    @import "media";
+}
+
+body[page-section*="members"] {
+    @import "members";
+}
+
+body[page-section*="pages"] {
+    @import "pages";
+}
+
+body[page-section*="quotes"] {
+    @import "quotes";
+}
+
+body[page-section*="resources"] {
+    @import "resources";
+}
+
+body[page-section*="training"] {
+    @import "training";
+}
+
+body[page-section*="users"] {
+    @import "users";
+}

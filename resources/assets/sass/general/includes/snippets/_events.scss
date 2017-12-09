@@ -1,0 +1,172 @@
+$event: #A00;
+$training: #05F;
+$social: rgb(255, 198, 203);
+$meeting: #0A0;
+$hidden: #999;
+$booking: #F80;
+
+$event_bg: rgb(255, 170, 170);
+$training_bg: lighten($training, 30%);
+$social_bg: $social;
+$meeting_bg: lighten($meeting, 55%);
+$hidden_bg: darken($hidden, 20%);
+$booking_bg: $hidden;
+
+.event-style {
+    &.text {
+        &, &.event {
+            color: $event !important;
+        }
+        &.training {
+            color: $training !important;
+        }
+        &.social {
+            color: $social !important;
+        }
+        &.meeting {
+            color: $meeting !important;
+        }
+        &.bts {
+            color: $hidden !important;
+            font-style: italic;
+        }
+        &.booking {
+            color: $booking !important;
+        }
+    }
+    &.fill {
+        &, &.event {
+            background-color: $event;
+            border-color: $event;
+        }
+        &.training {
+            background-color: $training;
+            border-color: $training;
+        }
+        &.social {
+            background-color: $social;
+            border-color: $social;
+        }
+        &.meeting {
+            background-color: $meeting;
+            border-color: $meeting;
+        }
+        &.bts {
+            background-color: $hidden;
+            border-color: $hidden;
+        }
+        &.booking {
+            background-color: $booking;
+            border-color: $booking;
+        }
+    }
+    &.fill-light {
+        &, &.event {
+            background-color: $event_bg;
+            border-color: $event_bg;
+        }
+        &.training {
+            background-color: $training_bg;
+            border-color: $training_bg;
+        }
+        &.social {
+            background-color: $social_bg;
+            border-color: $social_bg;
+        }
+        &.meeting {
+            background-color: $meeting_bg;
+            border-color: $meeting_bg;
+        }
+        &.bts {
+            background-color: $hidden_bg;
+            border-color: $hidden_bg;
+        }
+        &.booking {
+            background-color: $booking_bg;
+            border-color: $booking_bg;
+        }
+    }
+    a {
+        color: inherit !important;
+    }
+    
+}
+
+.event-entry {
+    &.tag {
+        @include user_select_none();
+        $height: 1.6em;
+        background-color: $event_bg;
+        border-radius: 5px;
+        border-right-color: $event_bg;
+        color: #000 !important;
+        display: inline-block;
+        font-weight: 400;
+        height: $height;
+        line-height: $height;
+        margin: 0 0 0 $height / 2;
+        padding: 0 0.6em;
+        position: relative;
+        text-align: center;
+        text-transform: lowercase;
+        
+        &:hover {
+            cursor: default;
+        }
+        &.training {
+            background-color: $training_bg;
+            border-right-color: $training_bg;
+        }
+        &.social {
+            background-color: $social_bg;
+            border-right-color: $social_bg;
+        }
+        &.meeting {
+            background-color: $meeting_bg;
+            border-right-color: $meeting_bg;
+        }
+        &.bts {
+            background-color: $hidden_bg;
+            border-right-color: $hidden_bg;
+        }
+        &.booking {
+            background-color: $booking_bg;
+            border-right-color: $booking_bg;
+        }
+        &.success {
+            background-color: $colour_success;
+        }
+        &.danger {
+            background-color: $colour_danger;
+        }
+    }
+}
+
+.event-key {
+    overflow: hidden;
+    width: 100%;
+    
+    & > .event {
+        float: left;
+        width: 50%;
+    }
+}
+
+table.event-list {
+    td, th {
+        &[col="event-type"], &.col--event-type {
+            padding: 0;
+            width: 5px;
+        }
+        &[col="event"], &.col--event {
+            padding-left: 1em;
+        }
+        &[col="role"], &.col--role {
+            width: 15em;
+            
+            @media (max-width: 767px) {
+                display: none;
+            }
+        }
+    }
+}

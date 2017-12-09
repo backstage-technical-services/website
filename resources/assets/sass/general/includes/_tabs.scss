@@ -1,0 +1,233 @@
+div[role='tabpanel'], div.tabpanel {
+    background: transparent;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    z-index: $zindex_tabs;
+    
+    & > div.tab-links {
+        position: inherit;
+        z-index: $zindex_tabs+500;
+        
+        ul.nav.nav-tabs {
+            @include clearfix();
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            white-space: nowrap;
+        
+            &:before {
+                display: none;
+            }
+            & > li {
+                @include bg_gradient_yellow();
+                border: 1px solid #000;
+                color: #000;
+                display: inline-block;
+                font-weight: bold;
+                float: left;
+                font-size: 0.933em; // 14px
+                margin: 0;
+                padding: 0;
+                @include user_select_none();
+                white-space: normal;
+            
+                a {
+                    background: transparent;
+                    border: none;
+                    color: #000;
+                    display: block;
+                    padding: 0.4em 1.2em;
+                    &:hover {
+                        background: transparent;
+                        border: none;
+                        color: #000;
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                    &:active, &:focus {
+                        text-decoration: none;
+                        outline: none;
+                    }
+                }
+                &.active {
+                    @include bg_gradient_yellow_inv();
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+                &:not(:first-of-type) {
+                    border-left: none;
+                }
+                &:first-of-type {
+                    border-top-left-radius: $dim_bdr_radius;
+                    border-bottom-left-radius: $dim_bdr_radius;
+                }
+                &:last-of-type {
+                    border-top-right-radius: $dim_bdr_radius;
+                    border-bottom-right-radius: $dim_bdr_radius;
+                }
+            
+                @media (max-width: 767px) {
+                    border-radius: $dim_bdr_radius;
+                    display: block;
+                    float: none;
+                    margin: 0.2em 0;
+                    width: 100%;
+                }
+            }
+            @media (max-width: 767px) {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+    & > div.tab-content {
+        div.tab-pane {
+            background: transparent;
+            border-top: 1px solid $btsyellow;
+            margin: -1.4em 0 0 0;
+            padding: 2.5em 0 0 0;
+            position: relative;
+            text-align: left;
+            z-index: $zindex_tabs+100;
+            
+            @media (max-width: 767px) {
+                border: none;
+                margin-top: 2em;
+                padding-top: 0;
+            }
+        }
+    }
+    &.tab-vertical {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        
+        & > div.tab-links {
+            border-right: 2px solid #222;
+            display: table-cell;
+            text-align: left;
+            
+            &.icons {
+                text-align: center;
+                width: 3.5em;
+            }
+            
+            @media(max-width: 767px) {
+                display: none;
+            }
+            
+            ul.nav-pills {
+                $bg_colour: #161616;
+                margin: 0 0 1em;
+                
+                li {
+                    margin: 0.25em 0;
+                    & > a {
+                        @include transition();
+                        border-radius: 0;
+                        border-left: 2px solid transparent;
+                        padding: 0.6em 0.75em;
+                        position: relative;
+                        
+                        &, &:hover, &:focus {
+                            background: none;
+                            color: $colour_text;
+                            outline: none;
+                        }
+                        &:hover {
+                            background: $bg_colour;
+                        }
+                    }
+                    & .label {
+                        position: absolute;
+                        right: 0.4em;
+                        top: 1em;
+                    }
+                    & .badge {
+                        font-size: 9px;
+                        padding-left: 0.6em;
+                        padding-right: 0.6em;
+                        position: absolute;
+                        right: 0.7em;
+                        top: 0.5em;
+                    }
+                    &.active {
+                        & > a {
+                            border-left-color: $btsyellow;
+                            background: none;
+                            color: $btsyellow;
+                            
+                            &:hover, &:focus {
+                                background: $bg_colour;
+                                color: $btsyellow;
+                            }
+                        }
+                    }
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        & > div.tab-content {
+            display: table-cell;
+            
+            @media(min-width: 768px) {
+                padding-left: 1.5em;
+                padding-right: 1.5em;
+            }
+            
+            div.tab-pane {
+                border-top: none;
+                margin-top: 0;
+                padding-top: 0;
+                
+                @media(max-width: 767px) {
+                    background: #161616;
+                    border-radius: 5px;
+                    display: block !important;
+                    margin: 1em 0;
+                    padding: 1em;
+                }
+                
+                h2, h3 {
+                    &:first-child {
+                        margin-bottom: 1em;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+div#modal {
+    div[role='tabpanel'], div.tabpanel {
+        margin: 1em 0;
+        
+        ul.nav.nav-tabs {
+            & > li {
+                @include bg_gradient_grey();
+                
+                &.active {
+                    @include bg_gradient_grey_inv();
+                }
+            }
+        }
+        div.tab-content {
+            & > div.tab-pane {
+                border-top-color: #000;
+            }
+        }
+    }
+}

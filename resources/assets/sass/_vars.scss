@@ -1,0 +1,31 @@
+@import "../../../vendor/bnjns/web-dev-tools/scss/vars";
+
+// BTS Colours
+$btsyellow: #FFCF00;
+$btsgold: #D69E00;
+$btsorange: #D18800;
+
+// Button colours
+$colour_btn: $btsyellow;
+$colour_btn_h: $btsgold;
+$colour_btn_red: #9D0600;
+$colour_btn_red_h: #860500;
+$colour_btn_green: #007703;
+$colour_btn_green_h: #006402;
+$colour_btn_grey: #D4D4D4;
+
+// Other colours
+$colour_text: #CCC;
+
+// Dimensions
+$dim_bdr_radius: 5px;
+
+$zindex_messages: 10000;
+$zindex_datepicker: 9000;
+$zindex_markdown_modal: 8000;
+$zindex_modal: 7100;
+$zindex_modal_backdrop: 7000;
+$zindex_markdown: 6000;
+$zindex_menu: 5000;
+$zindex_submenu: 4000;
+$zindex_tabs: 3000;

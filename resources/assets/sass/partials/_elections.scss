@@ -1,0 +1,118 @@
+@import "../vars";
+@import "../mixins";
+
+// Index page
+&[page-id="list"] {
+	div#content {
+        @media(min-width: 768px) {
+            margin: 0 auto;
+            width: 55em;
+        }
+    }
+    table {
+        th, td {
+            &.positions {
+                font-size: 0.8em;
+                width: 30em;
+                
+                @media(max-width: 769px) {
+                    display: none;
+                }
+                ul.position-list {
+                    list-style-position: inside;
+                    margin: 0 0 0 0em;
+                    max-height: 8em;
+                    overflow-y: auto;
+                    padding: 0;
+                }
+            }
+            &.admin-tools {
+                width: 4em;
+            }
+        }
+    }
+}
+
+// Create form
+&[page-id="create"], &[page-id="edit"] {
+	form {
+		@media(min-width: 768px) {
+			width: 35em;
+		}
+	}
+}
+
+// View
+&[page-id="view"] {
+	#electionDates {
+		div.row {
+			margin-bottom: 0.75em;
+
+			& > div.heading {
+				@media(min-width: 768px) {
+					text-align: right;
+				}
+			}
+		}
+		div.btn-group {
+			margin-top: 1em;
+		}
+	}
+	#positions {
+		@media(min-width: 970px) {
+			margin: 0 auto;
+			width: 45em;
+		}
+
+		div.row.position {
+			line-height: 2.5em;
+			& > div.name {
+				color: $btsorange;
+				@media(min-width:970px) {
+					text-align: right;
+				}
+			}
+			& > div.nominations {
+				div.row {
+					min-height: 2.5em;
+					padding-left: 1.75em;
+					padding-right: 8.5em;
+					position: relative;
+					text-align: left;
+
+					@media(min-width:970px) {
+						margin-left: -1.5em;
+					}
+
+					div.elected-status {
+						position: absolute;
+						left: 0;
+						top: 0;
+					}
+					div.btn-group {
+						position: absolute;
+						right: 0;
+						top: 0;
+					}
+				}
+			}
+		}
+
+		p {
+			margin-top: 1.5em;
+		}
+	}
+	div.modal-body.elect-body {
+		div.row.position {
+			padding: 0.5em 0;
+		}
+
+		div.checkbox {
+			margin: 0 0 0.25em;
+
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

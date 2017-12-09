@@ -1,0 +1,40 @@
+@import "../vars";
+@import "../mixins";
+
+@import "general";
+@import "main/messages";
+@import "main/header";
+@import "main/menu";
+@import "main/content";
+@import "main/footer";
+
+div#footer {
+    div#footer-upper {
+        background: #151515;
+        
+        div.container > div {
+            &:nth-child(2) {
+                padding-right: 2.5em;
+            }
+        }
+        div.row {
+            margin: 0;
+            span.fa {
+                font-size: 16px;
+                line-height: inherit;
+                margin-right: 0.6em;
+                text-align: center;
+                width: 1.3em;
+            }
+            &:not(:last-child) {
+                margin-bottom: 0.5em;
+            }
+        }
+        
+        @media(max-width: 767px) {
+            div.container > div:not(:first-child) h1 {
+                margin-top: 1.8em;
+            }
+        }
+    }
+}

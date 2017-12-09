@@ -1,0 +1,37 @@
+a, a:visited {
+    color: $btsyellow;
+    text-decoration: none;
+    
+    &:hover {
+        color: $btsyellow;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    &:active {
+        color: $btsgold;
+        text-decoration: underline;
+    }
+    &:focus {
+        outline: 1px dotted $btsyellow;
+    }
+    &.grey {
+        color: $colour_text;
+        
+        &:hover {
+            color: $btsyellow;
+        }
+        &:focus, &:active {
+            outline-color: $colour_text;
+        }
+    }
+    &.label {
+        font-weight: normal;
+        
+        &:visited {
+            color: #FFF;
+        }
+        &:focus {
+            outline-color: #FFF;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+&[page-id="password-email"], &[page-id="password-reset"] {
+    div#content {
+        @media(min-width: 768px) {
+            max-width: 400px;
+        }
+    }
+}
+&[page-id="login"] {
+    div#content {
+        @media(min-width: 768px) {
+            max-width: 350px;
+        }
+        button {
+            display: block;
+            width: 100%;
+        }
+    }
+}

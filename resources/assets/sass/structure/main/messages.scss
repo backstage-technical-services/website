@@ -1,0 +1,95 @@
+div.alert {
+    font-size: inherit;
+    font-weight: 300;
+    line-height: 1.2em;
+    margin: 0 auto 0.5em;
+    padding: 0.7em 1em 0.7em 2.1em;
+    position: relative;
+    text-align: left;
+    
+    a {
+        color: #337ab7;
+        
+        &:focus {
+            outline-color: #337ab7;
+        }
+    }
+    & > button.close-notification {
+        @include transition();
+    }
+    & > span.fa {
+        display: block;
+        height: 2.6em;
+        line-height: 2.6em;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 2em;
+    }
+    ul {
+        margin: 1em 0 0.25em 0;
+        padding: 0;
+        
+        li {
+            margin-left: 1.5em;
+            &:first-of-type {
+                margin-top: 0;
+            }
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+div.message-centre {
+    font-size: 14px;
+    width: 100%;
+}
+
+div#message-centre-upper {
+    background: #222;
+    font-size: 13px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: $zindex_messages;
+    
+    div.alert {
+        @include wrapper();
+        background: none !important;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        color: #fff !important;
+        margin: 0;
+        
+        & > button.close-notification {
+            color: #fff;
+            top: 0;
+        }
+        a {
+            color: $btsyellow;
+        }
+    }
+}
+
+div#message-centre-main {
+    margin: 0 auto;
+    padding: 0 1.5em;
+    position: fixed;
+    right: 0;
+    bottom: 10px;
+    z-index: $zindex_messages+500;
+    
+    & > div.message-centre-inner {
+        @include wrapper();
+        text-align: left;
+    }
+    div.alert {
+        display: table;
+        margin-left: 0;
+    }
+}

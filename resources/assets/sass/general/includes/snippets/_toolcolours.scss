@@ -1,0 +1,103 @@
+span.tool-colours {
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    padding: 0 0.25em;
+    
+    & > span.tool-colour {
+        float: left;
+        margin: 0 -0.1em;
+        
+        &.striped {
+            overflow: hidden;
+            clear: right;
+            
+            & > span.fa {
+                float: right;
+                
+                &:not(:last-child) {
+                    margin-left: -0.65em;
+                }
+            }
+        }
+        
+        & > span.fa {
+            &.red {
+                color: #FF0000;
+                
+                &.light {
+                    color: lighten(#FF0000, 20%);
+                }
+            }
+            &.blue {
+                color: #007BFF;
+                
+                &.light {
+                    color: lighten(#007BFF, 15%);
+                }
+            }
+            &.green {
+                color: #008000;
+                
+                &.light {
+                    color: lighten(#008000, 25%);
+                }
+            }
+            &.yellow {
+                color: #FFFF00;
+            }
+            &.white {
+                color: #FFF;
+            }
+            &.black {
+                color: #000;
+                margin-left: 0.2em;
+                text-shadow: -1px -1px 0 #FFF,
+                1px -1px 0 #FFF,
+                -1px 1px 0 #FFF,
+                1px 1px 0 #FFF;
+            }
+            &.brown {
+                color: #5e3415;
+                
+                &.light {
+                    color: lighten(#5e3415, 20%);
+                }
+            }
+            &.purple {
+                color: #973fff;
+                
+                &.light {
+                    color: lighten(#973fff, 12%);
+                }
+            }
+            &.grey {
+                color: #888;
+            }
+            &.orange {
+                color: #F60;
+                
+                &.light {
+                    color: lighten(#F60, 15%);
+                }
+            }
+            &.pink {
+                color: #ff36b8;
+                
+                &.light {
+                    color: lighten(#ff36b8, 10%);
+                }
+            }
+            &.turquoise {
+                color: #34ffb3;
+            }
+        }
+    }
+    & > span.initials {
+        color: #666;
+        display: block;
+        font-size: 14px;
+        margin-top: 2em;
+        text-transform: uppercase;
+    }
+}

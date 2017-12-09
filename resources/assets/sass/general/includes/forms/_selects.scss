@@ -1,0 +1,23 @@
+.select2-container {
+    .select2-selection {
+        & > ul.select2-selection__rendered {
+            margin: 0;
+            padding: 0;
+  
+            & > li.select2-search {
+                margin: 0;
+  
+                & > input.select2-search__field {
+                    color: #000;
+                    font-size: 1em;
+                    min-height: 2.533em;
+                    height: auto;
+                    padding: 6px 12px;
+                }
+            }
+        }
+    }
+    ul.select2-results__options {
+        font-size: 12px;
+    }
+}
