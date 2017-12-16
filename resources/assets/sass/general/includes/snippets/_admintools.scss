@@ -1,0 +1,44 @@
+div.tools {
+    @include clearfix();
+}
+
+div.form-group + div.tools {
+    font-size: 0.8em;
+    margin-top: -0.7em;
+}
+
+.admin-tools {
+    & > .dropdown {
+        font-size: 12px;
+        font-style: normal;
+        
+        & > .dropdown, & > .dropup {
+            & > .btn span:not(.fa) + .fa {
+                margin-left: 0.5em;
+            }
+        }
+        & > ul.dropdown-menu {
+            font-size: 12px;
+            padding: 0.5em 0;
+            min-width: 0;
+            
+            & > li {
+                margin: 0;
+                & > a, & > span, & > button {
+                    font-size: inherit;
+                    padding-right: 3em;
+                }
+            }
+        }
+    }
+    & > .btn-group {
+        font-size: 12px;
+    }
+    
+    button, .btn {
+        font-size: inherit;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0.4em 0.8em;
+    }
+}

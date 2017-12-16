@@ -1,0 +1,90 @@
+@import "snippets/admintools";
+@import "snippets/events";
+@import "snippets/toolcolours";
+@import "snippets/searchtools";
+
+em, .em, .italic {
+    font-style: italic;
+    
+    &.bts {
+        font-style: inherit;
+        color: $btsyellow;
+    }
+}
+
+strong, .strong, .bold {
+    font-weight: 700;
+}
+
+.success {
+    color: #3e8f3e;
+}
+
+.warning {
+    color: darken(#fcf8e3, 25%);
+}
+
+.danger {
+    color: #b92c28;
+}
+
+span.skill-proficiency {
+    display: inline-block;
+    
+    span.fa-star-o {
+        color: #555;
+    }
+}
+
+.date-group {
+    display: inline-block;
+    
+    & > .date, & > .time, & > .separator {
+        display: block;
+    }
+    &.date-group-inline {
+        & > .date, & > .time, & > .separator {
+            display: inline-block;
+        }
+    }
+}
+
+.lightbox {
+    a {
+        &, &:focus, &:active {
+            outline: none !important;
+        }
+    }
+}
+
+span.form-link {
+    display: inline-block;
+    font-size: 0.8em;
+    margin: 0 0.75em;
+    
+    & > a {
+        margin: 0 0.25em;
+    }
+}
+
+div.back {
+    hr {
+        background: #666;
+    }
+    p {
+        display: block;
+        
+        a:not(:hover) {
+            color: #666;
+        }
+    }
+    hr + p {
+        margin-top: -0.5em;
+    }
+}
+
+.mobile-only {
+    @media(min-width: 768px) {
+        display: none !important;
+    }
+}

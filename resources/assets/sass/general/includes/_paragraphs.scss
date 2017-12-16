@@ -1,0 +1,12 @@
+p {
+    font-size: 1em;
+    line-height: 1.667em; // 1.667*15 = 25px
+    margin: 0 0 1.6em 0; // 1.6*15 = 24px
+    @media (min-width: 1000px) {
+        text-align: justify;
+    }
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

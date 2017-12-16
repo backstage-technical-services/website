@@ -1,0 +1,94 @@
+div#content {
+    div.panel {
+        border-radius: 2px;
+        margin: 1.5em 0;
+        
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+        
+        & > .panel-heading {
+            font-size: 1em;
+            padding: 0.75em 1em;
+        }
+        & > .panel-footer {
+            padding: 0.75em;
+        }
+        
+        h1.panel-heading {
+            font-size: 15px;
+            margin: 0;
+            position: relative;
+            text-align: left;
+            
+            a[data-toggle="collapse"] {
+                color: inherit;
+                display: block;
+                margin: -10px -15px;
+                padding: 10px 15px;
+                
+                &:hover, &:active, &:focus {
+                    text-decoration: none;
+                }
+                &:focus {
+                    outline: none;
+                }
+            }
+            .btn-group {
+                position: absolute;
+                right: 0.5em;
+                top: 0.3em;
+            }
+        }
+        
+        &.panel-default {
+            $border_colour: #333;
+            background: #141414;
+            border: 1px solid $border_colour;
+            
+            & > .panel-heading {
+                background: inherit;
+                border-bottom: 1px solid $border_colour;
+                color: $btsorange;
+                font-weight: bold;
+            }
+            & > .panel-footer {
+                background: inherit;
+                border-top: 1px solid $border_colour;
+                
+                .btn-group {
+                    font-size: 13px;
+                }
+            }
+            input.form-control {
+                font-size: 14px;
+                height: auto;
+                padding: 0.25em 0.5em;
+            }
+        }
+        table.table {
+            margin: 0;
+            
+            tbody {
+                tr {
+                    td {
+                        border-bottom: 1px solid;
+                        border-top-style: none;
+                        border-color: #333;
+                        padding: 0.6em 1em;
+                    }
+                    &:last-child td {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

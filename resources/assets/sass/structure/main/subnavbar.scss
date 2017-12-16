@@ -1,0 +1,67 @@
+div#sub-navbar {
+    $subnav_bg: #292929;
+    background: $subnav_bg;
+    color: #AAA;
+    font-size: 0.933em;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 4000;
+    
+    @media (min-width: 768px) {
+        position: fixed;
+    }
+    
+    & > nav.navbar {
+        & > div.container-fluid {
+            overflow: hidden;
+            width: 100%;
+            
+            a {
+                color: $colour_btn_grey;
+                
+                &:focus {
+                    outline: none;
+                }
+            }
+            
+            & > ul {
+                & > li {
+                    & > a {
+                        display: inline-block;
+                        padding: 0.5em 1.25em;
+                    }
+                    &:hover > a {
+                        background: lighten($subnav_bg, 10%);
+                        text-decoration: none;
+                    }
+                    &.dropdown {
+                        & > ul.dropdown-menu {
+                            background: lighten($subnav_bg, 10%);
+                            
+                            & > li {
+                                
+                                
+                                ul, li {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+                &#submenu_members {
+                    float: left;
+                    z-index: 4100;
+                }
+                &#submenu_profile {
+                    float: right;
+                    z-index: 4500;
+                    
+                    & > li.dropdown > ul.dropdown-menu {
+                        z-index: 4700;
+                    }
+                }
+            }
+        }
+    }
+}

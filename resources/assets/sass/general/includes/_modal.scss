@@ -1,0 +1,115 @@
+div.modal {
+    color: #000;
+    z-index: $zindex_modal;
+
+    div.modal-dialog {
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 30px 5px 5px 5px;
+        width: 700px;
+
+        &.modal-lg {
+            width: 970px;
+        }
+        &.modal-md {
+            width: 550px;
+        }
+        &.modal-sm {
+            width: 400px;
+        }
+
+        & > div.modal-content {
+            position: relative;
+        }
+        h1, h2, h3, h4 {
+            color: inherit;
+        }
+        h1, div.modal-header {
+            font-size: 22px;
+            font-weight: 400;
+            margin: 0.2em 0;
+        }
+        div.modal-header {
+            margin: 0;
+            text-align: center;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        h4 {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        h1, h2, h3, h4 {
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+        p {
+            margin: 1em 0;
+            line-height: 1.4em;
+        }
+        ul, ol {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        blockquote {
+            font-size: 14px;
+        }
+        a {
+            &:not(.btn) {
+                color: $colour_primary;
+            }
+        }
+        form {
+            margin: 0 !important;
+        }
+        hr {
+            background: #000;
+        }
+        .help-block {
+            color: #666;
+            font-style: italic;
+        }
+        .form-group {
+            &.has-error, &.has-success {
+                .help-block[data-type="ajax-error"] {
+                    color: $colour_danger !important;
+                    font-style: normal;
+                    margin: 5px 0;
+                }
+            }
+        }
+        .control-label {
+            font-weight: bold;
+        }
+        div.modal-body {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        div.modal-footer {
+            .btn {
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+div.modal-backdrop {
+    z-index: $zindex_modal_backdrop;
+
+    &.in {
+        opacity: 0.8;
+    }
+}
+
+div[data-type="modal-template"], [data-type="data-editable-source"], [data-type="data-toggle-template"] {
+    display: none !important;
+}

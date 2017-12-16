@@ -1,0 +1,170 @@
+&[page-id="index"] {
+    .table {
+        max-width: none;
+        @media (min-width: 600px) {
+            min-width: 600px;
+        }
+        width: 100%;
+        
+        & > tbody > tr > td {
+            vertical-align: middle;
+            border: none;
+        }
+        
+        td, th {
+            &[col="username"], &[col="membership"], &[col="date"] {
+                text-align: center;
+                width: 15%;
+            }
+        }
+    }
+    .bulk-actions {
+        select {
+            display: inline-block;
+            width: 15em;
+        }
+        button {
+            display: inline-block;
+            margin-top: 0.5em;
+        }
+    }
+}
+
+&[page-id="create"] {
+    div#content {
+        @media(min-width: 400px) {
+            width: 400px;
+        }
+    }
+}
+
+&[page-id='create-summary'] {
+    div#content {
+        @media(min-width: 600px) {
+            width: 600px;
+        }
+    
+        div.container-fluid {
+            margin-bottom: 2.5em;
+            max-height: 30em;
+            overflow-y: auto;
+        
+            & > div.row {
+                color: rgb(51, 51, 51);
+                overflow: hidden;
+                padding: 0.45em 0.667em;
+            
+                &:first-of-type {
+                    border-radius: 2px 2px 0 0;
+                }
+                &:last-of-type {
+                    border-radius: 0 0 2px 2px;
+                }
+                &:not(:last-of-type) {
+                    border-bottom: 1px solid #000;
+                }
+            
+                &.success {
+                    background: #dff0d8;
+                    border-color: #3c763d;
+                }
+                &.error {
+                    background: #f2dede;
+                    border-color: #a94442;
+                }
+            
+                & > div {
+                    float: left;
+                
+                    &.status {
+                        & > span.fa {
+                            font-size: 1.267em;
+                            line-height: 1.158em;
+                            text-align: left;
+                        
+                            &.fa-check {
+                                color: #007703;
+                            }
+                            &.fa-remove {
+                                color: #9D0600;
+                            }
+                        }
+                        width: 1.7em;
+                    }
+                    &.username {
+                        padding: 0 0.667em;
+                        width: 7em;
+                    }
+                    &.details {
+                        line-height: 1.3em;
+                        @media(max-width: 768px) {
+                            clear: left;
+                            float: none;
+                            padding-left: 2.4em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+&[page-id="edit"] {
+    div#content {
+        @media(min-width: 768px) {
+            $width: 700px;
+            $right_width: 225px;
+            $padding: 30px;
+            
+            width: $width;
+            
+            div#form-wrapper {
+                overflow: hidden;
+                
+                div.left {
+                    float: left;
+                    width: $width - $right_width - $padding;
+                }
+                div.right {
+                    float: right;
+                    width: $right_width;
+                }
+            }
+        }
+    }
+    form {
+        margin-bottom: -1.5em;
+        
+        fieldset#privacy {
+            padding-bottom: 1em;
+            padding-top: 0;
+            
+            div.form-group {
+                margin: 0;
+            }
+            p {
+                margin: -0.5em 0 0.5em 0;
+            }
+            div.checkbox {
+                margin: 0;
+            }
+        }
+        .buttons {
+            .btn-group {
+                ul.dropdown-menu {
+                    font-size: 0.8em;
+                }
+            }
+            margin: 1.5em 0;
+            text-align: center;
+        }
+    }
+    div#account-status {
+        font-size: 1.267em;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        margin-top: 2em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}

@@ -1,0 +1,67 @@
+ul.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    overflow: hidden;
+    padding: 1em 0 0 0;
+    
+    & > li {
+        display: inline-block;
+        float: left;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 1em;
+        margin: 0;
+        padding: 0;
+        
+        & > span, & > a, & > a:visited {
+            background: $colour_btn;
+            color: #000;
+            display: inline-block;
+            
+            &:hover {
+                color: #000;
+                cursor: pointer;
+                text-decoration: none;
+            }
+        }
+        & > a {
+            &:hover {
+                background: $colour_btn_h;
+                color: #000;
+            }
+            &:focus, &:active {
+                outline: none;
+            }
+        }
+        &.disabled, &.active {
+            color: #000;
+            
+            & > span {
+                background: #AAA;
+                color: inherit;
+            }
+            
+            &:hover > span {
+                background: #AAA;
+                color: inherit;
+            }
+        }
+        &, &.disabled, &.active {
+            & > span, & > a {
+                border-color: #000;
+                
+                &:hover {
+                    border-color: #000;
+                }
+            }
+        }
+    }
+}
+
+div.pagination-count {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: -1em;
+    text-align: right;
+}

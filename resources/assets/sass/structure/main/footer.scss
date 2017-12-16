@@ -1,0 +1,92 @@
+div#footer {
+	color: #666;
+	font-size: 13px;
+	font-weight: 300;
+	line-height: 1.3;
+	
+	* {
+		color: inherit;
+	}
+	a:hover, a:focus {
+		@include transition();
+		color: #DDD;
+		outline: none;
+		text-decoration: none;
+	}
+	div.container {
+		@include wrapper();
+		padding: 2em 0;
+		
+	}
+	div.copyright {
+		background: #121212;
+
+		p {
+			color: #999;
+			line-height: 1;
+			margin: 0;
+
+			&.extra {
+				color: #666;
+				font-size: 13px;
+				margin-top: 0.75em;
+			}
+		}
+	}
+	p {
+		line-height: 1.3;
+		text-align: inherit;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	h1, h2, h3, h4 {
+		color: #DDD;
+		font-size: 15px;
+		font-weight: 100;
+		letter-spacing: 0;
+		margin: 0 0 0.8em 0;
+		text-align: inherit;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		
+		li {
+			list-style-position: inside;
+			margin: 0.5em 0;
+		}
+	}
+	div.social {
+		margin: 2em 0 0;
+		text-align: center;
+		
+		a {
+			@include transition();
+			background: #222;
+			border-radius: 20px;
+			color: inherit;
+			display: inline-block;
+			font-size: 17px;
+			height: 40px;
+			line-height: 40px;
+			margin: 0 0.2em;
+			text-align: center;
+			width: 40px;
+			
+			&:hover {
+				background: #343434;
+				color: #CCC;
+				text-decoration: none;
+			}
+			&:focus {
+				outline: none;
+			}
+			span.fa {
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+}

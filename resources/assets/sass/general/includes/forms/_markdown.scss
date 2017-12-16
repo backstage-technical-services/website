@@ -1,0 +1,46 @@
+div.simplemde {
+    div.editor-toolbar {
+        background: #fff;
+        opacity: 1;
+        
+        a:focus {
+            outline: none;
+        }
+        &.fullscreen {
+            z-index: $zindex_markdown;
+        }
+    }
+    div.CodeMirror {
+        height: 300px;
+    }
+    div.CodeMirror-fullscreen {
+        z-index: $zindex_markdown+100;
+    }
+    div.editor-preview, div.editor-preview-side {
+        background: #000;
+        color: #CCC;
+        font-size: 15px;
+    }
+    div.editor-preview-side {
+        z-index: $zindex_markdown+200;
+    }
+}
+
+.modal {
+    div.simplemde {
+        div.editor-toolbar {
+            &.fullscreen {
+                z-index: $zindex_markdown_modal;
+            }
+        }
+        div.CodeMirror {
+            height: 200px;
+        }
+        div.CodeMirror-fullscreen {
+            z-index: $zindex_markdown_modal + 100;
+        }
+        div.editor-preview-side {
+            z-index: $zindex_markdown_modal + 200;
+        }
+    }
+}

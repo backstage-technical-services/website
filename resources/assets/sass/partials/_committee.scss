@@ -1,0 +1,115 @@
+@import "../vars";
+@import "../mixins";
+
+&[page-id="view"] {
+    h4 {
+        &.no-committee {
+            font-size: 1.8em;
+            margin: 2em auto 2em auto;
+            text-align: center;
+            width: 75%;
+        }
+    }
+    
+    div.position {
+        box-sizing: border-box;
+        display: table;
+        margin: 0 0 2em;
+        position: relative;
+        width: 100%;
+        
+        & > a.edit-button {
+            @include transition();
+            position: absolute;
+            right: 0;
+            top: 0;
+            
+            @media (min-width: 768px) {
+                opacity: 0;
+            }
+        }
+        & > div.left, & > div.right {
+            display: table-cell;
+            overflow: hidden;
+            vertical-align: top;
+        }
+        & > div.left {
+            width: 4em;
+            
+            & > div.picture {
+                text-align: center;
+                
+                & > img {
+                    display: inline-block;
+                    height: auto;
+                    max-width: 10em;
+                    width: 100%;
+                }
+            }
+            & > div.email {
+                @include transition();
+                margin-top: 0.5em;
+                opacity: 0.6;
+                text-align: center;
+                
+                & > a {
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+            &:hover > div.email {
+                opacity: 1;
+            }
+        }
+        & > div.right {
+            padding: 0 1em;
+            
+            & > div.title {
+                color: $btsorange;
+                font: bold 1.4em Arial;
+                margin: 0;
+                padding: 0;
+                text-align: left;
+            }
+            & > div.name {
+                color: $btsyellow;
+                font-size: 1.2em;
+                margin: 0 0 0.5em;
+                padding: 0;
+                text-align: left;
+            }
+        }
+        & > div.description {
+            padding-top: 1em;
+            padding-bottom: 3em;
+        }
+        &:hover > a.edit-button {
+            opacity: 1;
+        }
+        
+        @media (min-width: 768px) {
+            & > div.left {
+                width: 10em;
+                
+                & > div.email {
+                    font-size: 0.933em;
+                    
+                    & > a > span.fa {
+                        display: none;
+                    }
+                }
+            }
+            & > div.right {
+                padding-left: 2em;
+                
+                & > div.title {
+                    font-size: 1.6em;
+                }
+                & > div.name {
+                    font-size: 1.3em;
+                }
+            }
+        }
+    }
+}

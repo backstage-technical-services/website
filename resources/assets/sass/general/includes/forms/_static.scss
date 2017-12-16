@@ -1,0 +1,40 @@
+.form-static {
+    @media(min-width: 769px) {
+        display: table;
+        width: 100%;
+    }
+    
+    & > .form-entry {
+        @media(min-width: 769px) {
+            display: table-row;
+        }
+        & > .control-label, & > .form-control-static {
+            padding: 0;
+            
+            @media(min-width: 769px) {
+                display: table-cell;
+            }
+        }
+        & > .form-control-static {
+            
+            & > span[data-editable] {
+                display: block;
+                padding-bottom: 0.5em;
+                padding-top: 0.5em;
+                
+                & > span.event-entry.tag {
+                    margin-left: 0;
+                }
+            }
+            
+        }
+        @media(max-width: 768px) {
+            &:not(:last-child) {
+                & > .form-control-static {
+                    padding-bottom: 0.75em;
+                    
+                }
+            }
+        }
+    }
+}

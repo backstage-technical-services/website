@@ -1,0 +1,226 @@
+@import "../vars";
+@import "../mixins";
+
+table.level-requirements {
+    tr td {
+        border-color: #333;
+        padding: 1em 0.5em;
+        vertical-align: text-top;
+        
+        &:first-child {
+            text-align: center;
+            width: 6em;
+        }
+    }
+}
+
+table {
+    tr {
+        th, td {
+            &.proposal-status {
+                font-size: 19px;
+                text-align: center;
+                vertical-align: middle;
+                width: 2.5em;
+            }
+            &.skill-level {
+                text-align: center;
+                width: 5em;
+            }
+            &.proposal-user, &.awarded-user, &.skill-user {
+                width: 15em;
+            }
+            &.proposal-level {
+                text-align: center;
+                width: 10em;
+            }
+            &.proposal-date {
+                text-align: center;
+                width: 10em;
+            }
+            &.skill-proposal {
+                text-align: center;
+                width: 3em;
+            }
+        }
+    }
+}
+
+&[page-id="category-index"] {
+    @media(min-width: 400px) {
+        div#content {
+            width: 400px;
+        }
+    }
+    table {
+        td {
+            vertical-align: middle;
+        }
+    }
+}
+
+&[page-id="skills-index"] {
+    div.tab-vertical {
+        div.tab-links {
+            width: 18em;
+            
+            ul.category-list {
+                font-size: 14px;
+            }
+        }
+        div.tab-content {
+            margin-bottom: 1em;
+            
+            div.tab-pane {
+                table {
+                    margin: 0;
+                    tbody {
+                        tr {
+                            td {
+                                vertical-align: text-top;
+                                
+                                &[col="skill-buttons"] {
+                                    padding: 0 !important;
+                                    text-align: right;
+                                    width: 7em;
+                                }
+                            }
+                        }
+                    }
+                    &.user-skills tr:not(.has-skill) td a {
+                        color: #777;
+                    }
+                }
+            }
+            & > div.btn-group {
+                display: block;
+                margin-top: 1.5em;
+            }
+        }
+    }
+}
+
+&[page-id="skills-create"] {
+    @media(min-width: 450px) {
+        div#content {
+            width: 450px;
+        }
+    }
+    form {
+        fieldset#level-requirements {
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+    }
+}
+
+&[page-id="skills-view"] {
+    @media(min-width: 768px) {
+        div#content {
+            width: 750px;
+        }
+    }
+    h2 {
+        color: $btsorange;
+        font-size: 28px;
+        margin-bottom: 0;
+        text-align: left;
+    }
+    h3 {
+        color: $btsyellow;
+        font-size: 22px;
+        text-align: left;
+    }
+    h4.category {
+        font-size: 20px;
+        font-style: italic;
+        margin-top: 0.5em;
+    }
+    .description {
+        color: #AAA;
+        font-size: 18px;
+        margin-top: 1em;
+        
+        p {
+            margin-bottom: 1.2em;
+        }
+        ul, ol {
+            margin: 1em 1.5em;
+        }
+    }
+    table#member-list {
+        $border_colour: #333;
+        
+        th, td {
+            padding: 0.75em 1em;
+            width: 33.333%;
+            
+            &:not(:last-child) {
+                border-right: 2px solid $border_colour;
+            }
+            
+            a {
+                color: inherit;
+                
+                &:hover {
+                    color: $btsyellow;
+                }
+                &:focus {
+                    outline-color: #999;
+                }
+            }
+        }
+        thead {
+            th {
+                border-bottom: 2px solid $border_colour;
+                color: inherit;
+                text-align: center;
+            }
+        }
+    }
+}
+
+&[page-id="proposals-propose"] {
+    @media(min-width: 450px) {
+        div#content {
+            width: 450px;
+        }
+    }
+}
+
+&[page-id="proposals-view"] {
+    @media(min-width: 600px) {
+        div#content {
+            width: 600px;
+        }
+    }
+    
+    .skill-proficiency {
+        font-size: 18px;
+        margin-top: -2px;
+    }
+}
+
+&[page-id="skills-log"] {
+    table {
+        tr {
+            td, th {
+                &.skill-date {
+                    text-align: center;
+                    width: 7em;
+                }
+                &.skill-level {
+                    width: 7em;
+                }
+            }
+        }
+    }
+}
+
+&[page-id="skills-award"], &[page-id="skills-revoke"] {
+    @media(min-width: 450px) {
+        div#content {
+            width: 450px;
+        }
+    }
+}

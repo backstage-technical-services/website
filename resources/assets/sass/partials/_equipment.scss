@@ -1,0 +1,59 @@
+@import "../vars";
+@import "../mixins";
+
+&[page-id="repairs-list"] {
+    table.table {
+        td {
+            vertical-align: top;
+        }
+        [col="button"] {
+            font-weight: bold;
+            text-align: center;
+            width: 4em;
+            
+            .btn {
+                font-size: 12px;
+                padding: 0.4em 0.8em;
+            }
+        }
+        [col="status"], [col="date"] {
+            text-align: center;
+            width: 8em;
+        }
+        td[col="date"] {
+            font-size: 14px;
+        }
+        [col="description"], [col="comment"] {
+            display: none;
+            
+            @media(min-width: 768px) {
+                display: table-cell;
+                width: 12em;
+            }
+            & > div {
+                max-height: 7em;
+                overflow-y: auto;
+            }
+        }
+    }
+}
+&[page-id="repairs-create"] {
+	div#content {
+		@media(min-width: 768px) {
+			margin: 0 auto;
+			width: 550px;
+		}
+	}
+}
+&[page-id="repairs-view"] {
+    div#content {
+        @media(min-width:600px) {
+            width: 600px;
+        }
+    }
+    div.closed {
+        font-size: 18px;
+        margin: -1.5em 0 1.5em;
+        text-align: center;
+    }
+}

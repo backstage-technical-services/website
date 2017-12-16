@@ -1,0 +1,28 @@
+$bg_colour: #333;
+
+div.tooltip {
+    &.left {
+        div.tooltip-arrow {
+            border-left-color: $bg_colour;
+        }
+    }
+    &.right {
+        div.tooltip-arrow {
+            border-right-color: $bg_colour;
+        }
+    }
+    &.top {
+        div.tooltip-arrow {
+            border-top-color: $bg_colour;
+        }
+    }
+    &.bottom {
+        div.tooltip-arrow {
+            border-bottom-color: $bg_colour;
+        }
+    }
+    
+    div.tooltip-inner {
+        background: $bg_colour;
+    }
+}

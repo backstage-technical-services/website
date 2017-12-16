@@ -1,0 +1,31 @@
+div#content-wrapper {
+    @include wrapper();
+    box-sizing: border-box;
+    color: #CCC;
+    font-weight: 300;
+    padding: 0 0.75em 3em;
+    
+    & > h1 {
+        margin-top: 0;
+    }
+    @media(min-width: 768px) {
+        padding: 2em 1.5em 3em;
+        
+        & > h1 {
+            margin-top: 0.5em;
+        }
+    }
+    @media (min-width: 992px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    
+    & > div#content {
+        margin: 0 auto;
+        
+        img, p {
+            max-width: 100%;
+        }
+    }
+}

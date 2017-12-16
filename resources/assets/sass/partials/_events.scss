@@ -1,0 +1,628 @@
+&[page-id="index"] {
+    table.table {
+        td, th {
+            &[col="venue"] {
+                width: 12em;
+            }
+            &[col="em"] {
+                width: 11em;
+            }
+            &[col="crew"] {
+                text-align: center;
+                width: 4.5em;
+            }
+            &[col="date"] {
+                text-align: center;
+                width: 8em;
+            }
+        }
+        td {
+            padding-top: 1em;
+            padding-bottom: 1em;
+            
+            &[col="crew"], &[col="date"] {
+                font-size: 0.867em;
+            }
+        }
+    }
+}
+
+&[page-id="diary"] {
+    div#content {
+        position: relative;
+    }
+    
+    div.customise {
+        font-size: 12px;
+        margin-top: 1em;
+        text-align: center;
+        
+        @media(min-width: 768px) {
+            margin: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        
+        & > .btn-group {
+            height: 35px;
+            line-height: 35px;
+        }
+        
+        #DiaryPreferences {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 4px;
+            color: #000;
+            display: none;
+            margin: 0 auto;
+            padding: 1em;
+            position: absolute;
+            right: 0;
+            text-align: left;
+            z-index: 900;
+            width: 200px;
+            
+            h2 {
+                color: #000;
+                font-size: 1.083em;
+                font-weight: bold;
+                margin: 0;
+            }
+            div.form-group {
+                margin: 0 0 0 1em;
+            }
+            button#DiaryPreferences-save {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+    div.date-header {
+        $height: 35px;
+        
+        display: table;
+        height: $height;
+        line-height: $height;
+        margin: 0 auto;
+        
+        & > a, & > span {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+        & > a:not(.btn) {
+            border-radius: 5px;
+            color: inherit;
+            font-size: 25px;
+            line-height: 1;
+            padding-top: 0.05em;
+            width: $height;
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: $btsyellow;
+            }
+            &:focus {
+                outline: none;
+            }
+            &.prev span.fa {
+                padding-right: 0.1em;
+            }
+            &.next span.fa {
+                padding-left: 0.1em;
+            }
+        }
+        span.month {
+            @include user_select_none();
+            font-size: 25px;
+            font-weight: 100;
+            height: 100%;
+            margin: 0 0.75em;
+            width: 250px;
+        }
+    }
+    div.diary {
+        $border_colour: #444;
+        margin: 2em 0;
+        width: 100%;
+        
+        .cell {
+            @include transition();
+            display: block;
+            width: 100%;
+            
+            @media (min-width: 500px) {
+                float: left;
+                width: 50%;
+            }
+            @media (min-width: 768px) {
+                width: (100%/3);
+            }
+            @media (min-width: 992px) {
+                width: (100%/7);
+                
+            }
+        }
+        & > div.day-headers, & > div.calendar {
+            overflow: hidden;
+            width: 100%;
+        }
+        & > div.day-headers {
+            display: none;
+            
+            @media (min-width: 992px) {
+                display: block;
+                
+                .cell {
+                    border: none;
+                    color: #999;
+                    font-size: 16px;
+                    font-weight: 100;
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+            }
+        }
+        & > div.calendar {
+            .cell {
+                border: 1px solid $border_colour;
+                height: 160px;
+                line-height: 1;
+                padding-top: 2em;
+                position: relative;
+                
+                &:not(.blank):hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    cursor: pointer;
+                }
+                &.blank {
+                    background: #131313;
+                    border-left-style: none;
+                    border-right-style: none;
+                    display: none;
+                    font-size: 0;
+                    
+                    @media (min-width: 992px) {
+                        display: block;
+                    }
+                }
+                span.date {
+                    box-sizing: border-box;
+                    border-radius: 2em;
+                    color: #BBB;
+                    display: block;
+                    font-weight: 100;
+                    line-height: 1;
+                    padding: 0.3em;
+                    position: absolute;
+                    text-align: center;
+                    right: 0.2em;
+                    top: 0.2em;
+                }
+                &.today {
+                    span.date {
+                        background: rgba(255, 255, 255, 0.25);
+                    }
+                }
+                
+                // Borders
+                @media (max-width: 499px) {
+                    &:not(:last-of-type) {
+                        border-bottom: none;
+                    }
+                }
+                @media (min-width: 500px) and (max-width: 767px) {
+                    &:nth-of-type(even) {
+                        border-left: none;
+                    }
+                    &:nth-of-type(n+3) {
+                        border-top: none;
+                    }
+                }
+                @media (min-width: 768px) and (max-width: 991px) {
+                    &:not(:nth-of-type(3n-2)) {
+                        border-left: none;
+                    }
+                    &:nth-of-type(n+4) {
+                        border-top: none;
+                    }
+                }
+                @media (min-width: 992px) {
+                    &:not(:nth-child(7n)) {
+                        border-right: none;
+                    }
+                    &:not(:nth-last-child(-n+7)) {
+                        border-bottom: none;
+                    }
+                    &.blank:first-child {
+                        border-left-style: solid;
+                    }
+                    &.blank:last-child {
+                        border-right-style: solid;
+                    }
+                    &:not(.blank) + .blank {
+                        border-left-style: solid;
+                    }
+                }
+                div.event-list {
+                    height: 100%;
+                    overflow-y: auto;
+                    padding: 0 4px;
+                    width: 100%;
+                    
+                    & > div.event {
+                        width: 100%;
+                        & > div.name {
+                            font-size: 12px;
+                            
+                            a.grey:hover {
+                                color: $colour_btn_grey;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #modal {
+        form.export {
+            &, p.help-block {
+                font-size: 13px;
+            }
+            .export-url {
+                background: #000;
+                color: #FFF;
+                padding: 0.75em;
+                overflow-x: auto;
+            }
+            div.customise-export {
+                display: table;
+                font-weight: 300;
+                
+                & > div {
+                    display: table-cell;
+                    &:first-child {
+                        padding-right: 0.5em;
+                    }
+                }
+                .checkbox, .radio {
+                    label {
+                        font-weight: 300;
+                    }
+                }
+            }
+            div.tabpanel {
+                ul.nav {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    div.event {
+        display: table;
+        
+        &:not(:last-of-type) {
+            margin-bottom: 0.417em;
+        }
+        
+        & > div.event-style {
+            display: table-cell;
+            width: 2px;
+        }
+        & > div.name {
+            display: table-cell;
+            padding: 0.167em 0 0.167em 0.417em;
+        }
+    }
+}
+
+&[page-id="create"] {
+    div#content {
+        @media (min-width: 400px) {
+            width: 400px;
+        }
+        
+        div#buttons {
+            margin-top: 2em;
+        }
+    }
+}
+
+&[page-id="view"] {
+    div#content > h1 {
+        margin-bottom: 0;
+    }
+    div#content > h2 {
+        color: #666;
+        margin: 0.5em 0 2em;
+        text-align: center;
+    }
+    nav {
+        ul {
+            text-align: center;
+            li {
+                a {
+                
+                }
+                .badge {
+                    background-color: #700;
+                }
+            }
+        }
+    }
+    div.tab-pane {
+        .form-entry {
+            @media (min-width: 768px) {
+                & > * {
+                    padding-top: 0.5em;
+                    padding-bottom: 0.5em;
+                }
+                & > .control-label {
+                    padding-left: 0.5em;
+                    padding-right: 1.5em;
+                    text-align: right;
+                }
+            }
+        }
+        div.top-buttons {
+            font-size: 0.867em;
+            margin-bottom: 1em;
+        }
+        &#event_details {
+            .control-label {
+                @media(min-width: 768px) {
+                    width: 10.5em;
+                }
+            }
+            .tag {
+                font-size: 14px;
+                margin: 0;
+            }
+            div.description {
+                h1, h2, h3, h4, h5, h6 {
+                    color: #eee;
+                    font-size: 19px;
+                    font-weight: bold;
+                    margin: 0.5em 0;
+                    text-align: left;
+                }
+                ul, ol {
+                    margin: 1em 1.5em;
+                }
+                p {
+                    margin-bottom: 1em;
+                }
+            }
+        }
+        &#event_crew {
+            p.crew-count {
+                color: #999;
+                margin: -1em 0 1em;
+            }
+            div.crew-list {
+                @media (max-width: 767px) {
+                    max-height: 800px;
+                    overflow-y: auto;
+                }
+                @media (min-width: 768px) {
+                    margin-bottom: 1.5em;
+                    
+                    div.form-entry {
+                        & > .control-label {
+                            padding-right: 1em;
+                            width: 250px;
+                        }
+                        & > div.form-control-static {
+                            padding-top: 0;
+                            padding-bottom: 0;
+                            
+                            & > div {
+                                //padding: 0.5em 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &#event_times {
+            & > div.event-time-wrapper {
+                @media(max-width: 767px) {
+                    max-height: 30em;
+                    overflow-y: auto;
+                }
+                
+                & > div.event-times {
+                    display: table;
+                    margin: 1em 0 2em;
+                    width: 100%;
+                    
+                    div.event-time {
+                        display: table-row;
+                        position: relative;
+                        
+                        & > div {
+                            display: table-cell;
+                            font-size: 0.933em;
+                            padding: 0.7em 0.5em;
+                            vertical-align: middle;
+                            
+                            @media(min-width: 786px) {
+                                vertical-align: top;
+                            }
+                        }
+                        & > div.date {
+                            font-weight: 100;
+                            width: 5em;
+                            
+                            & > div.day {
+                                color: $btsyellow;
+                                text-align: center;
+                                
+                                & > span.weekday {
+                                    display: none;
+                                }
+                            }
+                            & > div.month {
+                                color: #BBB;
+                                font-size: 0.857em;
+                                text-align: center;
+                            }
+                            
+                            @media(min-width: 768px) {
+                                overflow: hidden;
+                                width: 10.5em;
+                                
+                                & > div.day {
+                                    float: right;
+                                    width: 3.5em;
+                                    
+                                    & > span.weekday {
+                                        display: inline;
+                                    }
+                                }
+                                & > div.month {
+                                    color: #777;
+                                    float: left;
+                                    font-size: 1em;
+                                    width: 6em;
+                                }
+                            }
+                        }
+                        & > div.time {
+                            color: #777;
+                            width: 8.5em;
+                        }
+                    }
+                }
+            }
+        }
+        &#event_emails {
+            div.email-wrapper {
+                margin-top: 1em;
+                
+                @media (max-width: 767px) {
+                    max-height: 800px;
+                    overflow-y: auto;
+                }
+                
+                div.email {
+                    $colour_border: #333;
+                    background: #141414;
+                    border: 1px solid $colour_border;
+                    border-radius: 2px;
+                    margin: 1.5em 0;
+                    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    
+                    & > div.subject {
+                        border-bottom: 1px solid $colour_border;
+                        color: $btsorange;
+                        font-size: 1.2em;
+                        font-size: 1.067em;
+                        font-weight: bold;
+                        padding: 0.75em 1em;
+                    }
+                    & > div.details {
+                        & > div.sender, & > div.date {
+                            border-bottom: 1px solid $colour_border;
+                            padding: 0.5em 1em;
+                            
+                            & > div.heading {
+                                color: $btsorange;
+                            }
+                        }
+                        
+                        @media(min-width: 768px) {
+                            overflow: hidden;
+                            
+                            & > div.sender, & > div.date {
+                                width: 50%;
+                            }
+                            & > div.sender {
+                                float: left;
+                            }
+                            & > div.date {
+                                border-left: 1px solid $colour_border;
+                                float: right;
+                            }
+                        }
+                        p {
+                            box-sizing: border-box;
+                            font-size: 0.933em;
+                            line-height: 1;
+                            margin: 0;
+                        }
+                    }
+                    & > div.body {
+                        font-size: 0.933em;
+                        max-height: 20em;
+                        overflow: auto;
+                        padding: 1.071em;
+                        width: 100%;
+                        
+                        @media(min-width: 768px) {
+                            max-height: none;
+                        }
+                        
+                        p {
+                            line-height: 1.55em;
+                            margin-bottom: 1em;
+                            width: 100%;
+                            
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &#event_paperwork {
+            div.paperwork-list {
+                div.paperwork {
+                    padding: 0.15em 0 0.15em 3em;
+                    position: relative;
+                    
+                    &:not(:last-child) {
+                        margin-bottom: 0.5em;
+                    }
+                    
+                    & > span[data-editable="toggle"] {
+                        font-size: 1.2em;
+                        left: 0;
+                        margin: 0;
+                        position: absolute;
+                        top: 0;
+                    }
+                    & > div.name {
+                    
+                    }
+                    & > p.link {
+                        font-size: 0.9em;
+                        margin: 0;
+                        
+                        &, a {
+                            color: #777;
+                        }
+                        span.fa {
+                            margin-right: 0.5em;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    #modal {
+        .core-details {
+            margin-top: -0.5em;
+            margin-left: 1.5em;
+            margin-right: 1.5em;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+@import "../../../vendor/bnjns/web-dev-tools/scss/mixins";
+
+@mixin bg_gradient_yellow() {
+	@include bg_gradient(#{$btsyellow}, #9E7E00);
+}
+
+@mixin bg_gradient_yellow_inv() {
+	@include bg_gradient(#9E7E00, #{$btsyellow});
+}

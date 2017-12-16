@@ -1,0 +1,50 @@
+.form-group {
+    &.center-block {
+        display: inline-block;
+        width: auto;
+        
+        &:after {
+            content: "";
+            display: block;
+        }
+    }
+    &.has-error {
+        .form-control {
+            color: #a94442;
+        }
+    }
+    &.has-success {
+        .form-control {
+            color: #3c763d;
+        }
+    }
+    
+    &.has-error, &.has-success {
+        label {
+            a {
+                color: inherit;
+            }
+        }
+        .checkbox label {
+            color: inherit;
+        }
+        &.no-highlight .checkbox label {
+            color: #CCC;
+        }
+    }
+    .form-group {
+        margin-bottom: 0;
+    }
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.text-center {
+    .has-error, .has-success {
+        p {
+            text-align: center;
+        }
+    }
+}
