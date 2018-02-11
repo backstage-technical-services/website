@@ -103,7 +103,7 @@ class Email extends Model
 
         // Convert to collection of users
         $crew_list = $crew_list->get()->map(function ($c) {
-            return $c->user;
+            return $c->isGuest() ? null : $c->user;
         });
 
         if ($crew_list->count() > 0) {
