@@ -55,7 +55,7 @@
                         {!! Form::select('venue_type', \App\Models\Events\Event::$VenueTypes, null, ['class' => 'form-control']) !!}
                         @InputError('venue_type')
                     @else
-                        <p class="form-control-static">{{ \App\Models\Events\Event::$VenueTypes[$event->venue_type] }}</p>
+                        <p class="form-control-static">{{ \App\Models\Events\Event::$VenueTypes[$event->venue_type ?: 1] }}</p>
                     @endcan
                 </div>
                 {{-- Venue --}}
