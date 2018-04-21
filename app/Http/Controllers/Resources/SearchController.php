@@ -60,6 +60,7 @@ class SearchController extends Controller
         $resources = $resources->accessible()
                                ->paginate(20);
         $this->checkPage($resources);
+        $resources->appends(request()->only('query', 'category', 'tag'));
 
         // Render the view
         return view('resources.search.results')->with([
