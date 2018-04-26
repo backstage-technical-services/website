@@ -27,7 +27,7 @@ return [
     'channels' => [
         'stack'    => [
             'driver'   => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'bugsnag'],
         ],
         'single'   => [
             'driver' => 'single',
@@ -55,7 +55,7 @@ return [
             'driver' => 'errorlog',
             'level'  => 'debug',
         ],
-        'bugsnag' => [
+        'bugsnag'  => [
             'driver' => 'bugsnag',
         ],
     ],
