@@ -30,7 +30,7 @@
             </div>
             <div class="tab-pane{{ $tab == 'reviewed' ? ' active' : '' }}">
                 @include('training.skills.proposals.index.reviewed')
-                @Paginator($awarded->appends('tab', 'reviewed'))
+                @Paginator($awarded)
             </div>
         </div>
 @endsection

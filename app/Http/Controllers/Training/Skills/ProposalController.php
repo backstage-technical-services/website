@@ -101,8 +101,13 @@ class ProposalController extends Controller
      */
     public function index()
     {
-        $unawarded = Proposal::notAwarded()->orderBy('date', 'ASC')->get();
-        $awarded   = Proposal::awarded()->orderBy('awarded_date', 'DESC')->paginate(30);
+        $unawarded = Proposal::notAwarded()
+                             ->orderBy('date', 'ASC')
+                             ->get();
+        $awarded   = Proposal::awarded()
+                             ->orderBy('awarded_date', 'DESC')
+                             ->paginate(30)
+                             ->appends('tab', 'reviewed');
         $this->checkPage($awarded);
 
         return view('training.skills.proposals.index')->with([
