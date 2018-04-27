@@ -52,20 +52,6 @@ class AccidentRequest extends Request
     }
 
     /**
-     * Override the validate method to create a custom entry for the formatted date/time.
-     */
-    public function validate()
-    {
-        $this->merge([
-            'date_formatted'    => Carbon::createFromFormat('Y-m-d H:i', $this->get('date') . ' ' . $this->get('time')),
-            'person_type_email' => $this->get('person_type') == 'other' ? $this->get('person_type_other') : self::$PersonTypes[$this->get('person_type')],
-            'severity_email'    => self::$Severities[$this->get('severity')],
-        ]);
-
-        return parent::validate();;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

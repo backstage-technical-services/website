@@ -43,7 +43,12 @@ class AccidentController extends Controller
      */
     public function process(AccidentRequest $request)
     {
-        $data = $request->all();
+        // Set the data for the emails
+        $request->merge([
+            'date_formatted'    => Carbon::createFromFormat('Y-m-d H:i', $request->get('date') . ' ' . $request->get('time')),
+            'person_type_email' => $request->get('person_type') == 'other' ? $request->get('person_type_other') : self::$PersonTypes[$request->get('person_type')],
+            'severity_email'    => self::$Severities[$request->get('severity')],
+        ]);
 
         // TODO: Move these to a config file
         Mail::to([
@@ -52,9 +57,9 @@ class AccidentController extends Controller
             'P.Hawker@bath.ac.uk',
             'A.J.Fleet@bath.ac.uk',
         ])
-            ->queue(new AccidentReport($data));
+            ->queue(new AccidentReport($request->all()));
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
-            ->queue(new AccidentReportReceipt($data));
+            ->queue(new AccidentReportReceipt($request->all()));
 
         Notify::success('Thank you for reporting the accident');
         return redirect()->route('home');

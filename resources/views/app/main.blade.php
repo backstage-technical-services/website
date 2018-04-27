@@ -9,7 +9,7 @@
             {!! Notify::renderBag('permanent') !!}
         </div>
         <!-- Main site wrapper -->
-        <div id="site-wrapper">
+        <main id="site-wrapper">
             <!-- Header -->
             <div id="header-wrapper">
                 <img src="/images/bts-logo.png">
@@ -37,7 +37,7 @@
                     @yield('content')
                 </div>
             </div>
-        </div>
+        </main>
         <!-- Footer -->
         <div id="footer">
             <div id="footer-upper">

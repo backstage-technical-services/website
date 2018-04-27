@@ -1,5 +1,3 @@
-@import "../../../vendor/bnjns/web-dev-tools/scss/vars";
-
 // BTS Colours
 $btsyellow: #FFCF00;
 $btsgold: #D69E00;
@@ -29,3 +27,19 @@ $zindex_markdown: 6000;
 $zindex_menu: 5000;
 $zindex_submenu: 4000;
 $zindex_tabs: 3000;
+
+// General colours
+$colour_danger: #d9534f;
+$colour_success: #5cb85c;
+$colour_primary: darken(#428bca, 6.5%);
+$colour_info: #5bc0de;
+$colour_warning: #f0ad4e;
+$colour_link: #337ab7;
+
+$width_container_sm: 100%;
+$width_container_md: 750px;
+$width_container_lg: 970px;
+$width_container_xl: 1170px;
+$breakpoint_md: 768px;
+$breakpoint_lg: 992px;
+$breakpoint_xl: 1200px;

@@ -7,3 +7,11 @@
 @mixin bg_gradient_yellow_inv() {
 	@include bg_gradient(#9E7E00, #{$btsyellow});
 }
+
+@mixin bg_gradient_grey() {
+	@include bg_gradient(#EEE, #BBB);
+}
+
+@mixin bg_gradient_grey_inv() {
+	@include bg_gradient(#BBB, #EEE);
+}

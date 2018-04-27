@@ -10,7 +10,7 @@
         "alaouy/youtube"                   : "^2.0",
         "bnjns/laravel-notifications"      : "^2.0",
         "bnjns/laravel-searchtools"        : "^1.0",
-        "bnjns/web-dev-tools"              : "^2.0",
+        "bnjns/web-dev-tools"              : "^3.0",
         "bugsnag/bugsnag-laravel"          : "^2.0",
         "components/jquery"                : "^3.1",
         "doctrine/dbal"                    : "^2.5",

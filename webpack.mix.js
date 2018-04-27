@@ -33,17 +33,22 @@ mix
         'resources/assets/js/vendors/moment.js',
         'resources/assets/js/vendors/bootstrap.js',
         'resources/assets/js/vendors/bootstrap-markdown.js',
-        'resources/assets/js/vendors/select2.js',
-        'resources/assets/js/vendors/datetimepicker.js',
         'node_modules/simplemde/dist/simplemde.min.js',
         'node_modules/js-cookie/src/js.cookie.js',
         'node_modules/lightbox2/dist/js/lightbox.min.js',
         'node_modules/clipboard/dist/clipboard.min.js',
         'node_modules/js-modals/dist/modal.min.js',
+        'resources/assets/js/vendors/datetimepicker.js',
         'vendor/bnjns/laravel-searchtools/src/resources/assets/js/search_tools.min.js',
         'vendor/bnjns/laravel-notifications/src/resources/assets/js/notifications.min.js',
-        'vendor/bnjns/web-dev-tools/js/select2.js',
-        'vendor/bnjns/web-dev-tools/js/datetimepicker.js',
+        'resources/assets/js/app/DatetimePicker.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/ApplySelect2/enable.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/CookieAcceptance/enable.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/DisableButtonOnClick/enable.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/EditableFields/enable.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/OtherInput/enable.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/SimpleMDE/enable.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/ToggleVisibility/enable.js',
     ], 'public/js/vendors.js')
     .combine([
         'resources/assets/css/reset.css',
@@ -66,23 +71,21 @@ mix
 
     // Process JS files
     .combine([
-        'resources/assets/js/app/init.js',
-        'resources/assets/js/app/ajax.js',
+        'vendor/bnjns/web-dev-tools/js/misc.js',
+        'vendor/bnjns/web-dev-tools/js/ajax.js',
+        'resources/assets/js/app/ajax_toggle.js',
         'resources/assets/js/app/clipboard.js',
-        'resources/assets/js/app/datepicker.js',
-        'resources/assets/js/app/form.js',
-        'resources/assets/js/app/modals.js',
-        'resources/assets/js/app/select2.js',
-    ], 'resources/assets/js/app.js')
-    .combine([
-        'vendor/bnjns/web-dev-tools/js/CookieAcceptance.js',
-        'vendor/bnjns/web-dev-tools/js/DisableButtons.js',
-        'vendor/bnjns/web-dev-tools/js/EditableFields.js',
-        'resources/assets/js/plugins/SimpleMDE.js',
-        'resources/assets/js/plugins/OtherInputs.js',
+        'resources/assets/js/app/cookies.js',
+        'vendor/bnjns/web-dev-tools/js/forms.js',
+        'vendor/bnjns/web-dev-tools/js/modals.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/ApplyDatetimePicker/auto-init.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/ApplySelect2/auto-init.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/DisableButtonOnClick/auto-init.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/EditableFields/auto-init.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/OtherInput/auto-init.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/SimpleMDE/auto-init.js',
+        'vendor/bnjns/web-dev-tools/js/plugins/ToggleVisibility/auto-init.js',
         'node_modules/js-tabify/dist/tabify.min.js',
-        'vendor/bnjns/web-dev-tools/js/ToggleVisibility.js',
-        'resources/assets/js/app.js'
     ], 'public/js/app.js')
     .js('resources/assets/js/partials/events.view.js', 'public/js/partials/events.view.js')
     .js('resources/assets/js/partials/events.diary.js', 'public/js/partials/events.diary.js')

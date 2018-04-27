@@ -3,3 +3,9 @@
         max-width: 600px;
     }
 }
+
+&[page-id="accident"] {
+    div#content {
+        max-width: 450px;
+    }
+}
