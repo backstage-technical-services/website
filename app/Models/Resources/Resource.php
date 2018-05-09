@@ -280,7 +280,7 @@ class Resource extends Model
      *
      * @return bool
      */
-    public function canAccess(User $user)
+    public function canAccess(User $user = null)
     {
         if ($this->access === null || $this->access === self::ACCESS_PUBLIC) {
             return true;
