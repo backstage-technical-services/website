@@ -84,7 +84,7 @@ class Resource extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Resources\Tag', 'resource_tag', 'resource_tag_id', 'resource_id')
+        return $this->belongsToMany('App\Models\Resources\Tag', 'resource_tag', 'resource_id', 'resource_tag_id')
                     ->orderBy('resource_tags.name', 'ASC');
     }
 
@@ -210,7 +210,7 @@ class Resource extends Model
      */
     public function isFile()
     {
-        return $this->type === self::TYPE_FILE;
+        return $this->type == self::TYPE_FILE;
     }
 
     /**
@@ -220,7 +220,7 @@ class Resource extends Model
      */
     public function isGDoc()
     {
-        return $this->type === self::TYPE_GDOC;
+        return $this->type == self::TYPE_GDOC;
     }
 
     /**
@@ -357,13 +357,8 @@ class Resource extends Model
      */
     public function issue()
     {
-        // Reverse the ordering
-        $query         = $this->issues()->getQuery()->getQuery();
-        $query->orders = [];
-        $query->orderBy('issue', 'DESC');
-
-        return $this->issues()
-                    ->setQuery($query)
+        return Issue::where('resource_id', $this->id)
+                    ->orderBy('issue', 'DESC')
                     ->first();
     }
 
@@ -395,7 +390,7 @@ class Resource extends Model
      *
      * @param null $issueNum
      *
-     * @return \App\Resource
+     * @return \App\Models\Resources\Resource
      */
     public function checkIssueNum($issueNum = null)
     {

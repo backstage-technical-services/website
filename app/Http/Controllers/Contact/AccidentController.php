@@ -7,6 +7,7 @@ use App\Http\Requests\Contact\AccidentRequest;
 use App\Mail\Contact\AccidentReport;
 use App\Mail\Contact\AccidentReportReceipt;
 use bnjns\LaravelNotifications\Facades\Notify;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class AccidentController extends Controller

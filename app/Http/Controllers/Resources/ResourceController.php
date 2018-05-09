@@ -86,6 +86,7 @@ class ResourceController extends Controller
 
         // Set the source
         if ($resource->isFile()) {
+            mkdir($resource->getPath());
             $resource->reissue($request->file('file'), 'Initial issue');
         } else if ($resource->isGDoc()) {
             $resource->update([

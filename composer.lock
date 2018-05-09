@@ -286,16 +286,16 @@
         },
         {
             "name": "bnjns/web-dev-tools",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bnjns/web-dev-tools.git",
-                "reference": "cb7e6bda0854e0b189f3af05528c6383765d38d0"
+                "reference": "79642db2ac9236c6a0c8a54c204e26d4ce8a0f5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bnjns/web-dev-tools/zipball/cb7e6bda0854e0b189f3af05528c6383765d38d0",
-                "reference": "cb7e6bda0854e0b189f3af05528c6383765d38d0",
+                "url": "https://api.github.com/repos/bnjns/web-dev-tools/zipball/79642db2ac9236c6a0c8a54c204e26d4ce8a0f5f",
+                "reference": "79642db2ac9236c6a0c8a54c204e26d4ce8a0f5f",
                 "shasum": ""
             },
             "require": {
@@ -342,7 +342,7 @@
                 "scss",
                 "traits"
             ],
-            "time": "2018-04-27T20:20:03+00:00"
+            "time": "2018-05-09T14:26:56+00:00"
         },
         {
             "name": "bugsnag/bugsnag",
