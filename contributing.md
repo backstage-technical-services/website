@@ -68,6 +68,13 @@ Ensure your web and MySQL servers are functioning correctly and create the datab
 7. Populate the database
 
     > Speak to one of the development team to get a copy of the most recent database backup.
+    
+## How we use GitHub
+We use GitHub to manage every aspect of the development, including bugs, features, ideas and even minor tweaks. As a result, labelling is an important part of keeping this organised.
+
+* **Types**: These indicate the type of issue: bugs, new features (something that doesn't yet exist), improvements (improving already existing functionality), questions and misc (for everything else).
+* **Priority**: The priority indicates how important it is that the issue is resolved. These range from High (this really needs to be done) to Very Low (it doesn't really matter if this isn't done).
+* **Urgency**: The urgency is used to indicate how quickly an issue needs to be tackled. These are Short Term (within the next few months), Long Term (a few months to a year), and Distant Future (which is basically equivalent to 'Maybe One Day').
 
 ## Questions or need help?
 If you have questions or need help at any stage, simply contact a member of the `Website Devs` team.
