@@ -183,10 +183,11 @@ class ElectionController extends Controller
 
         // Validate the request
         $this->validate($request, [
-            'elected' => 'array|each:required',
+            'elected'   => 'array',
+            'elected.*' => 'required',
         ], [
-            'elected.array'         => 'Please select the elected members',
-            'elected.each.required' => 'Please select the elected members',
+            'elected.array'      => 'Please select the elected members',
+            'elected.*.required' => 'Please select the elected members',
         ]);
 
         // Set those elected
