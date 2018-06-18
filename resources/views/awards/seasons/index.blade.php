@@ -73,38 +73,40 @@
                         @endif
                     </td>
                     <td class="admin-tools admin-tools-icon">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-                                <span class="fa fa-cog"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <button data-toggle="modal"
-                                            data-target="#modal"
-                                            data-modal-class="sm"
-                                            data-modal-template="award_season"
-                                            data-modal-title="Edit Award Season"
-                                            data-mode="edit"
-                                            data-form-data="{{ json_encode($season) }}"
-                                            data-save-action="{{ route('award.season.update', ['id' => $season->id]) }}"
-                                            type="button">
-                                        <span class="fa fa-pencil"></span> Edit
-                                    </button>
-                                </li>
-                                <li>
-                                    <a href="{{ route('award.season.nomination.index', ['id' => $season->id]) }}">
-                                        <span class="fa fa-list"></span> View nominations
-                                    </a>
-                                </li>
-                                <li>
-                                    <button data-submit-ajax="{{ route('award.season.destroy', ['id' => $season->id]) }}"
-                                            data-submit-confirm="Are you sure you want to delete this award season?"
-                                            type="button">
-                                        <span class="fa fa-trash"></span> Delete
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
+                        @can('index', \App\Models\Awards\Award::class)
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+                                    <span class="fa fa-cog"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <button data-toggle="modal"
+                                                data-target="#modal"
+                                                data-modal-class="sm"
+                                                data-modal-template="award_season"
+                                                data-modal-title="Edit Award Season"
+                                                data-mode="edit"
+                                                data-form-data="{{ json_encode($season) }}"
+                                                data-save-action="{{ route('award.season.update', ['id' => $season->id]) }}"
+                                                type="button">
+                                            <span class="fa fa-pencil"></span> Edit
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('award.season.nomination.index', ['id' => $season->id]) }}">
+                                            <span class="fa fa-list"></span> View nominations
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <button data-submit-ajax="{{ route('award.season.destroy', ['id' => $season->id]) }}"
+                                                data-submit-confirm="Are you sure you want to delete this award season?"
+                                                type="button">
+                                            <span class="fa fa-trash"></span> Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endcan
                     </td>
                 </tr>
             @empty
