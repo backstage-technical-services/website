@@ -1,6 +1,6 @@
 {!! Form::model(new \App\Models\Equipment\Breakage(), ['route' => 'equipment.repairs.store']) !!}
-<p>If you discover a piece of equipment is broken please fill in the form form below, so that the E&S officer is informed of the breakage. Please also label the
-    equipment and take it to the Drama Store.</p>
+<p>If you discover a piece of equipment is broken please fill in the form form below, so that the Equipment Officer is informed of the breakage. Please also
+    label the equipment and, if necessary, take it out of service.</p>
 
 {{-- Equipment name --}}
 <div class="form-group @InputClass('name')">
