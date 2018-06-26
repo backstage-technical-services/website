@@ -17,7 +17,8 @@
         <div class="row">
             <span class="fa fa-map-marker pull-left"></span>
             <div class="pull-left">
-                University of Bath Students' Union<br>
+                The SU<br>
+                University of Bath<br>
                 Claverton Down<br>
                 Bath<br>
                 BA2 7AY
