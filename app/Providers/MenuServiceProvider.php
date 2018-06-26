@@ -66,7 +66,7 @@ class MenuServiceProvider extends ServiceProvider
                 // Events sub-menu
                 if ($isMember) {
                     $menu->find('events')
-                         ->add(route('event.report'), 'Submit event report');
+                         ->add(route('event.report'), 'Submit event report')->activePattern('^\/events\/report');
                 }
                 if ($isAdmin) {
                     $menu->find('events')

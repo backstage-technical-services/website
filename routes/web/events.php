@@ -27,10 +27,10 @@ Route::group([
         'as'   => 'event.search',
         'uses' => 'Events\EventController@search',
     ]);
-    Route::get('report', [
+    Route::get('report/{id?}', [
         'as'   => 'event.report',
         'uses' => 'Events\EventController@report',
-    ]);
+    ])->where('id', '[\d]+');
     Route::group([
         'prefix' => '{id}',
         'where'  => ['id' => '[\d]+'],

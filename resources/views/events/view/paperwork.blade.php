@@ -30,7 +30,7 @@
         <div class="name">Event report</div>
         <p class="link{{ $event->paperwork['event_report'] ? ' hidden' : '' }}" data-show="incomplete">
             <span class="fa fa-link"></span>
-            <a class="grey" href="{{ config('bts.links.event_report') }}" target="_blank">Event report form</a>
+            <a class="grey" href="{{ route('event.report', ['id' => $event->id]) }}">Event report form</a>
         </p>
     </div>
 </div>
