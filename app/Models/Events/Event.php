@@ -557,6 +557,29 @@ class Event extends Model
     }
 
     /**
+     * Get an array of the pre-fill values for submitting an event report.
+     *
+     * @return array
+     */
+    public function getReportPrefillAttribute()
+    {
+        if (!$this->isEvent()) {
+            return [];
+        }
+
+        return [
+            'entry.806898027'  => $this->name,
+            'entry.194415760'  => $this->hasEM() ? $this->em->name : null,
+            'entry.1260407120' => $this->hasEM() ? $this->em->email : null,
+            'entry.3626157'    => $this->venue,
+            'entry.2079484309' => $this->crew()->count(),
+            'entry.1054743347' => implode(PHP_EOL, $this->crew()->core()->get()->map(function ($crew) {
+                return $crew->name . ': ' . $crew->user->name;
+            })->toArray()),
+        ];
+    }
+
+    /**
      * Set the value of a paperwork's status.
      *
      * @param $key

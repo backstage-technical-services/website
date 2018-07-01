@@ -14,6 +14,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventController extends Controller
 {
@@ -348,11 +349,27 @@ class EventController extends Controller
     /**
      * View the event report form.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param null $eventId
+     *
+     * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function report()
+    public function report($eventId = null)
     {
-        return redirect(config('bts.links.event_report'));
+        if (!is_null($eventId)) {
+            $event = Event::findOrFail($eventId);
+            $this->authorize('update', $event);
+
+            if (!$event->isEvent()) {
+                throw new NotFoundHttpException;
+            }
+        } else {
+            $this->authorizeGate('member');
+        }
+
+        return view('events.report', [
+            'event' => is_null($eventId) ? null : $event,
+        ]);
     }
 
     /**
