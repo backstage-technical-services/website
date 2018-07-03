@@ -40,13 +40,9 @@
         </main>
         <!-- Footer -->
         <div id="footer">
-            <div id="footer-upper">
-                @include('app.includes.footer_details')
-            </div>
-            <div class="copyright" id="footer-lower">
-                @include('app.includes.footer_copyright')
-            </div>
+            @include('app.includes.footer')
         </div>
+
         @include('app.includes.modal')
         @include('app.includes.javascripts')
     </body>
