@@ -23,6 +23,7 @@ class Breakage extends Model
         3                     => 'Awaiting Parts',
         4                     => 'Usable (Issue still exists)',
         5                     => 'Unrepairable',
+        6                     => 'Awaiting Repair',
         self::STATUS_RESOLVED => 'Resolved',
     ];
 
