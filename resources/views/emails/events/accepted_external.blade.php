@@ -1,6 +1,4 @@
 @component('mail::message')
-# Hi Alison,
-
 This email has been generated to inform you that Backstage has accepted a new off-campus booking with an external client. The details are as follows:
 
 @component('mail::panel')

@@ -117,9 +117,9 @@ class EventController extends Controller
         // Add to the finance database
         $event->addToFinanceDb();
 
-        // If the event is external and off-campus email Alison
+        // If the event is external and off-campus email the SU
         if ($event->client_type > 1 && $event->venue_type == 2) {
-            Mail::to('a.j.fleet@bath.ac.uk')
+            Mail::to('P.Brooks@bath.ac.uk')
                 ->queue(new AcceptedExternal($event, $request));
         }
 

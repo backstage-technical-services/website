@@ -56,7 +56,7 @@ class AccidentController extends Controller
             'bts@bath.ac.uk',
             'safety@bts-crew.com',
             'P.Hawker@bath.ac.uk',
-            'A.J.Fleet@bath.ac.uk',
+            'P.Brooks@bath.ac.uk ',
         ])
             ->queue(new AccidentReport($request->all()));
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
