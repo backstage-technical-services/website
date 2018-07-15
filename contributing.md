@@ -1,21 +1,47 @@
 # Contributing
 
 ## Who can contribute?
-Any Backstage member is encouraged to help with the maintenance of the site and development of new features, big or small. To get started simply fork the 
-`master` branch.
+Any Backstage member is encouraged to help with the maintenance of the site and development of new features, big or small. No matter what level of experience
+ you have in website design or development - if you're interested in helping out then we would love your input.
+ 
+## Can I contribute if I can't programme?
+Yes.
 
-Once you're done simply submit a Pull Request for the changes to be merged back into the `master` branch.
+There are many ways you can contribute, even if you don't have much programming experience. The simplest is simply
+[submitting an issue](http://github.com/backstagetechnicalservices/website/issues) for a bug, feature or improvement; this will let a member of the 
+development team look into it on your behalf. You can also make small changes or improvements to things like the layout or the wording, without any need to 
+programme.
 
-## Why do we have to submit Pull Requests?
+If you're comfortable with programming, or want to get involved with the bigger stuff, then do join the development team to get stuck in.
+ 
+## How does contributing work?
+The website runs from the code on the `master` branch. No development is performed on this branch to ensure that the website remains fully functional. The 
+development branch (`v4.0-dev`) is the primary branch used for development - there are a few ways that you can work from this branch: 
+
+* Those with write access to this branch can push their changes directly here, no matter how complete they are. However, this runs the risk of having a very 
+dirty commit history, and requires all developers keep their local copies of `v4.0-dev` up-to-date, otherwise they will have a heck of a headache resolving 
+merge conflicts.
+* If you want to work on something small or quick you can work on a fork of the repository. Once you've done, you can merge your changes back into the dev 
+branch using a Pull Request.
+* If you're working on something big, something that would benefit from multiple commits, or something that would benefit from other developers testing or 
+being involved with, it's recommended you create your own branch on the repository. This will allow you to work at your own pace, and let other developers 
+check your work as you go. Once complete, the changes can be merged back into the dev branch directly or with a Pull Request.
+
+Once any changes have been confirmed as working with nothing that breaks functionality, they can be merged into the `master` branch by the `Website Owner`.
+
+## Why should we submit Pull Requests?
 Pull Requests are used as a quality check (to ensure that the new code is consistent with the existing code to avoid headaches in the 
-future) and to ensure that what you've submitted doesn't conflict with anything else under development.
+future) and to ensure that what you've submitted doesn't conflict with anything else under development. Anyone in the `Dev Leads` team can approve Pull 
+Requests.
 
-Anyone in the `Dev Leads` team can approve Pull Requests.
+## Keeping the team informed
+Any member of the development team **must** be a member of the GitHub team and the Slack channel; this is so that you have the necessary permissions to 
+work on the repository, but also so everyone can be kept up-to-date with what everyone is working on. It is vital that if you intend to work on something you
+let the rest of the team know - this is so that there won't be any issues with multiple members working on the same thing, and to ensure that what you're 
+about to do is inline with the rest of the development.
 
-Anyone in the `Website Devs` team can push directly to a branch that isn't `master`.
-
-## What if I can't programme?
-If you can't programme, or can't spare the time to implement a feature yourself, then don't worry! All you need to do is [submit an issue](http://github.com/backstagetechnicalservices/website/issues) and someone on the development team will look into it.
+Everyone in the development team is equal, but the Website Owner does have the ability to refuse a PR or merge if it doesn't follow the planned direction of 
+the website. With good communication, however, this won't ever be an issue!
 
 ## What do I need to be able to contribute?
 It is assumed that those intending to develop this website have a sufficient knowledge of and experience in PHP, MySQL, Laravel and git. It is also recommended that you familiarise yourself with the best practices of each and the programming style already in use.
@@ -38,34 +64,41 @@ Ensure your web and MySQL servers are functioning correctly and create the datab
     ```sh
     $ git clone https://github.com/backstagetechnicalservices/website.git
     ```
-2. Install the dependencies
+    
+2. Switch to the development branch
+
+    ```sh
+    $ git checkout v4.0-dev
+    ```
+
+3. Install the dependencies
 
     ```sh
     $ composer install
     ```
-3. Install Laravel Mix
+4. Install Laravel Mix
 
     ```sh
     $ npm install
     ```
-4. Create the environment file
+5. Create the environment file
 
     ```sh
     $ php -r "copy('.env.example', '.env');"
     ```
-5. Populate the environment file
+6. Populate the environment file
 
     ```sh
     $ php artisan key:generate
     ```
     > You will need to manually provide the other values; speak to one of the development team
 
-6. Set up the database
+7. Set up the database
 
     ```sh
     $ php artisan migrate
     ```
-7. Populate the database
+8. Populate the database
 
     > Speak to one of the development team to get a copy of the most recent database backup.
     
