@@ -491,6 +491,18 @@ class Event extends Model
     }
 
     /**
+     * Get an array of email addresses for the crew, to be used as a mailing list.
+     *
+     * @return array
+     */
+    public function getCrewMailingListAttribute()
+    {
+        return $this->crew()->get()->map(function ($crew) {
+            return $crew->isGuest() ? null : $crew->user->email;
+        })->toArray();
+    }
+
+    /**
      * Get the core crew list.
      *
      * @return \Illuminate\Database\Eloquent\Collection

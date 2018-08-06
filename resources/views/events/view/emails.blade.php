@@ -17,10 +17,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="mailto:{{ implode(',', $event->crew()->get()->map(function($crew) { return $crew->isGuest() ? null : $crew->user->email; })
-                    ->toArray
-                    ())
-                    }}?subject=[Backstage Website] {{ $event->name }}">
+                    <a href="mailto:{{ implode(',', $event->crew_mailing_list) }}?subject=[Backstage Website] {{ $event->name }}">
                         <span class="fa fa-external-link"></span>
                         <span>Use mail client</span>
                     </a>
