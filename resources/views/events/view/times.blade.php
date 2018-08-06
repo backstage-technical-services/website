@@ -1,4 +1,5 @@
 <h2>Event Times</h2>
+@can('update', $event)
 <div class="top-buttons">
     <button class="btn btn-success"
             data-toggle="modal"
@@ -13,6 +14,7 @@
         <span>Add event time</span>
     </button>
 </div>
+@endcan
 <div class="event-time-wrapper">
     <div class="event-times">
         <?php $month = '' ?>
