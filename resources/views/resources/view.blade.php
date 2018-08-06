@@ -89,10 +89,4 @@
             @endforeach
         </ul>
     @endif
-    <div class="back">
-        <hr class="grey">
-        <p>
-            <a href="" onclick="return history.back();">Back</a>
-        </p>
-    </div>
 @endsection

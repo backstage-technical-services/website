@@ -39,7 +39,7 @@
     <div class="back">
         <hr>
         <p>
-            <a href="{{ route('resource.view', ['id' => $resource->id]) }}" onclick="return history.back();">Back</a>
+            <a href="{{ route('resource.view', ['id' => $resource->id]) }}">Back</a>
         </p>
     </div>
 @endsection
