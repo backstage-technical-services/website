@@ -58,7 +58,7 @@
 <div class="form-group @InputClass('event_id')">
     {!! Form::label('event_id', 'Link to event:', ['class' => 'control-label']) !!}
     <select class="form-control"
-            data-ajax--url="{{ route('event.search') }}"
+            data-ajax-url="{{ route('event.search') }}"
             name="event_id">
         @if($mode == 'edit' && $resource->isAttachedToEvent())
             <option value="{{ $resource->event->id }}" selected>{{ $resource->event->name }} ({{ $resource->event->end->format('M Y') }})</option>

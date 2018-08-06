@@ -23,7 +23,7 @@ Route::group([
         'as'   => 'event.export',
         'uses' => 'Events\DiaryController@export',
     ]);
-    Route::get('search', [
+    Route::post('search', [
         'as'   => 'event.search',
         'uses' => 'Events\EventController@search',
     ]);

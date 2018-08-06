@@ -316,6 +316,7 @@ class EventController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function search(Request $request)
     {
@@ -328,12 +329,14 @@ class EventController extends Controller
 
         // Search the name
         if ($request->has('name')) {
-            $events = $events->where('name', 'LIKE', '%' . $request->get('name') . '%');
+            $events = $events->where('events.name', 'LIKE', '%' . $request->get('name') . '%');
         }
 
         // Get and sort the results
-        $events = $events->get()
-                         ->sortByDesc('end')
+        $events = $events->distinct()
+                         ->join('event_times', 'events.id', '=', 'event_times.event_id')
+                         ->orderBy('event_times.end', 'DESC')
+                         ->get()
                          ->map(function ($event) {
                              return (object)[
                                  'id'   => $event->id,
