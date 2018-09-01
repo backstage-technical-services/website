@@ -457,7 +457,7 @@ class Resource extends Model
 
     /**
      * Get an associative array of headers to send
-     * when streaming or downloadin the resource.
+     * when streaming or downloading the resource.
      *
      * @return array
      */
@@ -466,7 +466,7 @@ class Resource extends Model
         if ($this->isFile()) {
             return [
                 'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="' . ($this->title . '.' . $this->getFileExtension()) . '"',
+                'Content-Disposition' => 'inline; filename="' . (static::sanitised($this->title) . '.' . $this->getFileExtension()) . '"',
                 'Content-Length'      => filesize($this->getFullPath()),
             ];
         } else {
