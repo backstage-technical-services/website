@@ -33,6 +33,7 @@ class EventController extends Controller
      * @param \bnjns\SearchTools\SearchTools $searchTools
      *
      * @return $this
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(SearchTools $searchTools)
     {
@@ -61,6 +62,7 @@ class EventController extends Controller
      * View the form to create an event.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
@@ -165,7 +167,8 @@ class EventController extends Controller
      * @param                          $eventId
      * @param \Illuminate\Http\Request $request
      *
-     * @return \App\Http\Controllers\Events\EventController|\Illuminate\Http\RedirectResponse
+     * @return
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update($eventId, Request $request)
     {
@@ -297,6 +300,7 @@ class EventController extends Controller
      * @param $eventId
      *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($eventId)
     {
@@ -354,7 +358,7 @@ class EventController extends Controller
      *
      * @param null $eventId
      *
-     * @return void
+     * @return \Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function report($eventId = null)

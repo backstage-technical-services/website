@@ -181,6 +181,7 @@ return [
         \bnjns\LaravelNotifications\NotificationServiceProvider::class,
         \bnjns\WebDevTools\Laravel\Providers\BladeServiceProvider::class,
         \bnjns\WebDevTools\Laravel\Providers\ValidationServiceProvider::class,
+        \Spatie\DbSnapshots\DbSnapshotsServiceProvider::class,
 
         /*
          * Application Service Providers...

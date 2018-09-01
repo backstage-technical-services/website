@@ -19,3 +19,5 @@ npm-debug.log
 /public/css/*
 /resources/resources/*
 /resources/elections/*
+/storage/temp
+/storage/app/backups

@@ -2,7 +2,8 @@
 
 namespace App\Console;
 
-use App\Models\Events\Event;
+use App\Console\Commands\BackupDb;
+use App\Console\Schedules\CloseCrewLists;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        BackupDb::class,
     ];
 
     /**
@@ -26,7 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $this->closePastEventCrewLists($schedule);
+        $schedule->call(CloseCrewLists::class)->daily();
+        $schedule->command(BackupDb::class)->daily();
+        $schedule->command('backup:run')->weekly();
     }
 
     /**
@@ -37,24 +40,5 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
-    }
-
-    /**
-     * Close the crew list for past events.
-     *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
-     */
-    private function closePastEventCrewLists(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            Event::past()
-                 ->where('events.crew_list_status', Event::CREW_LIST_OPEN)
-                 ->get()
-                 ->map(function ($event) {
-                     $event->update([
-                         'crew_list_status' => Event::CREW_LIST_CLOSED,
-                     ]);
-                 });
-        })->daily();
     }
 }
