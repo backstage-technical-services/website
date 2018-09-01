@@ -68,6 +68,18 @@ class Resource extends Model
     ];
 
     /**
+     * Sanitised a string to be suitable for a file name.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public static function sanitised($string)
+    {
+        return preg_replace('/[^0-9A-Za-z_\- .]/', '-', $string);
+    }
+
+    /**
      * Define the relationship with the resource's category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -492,7 +504,7 @@ class Resource extends Model
         if ($this->isFile()) {
             return response()->download(
                 $this->getFullPath(),
-                $this->title . '.' . $this->getFileExtension(),
+                static::sanitised($this->title) . '.' . $this->getFileExtension(),
                 $this->getHeaders()
             );
         } else if ($this->isGDoc()) {
