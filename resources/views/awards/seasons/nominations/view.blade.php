@@ -42,6 +42,7 @@
                                             <li>
                                                 <button data-submit-ajax="{{ route('award.season.nomination.approve', ['id' => $season->id, 'nominationId' =>
                                         $nomination->id]) }}"
+                                                        data-redirect="true"
                                                         type="button">
                                                     <span class="fa fa-{{ $nomination->isApproved() ? 'remove' : 'check' }}"></span> {{ $nomination->isApproved() ?
                                             'Unapprove' : 'Approve' }}
@@ -51,6 +52,7 @@
                                                 <button data-submit-ajax="{{ route('award.season.nomination.destroy', ['id' => $season->id, 'nominationId' =>
                                         $nomination->id]) }}"
                                                         data-submit-confirm="Are you sure you want to delete this nomination?"
+                                                        data-redirect="true"
                                                         type="button">
                                                     <span class="fa fa-trash"></span> Delete
                                                 </button>

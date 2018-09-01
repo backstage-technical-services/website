@@ -23,6 +23,7 @@
                     <li>
                         <button data-submit-ajax="{{ route('award.season.status', ['id' => $season->id]) }}"
                                 data-status=""
+                                data-redirect="true"
                                 title="Close the award"
                                 type="button">
                             <span class="fa {{ $season->status === null ? 'fa-check' : '' }}"></span> Closed
@@ -31,6 +32,7 @@
                     <li>
                         <button data-submit-ajax="{{ route('award.season.status', ['id' => $season->id]) }}"
                                 data-status="{{ \App\Models\Awards\Season::STATUS_NOMINATIONS }}"
+                                data-redirect="true"
                                 title="{{ $season->areNominationsOpen() ? 'Close' : 'Open' }} nominations"
                                 type="button">
                             <span class="fa {{ $season->areNominationsOpen() ? 'fa-check' : '' }}"></span> Nominations Open
@@ -39,6 +41,7 @@
                     <li>
                         <button data-submit-ajax="{{ route('award.season.status', ['id' => $season->id]) }}"
                                 data-status="{{ \App\Models\Awards\Season::STATUS_VOTING }}"
+                                data-redirect="true"
                                 title="{{ $season->isVotingOpen() ? 'Close' : 'Open' }} voting"
                                 type="button">
                             <span class="fa {{ $season->isVotingOpen() ? 'fa-check' : '' }}"></span> Voting Open
@@ -47,6 +50,7 @@
                     <li>
                         <button data-submit-ajax="{{ route('award.season.status', ['id' => $season->id]) }}"
                                 data-status="{{ \App\Models\Awards\Season::STATUS_RESULTS }}"
+                                data-redirect="true"
                                 title="{{ $season->areResultsReleased() ? 'Hide' : 'Release' }} results"
                                 type="button">
                             <span class="fa {{ $season->areResultsReleased() ? 'fa-check' : '' }}"></span> Results Released
