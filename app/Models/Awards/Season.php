@@ -86,10 +86,9 @@ class Season extends Model
             if ($season->original['status'] != self::STATUS_RESULTS && $season->attributes['status'] == self::STATUS_RESULTS) {
                 $season->calculateWinners();
             }
-            // If changing from voting to nominations or closed, wipe any votes
-            if ($season->original['status'] == self::STATUS_VOTING &&
-                ($season->attributes['status'] === null || $season->attributes['status'] == self::STATUS_NOMINATIONS)) {
-                Vote::where('award_season_id', $season->id)
+            // If returning to nominations open, wipe any votes
+            if ($season->original['status'] > self::STATUS_NOMINATIONS && $season->attributes['status'] == self::STATUS_NOMINATIONS) {
+                Vote::forSeason($season)
                     ->delete();
             }
         });

@@ -56,8 +56,30 @@ class Vote extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * Add a scope for filtering by user.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \App\Models\Users\User                $user
+     *
+     * @return void
+     */
     public function scopeByUser(Builder $query, User $user)
     {
         $query->where('user_id', $user->id);
+    }
+
+    /**
+     * Add a scope for filtering by award season.
+     *
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \App\Models\Awards\Season             $season
+     *
+     * @return void
+     */
+    public function scopeForSeason(Builder $query, Season $season)
+    {
+        $query->where('award_season_id', $season->id);
     }
 }
