@@ -27,9 +27,9 @@
                 <tr>
                     <td class="col--type">
                         @if($backup->getExtension() == 'sql')
-                            <span class="fa fa-database" title="Database backup"></span>
+                            <span class="fa fa-database" title="Database only"></span>
                         @elseif($backup->getExtension() == 'zip')
-                            <span class="fa fa-file-archive-o" title="Full site backup"></span>
+                            <span class="fa fa-sitemap" title="Database and resources"></span>
                         @endif
                     </td>
                     <td class="col--date dual-layer">

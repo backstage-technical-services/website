@@ -18,7 +18,9 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include'     => [
-                    base_path(),
+                    public_path('images/profiles'),
+                    resource_path('resources'),
+                    resource_path('elections')
                 ],
 
                 /*
