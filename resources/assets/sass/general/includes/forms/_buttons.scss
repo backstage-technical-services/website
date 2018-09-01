@@ -43,6 +43,10 @@
     &.btn-xs {
         font-size: 0.75em;
     }
+    &.btn-full {
+        display: block;
+        width: 100%;
+    }
 }
 
 .btn-group .btn {

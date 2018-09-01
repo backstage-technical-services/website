@@ -23,6 +23,7 @@
 
     include base_path('routes/web/auth.php');
     include base_path('routes/web/awards.php');
+    include base_path('routes/web/backups.php');
     include base_path('routes/web/committee.php');
     include base_path('routes/web/contact.php');
     include base_path('routes/web/election.php');

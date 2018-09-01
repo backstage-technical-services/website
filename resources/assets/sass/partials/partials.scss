@@ -9,6 +9,10 @@ body[page-section*="awards"] {
     @import "awards";
 }
 
+body[page-section*="backups"] {
+    @import "backups";
+}
+
 body[page-section*="committee"] {
     @import "committee";
 }

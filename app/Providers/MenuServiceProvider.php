@@ -133,6 +133,7 @@ class MenuServiceProvider extends ServiceProvider
                 }
                 if ($isAdmin) {
                     $menu->find('members.misc')
+                         ->add(route('backup.index'), 'Backups')
                          ->add(route('page.index'), 'Webpages');
                 }
             }

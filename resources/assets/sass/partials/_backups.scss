@@ -1,0 +1,22 @@
+&[page-id="view"] {
+    #content {
+        max-width: 600px;
+    }
+    .table {
+        td {
+            vertical-align: middle;
+        }
+        .col--type {
+            font-size: 1.25em;
+            text-align: center;
+            width: 2.5em;
+        }
+        .col--size {
+            text-align: center;
+            width: 7em;
+        }
+        td.col--size {
+            text-align: right;
+        }
+    }
+}
