@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AutoCloseCrewLists;
 use App\Console\Commands\BackupDb;
 use App\Console\Schedules\CloseCrewLists;
 use Illuminate\Console\Scheduling\Schedule;
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         BackupDb::class,
+        AutoCloseCrewLists::class,
     ];
 
     /**
@@ -27,7 +29,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(CloseCrewLists::class)->daily();
+        $schedule->command(AutoCloseCrewLists::class)->daily();
         $schedule->command(BackupDb::class)->daily();
         $schedule->command('backup:run')->weekly();
     }
