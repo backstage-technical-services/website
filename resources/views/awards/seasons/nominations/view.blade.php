@@ -20,7 +20,7 @@
                 <th class="admin-tools admin-tools-icon"></th>
             </thead>
             <tbody>
-                @forelse($season->nominations as $nomination)
+                @forelse($season->nominations()->ordered()->get() as $nomination)
                     <tr>
                         <td col="approved">
                             <span class="fa fa-{{ $nomination->isApproved() ? 'check success' : 'remove danger' }}"></span>

@@ -82,6 +82,21 @@ class Nomination extends Model
     }
 
     /**
+     * Add a scope to order nominations by the award they're for.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return void
+     */
+    public function scopeOrdered(Builder $query)
+    {
+        $query->select('award_nominations.*')
+              ->join('awards', 'award_nominations.award_id', '=', 'awards.id')
+              ->orderBy('awards.name', 'ASC')
+              ->orderBy('award_nominations.nominee', 'ASC');
+    }
+
+    /**
      * Check whether the nomination is approved.
      *
      * @return bool
