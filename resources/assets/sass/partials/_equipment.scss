@@ -2,6 +2,10 @@
 @import "../mixins";
 
 &[page-id="repairs-list"] {
+    #content {
+        max-width: 700px;
+    }
+    
     table.table {
         td {
             vertical-align: top;
@@ -22,18 +26,6 @@
         }
         td[col="date"] {
             font-size: 14px;
-        }
-        [col="description"], [col="comment"] {
-            display: none;
-            
-            @media(min-width: 768px) {
-                display: table-cell;
-                width: 12em;
-            }
-            & > div {
-                max-height: 7em;
-                overflow-y: auto;
-            }
         }
     }
 }

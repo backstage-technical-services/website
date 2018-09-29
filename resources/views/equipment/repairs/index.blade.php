@@ -33,8 +33,6 @@
     <table class="table table-striped">
         <thead>
             <th col="item">Item</th>
-            <th col="description">Description</th>
-            <th col="comment">Comments</th>
             <th col="date">Reported</th>
             <th col="status">Status</th>
             <th col="button"></th>
@@ -45,12 +43,6 @@
                     <td col="item" class="dual-layer">
                         <span class="upper">{{ $breakage->name }}</span>
                         <span class="lower">{{ $breakage->location }}</span>
-                    </td>
-                    <td col="description">
-                        <div>{!! nl2br($breakage->description) !!}</div>
-                    </td>
-                    <td col="comment">
-                        <div>{!! nl2br($breakage->comment) !!}</div>
                     </td>
                     <td col="date">{{ $breakage->created_at->diffForHumans() }}</td>
                     <td col="status">{{ \App\Models\Equipment\Breakage::$Status[$breakage->status] }}</td>
