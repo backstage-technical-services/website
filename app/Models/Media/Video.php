@@ -12,11 +12,6 @@ use stdClass;
 class Video
 {
     /**
-     * Constant that defines the thumbnail size to use.
-     */
-    const THUMBNAIL_QUALITY = 'standard';
-
-    /**
      * List of supported search types
      *
      * @var array
@@ -132,15 +127,23 @@ class Video
      * Load the video's details from the source object.
      *
      * @return $this
+     * @throws \Exception
      */
     private function loadVideoDetails()
     {
         $this->title       = $this->src->snippet->title;
         $this->description = $this->src->snippet->description;
         $this->tags        = $this->src->snippet->tags;
-        $this->thumbnail   = $this->src->snippet->thumbnails->{self::THUMBNAIL_QUALITY}->url;
+        $this->thumbnail   = '';
         $this->duration    = CarbonInterval::instance(new DateInterval($this->src->contentDetails->duration));
         $this->created     = new Carbon($this->src->snippet->publishedAt);
+
+        foreach (['high', 'medium', 'standard', 'default'] as $quality) {
+            if (isset($this->src->snippet->thumbnails->$quality)) {
+                $this->thumbnail = $this->src->snippet->thumbnails->$quality->url;
+                break;
+            }
+        }
 
         return $this;
     }
