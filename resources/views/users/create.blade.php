@@ -7,14 +7,13 @@
 @section('title', 'Create Users')
 
 @section('scripts')
-    $('#modeTab').tabify();
     $('#modeTab').find('ul.nav > li').on('click', function() {
         var $this = $(this);
         $('input[name="mode"]').val($this.data('mode'));
         $('#submit-form').find('span:last').text($this.data('btnText'));
     });
 
-    @if(Request::old('mode') == 'bulk')
+    @if(request()->old('mode') == 'bulk')
         $('ul.nav > li[data-mode="bulk"]').trigger('click');
     @endif
 @endsection
