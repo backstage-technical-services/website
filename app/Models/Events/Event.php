@@ -359,38 +359,6 @@ class Event extends Model
     }
 
     /**
-     * Join a query with the event_times table.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    private function joinEventTimes(Builder $query)
-    {
-        if (!$this->alreadyJoined($query, 'event_times')) {
-            $query->select('events.*')
-                  ->join('event_times', 'events.id', '=', 'event_times.event_id');
-        }
-        return $query;
-    }
-
-    /**
-     * Join a query with the event_crew table.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    private function joinEventCrew(Builder $query)
-    {
-        if (!$this->alreadyJoined($query, 'event_crew')) {
-            $query->select('events.*')
-                  ->join('event_crew', 'events.id', '=', 'event_crew.event_id');
-        }
-        return $query;
-    }
-
-    /**
      * Fix the issue of no EM not being set to null.
      *
      * @param $id
@@ -833,7 +801,7 @@ class Event extends Model
         }
 
         // Check that the event type is allowed
-        if (!in_array($this->type_short, $user->getDiaryPreference('event_types'))) {
+        if (is_null($user->getDiaryPreference('event_types')) || !in_array($this->type_short, $user->getDiaryPreference('event_types'))) {
             return false;
         }
 
@@ -844,5 +812,37 @@ class Event extends Model
             $crewing = $user->getDiaryPreference('crewing') == 'true';
             return $crewing === $this->userIsCrew($user);
         }
+    }
+
+    /**
+     * Join a query with the event_times table.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function joinEventTimes(Builder $query)
+    {
+        if (!$this->alreadyJoined($query, 'event_times')) {
+            $query->select('events.*')
+                  ->join('event_times', 'events.id', '=', 'event_times.event_id');
+        }
+        return $query;
+    }
+
+    /**
+     * Join a query with the event_crew table.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function joinEventCrew(Builder $query)
+    {
+        if (!$this->alreadyJoined($query, 'event_crew')) {
+            $query->select('events.*')
+                  ->join('event_crew', 'events.id', '=', 'event_crew.event_id');
+        }
+        return $query;
     }
 }
