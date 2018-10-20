@@ -181,8 +181,7 @@ class ProposalController extends Controller
             $skill = Skill::find($proposal->skill_id);
 
             // Check the level awarded is available
-            if ($request->get('awarded_level') > 0 &&
-			!$skill->isLevelAvailable($request->get('awarded_level'))) {
+            if ($request->get('awarded_level') > 0 && !$skill->isLevelAvailable($request->get('awarded_level'))) {
                 $validator->errors()->add('awarded_level', 'Please select a level that\'s available');
             }
         }));

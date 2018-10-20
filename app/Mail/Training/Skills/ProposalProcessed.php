@@ -34,7 +34,7 @@ class ProposalProcessed extends Mailable
             'awarder'            => $proposal->awarder->name,
             'awarder_forename'   => $proposal->awarder->forename,
             'awarded_level'      => $proposal->awarded_level,
-            'awarded_level_text' => Skill::LEVEL_NAMES[$proposal->awarded_level],
+            'awarded_level_text' => $proposal->awarded_level > 0 ? Skill::LEVEL_NAMES[$proposal->awarded_level] : null,
             'awarded_comment'    => $proposal->awarded_comment,
         ];
     }
