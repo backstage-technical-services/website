@@ -33,6 +33,10 @@ body[page-section*="events"] {
     @import "events";
 }
 
+body[page-section*="logs"] {
+    @import "logs";
+}
+
 body[page-section*="media"] {
     @import "media";
 }

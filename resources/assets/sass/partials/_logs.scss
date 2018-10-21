@@ -1,0 +1,69 @@
+&[page-id="index"] {
+    .table {
+        td {
+            font-size: 13px;
+            vertical-align: top;
+        }
+        [col="status"] {
+            padding-left: 0;
+            padding-right: 0;
+            text-align: center;
+            width: 2em;
+        }
+        [col="date"] {
+            text-align: center;
+            width: 7.5em;
+        }
+        [col="user"], [col="payload"] {
+            display: none;
+        }
+        [col="ip"] {
+            width: 9em;
+        }
+        @media(max-width: 767px) {
+            font-size: 12px;
+        }
+        @media(min-width: 450px) {
+            [col="user"] {
+                display: table-cell;
+            }
+        }
+        @media(min-width: 992px) {
+            [col="user"] {
+                width: 15em;
+            }
+            [col="action"] {
+                width: 15em;
+            }
+            [col="payload"] {
+                display: table-cell;
+            }
+            td[col="payload"] {
+                ul {
+                    font-size: 13px;
+                    padding: 0;
+                    margin: 0;
+                    
+                    li {
+                        margin: 0.25em 0;
+                        list-style: none;
+                        
+                        &:first-child {
+                            margin-top: 0;
+                        }
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+                
+                pre {
+                    border: none;
+                    background: none;
+                    font-size: inherit;
+                    padding: 0
+                }
+            }
+        }
+    }
+}

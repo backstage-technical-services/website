@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Training\Skills;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Training\Skills\AwardSkill;
+use App\Logger;
 use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Proposal;
 use App\Models\Training\Skills\Skill;
@@ -79,6 +80,7 @@ class AwardedController extends Controller
             $user = User::find($member);
             if ((int)$user->getSkillLevel($skill) < $level) {
                 $user->setSkillLevel($skill->id, $level);
+                Logger::log('training-skill.award', true, ['user_id' => $user->id, 'skill_id' => $skill->id, 'level' => $level]);
             }
         }
 
@@ -145,6 +147,9 @@ class AwardedController extends Controller
             ]);
             Notify::success('Skill level reduced');
         }
+        array_walk($members, function ($memberId) use ($skill, $level) {
+            Logger::log('training-skill.revoke', true, ['user_id' => $memberId, 'skill_id' => $skill->id, 'level' => $level]);
+        });
 
         return redirect()->route('training.skill.index');
     }

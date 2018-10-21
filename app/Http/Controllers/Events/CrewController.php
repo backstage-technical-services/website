@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Logger;
 use App\Models\Events\Crew;
 use App\Models\Events\Event;
 use App\Models\Users\User;
@@ -41,71 +42,6 @@ class CrewController extends Controller
     }
 
     /**
-     * Add a guest to the crew list.
-     *
-     * @param \App\Models\Events\Event $event
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    private function storeGuest(Event $event, Request $request)
-    {
-        // Validate
-        $fields = ['guest_name'];
-        $this->validate($request, Crew::getValidationRules($fields), Crew::getValidationMessages($fields));
-
-        // Create
-        $event->crew()
-              ->create([
-                  'user_id'    => null,
-                  'name'       => null,
-                  'em'         => false,
-                  'confirmed'  => $request->has('confirmed'),
-                  'guest_name' => clean($request->get('guest_name')),
-              ]);
-
-        Notify::success('Guest added');
-        return $this->ajaxResponse('Guest added');
-    }
-
-    /**
-     * Add a member to the crew list.
-     *
-     * @param \App\Models\Events\Event $event
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    private function storeMember(Event $event, Request $request)
-    {
-        $user = User::find($request->get('user_id'));
-
-        // Validate
-        $fields = ['user_id', 'name'];
-        $this->validate($request, Crew::getValidationRules($fields), Crew::getValidationMessages($fields));
-
-        // Check the member doesn't already have the same crew role
-        if ($event->crew()->where('user_id', $request->get('user_id'))->where('name', $request->get('name') ?: null)->count()) {
-            return $this->ajaxError(0, 422, $user->forename . ' already has that crew role.');
-        }
-
-        // Create
-        $event->crew()
-              ->create([
-                  'user_id'   => $request->get('user_id'),
-                  'name'      => $request->get('core') ? clean($request->get('name')) : null,
-                  'em'        => $request->get('core') ? $request->has('em') : false,
-                  'confirmed' => $event->isTracked() ? $request->has('confirmed') : false,
-              ]);
-
-        // Send an email to the user
-        User::find($request->get('user_id'))->notify(new HasBeenVolunteered($event));
-
-        Notify::success('Member added to crew');
-        return $this->ajaxResponse('Member added to crew');
-    }
-
-    /**
      * Update a crew role.
      *
      * @param                          $eventId
@@ -137,6 +73,118 @@ class CrewController extends Controller
                 return $this->updateMember($crew, $request);
             }
         }
+    }
+
+    /**
+     * @param $eventId
+     * @param $crewId
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($eventId, $crewId)
+    {
+        // Authorise
+        $event = Event::findOrFail($eventId);
+        $crew  = $event->crew()
+                       ->where('event_crew.id', $crewId)
+                       ->firstOrFail();
+        $this->authorize('delete', $crew);
+
+        // Delete
+        $crew->delete();
+        Notify::success($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
+        return $this->ajaxResponse($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
+    }
+
+    /**
+     * Toggle the volunteering status for the current user.
+     *
+     * @param                          $eventId
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function toggleVolunteer($eventId, Request $request)
+    {
+        $this->requireAjax();
+
+        $event = Event::findOrFail($eventId);
+        $this->authorize('volunteer', $event);
+
+        if (!$request->user()->isCrew($event)) {
+            return $this->volunteer($event, $request);
+        } else {
+            return $this->unvolunteer($event, $request);
+        }
+    }
+
+    /**
+     * Add a guest to the crew list.
+     *
+     * @param \App\Models\Events\Event $event
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function storeGuest(Event $event, Request $request)
+    {
+        // Validate
+        $fields = ['guest_name'];
+        $this->validate($request, Crew::getValidationRules($fields), Crew::getValidationMessages($fields));
+
+        // Create
+        $crew = $event->crew()
+                      ->create([
+                          'user_id'    => null,
+                          'name'       => null,
+                          'em'         => false,
+                          'confirmed'  => $request->has('confirmed'),
+                          'guest_name' => clean($request->get('guest_name')),
+                      ]);
+
+        Logger::log('event-crew.create', true, $crew->getAttributes());
+
+        Notify::success('Guest added');
+        return $this->ajaxResponse('Guest added');
+    }
+
+    /**
+     * Add a member to the crew list.
+     *
+     * @param \App\Models\Events\Event $event
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function storeMember(Event $event, Request $request)
+    {
+        $user = User::find($request->get('user_id'));
+
+        // Validate
+        $fields = ['user_id', 'name'];
+        $this->validate($request, Crew::getValidationRules($fields), Crew::getValidationMessages($fields));
+
+        // Check the member doesn't already have the same crew role
+        if ($event->crew()->where('user_id', $request->get('user_id'))->where('name', $request->get('name') ?: null)->count()) {
+            return $this->ajaxError(0, 422, $user->forename . ' already has that crew role.');
+        }
+
+        // Create
+        $crew = $event->crew()
+                      ->create([
+                          'user_id'   => $request->get('user_id'),
+                          'name'      => $request->get('core') ? clean($request->get('name')) : null,
+                          'em'        => $request->get('core') ? $request->has('em') : false,
+                          'confirmed' => $event->isTracked() ? $request->has('confirmed') : false,
+                      ]);
+
+        Logger::log('event-crew.create', true, $crew->getAttributes());
+
+        // Send an email to the user
+        User::find($request->get('user_id'))->notify(new HasBeenVolunteered($event));
+
+        Notify::success('Member added to crew');
+        return $this->ajaxResponse('Member added to crew');
     }
 
     /**
@@ -217,49 +265,6 @@ class CrewController extends Controller
     }
 
     /**
-     * @param $eventId
-     * @param $crewId
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($eventId, $crewId)
-    {
-        // Authorise
-        $event = Event::findOrFail($eventId);
-        $crew  = $event->crew()
-                       ->where('event_crew.id', $crewId)
-                       ->firstOrFail();
-        $this->authorize('delete', $crew);
-
-        // Delete
-        $crew->delete();
-        Notify::success($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
-        return $this->ajaxResponse($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
-    }
-
-    /**
-     * Toggle the volunteering status for the current user.
-     *
-     * @param                          $eventId
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function toggleVolunteer($eventId, Request $request)
-    {
-        $this->requireAjax();
-
-        $event = Event::findOrFail($eventId);
-        $this->authorize('volunteer', $event);
-
-        if (!$request->user()->isCrew($event)) {
-            return $this->volunteer($event, $request);
-        } else {
-            return $this->unvolunteer($event, $request);
-        }
-    }
-
-    /**
      * Volunteer to crew an event.
      *
      * @param \App\Models\Events\Event $event
@@ -280,6 +285,8 @@ class CrewController extends Controller
             $request->user()->notify(new VolunteeredToCrew($event));
             $event->em->notify(new UserHasVolunteered($crew));
         }
+
+        Logger::log('event.volunteer', true, $crew->getAttributes());
 
         // Message
         Notify::success('You have volunteered');
@@ -305,6 +312,8 @@ class CrewController extends Controller
         $event->crew()
               ->where('user_id', $request->user()->id)
               ->delete();
+
+        Logger::log('event.unvolunteer', true, ['event_id' => $event->id, 'user_id', $request->user()->id]);
 
         Notify::success('You have unvolunteered');
         return $this->ajaxResponse('Unvolunteered');

@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Resources\Resource;
-use App\Observers\Resources\ResourceObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerObservers();
+
     }
 
     /**
@@ -26,13 +24,5 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-    }
-
-    /**
-     * List any observers that should be registered.
-     */
-    public function registerObservers()
-    {
-        Resource::observe(ResourceObserver::class);
     }
 }

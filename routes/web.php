@@ -29,6 +29,7 @@
     include base_path('routes/web/election.php');
     include base_path('routes/web/equipment.php');
     include base_path('routes/web/events.php');
+    include base_path('routes/web/logs.php');
     include base_path('routes/web/media.php');
     include base_path('routes/web/members.php');
     include base_path('routes/web/page.php');

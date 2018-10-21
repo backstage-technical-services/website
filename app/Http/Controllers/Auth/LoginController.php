@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Logger;
 use bnjns\LaravelNotifications\Facades\Notify;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers {
         logout as traitLogout;
+        sendFailedLoginResponse as traitSendFailedLoginResponse;
     }
 
     /**
@@ -77,11 +79,26 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @param  mixed                    $user
      *
-     * @return mixed
+     * @return void
      */
     protected function authenticated(Request $request, $user)
     {
+        Logger::log('auth.login');
         Notify::success('Logged in');
+    }
+
+    /**
+     * Override the failed login response to log the result.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        Logger::log('auth.login', false, $request->only('username'));
+        return $this->traitSendFailedLoginResponse($request);
     }
 
     /**
@@ -93,9 +110,8 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        $response = $this->traitLogout($request);
+        Logger::log('auth.logout');
         Notify::success('Logged out');
-
-        return $response;
+        return $this->traitLogout($request);
     }
 }

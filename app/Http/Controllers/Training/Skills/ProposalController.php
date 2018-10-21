@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Training\Skills;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Training\Skills\SubmitProposal;
+use App\Logger;
 use App\Mail\Training\Skills\ProposalProcessed;
 use App\Mail\Training\Skills\ProposalSubmitted;
 use App\Models\Training\Skills\Proposal;
@@ -187,12 +188,14 @@ class ProposalController extends Controller
         }));
 
         // Update the proposal
-        $proposal->update([
+        $attributes = [
             'awarded_level'   => $request->get('awarded_level'),
             'awarded_by'      => $user->id,
             'awarded_comment' => clean($request->get('awarded_comment')),
             'awarded_date'    => Carbon::now(),
-        ]);
+        ];
+        $proposal->update($attributes);
+        Logger::log('training-skill-proposal.process', true, ['id' => $proposal->id] + $attributes);
 
         // Update the user's skill level
         if ($request->get('awarded_level') > 0) {
