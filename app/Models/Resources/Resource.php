@@ -300,11 +300,11 @@ class Resource extends Model
 
         switch ($this->access) {
             case self::ACCESS_REGISTERED:
-                return !!$user;
+                return !is_null($user);
             case self::ACCESS_MEMBER:
-                return $user->isMember();
+                return !is_null($user) && $user->isMember();
             case self::ACCESS_COMMITTEE:
-                return $user->isCommittee();
+                return !is_null($user) && $user->isCommittee();
             default:
                 return false;
         }
