@@ -28,7 +28,7 @@ This development is led by [Ben Jones](http://github.com/bnjns) and is built on 
 # Contributing
 See the accompanying [contributing.md](contributing.md) file for details on how to contribute;
 
-TL;DR: Anyone can contribute. Contact a member of the `Website Devs` team for help.
+TL;DR: Anyone can contribute; contact Ben for help or more information.
 
 # License
 This website uses code from Laravel and various packages, which retain their original licenses (see each package for more details). The code developed for this website is covered by the GNU General Public License v2 (see the included LICENCE file).
