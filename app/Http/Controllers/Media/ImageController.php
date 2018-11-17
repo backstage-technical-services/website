@@ -76,7 +76,9 @@ class ImageController extends Controller
                 throw new NotFoundHttpException();
             }
 
-            $images = $driveService->getFolderContents($albumId)->getFiles();
+            $images = $driveService->getFolderContents($albumId)
+                                   ->getFiles()
+                                   ->sortByName();
 
             return view('media.images.album')->with([
                 'album'  => $album,
