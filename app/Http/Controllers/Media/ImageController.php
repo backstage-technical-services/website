@@ -23,7 +23,9 @@ class ImageController extends Controller
     {
         try {
             $driveService = $client->makeDriveService();
-            $albums       = $driveService->getFolderContents(self::ROOT_FOLDER_ID)->getFolders();
+            $albums       = $driveService->getFolderContents(self::ROOT_FOLDER_ID)
+                                         ->getFolders()
+                                         ->sortByName();
 
             return view('media.images.index')->with('albums', $albums);
         } catch (\Google_Service_Exception $exception) {
