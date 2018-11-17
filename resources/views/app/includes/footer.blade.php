@@ -26,8 +26,8 @@
             <a href="https://www.twitter.com/backstagetech" target="_blank">
                 <span class="fa fa-twitter" title="Follow us on twitter"></span>
             </a>
-            <a href="https://www.github.com/backstagetechnicalservices/website/issues" target="_blank">
-                <span class="fa fa-github" title="Report an issue"></span>
+            <a href="https://gitlab.com/backstage-technical-services/laravel-site/issues/new" target="_blank">
+                <span class="fa fa-gitlab" title="Report an issue"></span>
             </a>
         </div>
     </div>

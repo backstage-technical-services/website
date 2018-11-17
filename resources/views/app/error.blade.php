@@ -12,8 +12,8 @@
                     <a href="{{ route('home') }}">
                         <span class="fa fa-home" title="Try the homepage"></span>
                     </a>
-                    <a href="https://github.com/backstagetechnicalservices/website/issues" target="_blank" title="Report issue">
-                        <span class="fa fa-github"></span>
+                    <a href="https://gitlab.com/backstage-technical-services/laravel-site/issues/new" target="_blank" title="Report issue">
+                        <span class="fa fa-gitlab"></span>
                     </a>
                 </div>
             </div>
