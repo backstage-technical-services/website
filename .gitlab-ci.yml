@@ -15,6 +15,7 @@ sast:
     artifacts:
         reports:
             sast: gl-sast-report.json
+        when: on_success
 
 dast:
     image: registry.gitlab.com/gitlab-org/security-products/zaproxy
@@ -28,6 +29,7 @@ dast:
     artifacts:
         reports:
             dast: gl-dast-report.json
+        when: on_success
 
 dependency_scanning:
     image: docker:stable
@@ -46,3 +48,4 @@ dependency_scanning:
     artifacts:
         reports:
             dependency_scanning: gl-dependency-scanning-report.json
+        when: on_success
