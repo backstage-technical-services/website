@@ -59,7 +59,7 @@ class MenuServiceProvider extends ServiceProvider
 
             // Media sub-menu
             $media = $menu->find('media');
-            $media->add(route('media.images.index'), 'Image Gallery')->activePattern('^\/media\/images')
+            $media->add(route('media.image.index'), 'Image Gallery')->activePattern('^\/media\/images')
                   ->add(route('media.videos.index'), 'Videos')->activePattern('^\/media\/videos');
 
             if ($isRegistered) {
