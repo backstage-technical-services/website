@@ -40,7 +40,7 @@
                 @can('propose', \App\Models\Training\Skills\Skill::class)
                     <a class="btn btn-success" href="{{ route('training.skill.propose.form') }}">
                         <span class="fa fa-plus"></span>
-                        <span>Propose Skill Level</span>
+                        <span>Apply for Skill</span>
                     </a>
                 @endcan
                 @if(Auth::user()->isAdmin())
