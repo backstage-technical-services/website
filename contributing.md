@@ -19,7 +19,7 @@ There are many ways in which you can contribute without programming, including (
 * Assisting with the administration of the various development tools
 * Helping keep the team sane
 
-These may not sound as sexy and coding a completely new area of the website, but they are actually just as important!
+These may not sound as sexy as coding a completely new area of the website, but they are actually just as important!
 
 ### How involved do I have to be?
 There's no required level of involvement - you can be involved as little as much as you want.
