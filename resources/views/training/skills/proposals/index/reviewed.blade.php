@@ -3,7 +3,7 @@
         <th class="proposal-status"></th>
         <th class="proposal-skill">Skill</th>
         <th class="proposal-user">User</th>
-        <th class="skill-level">Proposed</th>
+        <th class="skill-level">Level Applied for</th>
         <th class="skill-level">Awarded</th>
         <th class="awarded-user">Awarded by</th>
     </thead>
@@ -40,7 +40,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="6">There are no reviewed skill proposals</td>
+                <td colspan="6">There are no reviewed skill applications</td>
             </tr>
         @endforelse
     </tbody>
