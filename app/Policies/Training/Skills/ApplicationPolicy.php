@@ -2,11 +2,11 @@
 
 namespace App\Policies\Training\Skills;
 
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Users\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProposalPolicy
+class ApplicationPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class ProposalPolicy
     /**
      * Determine whether the user can view the details of a proposal.
      *
-     * @param \App\Models\Users\User               $user
-     * @param \App\Models\Training\Skills\Proposal $proposal
+     * @param \App\Models\Users\User                  $user
+     * @param \App\Models\Training\Skills\Application $proposal
      *
      * @return bool
      */
-    public function view(User $user, Proposal $proposal)
+    public function view(User $user, Application $proposal)
     {
         return $user->isAdmin();
     }
@@ -38,12 +38,12 @@ class ProposalPolicy
     /**
      * Determine whether the user can update the details of a proposal.
      *
-     * @param \App\Models\Users\User               $user
-     * @param \App\Models\Training\Skills\Proposal $proposal
+     * @param \App\Models\Users\User                  $user
+     * @param \App\Models\Training\Skills\Application $proposal
      *
      * @return bool
      */
-    public function update(User $user, Proposal $proposal)
+    public function update(User $user, Application $proposal)
     {
         return $user->isAdmin();
     }

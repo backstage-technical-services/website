@@ -3,13 +3,13 @@
 namespace App\Mail\Training\Skills;
 
 use App\Mail\Mailable;
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 
-class ProposalSubmitted extends Mailable
+class ApplicationSubmitted extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,11 +23,11 @@ class ProposalSubmitted extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param \App\Models\Training\Skills\Skill    $skill
-     * @param \App\Models\Training\Skills\Proposal $proposal
-     * @param \App\Models\Users\User               $user
+     * @param \App\Models\Training\Skills\Skill       $skill
+     * @param \App\Models\Training\Skills\Application $proposal
+     * @param \App\Models\Users\User                  $user
      */
-    public function __construct(Skill $skill, Proposal $proposal, User $user)
+    public function __construct(Skill $skill, Application $proposal, User $user)
     {
         $this->proposal = [
             'skill'      => $skill->name,

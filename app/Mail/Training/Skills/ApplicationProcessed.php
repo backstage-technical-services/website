@@ -3,12 +3,12 @@
 namespace App\Mail\Training\Skills;
 
 use App\Mail\Mailable;
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 
-class ProposalProcessed extends Mailable
+class ApplicationProcessed extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,9 +22,9 @@ class ProposalProcessed extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param \App\Models\Training\Skills\Proposal $proposal
+     * @param \App\Models\Training\Skills\Application $proposal
      */
-    public function __construct(Proposal $proposal)
+    public function __construct(Application $proposal)
     {
         $this->proposal = [
             'user'               => $proposal->user->name,

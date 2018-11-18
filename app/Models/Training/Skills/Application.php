@@ -5,7 +5,7 @@ namespace App\Models\Training\Skills;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Proposal extends Model
+class Application extends Model
 {
     /**
      * Disable the created/updated timestamps.

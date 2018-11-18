@@ -19,7 +19,7 @@ use App\Models\Resources\Category as ResourceCategory;
 use App\Models\Resources\Resource;
 use App\Models\Resources\Tag as ResourceTag;
 use App\Models\Training\Category as SkillCategory;
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
 use App\Policies\Awards\AwardPolicy;
@@ -39,7 +39,7 @@ use App\Policies\Resources\CategoryPolicy as ResourceCategoryPolicy;
 use App\Policies\Resources\ResourcePolicy;
 use App\Policies\Resources\TagPolicy as ResourceTagPolicy;
 use App\Policies\Training\CategoryPolicy as SkillCategoryPolicy;
-use App\Policies\Training\Skills\ProposalPolicy;
+use App\Policies\Training\Skills\ApplicationPolicy;
 use App\Policies\Training\Skills\SkillPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -64,7 +64,7 @@ class AuthServiceProvider extends ServiceProvider
         EventCrew::class          => EventCrewPolicy::class,
         EventTime::class          => EventTimePolicy::class,
         Page::class               => PagePolicy::class,
-        Proposal::class           => ProposalPolicy::class,
+        Application::class        => ApplicationPolicy::class,
         Quote::class              => QuotePolicy::class,
         Resource::class           => ResourcePolicy::class,
         ResourceCategory::class   => ResourceCategoryPolicy::class,

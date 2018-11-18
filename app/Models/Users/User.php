@@ -5,7 +5,7 @@ namespace App\Models\Users;
 use App\Models\Events\Event;
 use App\Models\Training\Category;
 use App\Models\Training\Skills\AwardedSkill;
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Notifications\Auth\ResetPassword;
 use App\Notifications\Users\UserAccountCreated;
@@ -962,10 +962,10 @@ class User extends Authenticatable
      */
     public function hasProposalPending(Skill $skill)
     {
-        return Proposal::notAwarded()
-                       ->where('user_id', $this->id)
-                       ->where('skill_id', $skill->id)
-                       ->count() > 0;
+        return Application::notAwarded()
+                          ->where('user_id', $this->id)
+                          ->where('skill_id', $skill->id)
+                          ->count() > 0;
     }
 
     /**

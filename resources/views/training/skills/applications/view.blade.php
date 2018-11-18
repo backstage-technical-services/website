@@ -4,7 +4,7 @@
 @section('page-id', 'proposals-view')
 @section('title', 'Training Skills')
 @section('header-main', 'Training Skills')
-@section('header-sub', 'View Proposal')
+@section('header-sub', 'Application')
 
 @section('content')
     {!! Form::open(['class' => 'form-horizontal']) !!}

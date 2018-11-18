@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Training\Skills;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Training\Skills\SubmitProposal;
+use App\Http\Requests\Training\Skills\SubmitApplication;
 use App\Logger;
-use App\Mail\Training\Skills\ProposalProcessed;
-use App\Mail\Training\Skills\ProposalSubmitted;
-use App\Models\Training\Skills\Proposal;
+use App\Mail\Training\Skills\ApplicationProcessed;
+use App\Mail\Training\Skills\ApplicationSubmitted;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
 use bnjns\LaravelNotifications\Facades\Notify;
@@ -17,12 +17,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Validator;
 
-class ProposalController extends Controller
+class ApplicationController extends Controller
 {
     use ChecksPaginationPage;
 
     /**
-     * ProposalController constructor.
+     * ApplicationController constructor.
      */
     public function __construct()
     {
@@ -38,7 +38,7 @@ class ProposalController extends Controller
      */
     public function form($id = null)
     {
-        $this->authorize('propose', Proposal::class);
+        $this->authorize('propose', Application::class);
 
         $levels = $this->determineSelectableProposalSkillLevels($skill = $id === null ? null : Skill::find($id), $user = request()->user());
 
@@ -66,16 +66,16 @@ class ProposalController extends Controller
     /**
      * Process the form and submit the proposal.
      *
-     * @param \App\Http\Requests\Training\Skills\SubmitProposal $request
+     * @param \App\Http\Requests\Training\Skills\SubmitApplication $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function propose(SubmitProposal $request)
+    public function propose(SubmitApplication $request)
     {
         // Create the proposal
         $skill    = Skill::find($request->get('skill_id'));
         $user     = $request->user();
-        $proposal = Proposal::create([
+        $proposal = Application::create([
             'skill_id'        => $skill->id,
             'user_id'         => $user->id,
             'proposed_level'  => clean($request->get('level')),
@@ -89,9 +89,9 @@ class ProposalController extends Controller
 
         // Email the T&S officer
         Mail::to('training@bts-crew.com')
-            ->queue(new ProposalSubmitted($skill, $proposal, $user));
+            ->queue(new ApplicationSubmitted($skill, $proposal, $user));
 
-        Notify::success('Proposal submitted');
+        Notify::success('Application submitted');
         return redirect()->route('training.skill.index');
     }
 
@@ -102,13 +102,13 @@ class ProposalController extends Controller
      */
     public function index()
     {
-        $unawarded = Proposal::notAwarded()
-                             ->orderBy('date', 'ASC')
-                             ->get();
-        $awarded   = Proposal::awarded()
-                             ->orderBy('awarded_date', 'DESC')
-                             ->paginate(30)
-                             ->appends('tab', 'reviewed');
+        $unawarded = Application::notAwarded()
+                                ->orderBy('date', 'ASC')
+                                ->get();
+        $awarded   = Application::awarded()
+                                ->orderBy('awarded_date', 'DESC')
+                                ->paginate(30)
+                                ->appends('tab', 'reviewed');
         $this->checkPage($awarded);
 
         return view('training.skills.applications.index')->with([
@@ -127,7 +127,7 @@ class ProposalController extends Controller
      */
     public function view($id)
     {
-        $proposal = Proposal::findOrFail($id);
+        $proposal = Application::findOrFail($id);
         $this->authorize('view', $proposal);
 
         $levels = [
@@ -155,7 +155,7 @@ class ProposalController extends Controller
      */
     public function update($id, Request $request)
     {
-        $proposal = Proposal::findOrFail($id);
+        $proposal = Application::findOrFail($id);
         $this->authorize('update', $proposal);
 
         // If the proposal is already awarded, go back to viewing
@@ -204,9 +204,9 @@ class ProposalController extends Controller
 
         // Email the user
         Mail::to($proposal->user->email, $proposal->user->name)
-            ->queue(new ProposalProcessed($proposal));
+            ->queue(new ApplicationProcessed($proposal));
 
-        Notify::success('Proposal processed');
+        Notify::success('Application processed');
         return redirect()->route('training.skill.proposal.index');
     }
 
