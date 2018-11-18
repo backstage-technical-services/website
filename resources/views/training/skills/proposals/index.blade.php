@@ -2,9 +2,9 @@
 
 @section('page-section', 'training')
 @section('page-id', 'proposals-index')
-@section('title', 'Skill Proposals')
+@section('title', 'Skill Applications')
 @section('header-main', 'Training Skills')
-@section('header-sub', 'Skill Proposals')
+@section('header-sub', 'Skill Applications')
 
 @section('content')
     <div class="mobile-only">
