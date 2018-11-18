@@ -47,7 +47,7 @@ class ProposalSubmitted extends Mailable
     public function build()
     {
         return $this->replyTo($this->proposal['user_email'], $this->proposal['user'])
-                    ->subject('Training Skill Proposal')
+                    ->subject('Training Skill Application')
                     ->markdown('emails.training.skills.proposal.submitted')
                     ->with($this->proposal);
     }

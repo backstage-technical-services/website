@@ -47,7 +47,7 @@ class ProposalProcessed extends Mailable
     public function build()
     {
         return $this->replyTo('training@bts-crew.com')
-                    ->subject('Your Skill Proposal')
+                    ->subject('Your Skill Application')
                     ->markdown('emails.training.skills.proposal.processed')
                     ->with($this->proposal);
     }
