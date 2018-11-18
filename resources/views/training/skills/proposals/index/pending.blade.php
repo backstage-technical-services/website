@@ -2,8 +2,8 @@
     <thead>
         <th class="proposal-skill">Skill</th>
         <th class="proposal-user">User</th>
-        <th class="proposal-level">Proposed Level</th>
-        <th class="proposal-date">Proposed</th>
+        <th class="proposal-level">Skill Level</th>
+        <th class="proposal-date">Application Date</th>
     </thead>
     <tbody>
         @forelse($unawarded as $proposal)
@@ -26,7 +26,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="4">There are no skill proposals requiring review</td>
+                <td colspan="4">There are no skill applications requiring review</td>
             </tr>
         @endforelse
     </tbody>
