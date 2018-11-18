@@ -63,7 +63,7 @@ class AwardedController extends Controller
                              ->withInput($request->all());
         }
 
-        // Award any outstanding proposals
+        // Award any outstanding applications
         Proposal::notAwarded()
                 ->where('skill_id', $skill->id)
                 ->whereIn('user_id', [$members])

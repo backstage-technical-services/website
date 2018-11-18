@@ -57,7 +57,7 @@ class ProposalController extends Controller
             return redirect()->route('training.skill.view', ['id' => $skill->id]);
         }
 
-        return view('training.skills.proposals.propose')->with([
+        return view('training.skills.applications.propose')->with([
             'skill'           => $id === null ? null : $skill,
             'AvailableLevels' => array_keys(array_filter($levels)),
         ]);
@@ -111,7 +111,7 @@ class ProposalController extends Controller
                              ->appends('tab', 'reviewed');
         $this->checkPage($awarded);
 
-        return view('training.skills.proposals.index')->with([
+        return view('training.skills.applications.index')->with([
             'unawarded' => $unawarded,
             'awarded'   => $awarded,
             'tab'       => request()->get('tab') == 'reviewed' ? 'reviewed' : 'pending',
@@ -139,7 +139,7 @@ class ProposalController extends Controller
             }
         }
 
-        return view('training.skills.proposals.view')->with([
+        return view('training.skills.applications.view')->with([
             'proposal' => $proposal,
             'levels'   => $levels,
         ]);

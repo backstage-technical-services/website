@@ -79,7 +79,7 @@ class Proposal extends Model
     }
 
     /**
-     * Add a scope for getting proposals which haven't been awarded.
+     * Add a scope for getting applications which haven't been awarded.
      *
      * @param $query
      */
@@ -89,7 +89,7 @@ class Proposal extends Model
     }
 
     /**
-     * Add a scope for getting proposals that have been awarded.
+     * Add a scope for getting applications that have been awarded.
      *
      * @param $query
      */
