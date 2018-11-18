@@ -59,7 +59,7 @@ class Application extends Model
     }
 
     /**
-     * Define the relationship with the user who made the proposal.
+     * Define the relationship with the user who made the application.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -69,7 +69,7 @@ class Application extends Model
     }
 
     /**
-     * Define the relationship with the user who awarded the proposal.
+     * Define the relationship with the user who awarded the application.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -99,7 +99,7 @@ class Application extends Model
     }
 
     /**
-     * Check if a proposal has been awarded.
+     * Check if a application has been awarded.
      *
      * @return bool
      */

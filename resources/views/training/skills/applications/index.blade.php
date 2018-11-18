@@ -1,7 +1,7 @@
 @extends('app.main')
 
 @section('page-section', 'training')
-@section('page-id', 'proposals-index')
+@section('page-id', 'applications-index')
 @section('title', 'Skill Applications')
 @section('header-main', 'Training Skills')
 @section('header-sub', 'Skill Applications')
@@ -26,10 +26,10 @@
         </div>
         <div class="tab-content">
             <div class="tab-pane{{ $tab == 'pending' ? ' active' : '' }}">
-                @include('training.skills.proposals.index.pending')
+                @include('training.skills.applications.index.pending')
             </div>
             <div class="tab-pane{{ $tab == 'reviewed' ? ' active' : '' }}">
-                @include('training.skills.proposals.index.reviewed')
+                @include('training.skills.applications.index.reviewed')
                 @Paginator($awarded)
             </div>
         </div>

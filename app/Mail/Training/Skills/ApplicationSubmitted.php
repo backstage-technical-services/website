@@ -14,28 +14,28 @@ class ApplicationSubmitted extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Variable to store the proposal details.
+     * Variable to store the application details.
      *
      * @var array
      */
-    private $proposal;
+    private $application;
 
     /**
      * Create a new message instance.
      *
      * @param \App\Models\Training\Skills\Skill       $skill
-     * @param \App\Models\Training\Skills\Application $proposal
+     * @param \App\Models\Training\Skills\Application $application
      * @param \App\Models\Users\User                  $user
      */
-    public function __construct(Skill $skill, Application $proposal, User $user)
+    public function __construct(Skill $skill, Application $application, User $user)
     {
-        $this->proposal = [
+        $this->application = [
             'skill'      => $skill->name,
             'user'       => $user->name,
             'user_email' => $user->email,
-            'url'        => route('training.skill.proposal.view', ['id' => $proposal->id]),
-            'level'      => Skill::LEVEL_NAMES[$proposal->proposed_level],
-            'reasoning'  => $proposal->reasoning,
+            'url'        => route('training.skill.application.view', ['id' => $application->id]),
+            'level'      => Skill::LEVEL_NAMES[$application->proposed_level],
+            'reasoning'  => $application->reasoning,
         ];
     }
 
@@ -46,9 +46,9 @@ class ApplicationSubmitted extends Mailable
      */
     public function build()
     {
-        return $this->replyTo($this->proposal['user_email'], $this->proposal['user'])
+        return $this->replyTo($this->application['user_email'], $this->application['user'])
                     ->subject('Training Skill Application')
-                    ->markdown('emails.training.skills.proposal.submitted')
-                    ->with($this->proposal);
+                    ->markdown('emails.training.skills.application.submitted')
+                    ->with($this->application);
     }
 }

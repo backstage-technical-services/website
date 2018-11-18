@@ -165,7 +165,7 @@ class ViewServiceProvider extends ServiceProvider
     private function attachTrainingSkillList()
     {
         view()->composer([
-            'training.skills.applications.propose',
+            'training.skills.applications.apply',
             'training.skills.award',
             'training.skills.revoke',
         ], function ($view) {

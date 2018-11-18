@@ -954,13 +954,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Test whether the user has a proposal pending for a given skill.
+     * Test whether the user has an application pending for a given skill.
      *
      * @param \App\Models\Training\Skills\Skill $skill
      *
      * @return bool
      */
-    public function hasProposalPending(Skill $skill)
+    public function hasApplicationPending(Skill $skill)
     {
         return Application::notAwarded()
                           ->where('user_id', $this->id)

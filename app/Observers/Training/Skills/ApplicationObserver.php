@@ -8,8 +8,8 @@ use App\Observers\ModelObserver;
 
 class ApplicationObserver extends ModelObserver
 {
-    public function created(Application $proposal)
+    public function created(Application $application)
     {
-        Logger::log('training-skill.propose', true, $this->getCreatedAttributes($proposal));
+        Logger::log('training-skill.apply', true, $this->getCreatedAttributes($application));
     }
 }

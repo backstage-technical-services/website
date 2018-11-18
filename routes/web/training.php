@@ -110,7 +110,7 @@ Route::group([
                 'uses' => 'Training\Skills\AwardedController@revoke',
             ]);
         });
-        // Proposals
+        // Applications
         Route::group([
             'prefix' => 'apply/{id?}',
             'where'  => ['id' => '\d+'],
@@ -121,11 +121,11 @@ Route::group([
             ]);
             Route::post('', [
                 'as'   => 'training.skill.apply',
-                'uses' => 'Training\Skills\ApplicationController@propose',
+                'uses' => 'Training\Skills\ApplicationController@apply',
             ]);
         });
     });
-    // Proposals
+    // Applications
     Route::group([
         'prefix' => 'applications',
     ], function () {

@@ -19,9 +19,9 @@
                                 <td class="skill-name">
                                     <a class="grey" href="{{ route('training.skill.view', ['id' => $skill->id]) }}">{{ $skill->name }}</a>
                                 </td>
-                                <td class="skill-proposal">
-                                    @if($user->hasProposalPending($skill))
-                                        <span class="fa fa-refresh success" title="Proposal pending"></span>
+                                <td class="skill-application">
+                                    @if($user->hasApplicationPending($skill))
+                                        <span class="fa fa-refresh success" title="Application pending"></span>
                                     @endif
                                 </td>
                                 <td class="skill-level">

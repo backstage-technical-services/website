@@ -13,29 +13,29 @@ class ApplicationProcessed extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Variable to store the proposal data.
+     * Variable to store the application data.
      *
      * @var array
      */
-    private $proposal;
+    private $application;
 
     /**
      * Create a new message instance.
      *
-     * @param \App\Models\Training\Skills\Application $proposal
+     * @param \App\Models\Training\Skills\Application $application
      */
-    public function __construct(Application $proposal)
+    public function __construct(Application $application)
     {
-        $this->proposal = [
-            'user'               => $proposal->user->name,
-            'user_email'         => $proposal->user->email,
-            'level'              => Skill::LEVEL_NAMES[$proposal->proposed_level],
-            'skill'              => $proposal->skill->name,
-            'awarder'            => $proposal->awarder->name,
-            'awarder_forename'   => $proposal->awarder->forename,
-            'awarded_level'      => $proposal->awarded_level,
-            'awarded_level_text' => $proposal->awarded_level > 0 ? Skill::LEVEL_NAMES[$proposal->awarded_level] : null,
-            'awarded_comment'    => $proposal->awarded_comment,
+        $this->application = [
+            'user'               => $application->user->name,
+            'user_email'         => $application->user->email,
+            'level'              => Skill::LEVEL_NAMES[$application->proposed_level],
+            'skill'              => $application->skill->name,
+            'awarder'            => $application->awarder->name,
+            'awarder_forename'   => $application->awarder->forename,
+            'awarded_level'      => $application->awarded_level,
+            'awarded_level_text' => $application->awarded_level > 0 ? Skill::LEVEL_NAMES[$application->awarded_level] : null,
+            'awarded_comment'    => $application->awarded_comment,
         ];
     }
 
@@ -48,7 +48,7 @@ class ApplicationProcessed extends Mailable
     {
         return $this->replyTo('training@bts-crew.com')
                     ->subject('Your Skill Application')
-                    ->markdown('emails.training.skills.proposal.processed')
-                    ->with($this->proposal);
+                    ->markdown('emails.training.skills.application.processed')
+                    ->with($this->application);
     }
 }

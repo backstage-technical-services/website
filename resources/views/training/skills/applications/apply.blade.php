@@ -1,13 +1,13 @@
 @extends('app.main')
 
 @section('page-section', 'training')
-@section('page-id', 'proposals-propose')
+@section('page-id', 'applications-apply')
 @section('title', 'Apply for a Skill')
 @section('header-main', 'Training Skills')
 @section('header-sub', 'Apply for a Skill')
 
 @section('content')
-    {!! Form::open(['route' => 'training.skill.propose']) !!}
+    {!! Form::open(['route' => 'training.skill.apply']) !!}
     <p>If you feel like you should be awarded a skill, or be a higher level than currently awarded, you can use this form to apply for your new skill level.
         This will then be reviewed by the Training and Safety Officer.</p>
     <div class="form-group @InputClass('skill_id')">
