@@ -2,9 +2,9 @@
 
 @section('page-section', 'training')
 @section('page-id', 'proposals-propose')
-@section('title', 'Training Skills')
+@section('title', 'Apply for a Skill')
 @section('header-main', 'Training Skills')
-@section('header-sub', 'Skill Application')
+@section('header-sub', 'Apply for a Skill')
 
 @section('content')
     {!! Form::open(['route' => 'training.skill.propose']) !!}
