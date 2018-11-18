@@ -122,7 +122,7 @@ class MenuServiceProvider extends ServiceProvider
                 if ($isAdmin) {
                     $menu->find('members.training')
                          ->add(route('training.category.index'), 'View categories')
-                         ->add(route('training.skill.proposal.index'), 'Review proposals')->activePattern('^\/training\/proposals')
+                         ->add(route('training.skill.proposal.index'), 'Review applications')->activePattern('^\/training\/proposals')
                          ->add(route('training.skill.log'), 'Skills log');
                 }
 
