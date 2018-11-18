@@ -3,7 +3,7 @@
         <th class="proposal-status"></th>
         <th class="proposal-skill">Skill</th>
         <th class="proposal-user">User</th>
-        <th class="skill-level">Level Applied for</th>
+        <th class="skill-level">Applied for</th>
         <th class="skill-level">Awarded</th>
         <th class="awarded-user">Awarded by</th>
     </thead>
