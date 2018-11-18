@@ -4,12 +4,12 @@
 @section('page-id', 'proposals-propose')
 @section('title', 'Training Skills')
 @section('header-main', 'Training Skills')
-@section('header-sub', 'Propose a Skill Level')
+@section('header-sub', 'Skill Application')
 
 @section('content')
     {!! Form::open(['route' => 'training.skill.propose']) !!}
-    <p>If you feel like you should be awarded a skill, or be a higher level than currently awarded, you can use this form to propose your new skill level.
-        This will then be reviewed by the committee.</p>
+    <p>If you feel like you should be awarded a skill, or be a higher level than currently awarded, you can use this form to apply for your new skill level.
+        This will then be reviewed by the Training and Safety Officer.</p>
     <div class="form-group @InputClass('skill_id')">
         {!! Form::label('skill_id', 'Select skill:', ['class' => 'control-label']) !!}
         @if($skill === null)
@@ -33,13 +33,13 @@
     </div>
     <div class="form-group @InputClass('reasoning')">
         {!! Form::label('reasoning', 'Please provide some reasoning:', ['class' => 'control-label']) !!}
-        {!! Form::textarea('reasoning', null, ['class' => 'form-control', 'placeholder' => 'Explain why you should be awarded this level - use examples to help justify your proposal', 'rows' => 6]) !!}
+        {!! Form::textarea('reasoning', null, ['class' => 'form-control', 'placeholder' => 'Explain why you should be awarded this level - use examples to help justify your application', 'rows' => 6]) !!}
         @InputError('reasoning')
     </div>
     <div class="form-group">
-        <button class="btn btn-success" data-disable="click" data-disable-text="Submitting proposal ...">
+        <button class="btn btn-success" data-disable="click" data-disable-text="Submitting application ...">
             <span class="fa fa-check"></span>
-            <span>Propose skill level</span>
+            <span>Apply for Skill</span>
         </button>
         <span class="form-link">
             or
