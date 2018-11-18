@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hi,
 
-Your skill proposal for **{{ $level }}** in **{{ $skill }}** has been processed by {{ $awarder }}.
+Your skill application for **{{ $level }}** in **{{ $skill }}** has been processed by {{ $awarder }}.
 
 @if($awarded_level == 0)
 Unfortunately you haven't been awarded the skill this time. {{ $awarder_forename }}'s comments are included below.
@@ -18,7 +18,7 @@ You have been awarded {{ $awarded_level_text }}.
 @endcomponent
 @endif
 
-If you have any questions about this proposal, you can get in touch with the Training and Safety Officer by replying to this email.
+If you have any questions about this application, you can get in touch with the Training and Safety Officer by replying to this email.
 
 Regards,<br>
 {{ config('app.name') }}
