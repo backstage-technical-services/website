@@ -167,7 +167,7 @@ class ApplicationController extends Controller
         $user = request()->user();
         if ($proposal->user_id == $user->id) {
             Notify::warning('You can\'t review your own proposal');
-            return redirect()->route('training.skill.proposal.index');
+            return redirect()->route('training.skill.application.index');
         }
 
         // Validate the request
@@ -207,7 +207,7 @@ class ApplicationController extends Controller
             ->queue(new ApplicationProcessed($proposal));
 
         Notify::success('Application processed');
-        return redirect()->route('training.skill.proposal.index');
+        return redirect()->route('training.skill.application.index');
     }
 
     /**

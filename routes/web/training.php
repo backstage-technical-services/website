@@ -112,38 +112,38 @@ Route::group([
         });
         // Proposals
         Route::group([
-            'prefix' => 'propose/{id?}',
+            'prefix' => 'apply/{id?}',
             'where'  => ['id' => '\d+'],
         ], function () {
             Route::get('', [
-                'as'   => 'training.skill.propose.form',
-                'uses' => 'Training\Skills\ProposalController@form',
+                'as'   => 'training.skill.apply.form',
+                'uses' => 'Training\Skills\ApplicationController@form',
             ]);
             Route::post('', [
-                'as'   => 'training.skill.propose',
-                'uses' => 'Training\Skills\ProposalController@propose',
+                'as'   => 'training.skill.apply',
+                'uses' => 'Training\Skills\ApplicationController@propose',
             ]);
         });
     });
     // Proposals
     Route::group([
-        'prefix' => 'proposals',
+        'prefix' => 'applications',
     ], function () {
         Route::get('', [
-            'as'   => 'training.skill.proposal.index',
-            'uses' => 'Training\Skills\ProposalController@index',
+            'as'   => 'training.skill.application.index',
+            'uses' => 'Training\Skills\ApplicationController@index',
         ]);
         Route::group([
             'prefix' => '{id}',
             'where'  => ['id' => '\d+'],
         ], function () {
             Route::get('', [
-                'as'   => 'training.skill.proposal.view',
-                'uses' => 'Training\Skills\ProposalController@view',
+                'as'   => 'training.skill.application.view',
+                'uses' => 'Training\Skills\ApplicationController@view',
             ]);
             Route::post('', [
-                'as'   => 'training.skill.proposal.update',
-                'uses' => 'Training\Skills\ProposalController@update',
+                'as'   => 'training.skill.application.update',
+                'uses' => 'Training\Skills\ApplicationController@update',
             ]);
         });
     });

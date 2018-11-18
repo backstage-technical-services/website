@@ -17,10 +17,10 @@
         <div class="tab-links">
             <ul class="nav nav-tabs">
                 <li{{ $tab == 'pending' ? ' class=active' : '' }}>
-                    <a href="{{ route('training.skill.proposal.index', ['tab' => 'pending']) }}">Pending Review</a>
+                    <a href="{{ route('training.skill.application.index', ['tab' => 'pending']) }}">Pending Review</a>
                 </li>
                 <li{{ $tab == 'reviewed' ? ' class=active' : '' }}>
-                    <a href="{{ route('training.skill.proposal.index', ['tab' => 'reviewed']) }}">Reviewed</a>
+                    <a href="{{ route('training.skill.application.index', ['tab' => 'reviewed']) }}">Reviewed</a>
                 </li>
             </ul>
         </div>
