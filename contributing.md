@@ -23,8 +23,8 @@ There are many ways in which you can contribute without programming, including (
 
 These may not sound as sexy as coding a completely new area of the website, but they are actually just as important!
 
-* If you just want to report issues or request new features on GitLab, you do not need to read this document anymore (however, we recommend you read the section on [GitLab][#gitlab] so you know the basics of how it works).
-* If you want to get more involved with the development process [read about the tools we use][#development-tools] any other relevant parts of this document.
+* If you just want to [report issues or request new features][link-report-issue], you do not need to read this document anymore (however, we recommend you read the section on [GitLab][#gitlab] so you know the basics of how it works).
+* If you want to get more involved with the development process please continue reading.
 
 ## Development tools
 To ease development several tools are used, it's recommend you glance over this section so you understand what each does, and which you need.
