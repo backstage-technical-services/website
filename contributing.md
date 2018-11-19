@@ -37,7 +37,7 @@ To work on the repository you'll also need to be added to the [GitLab group][lin
 
 It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - fork the repository, make the change and submit a Merge Request. We strongly recommend against this route as we'd prefer to build an informed team, rather than use a disorganised "hit and run" approach. These types of Merge Requests will be assessed on a case-by-case basis.
 
-An introduction to git (which GitLab is built upon) can be found [here][link-git-help].
+An introduction to git (which GitLab is a web interface for) can be found [here][link-git-help].
 
 ### Slack
 Good communication is vital, and ours happens on [Slack][link-slack]. We don't want anyone to be left out, so all discussions must happen here, no matter how big or small - please don't use external social media apps like Facebook, or even emails.
@@ -149,8 +149,9 @@ Once you have the above configured, you can install the site:
 
 ### Understanding the Website
 
-The Website is built using the Laveral framework, their [documentation][link-laveral-docs] are the best place to start looking to understand the website structure.
+The website is built using PHP 7, with a framework called Laravel; their [documentation][link-laravel-docs] is the best place to start to familiarise yourself with the organisation of the website.
 
+It's also recommended you familiarise yourself with [SASS][link-sass] as this is used to process the stylesheets.
 
 ## Development Workflow
 To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies depends on whether you're working on a [standard ticket](#standard-tickets) or a [hotfix](#hotfixes).
@@ -247,6 +248,7 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-phpstorm]: https://www.jetbrains.com/phpstorm
 [gitlab-register]: https://gitlab.com/users/sign_in#register-pane
 [link-ben]: https://www.gitlab.com/bnjns
-[link-laveral-docs]: https://laravel.com/docs/5.7
+[link-laravel-docs]: https://laravel.com/docs/5.6
 [link-bts-dev]: https://dev.bts-crew.com/
 [link-git-help]: https://guides.github.com/introduction/git-handbook/
+[link-sass]: https://sass-lang.com/guide
