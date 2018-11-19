@@ -1,5 +1,5 @@
 # Contributing
-The purpose of this document is to outline the guidelines, rules, limitations and any other information needed in order for someone to get involved with the development of the website. This document is very long as it intends to provide all the information necessary on the entire workflow, but please don't be daunted - there's no need to know everything from the off and any existing member of the team will be happy to help!
+This document outlines the guidelines, rules, limitations and any other information needed in order to get involved with the development of the website. This document is very long as it intends to provide all the information necessary on the entire workflow, but please don't be daunted - there's no need to know everything from the off and any existing member of the team will be happy to help!
 
 By contributing to this project in any way (from reporting issues to actual development) you are agreeing to abide by the guidelines, rules and limitations outlined in this document. However, you only need to agree to the parts which are relevant for your level of involvement (eg, you don't need to agree to the rules around how to develop if you only intend to report issues).
 
@@ -7,10 +7,12 @@ If you have any questions, or want to clarify anything, please just get in conta
 
 ## The Basics
 ### Who can contribute?
-Any Backstage member or associate is encouraged to help with the maintenance of the site, and development of new features. Absolutely no experience in design or programming is necessary as we all love showing off by teaching people new skills. Of course, we also welcome anyone with lots of experience!
+Any interested Backstage member or associate is encouraged to help with the maintenance of the site, and development of new features. Absolutely no experience in design or programming is necessary as we all love showing off by teaching people new skills. Of course, we also welcome anyone with lots of experience!
+
+There's no required level of involvement - you can be involved as little / as much as you want.
 
 ### I can't programme - can I still contribute?
-Yes, you most definitely can.
+Yes, you most definitely can!
 
 There are many ways in which you can contribute without programming, including (but not limited to):
 * Reporting bugs
@@ -21,11 +23,8 @@ There are many ways in which you can contribute without programming, including (
 
 These may not sound as sexy as coding a completely new area of the website, but they are actually just as important!
 
-### How involved do I have to be?
-There's no required level of involvement - you can be involved as little as much as you want.
-
 * If you just want to report issues or request new features on GitLab, you do not need to read this document anymore (however, we recommend you read the section on [GitLab][#gitlab] so you know the basics of how it works).
-* If you want to get involved with the development process, rather than just reporting issues, then you need to [read about the tools we use][#development-tools] any other relevant parts of this document.
+* If you want to get more involved with the development process [read about the tools we use][#development-tools] any other relevant parts of this document.
 
 ## Development tools
 We use a lot of different tools to help with the development of the website. Each tool is designed to perform a specific task so you don't necessarily need to be part of every one, but it's recommend you glance over this section so you understand what each tool does, and which you need to use.
