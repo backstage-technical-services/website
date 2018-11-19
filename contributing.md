@@ -68,18 +68,9 @@ Apps we currently have installed:
 If you want another integration installed, just ask a Workspace Admin.
 
 ### Jira
-[Jira][link-jira] is currently being trialled as an addition to GitLab. The is used internally by the team to split up and discuss issues in a way that doesn't disturb the GitLab reporter.
+[Jira][link-jira] is currently being trialled as an addition to GitLab. It is used internally by the team to discuss issues and break issues down into more manageable tasks in a way that doesn't disturb the GitLab reporter. Jira also provides us with far more power over issues by providing multiple ticket types rather than the single avaliable in GitLab. This allows us to tailor our [Development Workflow][#development-workflow] to the ticket type.
 
-#### Why not just use GitLab issues?
-Jira provides us with far more power over issues - GitLab only has 1 type of issue, where as we can configure Jira to use as many types of `tickets` as we want. This provides us with much more control over how we organise the workflow.
-
-Jira also allows us to break tickets down in a more manageable tasks and enable better planning - if we tried to do this with GitLab we'd be constantly bothering the reporter!
-
-#### Creating an account
 To get an account, send a message in Slack and an administrator will send you an invitation. Jira can be a bit of a beast to learn, so don't hesitate to ask for help or tips!
-
-#### Using Jira
-See [Development Workflow][#development-workflow] to see how Jira fits into the development workflow.
 
 ### Bugsnag
 [Bugsnag][link-bugsnag] is used to log errors and provide the team with all the information needed to resolve the error. We're currently on a free plan, so sharing isn't possible - but if you're working on an issue Ben can provide you with any relevant information.
