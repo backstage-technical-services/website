@@ -159,22 +159,22 @@ Once you have the above configured, you can install the site:
     > This will only set up the table structure; you'll need to get the data from a Maintainer.
 
 ## Development Workflow
-In order to ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies to a particular ticket depends on whether it is a [standard ticket][#standard-tickets] or a [hotfix][#hotfixes].
+To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use, for [standard tickets][#standard-tickets] or a [hotfix][#hotfixes].
 
-This project makes use of the Kanban system, where all tickets must go through the stages sequentially, and each stage has a set of criteria that the ticket must meet before it is allowed to enter that stage. No team member is allowed to work on something that is not a ticket on Jira, no matter how small.
+This project uses the Kanban system, where all tickets must go through the stages sequentially, and each stage has a set of criteria that the ticket must meet before it is allowed to enter that stage. No team member is allowed to work on something that is not a ticket on Jira, no matter how small.
 
 If you are intending on working on the site, please make sure you have read this section fully so you understand how the Kanban board is used, and the process works locally.
 
 ### Stages
 * `Backlog`: This is where all new tickets arrive. These can either come from GitLab, or are manually created by a Maintainer. You must not work on a ticket in this area, as it may not be well-defined or may not be considered important enough to be worked upon yet.
-* `Selected for Development`: This stage holds all tickets that are ready to be worked on. These tickets have a clear and measurable objective, and have been deemed to be suitable for working on. To ensure that the team only works on worthwhile tickets, only a Maintainer can move a ticket from the backlog to this stage. Once a ticket is moved to this stage any one is able to assign that ticket to themselves, indicating that they intend to work on it in the near future.
-    >  If you assign yourself to a ticket, it does not mean you have to work on it alone - you are more than welcome to enlist other team members to help! It just means we know who's in charge of a ticket.
+* `Selected for Development`: All tickets that are ready to be worked on. A Maintainer has deemed these tickets have a clear and measurable objective, and are suitable for working on. Once a ticket is moved to this stage any one may assign that ticket to themselves, indicating that they intend to work on it in the near future.
+    >  Whilst assigned to a ticket you are in charge of it - however you are more than welcome to enlist other team members to help!
 
-    > Don't want to work on a ticket anymore? Simply unassign yourself so someone else can pick it up.
-* `In Progress`: This stage holds all tickets that are currently being worked on by a team member. Tickets sit here until all the work is complete and meets the objective.
+    > Don't want to work on a ticket anymore? Simply unassign yourself allowing someone else can pick it up.
+* `In Progress`: All tickets that are currently being worked on. Tickets sit here until all the work is complete and meets the objective.
 * `QA`: This is arguably the most important stage. Once a ticket has been finished, it is moved to this stage so that a Maintainer can verify the code. This verification process has 2 aims:
-    1. Code review: The work completed should achieve the objective of the ticket, and not introduce any unplanned conflicts
-    2. Verification: The work completed is tested on the development environment to ensure it does not introduce further issues across the entire site.
+    1. Code review: The completed work should achieve the objective of the ticket, not introduce any unplanned conflicts, and maintain consitency with the code style.
+    2. Verification: The completed work is tested on the development environment to ensure it does not introduce further issues across the entire site.
 
     It is very possible that a ticket will not pass this stage first time, so there may be some back-and-forth between the `In Progress` and `QA` stages. This is perfectly normal, and does not mean that the work has not been done well. This stage is here to protect the production server and ensure the site remains fully functional.
 * `Ready to Merge`: Once a ticket is verified, it is ready to be deployed to the server. Tickets are moved here to indicate that they are waiting for their code to be merged into the `master` branch. Only the Maintainer performing the verification in `QA` can move the ticket to this stage.
@@ -220,9 +220,7 @@ Once a ticket is moved to `Selected for Development` and someone has been assign
 
 When you start working on the branch, move the ticket from `Selected for Development` to `In Progress`. It's recommended that those working on the branch commit their work frequently to reduce the likelihood of merge conflicts.
 
-Once the work is completed, the final commit should be pushed and then a [Merge Request][link-merge-request] created. The source branch should be set to the branch that's been worked on, and the target branch set to `develop`.
-
-Once the Merge Request is submitted, the ticket can be moved from `In Progress` to `QA`. The code then enters the first phase of QA: the code review.
+Once the work is completed, the final commit should be pushed and then a [Merge Request][link-merge-request] created. The source branch should be set to the branch that's been worked on, and the target branch set to `develop`. Once the Merge Request is submitted, the ticket can be moved from `In Progress` to `QA`. The code then enters the first phase of QA: the code review.
 
 In the code review, the Maintainer will ensure the ticket is resolved by the Merge Request and there are no unplanned conflicts with any other tickets or future work. If changes are needed, the Merge Request will be 'rejected' (although it can remain open as any further commits will be automatically added to the Merge Request), and the Maintainer will explain what needs to be done before it's submitted again. This effectively moves the ticket back to the `In Progress` stage (although it's not necessary to actually do this). This process repeats until the Merge Request is approved.
 
