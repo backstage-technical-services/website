@@ -198,9 +198,9 @@ The development stages for a hotfix are:
 In this case, the `QA` stage is significantly shorter, only requiring that a Maintainer verifies the hotfix resolves the ticket.
 
 ### Process
-Once a ticket is moved to `Selected for Development` and someone has been assigned to it, it can be worked on locally. Any work should be performed on its own branch, the name of which should include both the ticket number and a shortened ticket summary. Standard tickets should be branched from `develop`, while hotfixes are branched from `master`. Make sure you are working from the latest copy of this branch by first performing `$ git pull`.
+Once a ticket is moved to `Selected for Development` and someone has been assigned to it, it can be worked on locally. Any work should be performed on its own branch, the name of which should include both the ticket number (BLS-#) and a shortened ticket summary. Standard tickets should be branched from `develop`, while hotfixes are branched from `master`. Make sure you are working from the latest copy of this branch by first performing `$ git pull`.
 
-> An example of a good branch name is: `bsl-3--recurring-events`
+> An example of a good branch name is: `bls-3--recurring-events`
 >
 > An example of a bad branch name is: `add-recurring-option`
 
