@@ -18,6 +18,7 @@ There are many ways in which you can contribute without programming, including (
 * Reporting bugs
 * Making minor fixes to the wording/layout (see [Contributing without access][#contributing-without-access])
 * Defining the requirements or scope for a feature or improvement
+* Testing changes pushed to the [development server][link-bts-dev]
 * Assisting with the administration of the various development tools
 * Helping keep the team sane
 
@@ -35,6 +36,8 @@ We use a variety of different tools to assist with the development process; it's
 To work on the repository you'll also need to be added to the [GitLab group][link-team-members]; either request access through GitLab or in [Slack][#slack].
 
 It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - fork the repository, make the change and submit a Merge Request. We strongly recommend against this route as we'd prefer to build an informed team, rather than use a disorganised "hit and run" approach. These types of Merge Requests will be assessed on a case-by-case basis.
+
+An introduction to git (which GitLab is built upon) can be found [here][link-git-help].
 
 ### Slack
 Good communication is vital, and ours happens on [Slack][link-slack]. We don't want anyone to be left out, so all discussions must happen here, no matter how big or small - please don't use external social media apps like Facebook, or even emails.
@@ -143,6 +146,11 @@ Once you have the above configured, you can install the site:
     $ php artisan migrate
     ```
     > This will only set up the table structure; you'll need to get the data from a Maintainer.
+    
+### Understanding the Website
+
+The Website is built using the Laveral framework, their [documentation][link-laveral-docs] are the best place to start looking to understand the website structure.
+
 
 ## Development Workflow
 To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies depends on whether you're working on a [standard ticket][#standard-tickets] or a [hotfix][#hotfixes].
@@ -152,7 +160,7 @@ This project uses the Kanban system; all tickets must go through the stages sequ
 If you are intending on working on the site, please make sure you have read this section fully so you understand how the Kanban board is used, and the process works locally.
 
 ### Stages
-* `Backlog`: This is where all new tickets arrive. These can either come from GitLab, or are manually created by a Maintainer. You must not work on a ticket in this area, as it may not be well-defined or may not be ready to be worked upon.
+* `Backlog`: This is where all new tickets arrive. These can either come from GitLab, or are manually created by a Maintainer. You must not work on a ticket in this area, as it may not be well-defined or ready to be worked upon.
      > Feel like a ticket should be moved to `Selected for Development`? Have a chat with a Maintainer.
 * `Selected for Development`: This stage is for all tickets that are ready to be worked on. A Maintainer has deemed these tickets have a clear and measurable objective, and are suitable for working on. Once a ticket is moved to this stage anyone may assign that ticket to themselves, indicating that they intend to work on it in the near future.
     >  Whilst assigned to a ticket you are in charge of it - however you are more than welcome to enlist other team members to help!
@@ -211,7 +219,7 @@ Once the work is completed, the final commit should be pushed and then a [Merge 
 
 In the code review, the Maintainer will ensure the ticket is resolved by the Merge Request and there are no unplanned conflicts with any other tickets or future work. If changes are needed, the Merge Request will be 'rejected' (although it can remain open as any further commits will be automatically added to the Merge Request), and the Maintainer will explain what needs to be done before it's submitted again. This effectively moves the ticket back to the `In Progress` stage (although it's not necessary to actually do this). This process repeats until the Merge Request is approved.
 
-When the Merge Request is approved, the code is merged into the `develop` branch and it enters the 2nd phase of `QA`: verification. Extensive testing is performed on the development server to ensure that the new code performs as desired and doesn't introduce any further issues. How long this process lasts depends on how complex the change was, and the level of risk associated with it.
+When the Merge Request is approved, the code is merged into the `develop` branch and it enters the 2nd phase of `QA`: verification. Extensive testing is performed on the [development server][link-bts-dev] to ensure that the new code performs as desired and doesn't introduce any further issues. How long this process lasts depends on how complex the change was, and the level of risk associated with it.
 
 Should the change fail the verification phase and it can't be fixed with a hotfix on the `develop` branch, the Owner or a Maintainer will need to manually unpick the changes so the process can start again. If the appropriate amount of testing has been performed before the Merge Request was submitted, it is almost impossible that this will happen - if it does, though, there'll be plenty of support to rectify the problem.
 
@@ -239,3 +247,6 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-phpstorm]: https://www.jetbrains.com/phpstorm
 [gitlab-register]: https://gitlab.com/users/sign_in#register-pane
 [link-ben]: https://www.gitlab.com/bnjns
+[link-laveral-docs]: https://laravel.com/docs/5.7
+[link-bts-dev]: https://dev.bts-crew.com/
+[link-git-help]: https://guides.github.com/introduction/git-handbook/
