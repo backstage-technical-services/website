@@ -30,7 +30,7 @@ These may not sound as sexy as coding a completely new area of the website, but 
 To ease development several tools are used, it's recommended you glance over this section so you understand what each does, and which you need.
 
 ### GitLab
-[GitLab][link-repository] houses the source code, and is responsible for source control and version management. GitLab also houses our [issue tracker][link-report-issue] where the public and members can report bugs or request features/improvements, to ensure traceability and enable us to gather more information from reporters will need to [create a GitLab account][gitlab-register].
+[GitLab][link-repository] houses the source code, and is responsible for source control and version management. GitLab also houses our [issue tracker][link-report-issue] where the public and members can report bugs or request features/improvements. To ensure traceability and enable us to gather more information from issue reporters, they will need to [create a GitLab account][gitlab-register].
 
 To work on the repositry you'll also need to be added to the [GitLab group][link-team-members], either request access through GitLab, or by asking in [Slack][#slack].
 
@@ -41,7 +41,7 @@ Good communication is vital, and ours happens on [Slack][link-slack]. We don't w
 
 Slack is also the place where you can request access to the other tools we use.
 
-To request an invite to our Slack workspace simply drop a quick message to [Ben](mailto:ben@bnjns.uk)
+To request an invite to our Slack workspace simply drop a quick message to [Ben](mailto:ben@bnjns.uk).
 
 #### Channels
 Slack makes use of channels to group conversations with a similar subject. By default, new members are only added to the `#general` channel, but you can add yourself to a channel by clicking on `Channels` in the left pane to see the full list. Alternatively, you can ask a Workspace Admin to add to you it. No channels are off limits to anyone (although some are there for Apps to post to so it doesn't make much sense to post there yourself!).
