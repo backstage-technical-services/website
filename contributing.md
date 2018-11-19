@@ -98,9 +98,9 @@ See [Development Workflow][#development-workflow] to see how Jira fits into the 
 ## Working on GitLab
 It's possible to make small, simple changes without doing anything on your local machine. This is really only for small wording/spelling changes, and any requests to change logic with this method will be rejected as they won't have been tested.
 
-1. **Create a fork of the repository:** This will make a copy attached to your profile on GitLab.
+1. **Create a fork of the repository:** Make a copy attached to your profile on GitLab.
 3. **Make the changes:** Use the online editor to make the necessary changes. Go to the file you want to edit and click the `Edit` button. GitLab will help you with the process of creating commits to save the changes.
-4. **Create a merge request:** This will let us know what you've made changes, and we can work on combining them back into the main repository. Once this is done, you can safely delete your fork.
+4. **Create a merge request:** Noifies us of your changes, and allows us to combine them back into the main repository. Once this is done, you can safely delete your fork.
 
 ## Working locally
 Working locally is more complicated, but allows you to work on the code and test it before pushing any changes to the repository.
@@ -109,15 +109,15 @@ Working locally is more complicated, but allows you to work on the code and test
 In order to develop locally, you'll need to have the following installed:
 * PHP 7.1+
 * Nginx or Apache
-   > Using nginx and PHP-FPM is recommended as that's what's used on the production server
+   > Nginx and PHP-FPM is recommended as they're used on the production server
 * MariaDB 10.2 or MySQL 5.5+
-    > Using MariaDB 10.2 is recommended as that's what's used on the production server
+    > MariaDB 10.2 is recommended as it's used on the production server
 * Composer
     > Composer is a package manager for PHP. You don't need to know how this works, just how to run the `install` command
 * Node.js and yarn
     > Yarn is used to manage the asset dependencies and compile the assets. You don't need to know how this works, just how to run the `install` and `run` commands. We used to use NPM, but yarn is much better.
 * A PHP-focussed IDE
-    > You can technically use Notepad, but it's recommended you use an IDE to make development easier. The recommended software for PHP is PhpStorm by JetBrains (students can get a free licence).
+    > You can technically use Notepad, but it's recommended you use an IDE to make development easier. We recommend [PhpStorm by JetBrains][link-phpstorm] (students can get a free licence).
 
 Adding instructions for how to set up and configure these for the various operating systems and distributions is way beyond the scope of this document. There are a lot of good tutorials out there, but one of the development team will be happy to help you get set up if you get stuck.
 
@@ -125,7 +125,7 @@ Adding instructions for how to set up and configure these for the various operat
 You can set up your web server to just run on `localhost`, but if you want to develop multiple sites it's recommended that you set up virtual hosts. A quick Google should help, but if not a member of the development team will definitely be able to.
 
 ### Installing the site
-Once you have PHP and the web and MySQL servers set up and configured, you can install the site:
+Once you have the above configured, you can install the site:
 1. Clone the repository
     ```sh
     $ git clone git@gitlab.com:backstage-technical-services/laravel-site.git
@@ -251,4 +251,5 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-bugsnag]: https://app.bugsnag.com/backstage-technical-services
 [link-mailtrap]: https://mailtrap.io
 [link-onetimesecret]: https://onetimesecret.com
+[link-phpstorm]: https://www.jetbrains.com/phpstorm
 [gitlab-register]: https://gitlab.com/users/sign_in#register-pane
