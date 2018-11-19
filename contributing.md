@@ -41,24 +41,23 @@ Good communication is vital, and ours happens on [Slack][link-slack]. We don't w
 
 Slack is also the place where you can request access to the other tools we use.
 
-#### Creating an account
-The Slack workspace is invite-only, simply drop a quick message to [Ben](mailto:ben@bnjns.uk) to get an invitation. You'll then be able to create an account for that workspace.
+To request an invite to our Slack workspace simply drop a quick message to [Ben](mailto:ben@bnjns.uk)
 
 #### Channels
 Slack makes use of channels to group conversations with a similar subject. By default, new members are only added to the `#general` channel, but you can add yourself to a channel by clicking on `Channels` in the left pane to see the full list. Alternatively, you can ask a Workspace Admin to add to you it. No channels are off limits to anyone (although some are there for Apps to post to so it doesn't make much sense to post there yourself!).
 
-Please try to keep channels on-topic, and refrain from discussing development with members individually - this is so that everyone is kept up-to-date and has an equal say in everything.
-
-#### Using mentions
-You can mention people in a Slack message simply by including their username after an `@` symbol (if you type `@` Slack will give you some hints). Those with the correct permissions can also use `@here`, `@channel` and `@everyone` if the post is really important so everyone gets a notification.
+Please keep channels on-topic, and refrain from discussing development with members individually - this is so that everyone is kept up-to-date and has an equal say in everything.
 
 #### Notifications
 Slack is very powerful when it comes to notifications - it allows you to customise notifications for each channel, with separate rules for both desktop and mobile.
 
-The most common reason you might not know what's going on is if you have notifications off, or set to `Just mentions`. If something really important, the poster will use use an appropriate mention to ensure you get the notification.
+The most common reason you might not know what's going on is if you have notifications off, or set to `Just mentions`.
+
+#### Using mentions
+You can mention people in a Slack message simply by including their username after an `@` symbol (if you type `@` Slack will give you some hints). Those with the correct permissions can also use `@here`, `@channel` and `@everyone` if the post is really important so everyone gets a notification.
 
 #### Apps
-Slack allows us to install apps to the workspace that provide additional functionality and integrate with our other development tools. This means we get all of our notifications in 1 place without hopping around the internet and checking each tool individually.
+Several Slack apps are installed, collecting notifications from our tools in 1 place rather than hopping around the internet and checking each tool individually.
 
 Apps we currently have installed:
 * Notifications of new issues in the `#gitlab` channel
