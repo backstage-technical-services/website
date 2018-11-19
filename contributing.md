@@ -147,11 +147,42 @@ Once you have the above configured, you can install the site:
     ```
     > This will only set up the table structure; you'll need to get the data from a Maintainer.
 
+7. Compile the assets into plain stylesheets and javascript files
+    ```sh
+    $ yarn dev
+    ```
+
 ### Understanding the Website
 
 The website is built using PHP 7, with a framework called Laravel; their [documentation][link-laravel-docs] is the best place to start to familiarise yourself with the organisation of the website.
 
 It's also recommended you familiarise yourself with [SASS][link-sass] as this is used to process the stylesheets.
+
+### Keeping your local copy up-to-date
+It's important to keep your local copy of the website up-to-date, as others work on bugs and features. To merge in the latest changes, simply run
+
+```sh
+$ git pull origin <branch_name>
+```
+
+You may then have to update the dependencies and database structure:
+* Update the PHP dependencies
+    ```sh
+    $ composer install
+    ```
+* Update the asset dependencies and re-compile them
+    ```sh
+    $ yarn install
+    $ yarn dev
+    ```
+* Update the database structure
+    ```sh
+    $ php artisan migrate
+    ```
+* Clear any cached views and configuration
+    ```sh
+    $ php artisan cache:clear
+    ```
 
 ## Development Workflow
 To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies depends on whether you're working on a [standard ticket](#standard-tickets) or a [hotfix](#hotfixes).
