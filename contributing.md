@@ -16,7 +16,7 @@ Yes, you most definitely can!
 
 There are many ways in which you can contribute without programming, including (but not limited to):
 * Reporting bugs
-* Making minor fixes to the wording/layout (see [Contributing without access][contributing-without-access])
+* Making minor fixes to the wording/layout (see [Contributing without access](#contributing-without-access))
 * Defining the requirements or scope for a feature or improvement
 * Testing changes pushed to the [development server][link-bts-dev]
 * Assisting with the administration of the various development tools
@@ -24,7 +24,7 @@ There are many ways in which you can contribute without programming, including (
 
 These may not sound as sexy as coding a completely new area of the website, but they are actually just as important!
 
-* If you just want to [report issues or request new features][link-report-issue], you do not need to read this document anymore (however, we recommend you read the section on [GitLab][gitlab] so you know the basics of how it works).
+* If you just want to [report issues or request new features][link-report-issue], you do not need to read this document anymore (however, we recommend you read the section on [GitLab](#gitlab) so you know the basics of how it works).
 * If you want to get more involved with the development process please continue reading.
 
 ## Development tools
@@ -33,7 +33,7 @@ We use a variety of different tools to assist with the development process; it's
 ### GitLab
 [GitLab][link-repository] houses the source code, and is responsible for source control and version management. GitLab also houses our [issue tracker][link-report-issue] where the public and members can report bugs or request features/improvements. To ensure traceability and enable us to gather more information from issue reporters, you will need to [create a GitLab account][gitlab-register].
 
-To work on the repository you'll also need to be added to the [GitLab group][link-team-members]; either request access through GitLab or in [Slack][slack].
+To work on the repository you'll also need to be added to the [GitLab group][link-team-members]; either request access through GitLab or in [Slack](#slack).
 
 It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - fork the repository, make the change and submit a Merge Request. We strongly recommend against this route as we'd prefer to build an informed team, rather than use a disorganised "hit and run" approach. These types of Merge Requests will be assessed on a case-by-case basis.
 
@@ -71,7 +71,7 @@ Apps we currently have installed:
 If you want another integration installed, just ask a Workspace Admin.
 
 ### Jira
-[Jira][link-jira] is currently being trialled as an addition to GitLab. It is used internally by the team to discuss issues and break them down into more manageable tasks in a way that doesn't disturb the GitLab reporter. Jira also provides us with far more power over issues by providing multiple ticket types rather than the single available in GitLab. This allows us to tailor our [Development Workflow][development-workflow] to the ticket type.
+[Jira][link-jira] is currently being trialled as an addition to GitLab. It is used internally by the team to discuss issues and break them down into more manageable tasks in a way that doesn't disturb the GitLab reporter. Jira also provides us with far more power over issues by providing multiple ticket types rather than the single available in GitLab. This allows us to tailor our [Development Workflow](#development-workflow) to the ticket type.
 
 To get an account, send a message in Slack and an administrator will send you an invitation. Jira can be a bit of a beast to learn, so don't hesitate to ask for help or tips!
 
@@ -153,7 +153,7 @@ The Website is built using the Laveral framework, their [documentation][link-lav
 
 
 ## Development Workflow
-To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies depends on whether you're working on a [standard ticket][standard-tickets] or a [hotfix][hotfixes].
+To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies depends on whether you're working on a [standard ticket](#standard-tickets) or a [hotfix](#hotfixes).
 
 This project uses the Kanban system; all tickets must go through the stages sequentially, and each stage has a set of criteria that the ticket must meet before it is allowed to enter that stage. No one should work on something that is not a ticket on Jira, no matter how small.
 
@@ -176,7 +176,7 @@ If you are intending on working on the site, please make sure you have read this
 * `Released (Done)`: Once a ticket has been merged into the `master` branch and deployed to the production server it is moved to this stage, where it drops off the Kanban board. This process should be performed by the Owner of the project, but can be performed by a Maintainer if necessary.
 
 ### Standard tickets
-A `Standard ticket` applies to 99.9% of the work performed; unless the ticket meets the criteria for a hotfix (see [here][hotfixes]) it is classed as a standard ticket.
+A `Standard ticket` applies to 99.9% of the work performed; unless the ticket meets the criteria for a hotfix (see [here](#hotfixes)) it is classed as a standard ticket.
 
 Standard tickets go through all of the development stages:
 * Backlog
