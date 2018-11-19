@@ -79,7 +79,7 @@ To get an account, send a message in Slack and an administrator will send you an
 [Bugsnag][link-bugsnag] is used to log errors and provide the team with all the information needed to resolve the error. We're currently on a free plan, so sharing isn't possible - but if you're working on an issue [Ben][link-ben] can provide you with any relevant information.
 
 ### Mailtrap
-[Mailtrap][link-mailtrap] is a tools used for testing emails - it provides an inbox so that we can fully test the website but any test emails don't actually get sent. If you wish to test emails you must create a free account and update the credentials in the .env file. 
+[Mailtrap][link-mailtrap] is a tools used for testing emails - it provides an inbox so that we can fully test the website but any test emails don't actually get sent. If you wish to use this to test emails you must create a free account and update the credentials in the .env file.
 
 ### One time secret
 [Onetimesecret][link-onetimesecret] is used to share sensitive information, such as values for the environment file. You do not need an account to use this service.
