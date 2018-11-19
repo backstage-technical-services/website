@@ -27,28 +27,26 @@ These may not sound as sexy as coding a completely new area of the website, but 
 * If you want to get more involved with the development process [read about the tools we use][#development-tools] any other relevant parts of this document.
 
 ## Development tools
-We use a lot of different tools to help with the development of the website. Each tool is designed to perform a specific task so you don't necessarily need to be part of every one, but it's recommend you glance over this section so you understand what each tool does, and which you need to use.
+To ease development several tools are used, it's recommend you glance over this section so you understand what each does, and which you need.
 
 ### GitLab
-[GitLab][link-repository] is where the source code is held, and is responsible for source control and version management. This is also where the public and members can report bugs or request features/improvements.
+[GitLab][link-repository] houses the source code, and is responsible for source control and version management. This is also where the public and members can report bugs or request features/improvements.
 
 #### Creating an account
-No matter how involved you want to be, you will need to [create an account][gitlab-register]. Everyone has to do this to ensure we have traceability and can get more information from the reporter if needed.
+To ensure traceability and that we can gather more information from issue reporters you will need to [create an account][gitlab-register].
 
 If you want to develop, you'll also need to be added to the [GitLab group][link-team-members] so that you have the correct permissions to work on the repository. You can either request access through GitLab, or by asking in [Slack][#slack].
 
 #### Contributing without access
-It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - you can fork the repository, make the change and submit a Merge Request. This route is only really for those with a really good reason, and Merge Requests will be assessed on a case-by-case basis.
-
-We really want to build a team so it's very likely these "hit and run" Merge Requests will be rejected and you'll be asked if you want to join the team.
+It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - fork the repository, make the change and submit a Merge Request. We strongly recommned against this route as we'd prefer build an informed team than disorganised "hit and run" Merge Requests.
 
 ### Slack
-Good communication is vital, and [Slack][link-slack] is where all of the communication regarding the website happens. We don't want anyone to be left out, so it's vital that all discussions over anything, no matter how big or small, happen here - please don't use external social media apps like Facebook, or even emails.
+Good communication is vital, and ours happens on [Slack][link-slack]. We don't want anyone to be left out, so it's vital that all discussions over anything, no matter how big or small, happen here - please don't use external social media apps like Facebook, or even emails.
 
 Slack is also the place where you can request access to the other tools we use.
 
 #### Creating an account
-The Slack workspace is invite-only, so simply drop a quick message to [Ben](mailto:ben@bnjns.uk) to get an invitation. You'll then be able to create an account for that workspace.
+The Slack workspace is invite-only, simply drop a quick message to [Ben](mailto:ben@bnjns.uk) to get an invitation. You'll then be able to create an account for that workspace.
 
 #### Channels
 Slack makes use of channels to group conversations with a similar subject. By default, new members are only added to the `#general` channel, but you can add yourself to a channel by clicking on `Channels` in the left pane to see the full list. Alternatively, you can ask a Workspace Admin to add to you it. No channels are off limits to anyone (although some are there for Apps to post to so it doesn't make much sense to post there yourself!).
@@ -64,7 +62,7 @@ Slack is very powerful when it comes to notifications - it allows you to customi
 The most common reason you might not know what's going on is if you have notifications off, or set to `Just mentions`. If something really important, the poster will use use an appropriate mention to ensure you get the notification.
 
 #### Apps
-Slack allows us to install apps to the workspace that provide additional functionality and integrate with our other development tools. This means we get all of our notifications in 1 place, and you don't have to hop around the internet and check each tool individually.
+Slack allows us to install apps to the workspace that provide additional functionality and integrate with our other development tools. This means we get all of our notifications in 1 place without hopping around the internet and checking each tool individually.
 
 Apps we currently have installed:
 * Notifications of new issues in the `#gitlab` channel
