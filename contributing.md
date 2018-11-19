@@ -27,17 +27,13 @@ These may not sound as sexy as coding a completely new area of the website, but 
 * If you want to get more involved with the development process please continue reading.
 
 ## Development tools
-To ease development several tools are used, it's recommend you glance over this section so you understand what each does, and which you need.
+To ease development several tools are used, it's recommended you glance over this section so you understand what each does, and which you need.
 
 ### GitLab
-[GitLab][link-repository] houses the source code, and is responsible for source control and version management. This is also where the public and members can report bugs or request features/improvements.
+[GitLab][link-repository] houses the source code, and is responsible for source control and version management. GitLab also houses our [issue tracker][link-report-issue] where the public and members can report bugs or request features/improvements, to ensure traceability and enable us to gather more information from reporters will need to [create a GitLab account][gitlab-register].
 
-#### Creating an account
-To ensure traceability and that we can gather more information from issue reporters you will need to [create an account][gitlab-register].
+To work on the repositry you'll also need to be added to the [GitLab group][link-team-members], either request access through GitLab, or by asking in [Slack][#slack].
 
-If you want to develop, you'll also need to be added to the [GitLab group][link-team-members] so that you have the correct permissions to work on the repository. You can either request access through GitLab, or by asking in [Slack][#slack].
-
-#### Contributing without access
 It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - fork the repository, make the change and submit a Merge Request. We strongly recommned against this route as we'd prefer build an informed team than disorganised "hit and run" Merge Requests.
 
 ### Slack
