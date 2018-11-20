@@ -7,20 +7,18 @@
 @section('header-sub', 'Image Gallery')
 
 @section('content')
-    @if(count($albums) > 0)
-        @foreach($albums as $album)
-            <div class="box">
-                <a class="grey" href="{{ route('media.images.album', $album['id']) }}">
-                    <div class="photo" style="background-image:url(https://graph.facebook.com/{{ $album['id'] }}/picture);"></div>
-                    <div class="album-name">{{ $album['name'] }}</div>
-                    <div class="photo-count">({{ $album['count'] }} photos)</div>
-                </a>
-            </div>
-        @endforeach
-    @else
+    @forelse($albums as $album)
+        <div class="box">
+            <a class="grey" href="{{ route('media.image.album', $album->getId()) }}">
+                <div class="photo" style="background-image:url({{ route('media.image', ['id' => $album->getChildren()->first()->getId()]) }});"></div>
+                <div class="album-name">{{ $album->getName() }}</div>
+                <div class="photo-count">{{ $album->getChildren()->count() }} photos</div>
+            </a>
+        </div>
+    @empty
         <div class="no-entries">
             <h3>We don't have any images at the moment</h3>
             <h4>Check back soon</h4>
         </div>
-    @endif
+    @endforelse
 @endsection
