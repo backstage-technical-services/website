@@ -156,16 +156,16 @@
         },
         {
             "name": "bnjns/google-services",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bnjns/google-services.git",
-                "reference": "b1acc5fb64144ad035072171e33d9c949cb4ad8a"
+                "reference": "0fc2d2a239916130b450d34b88350ccf47a36182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bnjns/google-services/zipball/b1acc5fb64144ad035072171e33d9c949cb4ad8a",
-                "reference": "b1acc5fb64144ad035072171e33d9c949cb4ad8a",
+                "url": "https://api.github.com/repos/bnjns/google-services/zipball/0fc2d2a239916130b450d34b88350ccf47a36182",
+                "reference": "0fc2d2a239916130b450d34b88350ccf47a36182",
                 "shasum": ""
             },
             "require": {
@@ -211,7 +211,7 @@
                 "php",
                 "services"
             ],
-            "time": "2018-11-17T10:02:47+00:00"
+            "time": "2018-11-20T23:06:57+00:00"
         },
         {
             "name": "bnjns/laravel-notifications",

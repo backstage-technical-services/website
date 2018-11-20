@@ -69,7 +69,7 @@ class ImageController extends Controller
 
         try {
             $album = $driveService->getFolderContents(self::ROOT_FOLDER_ID)->filter(function (File $file) use ($albumId) {
-                return $file->getId() === $albumId;
+                return strcmp($file->getId(), $albumId) === 0;
             })->first();
 
             if (is_null($album)) {
