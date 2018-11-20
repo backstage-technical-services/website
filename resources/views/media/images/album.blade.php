@@ -7,7 +7,7 @@
 @section('header-sub', $album->getName())
 
 @section('content')
-    <h3>{{ count($album) }} photos</h3>
+    <h3>{{ $album->getChildren()->count() }} photos</h3>
     @foreach($photos as $photo)
         <div class="box">
             <a data-lightbox="album" href="{{ route('media.image', ['id' => $photo->getId()]) }}" target="_blank">
