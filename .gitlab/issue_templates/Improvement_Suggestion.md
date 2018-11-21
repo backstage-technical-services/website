@@ -2,11 +2,11 @@ Summary
 
 (Summary of your improvement)
 
-Improvement Details
+Improvement details
 
-(Please explain your improvement)
+(Please provide a brief description of the improvement, and what parts of the website it affects)
 
 Urgency
 
-(Is your improvement time sensitive?)
+(Is this improvement time sensitive?)
 (Eg, An AGM feature should be ready by AGM)
