@@ -14,7 +14,7 @@ Where would this fit into the Website?:
 
 Benefit:
 
-(Briefly what benefit would this feature bring and to whom)
+(Briefly outline what benefit this feature would bring and to whom)
 
 Urgency:
 
