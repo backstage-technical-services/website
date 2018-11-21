@@ -1,23 +1,25 @@
-Summary
+Summary:
 
 (Brief summary of your new feature)
 
-Feature Details
+Feature Details:
 
 (Please provide a brief but informative description of the feature)
+
 (What does it do and how does it function?)
 
-Where would this fit into the Website?
+Where would this fit into the Website?:
 
 (Is there a certain section/page?)
 
-Benefit
+Benefit:
 
-(Briefly what benefit this feature would bring and to whom)
+(Briefly what benefit would this feature bring and to whom)
 
-Urgency
+Urgency:
 
 (Is this feature time sensitive?)
+
 (Eg, An AGM feature should be ready by AGM)
 
 \label ~Feature
