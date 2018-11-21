@@ -4,7 +4,7 @@ Summary
 
 Feature Details
 
-(Please detail your new feature)
+(Please provide a brief but informative description of the feature)
 (What does it do and how does it function?)
 
 Where would this fit into the Website?
@@ -13,9 +13,9 @@ Where would this fit into the Website?
 
 Benefit
 
-(Briefly what benifit does this feature bring and to who)
+(Briefly what benefit this feature would bring and to whom)
 
 Urgency
 
-(Is your feature time sensitive?)
+(Is this feature time sensitive?)
 (Eg, An AGM feature should be ready by AGM)
