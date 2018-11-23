@@ -47,8 +47,8 @@ class AccidentController extends Controller
         // Set the data for the emails
         $request->merge([
             'date_formatted'    => Carbon::createFromFormat('Y-m-d H:i', $request->get('date') . ' ' . $request->get('time')),
-            'person_type_email' => $request->get('person_type') == 'other' ? $request->get('person_type_other') : self::$PersonTypes[$request->get('person_type')],
-            'severity_email'    => self::$Severities[$request->get('severity')],
+            'person_type_email' => $request->get('person_type') == 'other' ? $request->get('person_type_other') : AccidentRequest::$PersonTypes[$request->get('person_type')],
+            'severity_email'    => AccidentRequest::$Severities[$request->get('severity')],
         ]);
 
         // TODO: Move these to a config file
