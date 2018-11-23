@@ -22,7 +22,7 @@
 <title>@yield('title') :: Backstage Technical Services</title>
 <link rel="stylesheet" href="/css/vendors.css">
 <link rel="stylesheet" href="/css/general.css">
-<link rel="stylesheet" href="/css/structure.{{ $structure or 'main' }}.css">
+<link rel="stylesheet" href="/css/structure.{{ $structure ?? 'main' }}.css">
 <link rel="stylesheet" href="/css/content.css">
 @yield('stylesheets')
 <style>

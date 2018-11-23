@@ -24,7 +24,7 @@
                            data-base-url="{{ $BaseURL }}"
                            data-base-query="{{ json_encode($BaseQuery) }}"
                            type="text"
-                           value="{{ $SearchValue or '' }}">
+                           value="{{ $SearchValue ?? '' }}">
                     @if($SearchValue)
                         <a class="clear-search" href="{{ $ClearSearchLink }}" title="Clear search">
                             <span class="fa fa-remove"></span>
