@@ -3,89 +3,40 @@
 namespace App\Http\Controllers\Media;
 
 use App\Http\Controllers\Controller;
-use bnjns\GoogleServices\Client;
-use bnjns\GoogleServices\Services\Drive\File;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use bnjns\LaravelNotifications\Facades\Notify;
 
 class ImageController extends Controller
 {
-    const ROOT_FOLDER_ID = '1HDHNvy2Cx3cnq7UoMuFbb-cT0as_1BRh';
-
     /**
      * Display an index of all image albums.
      *
-     * @param \bnjns\GoogleServices\Client $client
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return $this
+     * @return \Illuminate\Http\Response
      */
-    public function index(Client $client)
+    public function index()
     {
-        try {
-            $driveService = $client->makeDriveService();
-            $albums       = $driveService->getFolderContents(self::ROOT_FOLDER_ID)
-                                         ->getFolders()
-                                         ->sortByName();
-
-            return view('media.images.index')->with('albums', $albums);
-        } catch (\Google_Service_Exception $exception) {
-            throw new NotFoundHttpException();
-        }
+        Notify::info('The image gallery is currently disabled');
+        return redirect()->route('home');
     }
 
     /**
      * View an individual image.
      *
-     * @param                              $imageId
-     * @param \bnjns\GoogleServices\Client $client
-     *
      * @return \Illuminate\Http\Response
      */
-    public function view($imageId, Client $client)
+    public function view()
     {
-        try {
-            $driveService = $client->makeDriveService();
-
-            $response = $driveService->getFile($imageId);
-
-            return response($response->getBody()->getContents(), 200, $response->getHeaders());
-        } catch (\Google_Service_Exception $exception) {
-            throw new NotFoundHttpException();
-        }
+        Notify::info('The image gallery is currently disabled');
+        return redirect()->route('home');
     }
 
     /**
      * View an album.
      *
-     * @param                                               $albumId
-     * @param \bnjns\GoogleServices\Client                  $client
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return $this
+     * @return \Illuminate\Http\Response
      */
-    public function album($albumId, Client $client)
+    public function album()
     {
-        $driveService = $client->makeDriveService();
-
-        try {
-            $album = $driveService->getFolderContents(self::ROOT_FOLDER_ID)->filter(function (File $file) use ($albumId) {
-                return strcmp($file->getId(), $albumId) === 0;
-            })->first();
-
-            if (is_null($album)) {
-                throw new NotFoundHttpException();
-            }
-
-            $images = $driveService->getFolderContents($albumId)
-                                   ->getFiles()
-                                   ->sortByName();
-
-            return view('media.images.album')->with([
-                'album'  => $album,
-                'photos' => $images,
-            ]);
-        } catch (\Google_Service_Exception $exception) {
-            throw new NotFoundHttpException();
-        }
+        Notify::info('The image gallery is currently disabled');
+        return redirect()->route('home');
     }
 }
