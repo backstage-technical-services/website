@@ -85,6 +85,7 @@ class MenuServiceProvider extends ServiceProvider
                          ->add('#', 'Training', Menu::items('members.training'), [], ['class' => 'training'])
                          ->add('#', 'Other', Menu::items('members.misc'), [], ['class' => 'misc'])
                          ->raw('', null, ['class' => 'divider'])
+                         ->add(route('contact.near-miss'), 'Report a Near Miss')
                          ->add(route('contact.accident'), 'Report an Accident')
                          ->raw('', null, ['class' => 'divider']);
                 }
