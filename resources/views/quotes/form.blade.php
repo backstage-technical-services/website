@@ -1,10 +1,10 @@
 <div class="modal-body">
-    {!! Form::open(['route' => 'quotes.store']) !!}
+    {!! Form::model(new \App\Models\Quote(), ['route' => 'quotes.store']) !!}
     {{-- Text field for the date --}}
     <div class="form-group">
         <div class="input-group">
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-            {!! Form::datetime('date', new \Carbon\Carbon(), ['class' => 'form-control']) !!}
+            {!! Form::datetime('date', null, ['class' => 'form-control']) !!}
         </div>
     </div>
 
