@@ -75,6 +75,28 @@ class CreatePaperworkTables extends Migration
                 $temp_event_event_paperwork = [];
             }
         }
+
+        // --- Add Paperwork Info ---
+        // TODO: Use a paperwork model rather than direct DB access
+        DB::table('event_paperwork')
+            -> where('name', 'risk_assessment')
+            -> update([ 'title'         => 'Risk Assessment',
+                        'description'   => 'Safety review prior to event',
+                        'template_link' => env('LINK_EVENT_RA')]);
+        DB::table('event_paperwork')
+            -> where('name', 'insurance')
+            -> update([ 'title' => 'Insurance']);
+        DB::table('event_paperwork')
+            -> where('name', 'finance_em')
+            -> update([ 'title' => 'EM Finance']);
+        DB::table('event_paperwork')
+            -> where('name', 'finance_treas')
+            -> update([ 'title' => 'Treasurer Finance']);
+        DB::table('event_paperwork')
+            -> where('name', 'event_report')
+            -> update([ 'title'         => 'Event Report',
+                        'description'   => 'Quick review of event',
+                        'template_link' => env('LINK_EVENT_REPORT')]);
     }
 
     /**
