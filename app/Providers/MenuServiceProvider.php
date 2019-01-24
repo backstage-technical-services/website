@@ -59,7 +59,7 @@ class MenuServiceProvider extends ServiceProvider
 
             // Media sub-menu
             $media = $menu->find('media');
-            $media->add(route('media.images.index'), 'Image Gallery')->activePattern('^\/media\/images')
+            $media->add(route('media.image.index'), 'Image Gallery')->activePattern('^\/media\/images')
                   ->add(route('media.videos.index'), 'Videos')->activePattern('^\/media\/videos');
 
             if ($isRegistered) {
@@ -85,6 +85,7 @@ class MenuServiceProvider extends ServiceProvider
                          ->add('#', 'Training', Menu::items('members.training'), [], ['class' => 'training'])
                          ->add('#', 'Other', Menu::items('members.misc'), [], ['class' => 'misc'])
                          ->raw('', null, ['class' => 'divider'])
+                         ->add(route('contact.near-miss'), 'Report a Near Miss')
                          ->add(route('contact.accident'), 'Report an Accident')
                          ->raw('', null, ['class' => 'divider']);
                 }

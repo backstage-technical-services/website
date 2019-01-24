@@ -4,7 +4,7 @@
     }
 }
 
-&[page-id="accident"] {
+&[page-id="accident"], &[page-id="near-miss"] {
     div#content {
         max-width: 450px;
     }

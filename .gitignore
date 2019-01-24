@@ -21,3 +21,4 @@ npm-debug.log
 /resources/elections/*
 /storage/temp
 /storage/app/backups
+/storage/google_token.json

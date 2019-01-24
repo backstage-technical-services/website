@@ -31,13 +31,26 @@ These may not sound as sexy as coding a completely new area of the website, but 
 We use a variety of different tools to assist with the development process; it's recommended you glance over this section so you understand what each does, and which you need to use.
 
 ### GitLab
-[GitLab][link-repository] houses the source code, and is responsible for source control and version management. GitLab also houses our [issue tracker][link-report-issue] where the public and members can report bugs or request features/improvements. To ensure traceability and enable us to gather more information from issue reporters, you will need to [create a GitLab account][gitlab-register].
+[GitLab][link-repository] houses the source code, and is responsible for source control and version management. GitLab also houses our [issue tracker][link-report-issue]; the public and society members can use this to report bugs or request features/improvements, and the team uses this for task management. To ensure traceability and enable us to gather more information from issue reporters, you will need to [create a GitLab account][gitlab-register].
 
 To work on the repository you'll also need to be added to the [GitLab group][link-team-members]; either request access through GitLab or in [Slack](#slack).
 
 It is possible to make very small contributions without being a member of either the GitLab group or Slack channel - fork the repository, make the change and submit a Merge Request. We strongly recommend against this route as we'd prefer to build an informed team, rather than use a disorganised "hit and run" approach. These types of Merge Requests will be assessed on a case-by-case basis.
 
 An introduction to git (which GitLab is a web interface for) can be found [here][link-git-help].
+
+#### Tickets vs issues
+Within the team, we refer to issues in the issue tracker as "tickets"; we feel this better explains what the issues represent (after all, not all tickets are actually issues - they may be requests or even questions).
+
+#### Use of labels
+We use labels to categorise tickets:
+
+* Labels beginning with `status: ` are used to indicate the stage the ticket is in (see [Development Workflow](#development-workflow)) and is used to organise the Kanban board. A ticket can only have 1 of these labels, or none if it's in the backlog or completed.
+* Labels beginning with `module: ` are used to group tickets that are related to a particular functionality within the site. Any number of these labels can be applied to a ticket.
+* Labels beginning with `type: ` are used to indicate the type of ticket (eg, `type: bug` for bugs and `type: feature` for feature requests). A ticket can only have 1 of these labels.
+* `Blocked` is used to indicate that the ticket can't be worked on as it depends on another ticket to be completed first. The reason for the block will usually be described as a comment.
+* `Waiting on Feedback` is used to indicate that more information is needed from the reporter before work can continue. Once work is resumed this label should be removed.
+
 
 ### Slack
 Good communication is vital, and ours happens on [Slack][link-slack]. We don't want anyone to be left out, so all discussions must happen here, no matter how big or small - please don't use external social media apps like Facebook, or even emails.
@@ -69,11 +82,6 @@ Apps we currently have installed:
 * Notifications of full site backups in the `#backups` channel
 
 If you want another integration installed, just ask a Workspace Admin.
-
-### Jira
-[Jira][link-jira] is currently being trialled as an addition to GitLab. It is used internally by the team to discuss issues and break them down into more manageable tasks in a way that doesn't disturb the GitLab reporter. Jira also provides us with far more power over issues by providing multiple ticket types rather than the single available in GitLab. This allows us to tailor our [Development Workflow](#development-workflow) to the ticket type.
-
-To get an account, send a message in Slack and an administrator will send you an invitation. Jira can be a bit of a beast to learn, so don't hesitate to ask for help or tips!
 
 ### Bugsnag
 [Bugsnag][link-bugsnag] is used to log errors and provide the team with all the information needed to resolve the error. We're currently on a free plan, so sharing isn't possible - but if you're working on an issue [Ben][link-ben] can provide you with any relevant information.
@@ -187,25 +195,27 @@ You may then have to update the dependencies and database structure:
 ## Development Workflow
 To ensure consistency throughout the team, and to minimise the risk of releasing broken code, this project uses a set of pre-defined workflows that all team members must use. The workflow that applies depends on whether you're working on a [standard ticket](#standard-tickets) or a [hotfix](#hotfixes).
 
-This project uses the Kanban system; all tickets must go through the stages sequentially, and each stage has a set of criteria that the ticket must meet before it is allowed to enter that stage. No one should work on something that is not a ticket on Jira, no matter how small.
+This project uses the Kanban system; all tickets must go through the stages sequentially, and each stage has a set of criteria that the ticket must meet before it is allowed to enter that stage. No one should work on something that is not a ticket on GitLab, no matter how small.
 
 If you are intending on working on the site, please make sure you have read this section fully so you understand how the Kanban board is used, and the process works locally.
 
-### Stages
-* `Backlog`: This is where all new tickets arrive. These can either come from GitLab, or are manually created by a Maintainer. You must not work on a ticket in this area, as it may not be well-defined or ready to be worked upon.
-     > Feel like a ticket should be moved to `Selected for Development`? Have a chat with a Maintainer.
-* `Selected for Development`: This stage is for all tickets that are ready to be worked on. A Maintainer has deemed these tickets have a clear and measurable objective, and are suitable for working on. Once a ticket is moved to this stage anyone may assign that ticket to themselves, indicating that they intend to work on it in the near future.
-    >  Whilst assigned to a ticket you are in charge of it - however you are more than welcome to enlist other team members to help!
+### GitLab Board
+The [Kanban board][link-gitlab-board] is used to visualise the workflow and help team members understand what is currently being worked on; team members should use this over the issue list when working on tickets.
 
+### Stages
+All new tickets arrive in the "Backlog" (the `Open` column in the board) - this isn't a physical stage but represents a newly-created ticket that hasn't been fully scoped out. You must not work on a ticket in the backlog as it may not be well-defined or ready to be worked upon. If you feel that a ticket is ready to be worked on, have a chat with a Maintainer.
+
+* **Selected for Development** (`status: selected`): This stage is for all tickets that are ready to be worked on. A Maintainer has deemed these tickets have a clear and measurable objective, and are suitable for working on. Once a ticket is moved to this stage anyone may assign that ticket to themselves, indicating that they intend to work on it in the near future. Whilst assigned to a ticket you are in charge of it - however you are more than welcome to enlist other team members to help!
     > Don't want to work on a ticket anymore? Simply unassign yourself allowing someone else can pick it up.
-* `In Progress`: This stage is for tickets that are currently being worked on. Tickets sit here until all the work is complete and meets the objective.
-* `QA`: This is the most important stage of the process. Once a ticket has been finished, it is moved to this stage so that a Maintainer can assess the code. This assessment process has 2 aims:
+* **In Progress** (`status: in-progress`): This stage is for tickets that are currently being worked on. Tickets sit here until all the work is complete and meets the objective.
+* **QA** (`status: qa`): This is the most important stage of the process. Once a ticket has been finished, it is moved to this stage so that a Maintainer can assess the code. This assessment process has 2 aims:
     1. Code review: The completed work should achieve the objective of the ticket, not introduce any unplanned conflicts, and maintain consistency with the code style.
     2. Verification: The completed work is tested on the development environment to ensure it does not introduce further issues across the entire site.
 
     It is very possible that a ticket will not pass this stage first time, so there may be some back-and-forth between the `In Progress` and `QA` stages. This is perfectly normal, and does not mean that the work has not been done well. This stage is here to protect the production server and ensure the site remains fully functional.
-* `Ready to Merge`: Once a ticket is verified, it is ready to be deployed to the server. Tickets are moved here to indicate that they are waiting for their code to be merged into the `master` branch. Only the Maintainer performing the verification in `QA` can move the ticket to this stage.
-* `Released (Done)`: Once a ticket has been merged into the `master` branch and deployed to the production server it is moved to this stage, where it drops off the Kanban board. This process should be performed by the Owner of the project, but can be performed by a Maintainer if necessary.
+* **Ready for Release** (`status: ready-for-release`): Once a ticket is verified, it is ready to be deployed to the server. Tickets are moved here to indicate that they are waiting for their code to be merged into the `master` branch. Only the Maintainer performing the verification in `QA` can move the ticket to this stage.
+
+When a release is scheduled a Merge Request is created to move all of the tickets into the `master` branch. This process will automatically close the relevant tickets, moving them to the `Closed` column on the board. This is a complex procedure so should only be performed by the Owner; although a Maintainer can do this if they know what they're doing.
 
 ### Standard tickets
 A `Standard ticket` applies to 99.9% of the work performed; unless the ticket meets the criteria for a hotfix (see [here](#hotfixes)) it is classed as a standard ticket.
@@ -241,7 +251,7 @@ In this case, the `QA` stage is significantly shorter, only requiring that a Mai
 ### Process
 Once a ticket is moved to `Selected for Development` and someone has been assigned to it, it can be worked on locally. Any work should be performed on its own branch, the name of which should include both the ticket number and a shortened ticket summary. Standard tickets should be branched from `develop`, while hotfixes are branched from `master`. Make sure you are working from the latest copy of this branch by first performing `$ git pull`.
 
-> An example of a good branch name is: `bls-3--recurring-events`
+> An example of a good branch name is: `11--recurring-events`
 >
 > An example of a bad branch name is: `add-recurring-option`
 
@@ -250,6 +260,7 @@ When you start working on the branch, move the ticket from `Selected for Develop
 Once the work is completed, the final commit should be pushed and then a [Merge Request][link-merge-request] created. The source branch should be set to the branch that's been worked on, and the target branch set to `develop`. Once the Merge Request is submitted, the ticket can be moved from `In Progress` to `QA`. The code then enters the first phase of QA: the code review.
 
 In the code review, the Maintainer will ensure the ticket is resolved by the Merge Request and there are no unplanned conflicts with any other tickets or future work. If changes are needed, the Merge Request will be 'rejected' (although it can remain open as any further commits will be automatically added to the Merge Request), and the Maintainer will explain what needs to be done before it's submitted again. This effectively moves the ticket back to the `In Progress` stage (although it's not necessary to actually do this). This process repeats until the Merge Request is approved.
+> Any discussion regarding this merge request should be performed on the merge request itself, rather than in Slack
 
 When the Merge Request is approved, the code is merged into the `develop` branch and it enters the 2nd phase of `QA`: verification. Extensive testing is performed on the [development server][link-bts-dev] to ensure that the new code performs as desired and doesn't introduce any further issues. How long this process lasts depends on how complex the change was, and the level of risk associated with it.
 
@@ -272,7 +283,6 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-report-issue]: https://gitlab.com/backstage-technical-services/laravel-site/issues
 [link-merge-request]: https://gitlab.com/backstage-technical-services/laravel-site/merge_requests/new
 [link-slack]: https://bts-website.slack.com
-[link-jira]: https://jira.bts-crew.com
 [link-bugsnag]: https://app.bugsnag.com/backstage-technical-services
 [link-mailtrap]: https://mailtrap.io
 [link-onetimesecret]: https://onetimesecret.com
@@ -283,3 +293,4 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-bts-dev]: https://dev.bts-crew.com/
 [link-git-help]: https://guides.github.com/introduction/git-handbook/
 [link-sass]: https://sass-lang.com/guide
+[link-gitlab-board]: https://gitlab.com/backstage-technical-services/laravel-site/boards/855759

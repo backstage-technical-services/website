@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Logger;
 use bnjns\LaravelNotifications\Facades\Notify;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -29,16 +30,17 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Overriwde the default response to include a message.
+     * Override the default response to include a message.
      *
-     * @param  string $response
+     * @param \Illuminate\Http\Request $request
+     * @param  string                  $response
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendResetResponse($response)
+    protected function sendResetResponse(Request $request, $response)
     {
         Notify::success('Password reset');
         Logger::log('auth.reset-password', true, ['user_id' => $this->guard()->user()->id]);
-        return $this->traitSendResetResponse($response);
+        return $this->traitSendResetResponse($request, $response);
     }
 }

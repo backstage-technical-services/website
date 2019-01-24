@@ -3,30 +3,40 @@
 namespace App\Http\Controllers\Media;
 
 use App\Http\Controllers\Controller;
+use bnjns\LaravelNotifications\Facades\Notify;
 
 class ImageController extends Controller
 {
     /**
-     * Display an index of all image albums on the facebook page.
+     * Display an index of all image albums.
      *
-     * @return $this
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // Temporarily disable
-        return redirect()->route('home')->setStatusCode(307);
+        Notify::info('The image gallery is currently disabled');
+        return redirect()->route('home');
     }
 
     /**
-     * View an album
+     * View an individual image.
      *
-     * @param                                               $albumId
-     *
-     * @return $this
+     * @return \Illuminate\Http\Response
      */
-    public function album($albumId)
+    public function view()
     {
-        // Temporarily disable
-        return redirect()->route('home')->setStatusCode(307);
+        Notify::info('The image gallery is currently disabled');
+        return redirect()->route('home');
+    }
+
+    /**
+     * View an album.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function album()
+    {
+        Notify::info('The image gallery is currently disabled');
+        return redirect()->route('home');
     }
 }

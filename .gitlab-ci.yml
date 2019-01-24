@@ -1,50 +1,108 @@
+stages:
+    - security
+    - deploy
+
+.deployment: &deployment
+    before_script:
+        - mkdir -p ~/.ssh
+        - echo -e "$SSH_KEY_PRIVATE" > ~/.ssh/id_rsa
+        - echo -e "$SSH_KEY_PUBLIC" > ~/.ssh/id_rsa.pub
+        - chmod 600 ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa.pub
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    script:
+        - ssh $SSH_USER@$SSH_SERVER "
+            cd /www/$SITE_ROOT/ &&
+            php artisan down &&
+            git reset --hard &&
+            git pull &&
+            composer install &&
+            yarn install &&
+            yarn prod &&
+            php artisan migrate --force --no-interaction &&
+            php artisan cache:clear &&
+            php artisan view:clear &&
+            php artisan config:cache &&
+            php artisan up
+            "
+
+deploy_development:
+    stage: deploy
+    variables:
+        SSH_USER: $SSH_USER_DEV
+        SSH_SERVER: $SSH_SERVER_DEV
+        SITE_ROOT: $SITE_ROOT_DEV
+    <<: *deployment
+    only:
+        - develop
+
+deploy_production:
+    stage: deploy
+    variables:
+        SSH_USER: $SSH_USER_PROD
+        SSH_SERVER: $SSH_SERVER_PROD
+        SITE_ROOT: $SITE_ROOT_PROD
+    <<: *deployment
+    when: manual
+    only:
+        - master
+
 sast:
+    stage: security
     image: docker:stable
     variables:
         DOCKER_DRIVER: overlay2
     allow_failure: true
     services:
-    - docker:stable-dind
+        - docker:stable-dind
     script:
-    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
-          --env SAST_CONFIDENCE_LEVEL="${SAST_CONFIDENCE_LEVEL:-3}"
-          --volume "$PWD:/code"
-          --volume /var/run/docker.sock:/var/run/docker.sock
-          "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
+        - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+        - docker run
+            --env SAST_CONFIDENCE_LEVEL="${SAST_CONFIDENCE_LEVEL:-3}"
+            --volume "$PWD:/code"
+            --volume /var/run/docker.sock:/var/run/docker.sock
+            "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
+    only:
+        - master
     artifacts:
         reports:
             sast: gl-sast-report.json
         when: on_success
 
 dast:
+    stage: security
     image: registry.gitlab.com/gitlab-org/security-products/zaproxy
     variables:
         website: "https://example.com"
     allow_failure: true
     script:
-    - mkdir /zap/wrk/
-    - /zap/zap-baseline.py -J gl-dast-report.json -t $website || true
-    - cp /zap/wrk/gl-dast-report.json .
+        - mkdir /zap/wrk/
+        - /zap/zap-baseline.py -J gl-dast-report.json -t $website || true
+        - cp /zap/wrk/gl-dast-report.json .
+    only:
+        - master
     artifacts:
         reports:
             dast: gl-dast-report.json
         when: on_success
 
 dependency_scanning:
+    stage: security
     image: docker:stable
     variables:
         DOCKER_DRIVER: overlay2
     allow_failure: true
     services:
-    - docker:stable-dind
+        - docker:stable-dind
     script:
-    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
-          --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
-          --volume "$PWD:/code"
-          --volume /var/run/docker.sock:/var/run/docker.sock
-          "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
+        - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+        - docker run
+            --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
+            --volume "$PWD:/code"
+            --volume /var/run/docker.sock:/var/run/docker.sock
+            "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
+    only:
+        - master
     artifacts:
         reports:
             dependency_scanning: gl-dependency-scanning-report.json

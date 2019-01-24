@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use bnjns\LaravelNotifications\Facades\Notify;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
@@ -22,11 +23,12 @@ class ForgotPasswordController extends Controller
      * Override the default response for when sending
      * the reset email is successful.
      *
-     * @param  string $response
+     * @param \Illuminate\Http\Request $request
+     * @param  string                  $response
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    protected function sendResetLinkResponse($response)
+    protected function sendResetLinkResponse(Request $request, $response)
     {
         Notify::success('A link to reset your password has been sent to the email address specified.');
         return redirect()->route('auth.login');

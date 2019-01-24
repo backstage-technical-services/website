@@ -24,14 +24,22 @@ div.modal {
         h1, h2, h3, h4 {
             color: inherit;
         }
-        h1, div.modal-header {
-            font-size: 22px;
-            font-weight: 400;
-            margin: 0.2em 0;
-        }
         div.modal-header {
             margin: 0;
             text-align: center;
+    
+            h1, .modal-title {
+                font-size: 22px;
+                font-weight: 400;
+                margin: 0.2em 0;
+            }
+            
+            button.close {
+                float: none;
+                position: absolute;
+                right: 20px;
+                top: 1.2em;
+            }
         }
         h2 {
             font-size: 20px;
@@ -46,7 +54,7 @@ div.modal {
             font-size: 15px;
             font-weight: bold;
         }
-        h1, h2, h3, h4 {
+        h1, h2, h3, h4, h5 {
             &:first-child {
                 margin-top: 0;
             }
@@ -73,18 +81,16 @@ div.modal {
         hr {
             background: #000;
         }
-        .help-block {
+        .help-block, .invalid-feedback {
             color: #666;
             font-style: italic;
         }
         .form-group {
-            &.has-error, &.has-success {
-                .help-block[data-type="ajax-error"] {
+            &.has-error .help-block[data-type="ajax-error"], .invalid-feedback {
                     color: $colour_danger !important;
                     font-style: normal;
                     margin: 5px 0;
                 }
-            }
         }
         .control-label {
             font-weight: bold;

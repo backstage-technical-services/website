@@ -108,6 +108,7 @@ class User extends Authenticatable
         'show_age',
         'user_group_id',
         'type', // Pseudo
+        'diary_preferences',
     ];
 
     /**
@@ -157,6 +158,8 @@ class User extends Authenticatable
         $attributes['email']    = $attributes['username'] . '@bath.ac.uk';
         $attributes['password'] = bcrypt($password);
         $attributes['status']   = true;
+        $attributes['diary_preferences'] = ['event_types'  => ["event","training","social","meeting","hidden"],
+                                            'crewing'      => '*'];
 
         // Create the new user
         $user = new User($attributes);

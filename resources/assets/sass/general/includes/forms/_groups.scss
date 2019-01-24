@@ -8,15 +8,19 @@
             display: block;
         }
     }
-    &.has-error {
-        .form-control {
+    
+    &.has-error .form-control, .form-control.is-invalid {
+        border-color: #a94442;
+        color: #a94442;
+        
+        & + .invalid-feedback {
             color: #a94442;
         }
     }
-    &.has-success {
-        .form-control {
-            color: #3c763d;
-        }
+    
+    &.has-success .form-control, .form-control.is-valid {
+        border-color: #3c763d;
+        color: #3c763d;
     }
     
     &.has-error, &.has-success {
@@ -25,13 +29,16 @@
                 color: inherit;
             }
         }
+        
         .checkbox label {
             color: inherit;
         }
+        
         &.no-highlight .checkbox label {
             color: #CCC;
         }
     }
+    
     .form-group {
         margin-bottom: 0;
     }
