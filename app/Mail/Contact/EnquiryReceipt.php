@@ -33,7 +33,7 @@
          */
         public function build()
         {
-            return $this->replyTo('bts@bath.ac.uk')
+            return $this->replyTo('committee@bts-crew.com')
                         ->subject('Your enquiry to BTS')
                         ->markdown('emails.contact.enquiry_receipt')
                         ->with('enquiry', $this->enquiry);

@@ -33,7 +33,7 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-        Mail::to('bts@bath.ac.uk')
+        Mail::to('committee@bts-crew.com')
             ->queue(new Booking($data));
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
             ->queue(new BookingReceipt($data));

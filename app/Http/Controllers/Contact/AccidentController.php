@@ -53,7 +53,7 @@ class AccidentController extends Controller
 
         // TODO: Move these to a config file
         Mail::to([
-            'bts@bath.ac.uk',
+            'committee@bts-crew.com',
             'safety@bts-crew.com',
             'P.Hawker@bath.ac.uk',
             'P.Brooks@bath.ac.uk ',

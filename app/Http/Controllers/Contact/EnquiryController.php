@@ -32,7 +32,7 @@ class EnquiryController extends Controller
     {
         $data = $request->all();
 
-        Mail::to('bts@bath.ac.uk')
+        Mail::to('committee@bts-crew.com')
             ->queue(new Enquiry($data));
         Mail::to($request->get('email'), $request->get('name'))
             ->queue(new EnquiryReceipt($data));

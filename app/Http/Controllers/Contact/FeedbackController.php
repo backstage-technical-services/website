@@ -29,7 +29,7 @@ class FeedbackController extends Controller
      */
     public function process(FeedbackRequest $request)
     {
-        Mail::to('bts@bath.ac.uk')
+        Mail::to('committee@bts-crew.com')
             ->queue(new Feedback($request->all()));
         Notify::success('Thank you for providing feedback');
 

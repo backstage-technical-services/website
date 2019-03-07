@@ -42,7 +42,7 @@ class NearMissController extends Controller
      */
     public function process(NearMissRequest $request)
     {
-        Mail::to(['bts@bath.ac.uk', 'safety@bts-crew.com',])
+        Mail::to(['committee@bts-crew.com', 'safety@bts-crew.com',])
             ->queue(new NearMissReport($request));
 
         Notify::success('Thank you for reporting the near miss');

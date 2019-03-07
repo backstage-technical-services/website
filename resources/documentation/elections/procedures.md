@@ -35,5 +35,5 @@ Any full student member may stand for more than one position.
 ## Disputes
 Disputes about the process or results of the election should be made to the Bath SU Acting Returning Officer, as set out in Bath SU's Election Rules.
 - - -
-If you have any questions please do not hesitate to [contact the committee](mailto:bts@bath.ac.uk) for further clarification.
+If you have any questions please do not hesitate to [contact the committee](mailto:committee@bts-crew.com) for further clarification.
 Alternatively please contact the current position holder for more information on the role [current committee](/committee)</a>.
