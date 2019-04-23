@@ -282,9 +282,9 @@ class CrewController extends Controller
 
         // Notify the user and EM
         if ($event->hasEM()) {
-            $request->user()->notify(new VolunteeredToCrew($event));
             $event->em->notify(new UserHasVolunteered($crew));
         }
+        $request->user()->notify(new VolunteeredToCrew($event));
 
         Logger::log('event.volunteer', true, $crew->getAttributes());
 
