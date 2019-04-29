@@ -29,7 +29,7 @@ class ApplicationProcessed extends Mailable
         $this->application = [
             'user'               => $application->user->name,
             'user_email'         => $application->user->email,
-            'level'              => Skill::LEVEL_NAMES[$application->proposed_level],
+            'level'              => Skill::LEVEL_NAMES[$application->applied_level],
             'skill'              => $application->skill->name,
             'awarder'            => $application->awarder->name,
             'awarder_forename'   => $application->awarder->forename,

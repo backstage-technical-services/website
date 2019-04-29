@@ -19,7 +19,7 @@ class Application extends Model
      *
      * @var string
      */
-    protected $table = 'training_skill_proposals';
+    protected $table = 'training_skill_applications';
 
     /**
      * The attributes fillable by mass assignment.
@@ -29,7 +29,7 @@ class Application extends Model
     protected $fillable = [
         'skill_id',
         'user_id',
-        'proposed_level',
+        'applied_level',
         'reasoning',
         'date',
         'awarded_level',

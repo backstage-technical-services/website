@@ -67,7 +67,7 @@ class AwardedController extends Controller
         Application::notAwarded()
                    ->where('skill_id', $skill->id)
                    ->whereIn('user_id', [$members])
-                   ->where('proposed_level', '<=', $level)
+                   ->where('applied_level', '<=', $level)
                    ->update([
                     'awarded_level'   => $level,
                     'awarded_by'      => $request->user()->id,

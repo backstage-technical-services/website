@@ -17,7 +17,7 @@
                     <div class="lower">{{ $application->user->username }}</div>
                 </td>
                 <td class="application-level skill-level">
-                    @include('training.skills.proficiency', ['level' => $application->proposed_level])
+                    @include('training.skills.proficiency', ['level' => $application->applied_level])
                 </td>
                 <td class="application-date dual-layer">
                     <div class="upper">{{ $application->date->format('jS M Y') }}</div>

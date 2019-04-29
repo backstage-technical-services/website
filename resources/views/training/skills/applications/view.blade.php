@@ -36,10 +36,10 @@
 
     {{-- Level --}}
     <div class="form-group">
-        {!! Form::label('proposed_level', 'Level Requested:', ['class' => 'col-sm-4 control-label']) !!}
+        {!! Form::label('applied_level', 'Level Requested:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
             <p class="form-control-static">
-                @include('training.skills.proficiency', ['level' => $application->proposed_level])
+                @include('training.skills.proficiency', ['level' => $application->applied_level])
             </p>
         </div>
     </div>
@@ -81,7 +81,7 @@
                     @endif
                 </p>
             @else
-                {!! Form::select('awarded_level', $levels, $application->proposed_level, ['class' => 'form-control']) !!}
+                {!! Form::select('awarded_level', $levels, $application->applied_level, ['class' => 'form-control']) !!}
                 @InputError('awarded_level')
             @endif
         </div>

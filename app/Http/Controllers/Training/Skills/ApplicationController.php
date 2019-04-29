@@ -80,7 +80,7 @@ class ApplicationController extends Controller
         $application = Application::create([
             'skill_id'        => $skill->id,
             'user_id'         => $user->id,
-            'proposed_level'  => clean($request->get('level')),
+            'applied_level'  => clean($request->get('level')),
             'reasoning'       => clean($request->get('reasoning')),
             'date'            => Carbon::now(),
             'awarded_level'   => null,

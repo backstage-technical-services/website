@@ -34,7 +34,7 @@ class ApplicationSubmitted extends Mailable
             'user'       => $user->name,
             'user_email' => $user->email,
             'url'        => route('training.skill.application.view', ['id' => $application->id]),
-            'level'      => Skill::LEVEL_NAMES[$application->proposed_level],
+            'level'      => Skill::LEVEL_NAMES[$application->applied_level],
             'reasoning'  => $application->reasoning,
         ];
     }
