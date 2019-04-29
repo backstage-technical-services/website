@@ -203,12 +203,10 @@ class User extends Authenticatable
 
         $query = DB::table('events')
                    ->select('events.*')
-                   ->join('event_crew', 'events.id', '=', 'event_crew.event_id')
+                   ->leftJoin('event_crew', 'events.id', '=', 'event_crew.event_id')
                    ->join('event_times', 'events.id', '=', 'event_times.event_id')
                    ->where('events.em_id', $this->id)
-                   ->orWhere(function ($query) {
-                       $query->where('event_crew.user_id', $this->id);
-                   })
+                   ->orWhere('event_crew.user_id', $this->id)
                    ->distinct()
                    ->orderBy('event_times.end', 'DESC');
 
