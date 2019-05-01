@@ -12,4 +12,4 @@ Urgency:
 
 (Eg, An AGM feature should be ready by AGM)
 
-\label ~Improvement
+\label ~type: improvement

@@ -24,4 +24,4 @@ When did it happen?:
 
 (This will let us see if there is any helpful information in the server logs)
 
-\label ~Bug
+\label ~type: bug
