@@ -13,4 +13,6 @@ return [
         'risk_assessment' => env('LINK_EVENT_RA'),
         'event_report'    => env('LINK_EVENT_REPORT'),
     ],
+    'user_tz'   => 'Europe/London',
+    'server_tz' => 'UTC',
 ];
