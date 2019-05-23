@@ -21,8 +21,8 @@
             @forelse($skills as $skill)
                 <tr>
                     <td class="skill-date dual-layer">
-                        <div class="upper">{{ $skill->updated_at->format('d/m/Y') }}</div>
-                        <div class="lower">{{ $skill->updated_at->format('H:i:s') }}</div>
+                        <div class="upper">{{ $skill->updated_at->tzUser()->format('d/m/Y') }}</div>
+                        <div class="lower">{{ $skill->updated_at->tzUser()->format('H:i:s') }}</div>
                     </td>
                     <td class="dual-layer">
                         <div class="upper">

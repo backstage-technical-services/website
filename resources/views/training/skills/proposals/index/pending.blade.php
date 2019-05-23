@@ -20,8 +20,8 @@
                     @include('training.skills.proficiency', ['level' => $proposal->proposed_level])
                 </td>
                 <td class="proposal-date dual-layer">
-                    <div class="upper">{{ $proposal->date->format('jS M Y') }}</div>
-                    <div class="lower">{{ $proposal->date->format('g:ia') }}</div>
+                    <div class="upper">{{ $proposal->date->tzUser()->format('jS M Y') }}</div>
+                    <div class="lower">{{ $proposal->date->tzUser()->format('g:ia') }}</div>
                 </td>
             </tr>
         @empty
