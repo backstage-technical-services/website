@@ -6,13 +6,12 @@ use App\Mail\Events\CrewEmail;
 use App\Models\Users\User;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 
 class Email extends Model
 {
-    use ValidatableModel, AccountsForTimezones;
+    use ValidatableModel;
 
     /**
      * The validation rules for an event's attributes.
@@ -54,15 +53,6 @@ class Email extends Model
         'sender_id',
         'header',
         'body',
-    ];
-
-    /**
-     * Define the attributes to correct the timezone for.
-     *
-     * @var array
-     */
-    protected $correct_tz = [
-        'created_at',
     ];
 
     /**

@@ -37,7 +37,7 @@
                 </div>
                 <div class="date">
                     <div class="heading">Sent</div>
-                    <div>{{ $email->created_at->format('h:ia D M Y') }}</div>
+                    <div>{{ $email->created_at->tzUser()->format('h:ia D M Y') }}</div>
                 </div>
             </div>
             <div class="body">{!! Markdown::convertToHtml($email->body) !!}</div>
