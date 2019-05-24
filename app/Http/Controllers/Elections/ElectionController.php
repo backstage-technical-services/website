@@ -81,11 +81,11 @@ class ElectionController extends Controller
         // Create the election
         $request->merge([
             'positions'         => $positions,
-            'nominations_start' => Carbon::createFromFormat('Y-m-d H:i', $request->get('nominations_start')),
-            'nominations_end'   => Carbon::createFromFormat('Y-m-d H:i', $request->get('nominations_end')),
-            'hustings_time'     => Carbon::createFromFormat('Y-m-d H:i', $request->get('hustings_time')),
-            'voting_start'      => Carbon::createFromFormat('Y-m-d H:i', $request->get('voting_start')),
-            'voting_end'        => Carbon::createFromFormat('Y-m-d H:i', $request->get('voting_end')),
+            'nominations_start' => Carbon::createFromUser($request->get('userTZ_nominations_start')),
+            'nominations_end'   => Carbon::createFromUser($request->get('userTZ_nominations_end')),
+            'hustings_time'     => Carbon::createFromUser($request->get('userTZ_hustings_time')),
+            'voting_start'      => Carbon::createFromUser($request->get('userTZ_voting_start')),
+            'voting_end'        => Carbon::createFromUser($request->get('userTZ_voting_end')),
         ]);
         $election = Election::create(clean($request->all()));
         File::makeDirectory($election->getManifestoPath(), 0775, true);
@@ -109,7 +109,6 @@ class ElectionController extends Controller
         return view('elections.edit')->with('election', $election)
                                      ->with('positions', $election->positions)
                                      ->with('route', route('election.update', ['id' => $election->id]));
-
     }
 
     /**
@@ -125,7 +124,14 @@ class ElectionController extends Controller
         $election  = Election::findOrFail($id);
         $positions = $this->determineElectionPositions($request);
 
-        $request->merge(['positions' => $positions]);
+        $request->merge([
+            'positions'         => $positions,
+            'nominations_start' => Carbon::createFromUser($request->get('userTZ_nominations_start')),
+            'nominations_end'   => Carbon::createFromUser($request->get('userTZ_nominations_end')),
+            'hustings_time'     => Carbon::createFromUser($request->get('userTZ_hustings_time')),
+            'voting_start'      => Carbon::createFromUser($request->get('userTZ_voting_start')),
+            'voting_end'        => Carbon::createFromUser($request->get('userTZ_voting_end')),
+        ]);
         $election->update(clean($request->all()));
 
         Notify::success('Election updated');

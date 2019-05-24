@@ -34,14 +34,14 @@
     </div>
 
     {{-- Hustings info --}}
-    <div class="form-group @InputClass('hustings_time')">
-        {!! Form::label('hustings_time', 'Hustings:', ['class' => 'control-label col-md-4']) !!}
+    <div class="form-group @InputClass('userTZ_hustings_time')">
+        {!! Form::label('userTZ_hustings_time', 'Hustings:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('hustings_time', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::datetime('userTZ_hustings_time', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
-            @InputError('hustings_time')
+            @InputError('userTZ_hustings_time')
         </div>
     </div>
     <div class="form-group @InputClass('hustings_location')">
@@ -53,46 +53,46 @@
     </div>
 
     {{-- Nominations --}}
-    <div class="form-group @InputClass('nominations_start')">
-        {!! Form::label('nominations_start', 'Nominations Open:', ['class' => 'control-label col-md-4']) !!}
+    <div class="form-group @InputClass('userTZ_nominations_start')">
+        {!! Form::label('userTZ_nominations_start', 'Nominations Open:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('nominations_start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::datetime('userTZ_nominations_start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
-            @InputError('nominations_start')
+            @InputError('userTZ_nominations_start')
         </div>
     </div>
-    <div class="form-group @InputClass('nominations_end')">
-        {!! Form::label('nominations_end', 'Nominations Close:', ['class' => 'control-label col-md-4']) !!}
+    <div class="form-group @InputClass('userTZ_nominations_end')">
+        {!! Form::label('userTZ_nominations_end', 'Nominations Close:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('nominations_end', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::datetime('userTZ_nominations_end', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
-            @InputError('nominations_end')
+            @InputError('userTZ_nominations_end')
         </div>
     </div>
 
     {{-- Voting --}}
-    <div class="form-group @InputClass('voting_start')">
-        {!! Form::label('voting_start', 'Voting Opens:', ['class' => 'control-label col-md-4']) !!}
+    <div class="form-group @InputClass('userTZ_voting_start')">
+        {!! Form::label('userTZ_voting_start', 'Voting Opens:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('voting_start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::datetime('userTZ_voting_start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
-            @InputError('voting_start')
+            @InputError('userTZ_voting_start')
         </div>
     </div>
-    <div class="form-group @InputClass('voting_end')">
-        {!! Form::label('voting_end', 'Voting Closes:', ['class' => 'control-label col-md-4']) !!}
+    <div class="form-group @InputClass('userTZ_voting_end')">
+        {!! Form::label('userTZ_voting_end', 'Voting Closes:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('voting_end', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::datetime('userTZ_voting_end', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
-            @InputError('voting_end')
+            @InputError('userTZ_voting_end')
         </div>
     </div>
 

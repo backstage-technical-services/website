@@ -3,14 +3,11 @@
 namespace App\Models\Elections;
 
 use App\Collection;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Election extends Model
 {
-    use AccountsForTimezones;
-
     /**
      * Define the types of elections.
      *
@@ -59,19 +56,6 @@ class Election extends Model
     ];
 
     /**
-     * Define the attributes to correct the timezone for.
-     *
-     * @var array
-     */
-    protected $correct_tz = [
-        'nominations_start',
-        'nominations_end',
-        'voting_start',
-        'voting_end',
-        'hustings_time',
-    ];
-
-    /**
      * Define the relationship with the election's nominations.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -88,7 +72,7 @@ class Election extends Model
      */
     public function getTitleAttribute()
     {
-        return ($this->voting_end->format('Y') . ' ' . ($this->isFull() ? 'Election' : 'By-Election'));
+        return ($this->userTZ_voting_end->format('Y') . ' ' . ($this->isFull() ? 'Election' : 'By-Election'));
     }
 
     /**
@@ -114,6 +98,56 @@ class Election extends Model
     {
         return json_decode($this->attributes['positions'], true);
     }
+
+    /**
+     * Get the start of nominations in the user's timezone
+     *
+     * @return Carbon
+     */
+    public function getUserTZNominationsStartAttribute()
+    {
+        return $this->nominations_start ? $this->nominations_start->tzUser() : null;
+    }
+
+    /**
+     * Get the end of nominations in the user's timezone
+     *
+     * @return Carbon
+     */
+    public function getUserTZNominationsEndAttribute()
+    {
+        return $this->nominations_end ? $this->nominations_end->tzUser() : null;
+    }
+
+    /**
+     * Get the time of hustings in the user's timezone
+     *
+     * @return Carbon
+     */
+    public function getUserTZHustingsTimeAttribute()
+    {
+        return $this->hustings_time ? $this->hustings_time->tzUser() : null;
+    }
+    /**
+     * Get the start of voting in the user's timezone
+     *
+     * @return Carbon
+     */
+    public function getUserTZVotingStartAttribute()
+    {
+        return $this->voting_start ? $this->voting_start->tzUser() : null;
+    }
+
+    /**
+     * Get the end of voting in the user's timezone
+     *
+     * @return Carbon
+     */
+    public function getUserTZVotingEndAttribute()
+    {
+        return $this->voting_end ? $this->voting_end->tzUser() : null;
+    }
+
 
     /**
      * Get the base path for all manifestos for this election.
