@@ -15,7 +15,7 @@ use Illuminate\Session\TokenMismatchException;
 class DiaryController extends Controller
 {
     /**
-     * View the diary.
+     * View the diary within the user's timezone.
      * @param null                     $year
      * @param null                     $month
      * @param \Illuminate\Http\Request $request
@@ -23,10 +23,10 @@ class DiaryController extends Controller
      */
     public function view($year = null, $month = null, Request $request)
     {
-        // Get the month of the diary
-        $date       = $year && $month ? Carbon::create($year, $month, 1) : Carbon::now();
-        $month_prev = Carbon::create($date->year, $date->month - 1, 1);
-        $month_next = Carbon::create($date->year, $date->month + 1, 1);
+        // Get the month of the diary in the user's timezone
+        $date       = ($year && $month ? Carbon::create($year, $month, 1) : Carbon::now())->tzUser();
+        $month_prev = $date->copy()->subMonth();
+        $month_next = $date->copy()->addMonth();
 
         // Set up the calendar
         $calendar = [];
@@ -40,7 +40,6 @@ class DiaryController extends Controller
                 $events = $events->where('type', Event::TYPE_EVENT);
             }
 
-
             $calendar[$i] = (object) [
                 'today'  => $date->isToday(),
                 'events' => $events->get(),
@@ -53,8 +52,8 @@ class DiaryController extends Controller
             'calendar'     => $calendar,
             'month_prev'   => route('event.diary', ['year' => $month_prev->year, 'month' => $month_prev->month]),
             'month_next'   => route('event.diary', ['year' => $month_next->year, 'month' => $month_next->month]),
-            'blank_before' => (Carbon::create($date->year, $date->month, 1)->dayOfWeek ?: 7) - 1,
-            'blank_after'  => 7 - (Carbon::create($date->year, $date->month, $date->daysInMonth)->dayOfWeek ?: 7),
+            'blank_before' => ($date->startOfMonth()->dayOfWeek ?: 7) - 1,
+            'blank_after'  => 7 - ($date->endOfMonth()->dayOfWeek ?: 7),
         ]);
     }
 
