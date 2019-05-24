@@ -3,13 +3,10 @@
 namespace App\Models;
 
 use App\Models\Users\User;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    use AccountsForTimezones;
-
     protected $table = 'logs';
 
     protected $fillable = [
@@ -18,10 +15,6 @@ class Log extends Model
         'action',
         'payload',
         'status',
-    ];
-
-    protected $correct_tz = [
-        'created_at',
     ];
 
     public function user()
@@ -56,7 +49,7 @@ class Log extends Model
      */
     public function getDateAttribute()
     {
-        return $this->created_at->format('d/m/Y');
+        return $this->created_at->tzUser()->format('d/m/Y');
     }
 
     /**
@@ -66,6 +59,6 @@ class Log extends Model
      */
     public function getTimeAttribute()
     {
-        return $this->created_at->format('g:i:s a');
+        return $this->created_at->tzUser()->format('g:i:s a');
     }
 }
