@@ -5,7 +5,7 @@ The following near miss has been reported:
 
 @component('mail::panel')
 **Location**: {{ $report['location'] }}<br>
-**Date and Time**: {{ $report['date']->format('D jS M Y g:ia') }}<br>
+**Date and Time**: {{ $report['date']->tzUSer()->format('D jS M Y g:ia') }}<br>
 **Details:**<br>{{ $report['details'] }}<br>
 @if($report['safety_recommendations'])
 **Safety Recommendations:**<br>{{ $report['safety_recommendations'] }}<br>

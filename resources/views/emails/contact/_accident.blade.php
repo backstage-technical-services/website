@@ -1,7 +1,7 @@
 @component('mail::panel')
 ## Accident details
 **Location:** {{ $report['location'] }}<br>
-**Date:** {{ $report['date_formatted']->format('D jS M Y g:ia') }}<br>
+**Date:** {{ $report['date_formatted']->tzUser()->format('D jS M Y g:ia') }}<br>
 **Details:**<br>{{ $report['details'] }}<br>
 **Severity:** {{ $report['severity_email'] }}<br>
 @if(@$report['absence_details'])
