@@ -34,7 +34,7 @@
                     </td>
                     <td class="col--date dual-layer">
                         <div class="upper">
-                            {{ \Carbon\Carbon::createFromTimestamp($backup->getCTime())->toDateTimeString() }}
+                            {{ \Carbon\Carbon::createFromTimestamp($backup->getCTime())->tzUSer()->toDateTimeString() }}
                         </div>
                         <div class="lower">
                             {{ \Carbon\Carbon::createFromTimestamp($backup->getCTime())->diffForHumans() }}
