@@ -3,13 +3,12 @@
 namespace App\Models\Awards;
 
 use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Season extends Model
 {
-    use ValidatableModel, AccountsForTimezones {
+    use ValidatableModel {
         getValidationRules as traitValidationRules;
     }
 
