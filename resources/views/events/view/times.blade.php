@@ -17,9 +17,11 @@
 @endcan
 <div class="event-time-wrapper">
     <div class="event-times">
-        <?php $month = '' ?>
+        <?php $month = ''; ?>
         <?php $day = ''; ?>
         @foreach($event->times as $time)
+            <?php $start = $time->start->tzUser(); ?>
+            <?php $end = $time->end->tzUser(); ?>
             @can('update', $time)
                 <div class="event-time editable"
                      data-toggle="modal"
@@ -29,7 +31,10 @@
                      data-modal-class="modal-sm"
                      data-save-action="{{ route('event.time.update', ['id' => $event->id, 'timeId' => $time->id]) }}"
                      data-delete-action="{{ route('event.time.destroy', ['id' => $event->id, 'timeId' => $time->id]) }}"
-                     data-form-data="{{ json_encode($time) }}"
+                     data-form-data="{{ json_encode(array('id'    => $time->id,
+                                                          'name'  => $time->name,
+                                                          'start' => $start->toDateTimeString(),
+                                                          'end'   => $end->toDateTimeString() )) }}"
                      data-mode="edit"
                      data-editable="true">
             @else
@@ -37,21 +42,21 @@
             @endcan
                 <div class="date">
                     <div class="day">
-                        @if($time->start->format('D j') != $day)
-                            <span class="weekday">{{ $time->start->format('D') }}</span>
-                            <span class="num">{{ $time->start->format('j') }}</span>
-                            <?php $day = $time->start->format('D j'); ?>
+                        @if($start->format('D j') != $day)
+                            <span class="weekday">{{ $start->format('D') }}</span>
+                            <span class="num">{{ $start->format('j') }}</span>
+                            <?php $day = $start->format('D j'); ?>
                         @endif
                     </div>
                     <div class="month">
-                        @if($time->start->format('M Y') != $month)
-                            {{ $time->start->format('M Y') }}
-                            <?php $month = $time->start->format('M Y'); ?>
+                        @if($start->format('M Y') != $month)
+                            {{ $start->format('M Y') }}
+                            <?php $month = $start->format('M Y'); ?>
                             <?php $day = ''; ?>
                         @endif
                     </div>
                 </div>
-                <div class="time">{{ $time->start->format('H:i') }} &mdash; {{ $time->end->format('H:i') }}</div>
+                <div class="time">{{ $start->format('H:i') }} &mdash; {{ $end->format('H:i') }}</div>
                 <div class="name">{{ $time->name }}</div>
         </div>
         @endforeach

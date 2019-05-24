@@ -13,7 +13,7 @@
                 <span class="input-group-addon">
                     <span class="fa fa-calendar"></span>
                 </span>
-                {!! Form::datetime('start',  null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::datetime('start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
             </div>
         </div>
         {{-- End --}}

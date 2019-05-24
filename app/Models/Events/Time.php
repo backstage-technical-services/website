@@ -3,12 +3,11 @@
 namespace App\Models\Events;
 
 use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
 
 class Time extends Model
 {
-    use ValidatableModel, AccountsForTimezones;
+    use ValidatableModel;
 
     /**
      * The validation rules for a event time's attributes.
@@ -73,16 +72,6 @@ class Time extends Model
     protected $visible = [
         'id',
         'name',
-        'start',
-        'end',
-    ];
-
-    /**
-     * Define the attributes to correct the timezone for.
-     *
-     * @var array
-     */
-    protected $correct_tz = [
         'start',
         'end',
     ];

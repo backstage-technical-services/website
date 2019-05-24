@@ -20,7 +20,7 @@ class TimeController extends Controller
     }
 
     /**
-     * Process the form and create the new crew role.
+     * Process the form and create the new event time.
      *
      * @param                          $eventId
      * @param \Illuminate\Http\Request $request
@@ -41,8 +41,8 @@ class TimeController extends Controller
         // Create the time
         $event->times()->create([
             'name'  => clean($request->get('name')),
-            'start' => Carbon::createFromFormat('Y-m-d H:i', $request->get('start')),
-            'end'   => Carbon::createFromFormat('Y-m-d H:i', $request->get('end')),
+            'start' => Carbon::createFromUser($request->get('start')),
+            'end'   => Carbon::createFromUser($request->get('end')),
         ]);
 
         Notify::success('Event time created');
@@ -75,8 +75,8 @@ class TimeController extends Controller
         // Update
         $time->update([
             'name'  => clean($request->get('name')),
-            'start' => Carbon::createFromFormat('Y-m-d H:i', $request->get('start')),
-            'end'   => Carbon::createFromFormat('Y-m-d H:i', $request->get('end')),
+            'start' => Carbon::createFromUser($request->get('start')),
+            'end'   => Carbon::createFromUser($request->get('end')),
         ]);
 
         Notify::success('Event time updated');
