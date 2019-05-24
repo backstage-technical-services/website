@@ -81,10 +81,11 @@ class ElectionController extends Controller
         // Create the election
         $request->merge([
             'positions'         => $positions,
-            'nominations_start' => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('nominations_start')),
-            'nominations_end'   => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('nominations_end')),
-            'voting_start'      => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_start')),
-            'voting_end'        => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_end')),
+            'nominations_start' => Carbon::createFromFormat('Y-m-d H:i', $request->get('nominations_start')),
+            'nominations_end'   => Carbon::createFromFormat('Y-m-d H:i', $request->get('nominations_end')),
+            'hustings_time'     => Carbon::createFromFormat('Y-m-d H:i', $request->get('hustings_time')),
+            'voting_start'      => Carbon::createFromFormat('Y-m-d H:i', $request->get('voting_start')),
+            'voting_end'        => Carbon::createFromFormat('Y-m-d H:i', $request->get('voting_end')),
         ]);
         $election = Election::create(clean($request->all()));
         File::makeDirectory($election->getManifestoPath(), 0775, true);

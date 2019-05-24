@@ -36,12 +36,12 @@ class ElectionRequest extends Request
         return [
             'type'              => 'required|in:' . implode(',', array_keys(Election::$Types)),
             'bathstudent_id'    => $bathstudent_id,
-            'hustings_time'     => 'required|datetime',
+            'hustings_time'     => 'required|date_format:Y-m-d H:i',
             'hustings_location' => 'required',
-            'nominations_start' => 'required|datetime',
-            'nominations_end'   => 'required|datetime|after:nominations_start',
-            'voting_start'      => 'required|datetime',
-            'voting_end'        => 'required|datetime|after:voting_start',
+            'nominations_start' => 'required|date_format:Y-m-d H:i',
+            'nominations_end'   => 'required|date_format:Y-m-d H:i|after:nominations_start',
+            'voting_start'      => 'required|date_format:Y-m-d H:i',
+            'voting_end'        => 'required|date_format:Y-m-d H:i|after:voting_start',
             'positions_checked' => 'required_if:type,2|array',
             'positions'         => 'required_if:type,2|array',
         ];

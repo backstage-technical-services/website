@@ -38,7 +38,7 @@
         {!! Form::label('hustings_time', 'Hustings:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('hustings_time', null, ['class' => 'form-control']) !!}
+                {!! Form::datetime('hustings_time', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
             @InputError('hustings_time')
@@ -57,7 +57,7 @@
         {!! Form::label('nominations_start', 'Nominations Open:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('nominations_start', null, ['class' => 'form-control']) !!}
+                {!! Form::datetime('nominations_start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
             @InputError('nominations_start')
@@ -67,7 +67,7 @@
         {!! Form::label('nominations_end', 'Nominations Close:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('nominations_end', null, ['class' => 'form-control']) !!}
+                {!! Form::datetime('nominations_end', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
             @InputError('nominations_end')
@@ -79,7 +79,7 @@
         {!! Form::label('voting_start', 'Voting Opens:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('voting_start', null, ['class' => 'form-control']) !!}
+                {!! Form::datetime('voting_start', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
             @InputError('voting_start')
@@ -89,7 +89,7 @@
         {!! Form::label('voting_end', 'Voting Closes:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="input-group">
-                {!! Form::datetime('voting_end', null, ['class' => 'form-control']) !!}
+                {!! Form::datetime('voting_end', null, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
             @InputError('voting_end')
