@@ -42,7 +42,7 @@ class QuotesController extends Controller
         Quote::create([
             'culprit'  => clean($request->get('culprit')),
             'quote'    => clean($request->get('quote')),
-            'date'     => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('date'))->addMinutes($request->header('TZ-OFFSET')),
+            'date'     => Carbon::createFromUser($request->get('date'), 'Y-m-d H:i:s'),
             'added_by' => $request->user()->id,
         ]);
         Notify::success('Quote created');

@@ -26,7 +26,7 @@ class QuoteRequest extends Request
     {
         return [
             'culprit' => 'required',
-            'date'    => 'required|datetime|before:' . Carbon::now()->subMinutes($this->header('TZ-OFFSET'))->addMinute()->format("Y-m-d H:i"),
+            'date'    => 'required|datetime|before:' . Carbon::now()->tzUser(),
             'quote'   => 'required',
         ];
     }
