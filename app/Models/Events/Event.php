@@ -283,23 +283,19 @@ class Event extends Model
     }
 
     /**
-     * Only get events which lie on a particular date.
+     * Get events which lie on a particular date.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Carbon\Carbon                        $date
      */
     public function scopeOnDate(Builder $query, Carbon $date)
     {
-        // Set the start and end times
-        $day_start = $date->setTime(0, 0, 0)->toDateTimeString();
-        $day_end   = $date->setTime(23, 59, 59)->toDateTimeString();
-
         // Join the table
         $query = $this->joinEventTimes($query);
 
         // Set the query
-        $query->where('event_times.end', '>=', $day_start)
-              ->where('event_times.start', '<', $day_end)
+        $query->where('event_times.end', '>=', $date->copy()->startOfDay()->tzServer())
+              ->where('event_times.start', '<', $date->copy()->endOfDay()->tzServer())
               ->distinct();
     }
 
@@ -325,7 +321,7 @@ class Event extends Model
     public function scopePast(Builder $query)
     {
         $this->joinEventTimes($query)
-             ->where('event_times.end', '<', Carbon::now()->setTime(0, 0, 0)->toDateTimeString())
+             ->where('event_times.end', '<', Carbon::now()->startOfDay())
              ->distinct();
     }
 
@@ -339,7 +335,7 @@ class Event extends Model
     public function scopeFuture(Builder $query)
     {
         $this->joinEventTimes($query)
-             ->where('event_times.start', '>=', Carbon::now()->setTime(0, 0, 0)->toDateTimeString())
+             ->where('event_times.start', '>=', Carbon::now()->startOfDay())
              ->distinct();
     }
 
@@ -419,13 +415,13 @@ class Event extends Model
     }
 
     /**
-     * Get the event's start date as a string.
+     * Get the event's start date as a string within the user's timezone.
      *
      * @return mixed
      */
     public function getStartDateAttribute()
     {
-        return $this->start->format('d/m/Y');
+        return $this->start->tzUser()->format('d/m/Y');
     }
 
     /**
@@ -439,13 +435,13 @@ class Event extends Model
     }
 
     /**
-     * Get the event's end date as a string.
+     * Get the event's end date as a string within the user's timezone.
      *
      * @return mixed
      */
     public function getEndDateAttribute()
     {
-        return $this->end->format('d/m/Y');
+        return $this->end->tzUser()->format('d/m/Y');
     }
 
     /**
@@ -769,8 +765,8 @@ class Event extends Model
         if ($this->type == static::TYPE_EVENT && app()->environment('production')) {
             $fields       = [
                 'data[Event][event_name]'  => $this->name,
-                'data[Event][start_date]'  => Carbon::createFromFormat('d/m/Y', $this->start_date)->format('d-m-Y'),
-                'data[Event][end_date]'    => Carbon::createFromFormat('d/m/Y', $this->end_date)->format('d-m-Y'),
+                'data[Event][start_date]'  => Carbon::createFromUser($this->start_date, 'd/m/Y')->format('d-m-Y'),
+                'data[Event][end_date]'    => Carbon::createFromUser($this->end_date, 'd/m/Y')->format('d-m-Y'),
                 'data[Event][verified]'    => 0,
                 'data[Event][bts_crew_id]' => $this->id,
             ];

@@ -98,22 +98,20 @@ class EventController extends Controller
             ],
         ]);
 
-        // Set the event time limits
-        $start_time = explode(':', $request->get('time_start'));
-        $end_time   = explode(':', $request->get('time_end'));
-        $date       = Carbon::createFromFormat('Y-m-d', $request->get('date_start'))
-                            ->setTime(0, 0, 0);
-        $date_end   = Carbon::createFromFormat('Y-m-d', $request->has('one_day') ? $request->get('date_start') : $request->get('date_end'))
-                            ->setTime(23, 59, 59);
+        // Set the event date limits in the user's timezone
+        $date     = Carbon::createFromUser($request->get('date_start'), 'Y-m-d')->tzUser();
+        $end_date = Carbon::createFromUser(
+            $request->has('one_day') ? $request->get('date_start') : $request->get('date_end'),
+            'Y-m-d')->tzUser();
 
-        // Create each event time
-        while ($date->lte($date_end)) {
+        // Create each event time in the correct timezone
+        while ($date->lte($end_date)) {
             $event->times()->create([
                 'name'  => $event->name,
-                'start' => $date->copy()->setTime($start_time[0], $start_time[1]),
-                'end'   => $date->copy()->setTime($end_time[0], $end_time[1]),
+                'start' => $date->copy()->setTimeFromTimeString($request->get('time_start'))->tzServer(),
+                'end'   => $date->copy()->setTimeFromTimeString($request->get('time_end'))->tzServer(),
             ]);
-            $date->day++;
+            $date->addDay();
         }
 
         // Add to the finance database
@@ -124,7 +122,6 @@ class EventController extends Controller
             Mail::to('P.Brooks@bath.ac.uk')
                 ->queue(new AcceptedExternal($event, $request));
         }
-
 
         // Create a flash message and redirect
         Notify::success('Event created');

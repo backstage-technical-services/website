@@ -11,9 +11,9 @@
 @section('content')
     <h1>{{ $event->name }}</h1>
     <h2>
-        {{ $event->start->format('jS M Y') }}
+        {{ $event->start->tzUser()->format('jS M Y') }}
         @if($event->start_date != $event->end_date)
-        &mdash; {{ $event->end->format('jS M Y') }}
+        &mdash; {{ $event->end->tzUser()->format('jS M Y') }}
         @endif
     </h2>
     <div class="tab-vertical" role="tabpanel">
