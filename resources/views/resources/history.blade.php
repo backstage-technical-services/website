@@ -24,7 +24,7 @@
             @foreach($resource->issues as $issue)
                 <tr>
                     <td col="num">{{ $issue->issue }}</td>
-                    <td col="date">{{ $issue->created_at->format('jS F Y') }}</td>
+                    <td col="date">{{ $issue->created_at->tzUser()->format('jS F Y') }}</td>
                     <td col="author">{{ $issue->author->name }}</td>
                     <td col="reason">{!! Markdown::convertToHtml($issue->reason) !!}</td>
                     <td class="admin-tools">
