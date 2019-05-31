@@ -44,7 +44,13 @@ class CommitteeController extends Controller
         $order = $this->verifyRoleOrder($request->get('order'));
 
         // Create the new role
-        Role::create(clean($request->only('name', 'email', 'description', 'user_id')) + ['order' => $order]);
+        Role::create([
+            'name'        => clean($request->name),
+            'email'       => clean($request->email),
+            'description' => clean($request->description),
+            'user_id'     => $request->user_id ?? null,
+            'order'       => $order,
+        ]);
 
         // Flash message
         Notify::success('Committee role added');
@@ -74,7 +80,14 @@ class CommitteeController extends Controller
         $order = $this->verifyRoleOrder($request->get('order'));
 
         // Update the role
-        $role->update(clean($request->only('name', 'email', 'description', 'user_id')) + ['order' => $order]);
+        $role->update([
+            'name'        => clean($request->name),
+            'email'       => clean($request->email),
+            'description' => clean($request->description),
+            'user_id'     => $request->user_id ?? null,
+            'order'       => $order,
+        ]);
+
         Notify::success("Role '{$role->name}' updated");
         return $this->ajaxResponse(true);
     }

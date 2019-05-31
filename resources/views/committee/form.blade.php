@@ -29,7 +29,7 @@
     {{-- Select field for the user --}}
     <div class="form-group">
         {!! Form::label('user_id', 'Assign user:') !!}
-        {!! Form::memberList('user_id', null, ['class' => 'form-control', 'include_blank' => true]) !!}
+        {!! Form::memberList('user_id', null, ['class' => 'form-control', 'include_blank' => true, 'blank_text' => '-- Unelected --']) !!}
     </div>
 
     {{-- Select field for order --}}

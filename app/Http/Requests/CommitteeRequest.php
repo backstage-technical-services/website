@@ -25,7 +25,7 @@ class CommitteeRequest extends Request
             'name'        => 'required',
             'email'       => 'required|email',
             'description' => 'required',
-            'user_id'     => 'required|exists:users,id',
+            'user_id'     => 'nullable|exists:users,id',
             'order'       => 'required|min:0',
         ];
     }

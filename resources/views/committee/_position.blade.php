@@ -29,11 +29,13 @@
             <div class="title">
                 {{ $role->name }}
             </div>
-            <div class="name {{ $role->user ? '' : 'em' }}">
-                {{ $role->user ? $role->user->name : '&ndash; unassigned &ndash;' }}
+            <div class="name {{ $role->user !== null ? '' : 'em' }}">
+                {{ $role->user !== null ? $role->user->name : 'Unelected' }}
             </div>
             <div class="description">
-                {!! Markdown::convertToHtml(str_replace('[name]', $role->user ? $role->user->forename : 'They', $role->description)) !!}
+                {!!
+                Markdown::convertToHtml(str_replace('[name]', $role->user ? $role->user->forename : ('The ' . strtolower($role->name)), $role->description))
+                !!}
             </div>
         </div>
     </div>
