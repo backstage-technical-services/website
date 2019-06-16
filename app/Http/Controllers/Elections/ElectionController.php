@@ -151,7 +151,7 @@ class ElectionController extends Controller
 
         // Delete
         $election->delete();
-        File::delete($election->getManifestoPath());
+        File::deleteDirectory($election->getManifestoPath());
 
         Notify::success('Election deleted');
         return $this->ajaxResponse(true);
