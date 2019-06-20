@@ -10,6 +10,7 @@ use bnjns\SearchTools\SearchTools;
 use bnjns\WebDevTools\Laravel\Traits\CorrectsPaginatorPath;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class ResourceController extends Controller
 {
@@ -86,7 +87,7 @@ class ResourceController extends Controller
 
         // Set the source
         if ($resource->isFile()) {
-            mkdir($resource->getPath());
+            File::makeDirectory($resource->getPath(), 0775, true);
             $resource->reissue($request->file('file'), 'Initial issue');
         } else if ($resource->isGDoc()) {
             $resource->update([
