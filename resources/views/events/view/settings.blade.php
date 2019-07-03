@@ -64,6 +64,14 @@
                     {!! Form::text('venue', null, ['class' => 'form-control']) !!}
                     @InputError('venue')
                 </div>
+                @can('create', \App\Models\Events\Event::class)
+                    {{-- Production Charge --}}
+                    <div class="form-group @InputClass('production_charge')">
+                        {!! Form::label('production_charge', 'Production Charge: £', ['class' => 'control-label']) !!}
+                        {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+                        @InputError('production_charge')
+                    </div>
+                @endcan
                 {{-- Description --}}
                 <div class="form-group @InputClass('description')">
                     {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}

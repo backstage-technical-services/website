@@ -93,6 +93,14 @@
             <div class="col-xs-5">@InputError('time_end')</div>
         </div>
     </div>
+    <div class="form-group @InputClass('production_charge')">
+        {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
+        {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+        @InputError('production_charge')
+    </div>
+
+    
+    
     <div class="form-group" id="buttons">
         <div class="btn-group">
             <button class="btn btn-success" data-disable="click" data-disable-text="Creating event..." name="action" value="create">

@@ -21,9 +21,14 @@
         <p class="form-control-static">{{ $event->venue }}</p>
     </div>
     <div class="form-entry">
+        <label for="production_charge" class="control-label">Production Charge:</label>
+        <p class="form-control-static">{{ $event->pretty_production_charge }}</p>
+    </div>
+    <div class="form-entry">
         <label for="description" class="control-label">Description:</label>
         <div class="form-control-static description">
             {!! Markdown::convertToHtml($event->description) !!}
         </div>
     </div>
+
 </div>

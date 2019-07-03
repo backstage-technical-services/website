@@ -132,6 +132,7 @@ class Event extends Model
         'date_end'         => 'required|date|after:date_start',
         'time_start'       => 'required|date_format:H:i',
         'time_end'         => 'required|date_format:H:i|after:time_start',
+        'production_charge'=> 'nullable|numeric|between:-999999,999999|regex:/^[-]?\d+(\.\d{1,2})?$/',
     ];
 
     /**
@@ -161,6 +162,9 @@ class Event extends Model
         'time_end.required'      => 'Please enter the end time',
         'time_end.date_format'   => 'Please enter a valid time',
         'time_end.after'         => 'This must be after the start time',
+        'production_charge.numeric'     => 'Please enter a valid number',
+        'production_charge.between'     => 'Charge is out of bounds',
+        'production_charge.regex'       => 'Charge may only have 2 decimal places',
     ];
 
     /**
@@ -186,6 +190,7 @@ class Event extends Model
         'client_type',
         'venue_type',
         'paperwork',
+        'production_charge'
     ];
 
     /**
@@ -557,6 +562,21 @@ class Event extends Model
                 return $crew->name . ': ' . $crew->user->name;
             })->toArray()),
         ];
+    }
+
+    /**
+     * Get production charge in user readable form.
+     *
+     * @return array
+     */
+    public function getPrettyProductionChargeAttribute()
+    {
+        $charge = $this->production_charge;
+
+        $value = floor($charge) == $charge ? floor($charge) : $charge;
+        $sign = $charge < 0 ? '-' : '';
+
+        return $sign.'£ '.abs($value);
     }
 
     /**
