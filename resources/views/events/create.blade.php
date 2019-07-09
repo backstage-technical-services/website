@@ -96,9 +96,9 @@
     <div class="form-group @InputClass('production_charge')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
         {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
         <div class="input-group">
-                            <span class="input-group-addon">
-                                <span class="fa fa-gbp"></span>
-                            </span>
+            <span class="input-group-addon">
+                <span class="fa fa-gbp"></span>
+            </span>
             {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
         </div>
         @InputError('production_charge')
