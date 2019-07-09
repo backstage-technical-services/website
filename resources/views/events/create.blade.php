@@ -95,12 +95,14 @@
     </div>
     <div class="form-group @InputClass('production_charge')">
         {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
-        {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-gbp"></span>
+                            </span>
+            {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+        </div>
         @InputError('production_charge')
     </div>
-
-    
-    
     <div class="form-group" id="buttons">
         <div class="btn-group">
             <button class="btn btn-success" data-disable="click" data-disable-text="Creating event..." name="action" value="create">

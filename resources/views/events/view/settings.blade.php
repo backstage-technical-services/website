@@ -67,8 +67,13 @@
                 @can('create', \App\Models\Events\Event::class)
                     {{-- Production Charge --}}
                     <div class="form-group @InputClass('production_charge')">
-                        {!! Form::label('production_charge', 'Production Charge: £', ['class' => 'control-label']) !!}
-                        {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-gbp"></span>
+                            </span>
+                            {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+                        </div>
                         @InputError('production_charge')
                     </div>
                 @endcan
