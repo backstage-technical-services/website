@@ -21,10 +21,12 @@
         <p class="form-control-static">{{ $event->venue }}</p>
     </div>
     @can('update', $event)
-        <div class="form-entry">
-            <label for="production_charge" class="control-label">Production Charge:</label>
-            <p class="form-control-static">{{ $event->pretty_production_charge }}</p>
-        </div>
+        @if($event->isEvent())
+            <div class="form-entry">
+                <label for="production_charge" class="control-label">Production Charge:</label>
+                <div class="form-control-static">{{ $event->pretty_production_charge }}</div>
+            </div>
+        @endif
     @endcan
     <div class="form-entry">
         <label for="description" class="control-label">Description:</label>
