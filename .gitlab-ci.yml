@@ -22,7 +22,8 @@ deploy_staging:
     - ssh $SSH_USER@$SSH_SERVER "
       cd /www/$SITE_ROOT/ &&
       php artisan down &&
-      git checkout ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+      git fetch &&
+      git checkout ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} &&
       git reset --hard &&
       git pull &&
       composer install &&
