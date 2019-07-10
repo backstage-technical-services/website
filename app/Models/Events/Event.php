@@ -164,7 +164,7 @@ class Event extends Model
         'time_end.after'         => 'This must be after the start time',
         'production_charge.numeric'     => 'Please enter a valid number',
         'production_charge.between'     => 'Charge is out of bounds',
-        'production_charge.regex'       => 'Charge may only have 2 decimal places',
+        'production_charge.regex'       => 'Charge may only have 2 decimal places and no spaces',
     ];
 
     /**
