@@ -10,6 +10,22 @@ stages:
     - chmod 600 ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa.pub
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - scp -r .git $SSH_USER@$SSH_SERVER:/www/$SITE_ROOT
+    - ssh $SSH_USER@$SSH_SERVER "
+      cd /www/$SITE_ROOT/ &&
+      php artisan down &&
+      git reset --hard &&
+      composer install --no-interaction --no-dev --prefer-dist &&
+      yarn install --no-dev --silent &&
+      yarn prod &&
+      php artisan migrate --force --no-interaction &&
+      php artisan cache:clear &&
+      php artisan view:clear &&
+      php artisan config:cache &&
+      chown -R $SSH_USER:www-data . &&
+      php artisan up
+      "
 
 deploy_staging:
   stage: deploy
@@ -18,23 +34,6 @@ deploy_staging:
     SSH_SERVER: $SSH_SERVER_STAGING
     SITE_ROOT: $SITE_ROOT_STAGING
   <<: *deployment
-  script:
-    - ssh $SSH_USER@$SSH_SERVER "
-      cd /www/$SITE_ROOT/ &&
-      php artisan down &&
-      git fetch &&
-      git checkout ${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} &&
-      git reset --hard &&
-      git pull &&
-      composer install &&
-      yarn install &&
-      yarn prod &&
-      php artisan migrate --force --no-interaction &&
-      php artisan cache:clear &&
-      php artisan view:clear &&
-      php artisan config:cache &&
-      php artisan up
-      "
   only:
     - /^release\/.*$/
   except:
@@ -47,21 +46,6 @@ deploy_production:
     SSH_SERVER: $SSH_SERVER_PROD
     SITE_ROOT: $SITE_ROOT_PROD
   <<: *deployment
-  script:
-    - ssh $SSH_USER@$SSH_SERVER "
-      cd /www/$SITE_ROOT/ &&
-      php artisan down &&
-      git reset --hard &&
-      git pull &&
-      composer install &&
-      yarn install &&
-      yarn prod &&
-      php artisan migrate --force --no-interaction &&
-      php artisan cache:clear &&
-      php artisan view:clear &&
-      php artisan config:cache &&
-      php artisan up
-      "
   when: manual
   only:
     refs:
