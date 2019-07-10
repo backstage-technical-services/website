@@ -132,7 +132,7 @@ class Event extends Model
         'date_end'         => 'required|date|after:date_start',
         'time_start'       => 'required|date_format:H:i',
         'time_end'         => 'required|date_format:H:i|after:time_start',
-        'production_charge'=> 'nullable|numeric|between:-999999,999999|regex:/^[-]?\d+(\.\d{1,2})?$/',
+        'production_charge'=> 'nullable|numeric|between:-999999,999999|regex:/^[\-]?\d+(\.\d{1,2})?$/',
     ];
 
     /**
