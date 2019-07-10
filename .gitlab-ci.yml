@@ -11,6 +11,7 @@ stages:
     - chmod 600 ~/.ssh/id_rsa.pub
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
+    - ssh $SSH_USER@$SSH_SERVER "chmod -R 744 /www/$SITE_ROOT/.git"
     - scp -r .git $SSH_USER@$SSH_SERVER:/www/$SITE_ROOT
     - ssh $SSH_USER@$SSH_SERVER "
       cd /www/$SITE_ROOT/ &&
