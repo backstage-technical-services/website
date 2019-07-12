@@ -96,7 +96,7 @@ class EventController extends Controller
                 'finance_treas'   => false,
                 'event_report'    => false,
             ],
-            'production_charge'=> clean($request->get('production_charge')),
+            'production_charge' => clean($request->get('production_charge')),
         ]);
 
         // Set the event time limits
