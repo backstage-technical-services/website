@@ -591,6 +591,9 @@ class Event extends Model
      */
     public function getPrettyProductionChargeAttribute()
     {
+        $formatter = new \NumberFormatter('en_GB', \NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($this->production_charge, 'GBP');
+
         $charge = $this->production_charge;
 
         $value = floor($charge) == $charge ? floor($charge) : $charge;
