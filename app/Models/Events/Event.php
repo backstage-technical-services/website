@@ -565,6 +565,26 @@ class Event extends Model
     }
 
     /**
+     * Get production charge in £.
+     *
+     * @return float
+     */
+    public function getProductionChargeAttribute($charge)
+    {
+        return $charge / 100;
+    }
+
+    /**
+     * Save production charge in integer pence.
+     *
+     * @return null
+     */
+    public function setProductionChargeAttribute($charge)
+    {
+        $this->attributes['production_charge'] = round($charge * 100);
+    }
+
+    /**
      * Get production charge in user readable form.
      *
      * @return array

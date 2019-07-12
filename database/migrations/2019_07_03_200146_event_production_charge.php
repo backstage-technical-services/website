@@ -14,7 +14,7 @@ class EventProductionCharge extends Migration
     public function up()
     {
         Schema::table('events', function(Blueprint $table) {
-            $table->decimal('production_charge', 8,2)
+            $table->integer('production_charge')
                   ->after('venue_type')
                   ->nullable();
         });
