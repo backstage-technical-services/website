@@ -49,10 +49,7 @@ deploy_production:
   <<: *deployment
   when: manual
   only:
-    refs:
-      - /^release\/.*$/
-  except:
-    - branches
+    - /^v[\d.]+$/
 
 sast:
   stage: security
@@ -70,7 +67,7 @@ sast:
       --volume /var/run/docker.sock:/var/run/docker.sock
       "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
   only:
-    - master
+    - /^v[\d.]+$/
   artifacts:
     reports:
       sast: gl-sast-report.json
@@ -87,7 +84,7 @@ dast:
     - /zap/zap-baseline.py -J gl-dast-report.json -t $website || true
     - cp /zap/wrk/gl-dast-report.json .
   only:
-    - master
+    - /^v[\d.]+$/
   artifacts:
     reports:
       dast: gl-dast-report.json
@@ -109,7 +106,7 @@ dependency_scanning:
       --volume /var/run/docker.sock:/var/run/docker.sock
       "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
   only:
-    - master
+    - /^v[\d.]+$/
   artifacts:
     reports:
       dependency_scanning: gl-dependency-scanning-report.json
