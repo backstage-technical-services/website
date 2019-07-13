@@ -48,8 +48,11 @@ deploy_production:
     SITE_ROOT: $SITE_ROOT_PROD
   <<: *deployment
   when: manual
+  allow_failure: false
   only:
     - /^v[\d.]+$/
+  except:
+    - branches
 
 sast:
   stage: security
@@ -68,6 +71,8 @@ sast:
       "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
   only:
     - /^v[\d.]+$/
+  except:
+    - branches
   artifacts:
     reports:
       sast: gl-sast-report.json
@@ -85,6 +90,8 @@ dast:
     - cp /zap/wrk/gl-dast-report.json .
   only:
     - /^v[\d.]+$/
+  except:
+    - branches
   artifacts:
     reports:
       dast: gl-dast-report.json
@@ -107,6 +114,8 @@ dependency_scanning:
       "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
   only:
     - /^v[\d.]+$/
+  except:
+    - branches
   artifacts:
     reports:
       dependency_scanning: gl-dependency-scanning-report.json
