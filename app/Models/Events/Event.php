@@ -593,13 +593,13 @@ class Event extends Model
     {
         $charge = $this->production_charge;
 
-        $sign = $charge < 0 ? '- ' : '';
-
-        // Format value with thousand separators and non zero decimals
+        $sign = $charge < 0 ? '-' : '';
         $charge = abs($charge);
-        $value = floor($charge) == $charge ? number_format($charge) : $value = number_format($charge, 2);
 
-        return $sign.'£ '.$value;
+        // To improve readability, only show pence if non-zero
+        $value = number_format($charge, floor($charge) == $charge ? 0 : 2);
+
+        return trim(sprintf("%s £ %s", $sign, $value));
     }
 
     /**
