@@ -31,7 +31,7 @@ class BookRequest extends Request
             'event_club'           => 'required',
             'contact_name'         => 'required|regex:/[a-zA-z]+\s[a-zA-z]+/',
             'contact_email'        => 'required|email',
-            'contact_phone'        => 'phone',
+            'contact_phone'        => 'nullable|phone',
             'terms'                => 'accepted',
             'g-recaptcha-response' => 'required|recaptcha',
         ];
