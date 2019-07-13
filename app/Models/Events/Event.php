@@ -567,11 +567,11 @@ class Event extends Model
     /**
      * Get production charge in £.
      *
-     * @return float
+     * @return float|null
      */
     public function getProductionChargeAttribute($charge)
     {
-        return $charge / 100;
+        return is_null($charge) ? null : $charge / 100;
     }
 
     /**
@@ -581,7 +581,7 @@ class Event extends Model
      */
     public function setProductionChargeAttribute($charge)
     {
-        $this->attributes['production_charge'] = round($charge * 100);
+        $this->attributes['production_charge'] = $charge == '' ? null : round($charge * 100);
     }
 
     /**
@@ -591,6 +591,10 @@ class Event extends Model
      */
     public function getPrettyProductionChargeAttribute()
     {
+        if ($this->production_charge === null) {
+            return null;
+        }
+
         $charge = $this->production_charge;
 
         $sign = $charge < 0 ? '-' : '';

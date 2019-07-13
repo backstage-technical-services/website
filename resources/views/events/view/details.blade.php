@@ -24,7 +24,7 @@
         @if($event->isEvent())
             <div class="form-entry">
                 <label for="production_charge" class="control-label">Production Charge:</label>
-                <div class="form-control-static">{{ $event->pretty_production_charge }}</div>
+                <div class="form-control-static">{!! $event->pretty_production_charge ?: '<em>&ndash; none &ndash;</em>' !!}</div>
             </div>
         @endif
     @endcan
