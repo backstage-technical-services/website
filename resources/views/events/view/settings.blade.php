@@ -64,9 +64,11 @@
                     {!! Form::text('venue', null, ['class' => 'form-control']) !!}
                     @InputError('venue')
                 </div>
+                {{-- Production Charge --}}
                 @can('create', \App\Models\Events\Event::class)
-                    {{-- Production Charge --}}
-                    <div class="form-group @InputClass('production_charge')">
+                    <div class="form-group @InputClass('production_charge')"
+                        data-visibility-input="type"
+                        data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
                         {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
                         <div class="input-group">
                             <span class="input-group-addon">
