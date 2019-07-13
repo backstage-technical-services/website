@@ -587,19 +587,19 @@ class Event extends Model
     /**
      * Get production charge in user readable form.
      *
-     * @return array
+     * @return string
      */
     public function getPrettyProductionChargeAttribute()
     {
-        $formatter = new \NumberFormatter('en_GB', \NumberFormatter::CURRENCY);
-        return $formatter->formatCurrency($this->production_charge, 'GBP');
-
         $charge = $this->production_charge;
 
-        $value = floor($charge) == $charge ? floor($charge) : $charge;
-        $sign = $charge < 0 ? '-' : '';
+        $sign = $charge < 0 ? '- ' : '';
 
-        return $sign.'£ '.abs($value);
+        // Format value with thousand separators and non zero decimals
+        $charge = abs($charge);
+        $value = floor($charge) == $charge ? number_format($charge) : $value = number_format($charge, 2);
+
+        return $sign.'£ '.$value;
     }
 
     /**
