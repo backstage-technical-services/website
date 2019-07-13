@@ -64,6 +64,21 @@
                     {!! Form::text('venue', null, ['class' => 'form-control']) !!}
                     @InputError('venue')
                 </div>
+                {{-- Production Charge --}}
+                @can('create', \App\Models\Events\Event::class)
+                    <div class="form-group @InputClass('production_charge')"
+                        data-visibility-input="type"
+                        data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
+                        {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="fa fa-gbp"></span>
+                            </span>
+                            {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
+                        </div>
+                        @InputError('production_charge')
+                    </div>
+                @endcan
                 {{-- Description --}}
                 <div class="form-group @InputClass('description')">
                     {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}

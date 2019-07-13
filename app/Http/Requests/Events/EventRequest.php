@@ -24,6 +24,7 @@ class EventRequest extends FormRequest
         'date_end',
         'time_start',
         'time_end',
+        'production_charge',
     ];
 
     /**
