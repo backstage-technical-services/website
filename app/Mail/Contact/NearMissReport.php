@@ -28,7 +28,8 @@ class NearMissReport extends Mailable
     {
         $this->report = [
             'location'               => $request->location,
-            'date'                   => Carbon::createFromFormat('Y-m-d H:i', $request->date),
+            'date'                   => Carbon::createFromFormat('Y-m-d', $request->date),
+            'time'                   => Carbon::createFromFormat('H:i', $request->time),
             'details'                => trim(clean($request->details)),
             'safety_recommendations' => trim(clean($request->safety_recommendations)),
             'user_name'              => $request->user_name ?: null,

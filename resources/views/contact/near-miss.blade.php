@@ -24,14 +24,24 @@
             @InputError('location')
         </div>
 
-        <!-- Date and Time -->
+        <!-- Date -->
         <div class="form-group @InputClass('date')">
-            {!! Form::label('date', 'Location:') !!}
+            {!! Form::label('date', 'Date:') !!}
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                {!! Form::datetime('date', null, ['placeholder' => 'Roughly when did it happen?', 'data-date-format' => 'YYYY-MM-DD HH:mm']) !!}
+                {!! Form::date('date', null, ['placeholder' => 'Roughly when did it happen?']) !!}
             </div>
             @InputError('date')
+        </div>
+
+        <!-- Time -->
+        <div class="form-group @InputClass('date')">
+            {!! Form::label('time', 'Time:') !!}
+            <div class="input-group">
+                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                {!! Form::time('time', null, ['placeholder' => 'Roughly when did it happen?', 'data-date-format' => 'HH:mm']) !!}
+            </div>
+            @InputError('time')
         </div>
 
         <!-- Details -->
