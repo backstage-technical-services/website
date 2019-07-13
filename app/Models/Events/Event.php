@@ -123,15 +123,16 @@ class Event extends Model
      * @var array
      */
     protected static $ValidationRules = [
-        'name'             => 'required',
-        'em_id'            => 'nullable|exists:users,id',
-        'description'      => 'required',
-        'venue'            => 'required',
-        'crew_list_status' => 'in:' . self::CREW_LIST_HIDDEN . ',' . self::CREW_LIST_CLOSED . ',' . self::CREW_LIST_OPEN,
-        'date_start'       => 'required|date',
-        'date_end'         => 'required|date|after:date_start',
-        'time_start'       => 'required|date_format:H:i',
-        'time_end'         => 'required|date_format:H:i|after:time_start',
+        'name'              => 'required',
+        'em_id'             => 'nullable|exists:users,id',
+        'description'       => 'required',
+        'venue'             => 'required',
+        'crew_list_status'  => 'in:' . self::CREW_LIST_HIDDEN . ',' . self::CREW_LIST_CLOSED . ',' . self::CREW_LIST_OPEN,
+        'date_start'        => 'required|date',
+        'date_end'          => 'required|date|after:date_start',
+        'time_start'        => 'required|date_format:H:i',
+        'time_end'          => 'required|date_format:H:i|after:time_start',
+        'production_charge' => 'nullable|numeric|between:-999999,999999|regex:/^[\-]?\d+(\.\d{1,2})?$/',
     ];
 
     /**
@@ -140,27 +141,30 @@ class Event extends Model
      * @var array
      */
     protected static $ValidationMessages = [
-        'name.required'          => 'Please enter the event\'s name',
-        'em_id.exists'           => 'Please select a valid user',
-        'type.required'          => 'Please select an event type',
-        'type.in'                => 'Please select a valid event type',
-        'description.required'   => 'Please enter the event description',
-        'venue.required'         => 'Please enter the venue',
-        'venue_type.required'    => 'Please select the venue type',
-        'venue_type.in'          => 'Please select a valid venue type',
-        'client_type.required'   => 'Please select a client type',
-        'client_type.in'         => 'Please select a valid client type',
-        'crew_list_status.in'    => 'Please select a status for the crew list',
-        'date_start.required'    => 'Please enter when this event starts',
-        'date_start.date'        => 'Please enter a valid date',
-        'date_end.required'      => 'Please enter when this event ends',
-        'date_end.date'          => 'Please enter a valid date',
-        'date_end.after'         => 'This must be after the start date',
-        'time_start.required'    => 'Please enter the start time',
-        'time_start.date_format' => 'Please enter a valid time',
-        'time_end.required'      => 'Please enter the end time',
-        'time_end.date_format'   => 'Please enter a valid time',
-        'time_end.after'         => 'This must be after the start time',
+        'name.required'             => 'Please enter the event\'s name',
+        'em_id.exists'              => 'Please select a valid user',
+        'type.required'             => 'Please select an event type',
+        'type.in'                   => 'Please select a valid event type',
+        'description.required'      => 'Please enter the event description',
+        'venue.required'            => 'Please enter the venue',
+        'venue_type.required'       => 'Please select the venue type',
+        'venue_type.in'             => 'Please select a valid venue type',
+        'client_type.required'      => 'Please select a client type',
+        'client_type.in'            => 'Please select a valid client type',
+        'crew_list_status.in'       => 'Please select a status for the crew list',
+        'date_start.required'       => 'Please enter when this event starts',
+        'date_start.date'           => 'Please enter a valid date',
+        'date_end.required'         => 'Please enter when this event ends',
+        'date_end.date'             => 'Please enter a valid date',
+        'date_end.after'            => 'This must be after the start date',
+        'time_start.required'       => 'Please enter the start time',
+        'time_start.date_format'    => 'Please enter a valid time',
+        'time_end.required'         => 'Please enter the end time',
+        'time_end.date_format'      => 'Please enter a valid time',
+        'time_end.after'            => 'This must be after the start time',
+        'production_charge.numeric' => 'Please enter a valid number',
+        'production_charge.between' => 'Charge is out of bounds',
+        'production_charge.regex'   => 'Charge may only have 2 decimal places and no spaces',
     ];
 
     /**
@@ -186,6 +190,7 @@ class Event extends Model
         'client_type',
         'venue_type',
         'paperwork',
+        'production_charge'
     ];
 
     /**
@@ -557,6 +562,48 @@ class Event extends Model
                 return $crew->name . ': ' . $crew->user->name;
             })->toArray()),
         ];
+    }
+
+    /**
+     * Get production charge in £.
+     *
+     * @return float|null
+     */
+    public function getProductionChargeAttribute($charge)
+    {
+        return is_null($charge) ? null : $charge / 100;
+    }
+
+    /**
+     * Save production charge in integer pence.
+     *
+     * @return null
+     */
+    public function setProductionChargeAttribute($charge)
+    {
+        $this->attributes['production_charge'] = $charge == '' ? null : round($charge * 100);
+    }
+
+    /**
+     * Get production charge in user readable form.
+     *
+     * @return string
+     */
+    public function getPrettyProductionChargeAttribute()
+    {
+        if ($this->production_charge === null) {
+            return null;
+        }
+
+        $charge = $this->production_charge;
+
+        $sign = $charge < 0 ? '-' : '';
+        $charge = abs($charge);
+
+        // To improve readability, only show pence if non-zero
+        $value = number_format($charge, floor($charge) == $charge ? 0 : 2);
+
+        return trim(sprintf("%s £ %s", $sign, $value));
     }
 
     /**

@@ -96,6 +96,7 @@ class EventController extends Controller
                 'finance_treas'   => false,
                 'event_report'    => false,
             ],
+            'production_charge' => clean($request->get('production_charge')),
         ]);
 
         // Set the event time limits
@@ -247,6 +248,7 @@ class EventController extends Controller
         if ($request->user()->can('create', Event::class)) {
             $fields[] = 'client_type';
             $fields[] = 'venue_type';
+            $fields[] = 'production_charge';
         }
 
         // Set up the validation

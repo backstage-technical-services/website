@@ -20,10 +20,19 @@
         <label for="venue" class="control-label">Venue:</label>
         <p class="form-control-static">{{ $event->venue }}</p>
     </div>
+    @can('update', $event)
+        @if($event->isEvent())
+            <div class="form-entry">
+                <label for="production_charge" class="control-label">Production Charge:</label>
+                <div class="form-control-static">{!! $event->pretty_production_charge ?: '<em>&ndash; none &ndash;</em>' !!}</div>
+            </div>
+        @endif
+    @endcan
     <div class="form-entry">
         <label for="description" class="control-label">Description:</label>
         <div class="form-control-static description">
             {!! Markdown::convertToHtml($event->description) !!}
         </div>
     </div>
+
 </div>
