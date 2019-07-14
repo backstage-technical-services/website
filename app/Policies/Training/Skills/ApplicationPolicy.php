@@ -36,7 +36,7 @@ class ApplicationPolicy
     }
 
     /**
-     * Determine whether the user can update the details of a application.
+     * Determine whether the user can update the details of an application.
      *
      * @param \App\Models\Users\User                  $user
      * @param \App\Models\Training\Skills\Application $application

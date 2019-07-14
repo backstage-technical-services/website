@@ -99,7 +99,7 @@ class Application extends Model
     }
 
     /**
-     * Check if a application has been awarded.
+     * Check if an application has been awarded.
      *
      * @return bool
      */

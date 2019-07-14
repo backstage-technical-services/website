@@ -121,7 +121,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * View the details of a application.
+     * View the details of an application.
      *
      * @param $id
      *
@@ -213,7 +213,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * This method determines the skill levels that can be selected when submitting a application.
+     * This method determines the skill levels that can be selected when submitting an application.
      *
      * @param \App\Models\Training\Skills\Skill|null $skill
      * @param \App\Models\Users\User                 $user

@@ -36,9 +36,9 @@ class SubmitApplication extends FormRequest
             if ((int)$user->getSkillLevel($skill) >= $this->get('level')) {
                 $validator->errors()->add('level', 'Please choose a level you don\'t already have');
             }
-            // Check the user doesn't already have a application pending
+            // Check the user doesn't already have an application pending
             if (Application::where('skill_id', $skill->id)->where('user_id', $user->id)->notAwarded()->count() > 0) {
-                $validator->errors()->add('skill_id', 'You already have a application pending for this skill');
+                $validator->errors()->add('skill_id', 'You already have an application pending for this skill');
             }
             // Check the level requested is available
             if (!$skill->isLevelAvailable($this->get('level'))) {
