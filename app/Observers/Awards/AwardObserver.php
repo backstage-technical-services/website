@@ -23,7 +23,7 @@ class AwardObserver extends ModelObserver
     {
         $attributes = $this->getUpdatedAttributes($award);
 
-        if (is_null($attributes['suggested_by'])) {
+        if (isset($attributes['suggested_by']) && is_null($attributes['suggested_by'])) {
             Logger::log('award.approve', true, ['id' => $award->id]);
         } else {
             Logger::log('award.edit', true, $attributes);
