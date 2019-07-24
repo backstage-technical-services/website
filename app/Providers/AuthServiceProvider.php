@@ -13,6 +13,7 @@ use App\Models\Equipment\Breakage;
 use App\Models\Events\Crew as EventCrew;
 use App\Models\Events\Event;
 use App\Models\Events\Time as EventTime;
+use App\Models\Events\Paperwork as Paperwork;
 use App\Models\Page;
 use App\Models\Quote;
 use App\Models\Resources\Category as ResourceCategory;
@@ -32,6 +33,7 @@ use App\Policies\Equipment\RepairPolicy;
 use App\Policies\Events\EventCrewPolicy;
 use App\Policies\Events\EventPolicy;
 use App\Policies\Events\EventTimePolicy;
+use App\Policies\Events\PaperworkPolicy;
 use App\Policies\Members\UserPolicy;
 use App\Policies\PagePolicy;
 use App\Policies\QuotePolicy;
@@ -63,6 +65,7 @@ class AuthServiceProvider extends ServiceProvider
         Event::class              => EventPolicy::class,
         EventCrew::class          => EventCrewPolicy::class,
         EventTime::class          => EventTimePolicy::class,
+        Paperwork::class          => PaperworkPolicy::class,
         Page::class               => PagePolicy::class,
         Proposal::class           => ProposalPolicy::class,
         Quote::class              => QuotePolicy::class,

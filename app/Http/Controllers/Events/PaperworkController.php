@@ -21,9 +21,12 @@ class PaperworkController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('index', Paperwork::class);
+
         $paperwork = Paperwork::orderBy('name', 'ASC')->get();
 
         return view('events.paperwork')->with('paperwork_list', $paperwork);
@@ -33,9 +36,12 @@ class PaperworkController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create', Paperwork::class);
+
         return view('events.paperwork.create');
     }
 
@@ -63,9 +69,12 @@ class PaperworkController extends Controller
      * @param  \Illuminate\Http\Request     $request
      * @param  integer                      $paperworkID
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, $paperworkID)
     {
+        $this->authorize('update', Paperwork::class);
+
         $paperwork = Paperwork::findOrFail($paperworkID);
 
         $paperwork::update([
@@ -81,9 +90,12 @@ class PaperworkController extends Controller
      *
      * @param  \App\Models\Events\Paperwork  $paperwork
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Paperwork $paperwork)
     {
         $this->authorize('delete', Paperwork::class);
+
+        return $this->ajaxResponse('Paperwork updated');
     }
 }
