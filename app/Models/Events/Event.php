@@ -266,6 +266,17 @@ class Event extends Model
     }
 
     /**
+     * Define the foreign key relationship with the event paperwork.
+     *
+     * @return mixed
+     */
+    public function paperwork()
+    {
+        return $this->belongsToMany('App\Models\Events\Paperwork', 'event_event_paperwork')
+            ->withPivot('completed', 'link');
+    }
+
+    /**
      * Order the events by when they start, ascending (soonest first)
      *
      * @param $query
