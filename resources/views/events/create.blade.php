@@ -21,7 +21,7 @@
     </div>
     <div class="form-group @InputClass('type')">
         {!! Form::label('type', 'Event Type:', ['class' => 'control-label']) !!}
-        {!! Form::select('type', \App\Models\Events\Event::$Types, null, ['class' => 'form-control', 'data-type' => 'toggle-visibility']) !!}
+        {!! Form::select('type', $Types, null, ['class' => 'form-control', 'data-type' => 'toggle-visibility']) !!}
         @InputError('type')
     </div>
     <div class="form-group @InputClass('description')">
@@ -37,12 +37,12 @@
     </div>
     <div class="form-group @InputClass('venue_type')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
         {!! Form::label('venue_type', 'Venue Type:', ['class' => 'control-label']) !!}
-        {!! Form::select('venue_type', \App\Models\Events\Event::$VenueTypes, null, ['class' => 'form-control']) !!}
+        {!! Form::select('venue_type', $VenueTypes, null, ['class' => 'form-control']) !!}
         @InputError('venue_type')
     </div>
     <div class="form-group @InputClass('client_type')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
         {!! Form::label('client_type', 'Client Type:', ['class' => 'control-label']) !!}
-        {!! Form::select('client_type', \App\Models\Events\Event::$Clients, null, ['class' => 'form-control']) !!}
+        {!! Form::select('client_type', $Clients, null, ['class' => 'form-control']) !!}
         @InputError('client_type')
     </div>
     <div class="form-group @InputClass('date_start') @InputClass('date_end')">
@@ -102,6 +102,19 @@
             {!! Form::text('production_charge', null, ['class' => 'form-control']) !!}
         </div>
         @InputError('production_charge')
+    </div>
+    <div class="form_group @InputClass('paperwork')" >
+        {!! Form::label('paperwork', 'Required Paperwork:', ['class' => 'control-label']) !!}
+        @forelse($all_paperwork as $paperwork)
+            <div class="checkbox">
+                <label>
+                    {!! Form::checkbox('paperwork_checked[]', $paperwork->id, true) !!}
+                    {{ $paperwork->name }}
+                </label>
+            </div>
+        @empty
+            <p>There is no paperwork available.</p>
+        @endforelse
     </div>
     <div class="form-group" id="buttons">
         <div class="btn-group">

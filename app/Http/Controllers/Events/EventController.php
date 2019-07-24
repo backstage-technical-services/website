@@ -7,6 +7,7 @@ use App\Http\Requests\Events\EventRequest;
 use App\Mail\Events\AcceptedExternal;
 use App\Mail\Events\FinanceEmail;
 use App\Models\Events\Event;
+use App\Models\Events\Paperwork;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\SearchTools\SearchTools;
 use Carbon\Carbon;
@@ -67,7 +68,12 @@ class EventController extends Controller
     public function create()
     {
         $this->authorize('create', Event::class);
-        return view('events.create');
+        return view('events.create')->with([
+            'Types'         => Event::$Types,
+            'Clients'       => Event::$Clients,
+            'VenueTypes'    => Event::$VenueTypes,
+            'all_paperwork' => Paperwork::all(),
+        ]);
     }
 
     /**
@@ -98,6 +104,11 @@ class EventController extends Controller
             ],
             'production_charge' => clean($request->get('production_charge')),
         ]);
+
+        // Set required paperwork
+        foreach ($request->get('paperwork_checked') as $paperwork) {
+            $event->paperwork()->attach($paperwork);
+        }
 
         // Set the event time limits
         $start_time = explode(':', $request->get('time_start'));
