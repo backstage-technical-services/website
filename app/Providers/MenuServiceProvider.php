@@ -71,7 +71,8 @@ class MenuServiceProvider extends ServiceProvider
                 if ($isAdmin) {
                     $menu->find('events')
                          ->add(route('event.index'), 'View all events')
-                         ->add(route('event.create'), 'Create a new event');
+                         ->add(route('event.create'), 'Create a new event')
+                         ->add(route('event.paperwork'), 'View Paperwork');
                 }
 
                 // Members' area sub-menu
