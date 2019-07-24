@@ -31,6 +31,8 @@ Route::group([
         'as'   => 'event.report',
         'uses' => 'Events\EventController@report',
     ])->where('id', '[\d]+');
+
+    // Individual Events
     Route::group([
         'prefix' => '{id}',
         'where'  => ['id' => '[\d]+'],
@@ -94,5 +96,27 @@ Route::group([
         Route::get('finance-email', [
             'uses' => 'Events\EventController@sendFinanceEmail',
         ]);
+    });
+
+    // Event Paperwork
+    Route::group([
+        'prefix' => 'paperwork',
+    ], function () {
+        Route::get('', [
+            'as'   => 'event.paperwork',
+            'uses' => 'Events\PaperworkController@index',
+        ]);
+        Route::post('', [
+            'as'   => 'event.paperwork.store',
+            'uses' => 'Events\PaperworkController@store',
+        ]);
+        Route::post('{paperworkId}', [
+            'as'   => 'event.paperwork.update',
+            'uses' => 'Events\PaperworkController@update',
+        ])->where('paperworkId', '[\d]+');
+        Route::post('{paperworkId}/delete', [
+            'as'   => 'event.paperwork.destroy',
+            'uses' => 'Events\PaperworkController@destroy',
+        ])->where('paperworkId', '[\d]+');
     });
 });
