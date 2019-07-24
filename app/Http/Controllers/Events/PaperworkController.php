@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
 use App\Models\Events\Paperwork;
-use Illuminate\Http\Request;
+use App\Http\Requests\Events\PaperworkRequest;
+
 use bnjns\LaravelNotifications\Facades\Notify;
 
 class PaperworkController extends Controller
@@ -48,10 +49,10 @@ class PaperworkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Events\PaperworkRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PaperworkRequest $request)
     {
         Paperwork::create([
             'name'          => clean($request->get('name')),
@@ -66,12 +67,12 @@ class PaperworkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request     $request
-     * @param  integer                      $paperworkID
+     * @param  \App\Http\Requests\Events\PaperworkRequest   $request
+     * @param  integer                                      $paperworkID
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, $paperworkID)
+    public function update(PaperworkRequest $request, $paperworkID)
     {
         $this->authorize('update', Paperwork::class);
 
@@ -88,11 +89,11 @@ class PaperworkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Events\Paperwork  $paperwork
+     * @param  \App\Http\Requests\Events\PaperworkRequest  $paperwork
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Paperwork $paperwork)
+    public function destroy(PaperworkRequest $paperwork)
     {
         $this->authorize('delete', Paperwork::class);
 
