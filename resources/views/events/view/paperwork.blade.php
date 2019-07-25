@@ -1,36 +1,38 @@
 <h2>Event Paperwork</h2>
+
 <div class="paperwork-list">
-    {{-- Risk Assessment --}}
-    <div class="paperwork">
-        @include('events.view._paperwork', ['paperwork' => 'risk_assessment'])
-        <div class="name">Risk assessment</div>
-        <p class="link{{ $event->paperwork['risk_assessment'] ? ' hidden' : '' }}" data-show="incomplete">
-            <span class="fa fa-link"></span>
-            <a class="grey" href="{{ config('bts.links.risk_assessment') }}" target="_blank">Risk assessment form</a>
-        </p>
-    </div>
-    {{-- Insurance --}}
-    <div class="paperwork">
-        @include('events.view._paperwork', ['paperwork' => 'insurance'])
-        <div class="name">Insurance</div>
-    </div>
-    {{-- TEM Finance --}}
-    <div class="paperwork">
-        @include('events.view._paperwork', ['paperwork' => 'finance_em'])
-        <div class="name">TEM finance</div>
-    </div>
-    {{-- Treasurer Finance --}}
-    <div class="paperwork">
-        @include('events.view._paperwork', ['paperwork' => 'finance_treas'])
-        <div class="name">Treasurer finance</div>
-    </div>
-    {{-- Event Report --}}
-    <div class="paperwork">
-        @include('events.view._paperwork', ['paperwork' => 'event_report'])
-        <div class="name">Event report</div>
-        <p class="link{{ $event->paperwork['event_report'] ? ' hidden' : '' }}" data-show="incomplete">
-            <span class="fa fa-link"></span>
-            <a class="grey" href="{{ route('event.report', ['id' => $event->id]) }}">Event report form</a>
-        </p>
-    </div>
+    @foreach($event->paperwork as $paperwork)
+        <div class="paperwork">
+            {{-- Complete / Missing icons--}}
+            <span class="editable"
+                  data-editable="toggle"
+                  data-action="{{ route('event.update', ['id' => $event->id]) }}"
+                  data-field="paperwork.{{ $paperwork->id }}">
+                    <span class="fa fa-{{ $paperwork->pivot->completed ? 'check' : 'remove' }}"></span>
+            </span>
+
+            {{-- Paperwork Title--}}
+            <div class="name">{{ $paperwork->name }}</div>
+
+            {{-- Paperwork Link--}}
+            @if ($paperwork->pivot->link)
+                <p class="link">
+                    <span class="fa fa-link"></span>
+                    <a class="grey" href="{{ $paperwork->pivot->link }}" target="_blank">
+                        {{$paperwork->name}}
+                    </a>
+                </p>
+            @endif
+
+            {{-- Template Link--}}
+            @if ($paperwork->template_link)
+                <p class="link {{ $paperwork->pivot->completed ? 'hidden' : '' }}" data-show="incomplete">
+                    <span class="fa fa-link"></span>
+                    <a class="grey" href="{{ $paperwork->template_link }}" target="_blank">
+                        {{$paperwork->name}} form
+                    </a>
+                </p>
+            @endif
+        </div>
+    @endforeach
 </div>
