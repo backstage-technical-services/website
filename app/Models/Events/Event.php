@@ -199,7 +199,7 @@ class Event extends Model
      * @var array
      */
     protected $casts = [
-        'paperwork' => 'array',
+        //paperwork' => 'array',
     ];
 
     /**
@@ -757,7 +757,7 @@ class Event extends Model
     }
 
     /**
-     * Count the amount of paperwork that is incomplete.
+     * Count the amount of incomplete paperwork.
      *
      * @param null $complete
      *
@@ -768,9 +768,7 @@ class Event extends Model
         if ($complete === null) {
             return count($this->paperwork);
         } else {
-            return count(array_filter($this->paperwork, function ($value) use ($complete) {
-                return $complete ? $value : !$value;
-            }));
+            return count($this->paperwork()->wherePivot('completed', $complete)->get());
         }
     }
 
