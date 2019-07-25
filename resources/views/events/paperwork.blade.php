@@ -13,7 +13,7 @@
                 data-modal-template="paperwork"
                 data-modal-title="Add Paperwork"
                 data-modal-class="modal-sm"
-                {{--data-form-action="{{ route('event.paperwork.store') }}"--}}
+                data-form-action="{{ route('event.paperwork.store') }}"
                 data-mode="create"
                 type="button">
             <span class="fa fa-plus"></span>

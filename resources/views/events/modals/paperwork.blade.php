@@ -16,7 +16,6 @@
         <button class="btn btn-success"
                 data-type="submit-modal"
                 data-action="save"
-                data-form-action="{{ route('event.paperwork.store', ['id' => $paperwork->id]) }}"
                 data-redirect="true"
                 data-redirect-location="{{ route('event.paperwork', ['id' => $paperwork->id]) }}">
             <span class="fa fa-check"></span>
