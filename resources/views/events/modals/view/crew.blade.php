@@ -2,13 +2,9 @@
     {!! Form::open() !!}
     <div class="modal-body">
         {{-- User --}}
-        <div class="form-horizontal">
-            <div class="form-group">
-                {!! Form::label('user_id', 'Member:', ['class' => 'control-label col-xs-3']) !!}
-                <div class="col-xs-9">
-                    {!! Form::memberList('user_id', null, ['class' => 'form-control', 'include_blank' => true]) !!}
-                </div>
-            </div>
+        <div class="form-group">
+            {!! Form::label('members', 'Member(s):', ['class' => 'control-label']) !!}
+            {!! Form::memberList('user_id', null, ['class' => 'form-control', 'select2' => true, 'include_blank' => true]) !!}
         </div>
         {{-- Core --}}
         <div class="form-group">

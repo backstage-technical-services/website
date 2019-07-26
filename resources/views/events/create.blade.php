@@ -15,7 +15,7 @@
     </div>
     <div class="form-group @InputClass('em_id')">
         {!! Form::label('em_id', 'Event Manager:', ['class' => 'control-label']) !!}
-        {!! Form::memberList('em_id', null, ['class' => 'form-control', 'include_blank' => true]) !!}
+        {!! Form::memberList('em_id', null, ['class' => 'form-control', 'select2' => true, 'include_blank' => true]) !!}
         @InputError('em_id')
         <p class="help-block alt">Leave blank if there isn't an Event Manager at the moment</p>
     </div>
