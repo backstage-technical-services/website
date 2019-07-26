@@ -106,7 +106,8 @@
                                 </li>
                                 <li>
                                     <a data-submit-ajax="{{ route('resource.destroy', ['id' => $resource->id]) }}"
-                                       data-submit-confirm="Are you sure you want to delete this resource?">
+                                       data-submit-confirm="Are you sure you want to delete this resource?"
+                                       data-redirect="true">
                                         <span class="fa fa-trash"></span> Delete
                                     </a>
                                 </li>

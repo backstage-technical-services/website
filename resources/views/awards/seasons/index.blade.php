@@ -100,6 +100,7 @@
                                     <li>
                                         <button data-submit-ajax="{{ route('award.season.destroy', ['id' => $season->id]) }}"
                                                 data-submit-confirm="Are you sure you want to delete this award season?"
+                                                data-redirect="true"
                                                 type="button">
                                             <span class="fa fa-trash"></span> Delete
                                         </button>

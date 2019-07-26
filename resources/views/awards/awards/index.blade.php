@@ -70,6 +70,7 @@
                                 @if(!$award->isApproved())
                                     <li>
                                         <button data-submit-ajax="{{ route('award.approve', ['id' => $award->id]) }}"
+                                                data-redirect="true"
                                                 type="button">
                                             <span class="fa fa-check"></span>
                                             <span>Approve</span>
@@ -92,6 +93,7 @@
                                 <li>
                                     <button data-submit-ajax="{{ route('award.destroy', ['id' => $award->id]) }}"
                                             data-submit-confirm="Are you sure you want to delete this award?"
+                                            data-redirect="true"
                                             type="button">
                                         <span class="fa fa-trash"></span> Delete
                                     </button>
