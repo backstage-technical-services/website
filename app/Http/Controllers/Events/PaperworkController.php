@@ -59,7 +59,6 @@ class PaperworkController extends Controller
             'template_link' => clean($request->get('template_link')),
         ]);
 
-
         Notify::success("Paperwork Created");
         return $this->ajaxResponse('Paperwork created');
     }
@@ -78,8 +77,8 @@ class PaperworkController extends Controller
 
         $paperwork = Paperwork::findOrFail($paperworkID);
 
-        $paperwork::update([
-            'title'         => clean($request->get('title')),
+        $paperwork->update([
+            'name'          => clean($request->get('name')),
             'template_link' => clean($request->get('template_link')),
         ]);
 
