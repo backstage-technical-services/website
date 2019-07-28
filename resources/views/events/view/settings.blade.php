@@ -24,7 +24,7 @@
                     @if($event->isTEM(Auth::user()) && !Auth::user()->isAdmin())
                         <p class="form-control-static">{!! $event->em->name !!}</p>
                     @else
-                        {!! Form::memberList('em_id', null, ['class' => 'form-control', 'include_blank' => true, 'blank_text' => '-- No Event Manager --']) !!}
+                        {!! Form::memberList('em_id', null, ['class' => 'form-control', 'select2' => true, 'include_blank' => true, 'blank_text' => '-- No Event Manager --']) !!}
                         @InputError('em_id')
                     @endif
                 </div>

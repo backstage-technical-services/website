@@ -1,12 +1,13 @@
 .select2-container {
+    z-index: 3000;
     .select2-selection {
         & > ul.select2-selection__rendered {
             margin: 0;
             padding: 0;
-  
+
             & > li.select2-search {
                 margin: 0;
-  
+
                 & > input.select2-search__field {
                     color: #000;
                     font-size: 1em;

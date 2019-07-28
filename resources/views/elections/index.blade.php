@@ -54,7 +54,8 @@
                                     @can('delete', $election)
                                         <li>
                                             <a data-submit-ajax="{{ route('election.destroy', ['id' => $election->id]) }}"
-                                               data-submit-confirm="Are you sure you want to delete this election?">
+                                               data-submit-confirm="Are you sure you want to delete this election?"
+                                               data-redirect="true">
                                                 <span class="fa fa-trash"></span> Delete
                                             </a>
                                         </li>
