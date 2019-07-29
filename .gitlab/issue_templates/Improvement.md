@@ -1,15 +1,14 @@
-Summary:
+#### Improvement
 
-(Summary of your improvement)
+(Describe what this improvement is - be as detailed as possible)
 
-Improvement details:
+#### Rationale
 
-(Please provide a brief description of the improvement, and what parts of the website it affects)
+(Provide a brief rationale as to why this improvement should be added)
 
-Urgency:
+#### Urgency
 
-(Is this improvement time sensitive?)
+(How time-sensative is this? Low? Medium? High? Very High? If there's a date or event this needs to be done by, please enter that here too)
 
-(Eg, An AGM feature should be ready by AGM)
 
-\label ~type: improvement
+\label ~"type: improvement"
