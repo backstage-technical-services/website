@@ -24,4 +24,10 @@ If you were saving data to the site, please also include it here in a ```code bl
 
 This will let us see if there is any helpful information in the server logs
 
+#### Urgency
+
+How quickly does this need to be resolved? Is this preventing you or anyone else from being able to do something you/they need to?
+
+Use one of: Low, Medium, High, Very High
+
 \label ~"type: bug"
