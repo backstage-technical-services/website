@@ -68,23 +68,21 @@ class CreatePaperworkTables extends Migration
                         $knownPaperwork[] = $PaperworkType;
                     }
 
-                    $paperworkID = array_search($PaperworkType, $knownPaperwork);
-
-                    $event->paperwork()->attach($paperworkID, ['completed' => $completed]);
-
                     // Add paperwork to local array
-                    //$temp_event_event_paperwork[] = [
-                        //event_id'      => $event->id,
-                        //'paperwork_id'  => $paperworkID,
-                        //'completed'     => $completed ];
+                    $temp_event_event_paperwork[] = [
+                        'event_id'      => $event->id,
+                        'paperwork_id'  => array_search($PaperworkType, $knownPaperwork),
+                        'completed'     => $completed ];
                 }
-                // Batch process to reduce DB writes
-                //if(sizeof($temp_event_event_paperwork)>1000) {
-                    //DB::table('event_event_paperwork')->insert($temp_event_event_paperwork);
-                    //$temp_event_event_paperwork = [];
-//                }
+                // Batch insert to speed up migration
+                if(sizeof($temp_event_event_paperwork)>2000) {
+                    DB::table('event_event_paperwork')->insert($temp_event_event_paperwork);
+                    $temp_event_event_paperwork = [];
+                }
             }
         }
+        // Insert last batch
+        DB::table('event_event_paperwork')->insert($temp_event_event_paperwork);
 
         // --- Add Paperwork Info ---
         Paperwork::where('name', 'risk_assessment') ->update(['name' => 'Risk Assessment',
