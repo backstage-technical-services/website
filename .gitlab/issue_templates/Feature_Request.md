@@ -1,25 +1,17 @@
-Summary:
+#### Request
 
-(Brief summary of your new feature)
+Describe your request, using as much detail as you can. Don't be afraid to any planning you've already done, and take advantage of formatting and lists to make it easier to read!
 
-Feature Details:
+#### Where should this go?
 
-(Please provide a brief but informative description of the feature)
+Is there a certain area of this website this would fit into?
 
-(What does it do and how does it function?)
+#### Rationale
 
-Where would this fit into the Website?:
+Why should this be implemented? How does this benefit members (or the committee)?
 
-(Is there a certain section/page?)
+#### Urgency
 
-Benefit:
+How time sensitive is this? Low? Medium? High? Very High? If there's a date or event this needs to be done by, please enter that here too.
 
-(Briefly outline what benefit this feature would bring and to whom)
-
-Urgency:
-
-(Is this feature time sensitive?)
-
-(Eg, An AGM feature should be ready by AGM)
-
-\label ~type: feature
+\label ~"type: feature"
