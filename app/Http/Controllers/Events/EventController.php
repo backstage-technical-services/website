@@ -95,7 +95,7 @@ class EventController extends Controller
             'venue_type'       => clean($request->get('type') == Event::TYPE_EVENT ? $request->get('venue_type') : null),
             'crew_list_status' => Event::CREW_LIST_OPEN,
             'em_id'            => clean($request->get('em_id') ?: null),
-            'paperwork'        => [
+            'paperwork_old'        => [
                 'risk_assessment' => false,
                 'insurance'       => false,
                 'finance_em'      => false,

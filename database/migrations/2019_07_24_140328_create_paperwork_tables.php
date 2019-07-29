@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use App\Models\Events\Paperwork;
+use App\Models\Events\Event;
 
 class CreatePaperworkTables extends Migration
 {
@@ -47,42 +48,52 @@ class CreatePaperworkTables extends Migration
         });
 
         // --- Data Migration ---
-        // Non destructively convert JSON paperwork info from events DB table into new pivot table
+        // Non destructively convert JSON paperwork info from events DB table into new tables
+
+        // Preserve old data but avoid conflict
+        Schema::table('events', function (Blueprint $table) {
+            $table->renameColumn('paperwork', 'paperwork_old')->nullable()->change();
+        });
 
         // Local arrays used to reduce DB read and writes
         $knownPaperwork[] = "";     // Empty entry to match database index
         $temp_event_event_paperwork = [];
 
-        foreach(DB::table('events')->get() as $event) {
-            foreach(json_decode($event->paperwork) as $PaperworkType => $completed) {
+        foreach (Event::all() as $event) {
+            if (! is_null($event->paperwork_old)) {
+                foreach(json_decode($event->paperwork_old) as $PaperworkType => $completed) {
+                    // Store each paperwork type
+                    if (!in_array($PaperworkType, $knownPaperwork)) {
+                        Paperwork::create(['name' => $PaperworkType]);
+                        $knownPaperwork[] = $PaperworkType;
+                    }
 
-                // Add new paperwork type to table
-                if (!in_array($PaperworkType, $knownPaperwork)) {
-                    Paperwork::create(['name' => $PaperworkType]);
-                    $knownPaperwork[] = $PaperworkType;
+                    $paperworkID = array_search($PaperworkType, $knownPaperwork);
+
+                    $event->paperwork()->attach($paperworkID, ['completed' => $completed]);
+
+                    // Add paperwork to local array
+                    //$temp_event_event_paperwork[] = [
+                        //event_id'      => $event->id,
+                        //'paperwork_id'  => $paperworkID,
+                        //'completed'     => $completed ];
                 }
-
-                // Add paperwork to local array
-                $temp_event_event_paperwork[] = [
-                    'event_id'      => $event->id,
-                    'paperwork_id'  => array_search($PaperworkType, $knownPaperwork),
-                    'completed'     => $completed ];
-            }
-            // Batch process to reduce DB writes
-            if(sizeof($temp_event_event_paperwork)>2000) {
-                DB::table('event_event_paperwork')->insert($temp_event_event_paperwork);
-                $temp_event_event_paperwork = [];
+                // Batch process to reduce DB writes
+                //if(sizeof($temp_event_event_paperwork)>1000) {
+                    //DB::table('event_event_paperwork')->insert($temp_event_event_paperwork);
+                    //$temp_event_event_paperwork = [];
+//                }
             }
         }
 
         // --- Add Paperwork Info ---
         Paperwork::where('name', 'risk_assessment') ->update(['name' => 'Risk Assessment',
-                                                        'template_link' => env('LINK_EVENT_RA')]);
+                                                              'template_link' => env('LINK_EVENT_RA')]);
         Paperwork::where('name', 'insurance')       ->update(['name' => 'Insurance']);
         Paperwork::where('name', 'finance_em')      ->update(['name' => 'TEM Finance']);
         Paperwork::where('name', 'finance_treas')   ->update(['name' => 'Treasurer Finance']);
         Paperwork::where('name', 'event_report')    ->update(['name' => 'Event Report',
-                                                        'template_link' => env('LINK_EVENT_REPORT')]);
+                                                              'template_link' => env('LINK_EVENT_REPORT')]);
     }
 
     /**
@@ -96,5 +107,9 @@ class CreatePaperworkTables extends Migration
         Schema::dropIfExists('event_event_paperwork');
         Schema::dropIfExists('event_paperwork');
         Schema::enableForeignKeyConstraints();
+
+        Schema::table('events', function (Blueprint $table) {
+            $table->renameColumn('paperwork_old', 'paperwork');
+        });
     }
 }
