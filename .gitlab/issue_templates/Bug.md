@@ -16,7 +16,7 @@ What do you expect the website should do?
 
 #### Steps to reproduce
 
-Provide as much information regarding what were doing when the bug occurred
+Provide as much information regarding what you were doing when the bug occurred
 
 If you were saving data to the site, please also include it here in a ```code block``` or provide a reference to it
 
