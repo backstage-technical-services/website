@@ -1,0 +1,72 @@
+version: '2.4'
+
+networks:
+  main:
+
+services:
+  mysql:
+    image: mariadb:${MARIADB_VERSION}
+    container_name: bts_mysql
+    networks:
+      - main
+    expose:
+      - 3306
+    ports:
+      - ${PORT_MYSQL}:3306
+    volumes:
+      - ./.docker/local/mysql/init:/docker-entrypoint-initdb.d/
+      - ./.docker/local/mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_USERNAME}
+    restart: on-failure
+    mem_limit: 1g
+
+  mail:
+    image: djfarrelly/maildev
+    container_name: bts_mail
+    networks:
+      - main
+    expose:
+      - 25
+    ports:
+      - ${PORT_MAIL}:80
+    restart: on-failure
+    mem_limit: 50m
+
+  nginx:
+    build:
+      context: ./.docker/local/nginx
+      dockerfile: Dockerfile
+    image: bts/nginx
+    container_name: bts_nginx
+    networks:
+      - main
+    expose:
+      - 80
+    ports:
+      - ${PORT_NGINX}:80
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - php
+    restart: on-failure
+    mem_limit: 512m
+
+  php:
+    build:
+      context: ./
+      dockerfile: .docker/local/php/Dockerfile
+    container_name: bts_php
+    networks:
+      - main
+    expose:
+      - 9000
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - mysql
+      - mail
+    restart: on-failure
+    mem_limit: 512m
