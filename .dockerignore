@@ -1,1 +1,3 @@
 .docker/local/mysql/data
+resources/resources
+resources/elections
