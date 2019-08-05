@@ -175,7 +175,7 @@ To start everything up, all you need to do is run
 ```sh
 $ .docker/local/bin/start.sh
 ```
-> The first time you run this Docker will need to download the relevant image layers and. This may take a while but this is a one-time thing (well, until the images are updated). 
+> The first time you run this Docker will need to download the relevant image layers; this may take a while but this is a one-time thing (well, until the images are updated). 
 
 > The first time you boot the database, it will need to initialise itself and will restart a couple of times before it's ready to be used.
 
@@ -201,9 +201,18 @@ Here are some helpful commands for interacting with the PHP container:
   ```
   
 * View the logs:
-    * PHP: `$ docker logs bts_php`
-    * Database: `$ docker logs bts_mysql`
-    * Nginx: `$ docker logs bts_nginx`
+    * PHP:
+      ```sh
+      $ docker logs bts_php
+      ```
+    * Database:
+      ```sh
+      $ docker logs bts_mysql
+      ```
+    * Nginx:
+      ```sh
+      $ docker logs bts_nginx
+      ```
 
 * Pull any changes from the repository and update any assets
 
@@ -211,6 +220,12 @@ Here are some helpful commands for interacting with the PHP container:
   $ .docker/local/bin/update.sh
   ```
   
+* Continually re-build assets when they change
+
+  ```sh
+  $ .docker/local/bin/watch-assets.sh
+  ```
+
 You can enter the container with an interactive bash shell with
 
 ```sh
@@ -225,7 +240,7 @@ From here, you can run any command as if you were in a normal terminal session.
 ### Viewing emails
 Included in the Docker set-up is a local SMTP server. This doesn't actually send any emails, so you're free to test with any email address, and provides a user interface for viewing any emails that have been sent.
 
-You can view this interface at [http://localhost:8001] (unless you've changed the value of `PORT_MAIL` in your `.env` file).
+You can view this interface at [http://localhost:8001](http://localhost:8001) (unless you've changed the value of `PORT_MAIL` in your `.env` file).
 
 ### Connecting to the MySQL database
 The MySQL database is exposed to your own computer so you can connect to it using the editor of your choice:
