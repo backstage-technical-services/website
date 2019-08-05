@@ -52,7 +52,7 @@ We use labels to categorise tickets:
 * `Waiting on Feedback` is used to indicate that more information is needed from the reporter before work can continue. Once work is resumed this label should be removed.
 * `Needs Spec/Scope` is used for tickets in the backlog that need more information before they can be worked on.
 
-> **Note:** Labels should only be applied to labels, and not merge requests.
+> **Note:** Labels should only be applied to tickets, and not merge requests.
 
 #### Milestones
 Using milestones is optional, but they can be a useful way of tracking upcoming releases and organising tickets into a specific release. Only tickets should be assigned to a milestone.
