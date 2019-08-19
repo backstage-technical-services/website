@@ -162,8 +162,7 @@ Once you have the above configured, you can install the site:
 ### Running the site
 The docker set-up includes the following services:
 
-* Nginx server
-* PHP-FPM to serve the website
+* A combined Nginx and PHP-FPM service to serve the website
 * MariaDB database
 * Mail server
 
@@ -188,27 +187,23 @@ Here are some helpful commands for interacting with the PHP container:
 * Generate an app key:
 
   ```sh
-  $ docker exec bts_php sh -c "php artisan key:generate"
+  $ docker exec bts_site sh -c "php artisan key:generate"
   ```
 
 * Run any database migrations:
 
   ```sh
-  $ docker exec bts_php sh -c "php artisan migrate"
+  $ docker exec bts_site sh -c "php artisan migrate"
   ```
   
 * View the logs:
-    * PHP:
+    * Nginx and PHP:
       ```sh
-      $ docker logs bts_php
+      $ docker logs bts_site
       ```
     * Database:
       ```sh
       $ docker logs bts_mysql
-      ```
-    * Nginx:
-      ```sh
-      $ docker logs bts_nginx
       ```
 
 * Pull any changes from the repository and update any assets
@@ -226,7 +221,7 @@ Here are some helpful commands for interacting with the PHP container:
 You can enter the container with an interactive bash shell with
 
 ```sh
-$ docker exec -ti bts_php bash
+$ docker exec -ti bts_site bash
 ```
 
 From here, you can run any command as if you were in a normal terminal session.

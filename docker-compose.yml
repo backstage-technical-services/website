@@ -35,34 +35,15 @@ services:
     restart: on-failure
     mem_limit: 50m
 
-  nginx:
-    build:
-      context: ./.docker/local/nginx
-      dockerfile: Dockerfile
-    image: bts/nginx
-    container_name: bts_nginx
-    networks:
-      - main
-    expose:
-      - 80
-    ports:
-      - ${PORT_NGINX}:80
-    volumes:
-      - ./:/var/www
-    depends_on:
-      - php
-    restart: on-failure
-    mem_limit: 512m
-
-  php:
+  site:
     build:
       context: ./
-      dockerfile: .docker/local/php/Dockerfile
-    container_name: bts_php
+      dockerfile: .docker/local/site/Dockerfile
+    container_name: bts_site
     networks:
       - main
-    expose:
-      - 9000
+    ports:
+      - ${PORT_NGINX}:80
     volumes:
       - ./:/var/www
     depends_on:

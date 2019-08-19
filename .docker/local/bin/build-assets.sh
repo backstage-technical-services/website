@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker exec bts_php sh -c "yarn run dev"
+docker exec bts_site sh -c "yarn run dev"
