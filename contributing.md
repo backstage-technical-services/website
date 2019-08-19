@@ -93,9 +93,6 @@ If you want another integration installed, just ask a Workspace Admin.
 ### Bugsnag
 [Bugsnag][link-bugsnag] is used to log errors and provide the team with all the information needed to resolve the error. We're currently on a free plan, so sharing isn't possible - but if you're working on an issue [Ben][link-ben] can provide you with any relevant information.
 
-### Mailtrap
-[Mailtrap][link-mailtrap] is a tools used for testing emails - it provides an inbox so that we can fully test the website but any test emails don't actually get sent. If you wish to use this to test emails you must create a free account and update the credentials in the .env file.
-
 ### One time secret
 [Onetimesecret][link-onetimesecret] is used to share sensitive information, such as values for the environment file. You do not need an account to use this service.
 
@@ -268,7 +265,6 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-merge-request]: https://gitlab.com/backstage-technical-services/laravel-site/merge_requests/new
 [link-slack]: https://bts-website.slack.com
 [link-bugsnag]: https://app.bugsnag.com/backstage-technical-services
-[link-mailtrap]: https://mailtrap.io
 [link-onetimesecret]: https://onetimesecret.com
 [link-phpstorm]: https://www.jetbrains.com/phpstorm
 [gitlab-register]: https://gitlab.com/users/sign_in#register-pane
