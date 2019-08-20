@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Training\Skills\AwardSkill;
 use App\Logger;
 use App\Models\Training\Skills\AwardedSkill;
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
 use bnjns\LaravelNotifications\Facades\Notify;
@@ -63,12 +63,12 @@ class AwardedController extends Controller
                              ->withInput($request->all());
         }
 
-        // Award any outstanding proposals
-        Proposal::notAwarded()
-                ->where('skill_id', $skill->id)
-                ->whereIn('user_id', [$members])
-                ->where('proposed_level', '<=', $level)
-                ->update([
+        // Award any outstanding applications
+        Application::notAwarded()
+                   ->where('skill_id', $skill->id)
+                   ->whereIn('user_id', [$members])
+                   ->where('applied_level', '<=', $level)
+                   ->update([
                     'awarded_level'   => $level,
                     'awarded_by'      => $request->user()->id,
                     'awarded_comment' => 'Awarded using \'Award Skill\' functionality',

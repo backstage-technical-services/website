@@ -1,10 +1,10 @@
 @extends('app.main')
 
 @section('page-section', 'training')
-@section('page-id', 'proposals-view')
+@section('page-id', 'applications-view')
 @section('title', 'Training Skills')
 @section('header-main', 'Training Skills')
-@section('header-sub', 'View Proposal')
+@section('header-sub', 'Application')
 
 @section('content')
     {!! Form::open(['class' => 'form-horizontal']) !!}
@@ -15,8 +15,8 @@
         <div class="col-sm-8">
             <p class="form-control-static">
                 <a class="grey"
-                   href="{{ route('member.view', ['username' => $proposal->user->username, 'tab' => 'training']) }}"
-                   target="_blank">{{ $proposal->user->name }}</a> ({{ $proposal->user->username }})
+                   href="{{ route('member.view', ['username' => $application->user->username, 'tab' => 'training']) }}"
+                   target="_blank">{{ $application->user->name }}</a> ({{ $application->user->username }})
             </p>
         </div>
     </div>
@@ -27,31 +27,31 @@
         <div class="col-sm-8">
             <p class="form-control-static">
                 <a class="grey"
-                   href="{{ route('training.skill.view', ['id' => $proposal->skill->id]) }}"
-                   target="_blank">{{ $proposal->skill->name }}</a>
-                <br>({{ $proposal->skill->category_name }})
+                   href="{{ route('training.skill.view', ['id' => $application->skill->id]) }}"
+                   target="_blank">{{ $application->skill->name }}</a>
+                <br>({{ $application->skill->category_name }})
             </p>
         </div>
     </div>
 
     {{-- Level --}}
     <div class="form-group">
-        {!! Form::label('proposed_level', 'Level Requested:', ['class' => 'col-sm-4 control-label']) !!}
+        {!! Form::label('applied_level', 'Level Requested:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
             <p class="form-control-static">
-                @include('training.skills.proficiency', ['level' => $proposal->proposed_level])
+                @include('training.skills.proficiency', ['level' => $application->applied_level])
             </p>
         </div>
     </div>
 
     {{-- Current level --}}
-    @if(!$proposal->isAwarded())
+    @if(!$application->isAwarded())
         <div class="form-group">
             {!! Form::label('current_level', 'Current Level:', ['class' => 'col-sm-4 control-label']) !!}
             <div class="col-sm-8">
                 <p class="form-control-static">
-                    @if($proposal->user->hasSkill($proposal->skill))
-                        @include('training.skills.proficiency', ['level' => $proposal->user->getSkillLevel($proposal->skill)])
+                    @if($application->user->hasSkill($application->skill))
+                        @include('training.skills.proficiency', ['level' => $application->user->getSkillLevel($application->skill)])
                     @else
                         <em>- none -</em>
                     @endif
@@ -64,7 +64,7 @@
     <div class="form-group">
         {!! Form::label('reasoning', 'Reasoning:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
-            {!! Markdown::convertToHtml($proposal->reasoning) !!}
+            {!! Markdown::convertToHtml($application->reasoning) !!}
         </div>
     </div>
 
@@ -72,16 +72,16 @@
     <div class="form-group @InputClass('awarded_level')">
         {!! Form::label('awarded_level', 'Awarded Level:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
-            @if($proposal->isAwarded())
+            @if($application->isAwarded())
                 <p class="form-control-static">
-                    @if($proposal->awarded_level == 0)
+                    @if($application->awarded_level == 0)
                         <em>&ndash; no level awarded &ndash;</em>
                     @else
-                        @include('training.skills.proficiency', ['level' => $proposal->awarded_level])
+                        @include('training.skills.proficiency', ['level' => $application->awarded_level])
                     @endif
                 </p>
             @else
-                {!! Form::select('awarded_level', $levels, $proposal->proposed_level, ['class' => 'form-control']) !!}
+                {!! Form::select('awarded_level', $levels, $application->applied_level, ['class' => 'form-control']) !!}
                 @InputError('awarded_level')
             @endif
         </div>
@@ -91,9 +91,9 @@
     <div class="form-group @InputClass('awarded_comment')">
         {!! Form::label('awarded_comment', 'Comment:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
-            @if($proposal->isAwarded())
-                @if($proposal->awarded_comment)
-                    {!! Markdown::convertToHtml($proposal->awarded_comment) !!}
+            @if($application->isAwarded())
+                @if($application->awarded_comment)
+                    {!! Markdown::convertToHtml($application->awarded_comment) !!}
                 @else
                     <p class="form-control-static">
                         <em>&ndash; no comment provided &ndash;</em>
@@ -107,12 +107,12 @@
     </div>
 
     {{-- Awarded details --}}
-    @if($proposal->isAwarded())
+    @if($application->isAwarded())
         <div class="form-group">
             {!! Form::label('awarded', 'Awarded by:', ['class' => 'col-sm-4 control-label']) !!}
             <div class="col-sm-8">
                 <p class="form-control-static">
-                    {{ $proposal->awarder->name }}<br>{{ $proposal->awarded_date->diffForHumans() }}
+                    {{ $application->awarder->name }}<br>{{ $application->awarded_date->diffForHumans() }}
                 </p>
             </div>
         </div>
@@ -122,8 +122,8 @@
     <div class="form-group">
         <div class="col-sm-4"></div>
         <div class="col-sm-8">
-            @if($proposal->isAwarded())
-                <a class="btn btn-success" href="{{ route('training.skill.proposal.index') }}">
+            @if($application->isAwarded())
+                <a class="btn btn-success" href="{{ route('training.skill.application.index') }}">
                     <span class="fa fa-long-arrow-left"></span>
                     <span>Back to the index</span>
                 </a>
@@ -144,7 +144,7 @@
                     </a>
                 </div>
                 <span class="form-link">
-                    or {!! link_to_route('training.skill.proposal.index', 'Cancel') !!}
+                    or {!! link_to_route('training.skill.application.index', 'Cancel') !!}
                 </span>
             @endif
         </div>
@@ -154,7 +154,7 @@
 @endsection
 
 @section('modal')
-    @if(!$proposal->isAwarded())
+    @if(!$application->isAwarded())
         <div data-type="modal-template" data-id="skill_details">
             <div class="modal-body">
                 {!! Form::open(['class' => 'form-horizontal']) !!}
@@ -162,7 +162,7 @@
                 <div class="form-group">
                     {!! Form::label('skill_name', 'Name:', ['class' => 'col-sm-4 control-label']) !!}
                     <div class="col-sm-8">
-                        <p class="form-control-static">{{ $proposal->skill->name }}</p>
+                        <p class="form-control-static">{{ $application->skill->name }}</p>
                     </div>
                 </div>
 
@@ -170,7 +170,7 @@
                 <div class="form-group">
                     {!! Form::label('skill_category', 'Category:', ['class' => 'col-sm-4 control-label']) !!}
                     <div class="col-sm-8">
-                        <p class="form-control-static">{!! $proposal->skill->category_name !!}</p>
+                        <p class="form-control-static">{!! $application->skill->category_name !!}</p>
                     </div>
                 </div>
 
@@ -178,7 +178,7 @@
                 <div class="form-group">
                     {!! Form::label('skill_description', 'Description:', ['class' => 'col-sm-4 control-label']) !!}
                     <div class="col-sm-8">
-                        <p class="form-control-static">{!! Markdown::convertToHtml($proposal->skill->description) !!}</p>
+                        <p class="form-control-static">{!! Markdown::convertToHtml($application->skill->description) !!}</p>
                     </div>
                 </div>
 
@@ -188,7 +188,7 @@
                     @for($i = 1; $i <= 3; $i++)
                         <tr>
                             <td>@include('training.skills.proficiency', ['level' => $i])</td>
-                            <td>{!! Markdown::convertToHtml($proposal->skill->{'level' . $i}) !!}</td>
+                            <td>{!! Markdown::convertToHtml($application->skill->{'level' . $i}) !!}</td>
                         </tr>
                     @endfor
                 </table>

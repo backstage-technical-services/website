@@ -17,7 +17,7 @@ table.level-requirements {
 table {
     tr {
         th, td {
-            &.proposal-status {
+            &.application-status {
                 font-size: 19px;
                 text-align: center;
                 vertical-align: middle;
@@ -25,20 +25,20 @@ table {
             }
             &.skill-level {
                 text-align: center;
-                width: 5em;
+                width: 6em;
             }
-            &.proposal-user, &.awarded-user, &.skill-user {
+            &.application-user, &.awarded-user, &.skill-user {
                 width: 15em;
             }
-            &.proposal-level {
+            &.application-level {
                 text-align: center;
                 width: 10em;
             }
-            &.proposal-date {
+            &.application-date {
                 text-align: center;
                 width: 10em;
             }
-            &.skill-proposal {
+            &.skill-application {
                 text-align: center;
                 width: 3em;
             }
@@ -180,7 +180,7 @@ table {
     }
 }
 
-&[page-id="proposals-propose"] {
+&[page-id="applications-apply"] {
     @media(min-width: 450px) {
         div#content {
             width: 450px;
@@ -188,7 +188,7 @@ table {
     }
 }
 
-&[page-id="proposals-view"] {
+&[page-id="applications-view"] {
     @media(min-width: 600px) {
         div#content {
             width: 600px;

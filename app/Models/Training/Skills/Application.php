@@ -5,7 +5,7 @@ namespace App\Models\Training\Skills;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Proposal extends Model
+class Application extends Model
 {
     /**
      * Disable the created/updated timestamps.
@@ -19,7 +19,7 @@ class Proposal extends Model
      *
      * @var string
      */
-    protected $table = 'training_skill_proposals';
+    protected $table = 'training_skill_applications';
 
     /**
      * The attributes fillable by mass assignment.
@@ -29,7 +29,7 @@ class Proposal extends Model
     protected $fillable = [
         'skill_id',
         'user_id',
-        'proposed_level',
+        'applied_level',
         'reasoning',
         'date',
         'awarded_level',
@@ -59,7 +59,7 @@ class Proposal extends Model
     }
 
     /**
-     * Define the relationship with the user who made the proposal.
+     * Define the relationship with the user who made the application.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -69,7 +69,7 @@ class Proposal extends Model
     }
 
     /**
-     * Define the relationship with the user who awarded the proposal.
+     * Define the relationship with the user who awarded the application.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -79,7 +79,7 @@ class Proposal extends Model
     }
 
     /**
-     * Add a scope for getting proposals which haven't been awarded.
+     * Add a scope for getting applications which haven't been awarded.
      *
      * @param $query
      */
@@ -89,7 +89,7 @@ class Proposal extends Model
     }
 
     /**
-     * Add a scope for getting proposals that have been awarded.
+     * Add a scope for getting applications that have been awarded.
      *
      * @param $query
      */
@@ -99,7 +99,7 @@ class Proposal extends Model
     }
 
     /**
-     * Check if a proposal has been awarded.
+     * Check if an application has been awarded.
      *
      * @return bool
      */

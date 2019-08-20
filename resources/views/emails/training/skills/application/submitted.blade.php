@@ -8,10 +8,10 @@
 @endcomponent
 
 @component('mail::button', ['url' => $url])
-View Proposal
+View Application
 @endcomponent
 
-If you require more information about the proposal, you can contact the member by replying to this email.
+If you require more information about the application, you can contact the member by replying to this email.
 
 Regards,<br>
 {{ config('app.name') }}

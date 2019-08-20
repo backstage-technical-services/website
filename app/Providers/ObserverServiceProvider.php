@@ -22,7 +22,7 @@ use App\Models\Resources\Resource;
 use App\Models\Resources\Tag;
 use App\Models\Training\Category as TrainingCategory;
 use App\Models\Training\Skills\AwardedSkill;
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\Group;
 use App\Models\Users\User;
@@ -46,7 +46,7 @@ use App\Observers\Resources\ResourceObserver;
 use App\Observers\Resources\TagObserver;
 use App\Observers\Training\CategoryObserver as TrainingCategoryObserver;
 use App\Observers\Training\Skills\AwardedSkillObserver;
-use App\Observers\Training\Skills\ProposalObserver;
+use App\Observers\Training\Skills\ApplicationObserver;
 use App\Observers\Training\Skills\SkillObserver;
 use App\Observers\Users\GroupObserver;
 use App\Observers\Users\UserObserver;
@@ -128,7 +128,7 @@ class ObserverServiceProvider extends ServiceProvider
     {
         TrainingCategory::observe(TrainingCategoryObserver::class);
         AwardedSkill::observe(AwardedSkillObserver::class);
-        Proposal::observe(ProposalObserver::class);
+        Application::observe(ApplicationObserver::class);
         Skill::observe(SkillObserver::class);
     }
 

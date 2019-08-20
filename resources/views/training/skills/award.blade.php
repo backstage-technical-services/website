@@ -9,7 +9,7 @@
 @section('content')
     <p>If you are a committee member, or a {{ $LevelNames[3] }} in a skill, you can award it to any other member. Please note that this currently doesn't
         support providing reasoning so it is recommended that
-        members {!! link_to_route('training.skill.propose.form', 'propose', ['id' => request()->route()->parameter('id')]) !!} their skill
+        members {!! link_to_route('training.skill.apply.form', 'apply for', ['id' => request()->route()->parameter('id')]) !!} their skill
         level instead.</p>
     {!! Form::open() !!}
     <div class="form-group @InputClass('skill_id')">

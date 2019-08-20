@@ -8,8 +8,8 @@
 @section('content')
     <h2>
         {{ $skill->name }}
-        @if(Auth::user()->hasProposalPending($skill))
-            <span class="badge">proposal pending</span>
+        @if(Auth::user()->hasApplicationPending($skill))
+            <span class="badge">application pending</span>
         @endif
     </h2>
     <h4 class="category">[{{ $skill->category ? $skill->category->name : 'Uncategorised' }}]</h4>
@@ -85,10 +85,10 @@
                 @endcan
             </div>
         @endcan
-        @if(Auth::user()->can('propose', $skill) && Auth::user()->getSkillLevel($skill) < 3)
-            <a class="btn btn-success" href="{{ route('training.skill.propose.form', ['id' => $skill->id]) }}">
+        @if(Auth::user()->can('apply', $skill) && Auth::user()->getSkillLevel($skill) < 3)
+            <a class="btn btn-success" href="{{ route('training.skill.apply.form', ['id' => $skill->id]) }}">
                 <span class="fa fa-plus"></span>
-                <span>Propose level</span>
+                <span>Apply for a level</span>
             </a>
         @endcan
         @can('award', $skill)
