@@ -74,13 +74,13 @@ class SkillPolicy
     }
 
     /**
-     * Determine whether the user can propose a skill level.
+     * Determine whether the user can apply for a skill level.
      *
      * @param \App\Models\Users\User $user
      *
      * @return bool
      */
-    public function propose(User $user)
+    public function apply(User $user)
     {
         return $user->isMember();
     }

@@ -1,10 +1,10 @@
 @extends('app.main')
 
 @section('page-section', 'training')
-@section('page-id', 'proposals-index')
-@section('title', 'Skill Proposals')
+@section('page-id', 'applications-index')
+@section('title', 'Skill Applications')
 @section('header-main', 'Training Skills')
-@section('header-sub', 'Skill Proposals')
+@section('header-sub', 'Skill Applications')
 
 @section('content')
     <div class="mobile-only">
@@ -17,19 +17,19 @@
         <div class="tab-links">
             <ul class="nav nav-tabs">
                 <li{{ $tab == 'pending' ? ' class=active' : '' }}>
-                    <a href="{{ route('training.skill.proposal.index', ['tab' => 'pending']) }}">Pending Review</a>
+                    <a href="{{ route('training.skill.application.index', ['tab' => 'pending']) }}">Pending Review</a>
                 </li>
                 <li{{ $tab == 'reviewed' ? ' class=active' : '' }}>
-                    <a href="{{ route('training.skill.proposal.index', ['tab' => 'reviewed']) }}">Reviewed</a>
+                    <a href="{{ route('training.skill.application.index', ['tab' => 'reviewed']) }}">Reviewed</a>
                 </li>
             </ul>
         </div>
         <div class="tab-content">
             <div class="tab-pane{{ $tab == 'pending' ? ' active' : '' }}">
-                @include('training.skills.proposals.index.pending')
+                @include('training.skills.applications.index.pending')
             </div>
             <div class="tab-pane{{ $tab == 'reviewed' ? ' active' : '' }}">
-                @include('training.skills.proposals.index.reviewed')
+                @include('training.skills.applications.index.reviewed')
                 @Paginator($awarded)
             </div>
         </div>

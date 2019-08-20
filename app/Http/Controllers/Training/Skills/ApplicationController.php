@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Training\Skills;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Training\Skills\SubmitProposal;
+use App\Http\Requests\Training\Skills\SubmitApplication;
 use App\Logger;
-use App\Mail\Training\Skills\ProposalProcessed;
-use App\Mail\Training\Skills\ProposalSubmitted;
-use App\Models\Training\Skills\Proposal;
+use App\Mail\Training\Skills\ApplicationProcessed;
+use App\Mail\Training\Skills\ApplicationSubmitted;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
 use bnjns\LaravelNotifications\Facades\Notify;
@@ -17,12 +17,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Validator;
 
-class ProposalController extends Controller
+class ApplicationController extends Controller
 {
     use ChecksPaginationPage;
 
     /**
-     * ProposalController constructor.
+     * ApplicationController constructor.
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class ProposalController extends Controller
     }
 
     /**
-     * View the form to propose a new skill level.
+     * View the form to apply for a new skill level.
      *
      * @param int|null $id
      *
@@ -38,9 +38,9 @@ class ProposalController extends Controller
      */
     public function form($id = null)
     {
-        $this->authorize('propose', Proposal::class);
+        $this->authorize('apply', Application::class);
 
-        $levels = $this->determineSelectableProposalSkillLevels($skill = $id === null ? null : Skill::find($id), $user = request()->user());
+        $levels = $this->determineSelectableApplicationSkillLevels($skill = $id === null ? null : Skill::find($id), $user = request()->user());
 
         if (count(array_filter($levels)) == 0) {
             Notify::warning('There are no levels left to apply for');
@@ -52,33 +52,35 @@ class ProposalController extends Controller
             return redirect()->route('training.skill.view', ['id' => $skill->id]);
         }
 
-        if ($skill && $user->hasProposalPending($skill)) {
-            Notify::warning('You already have a proposal pending for this skill');
+        if ($skill && $user->hasApplicationPending($skill)) {
+            Notify::warning('You already have an application pending for this skill');
             return redirect()->route('training.skill.view', ['id' => $skill->id]);
         }
 
-        return view('training.skills.proposals.propose')->with([
+        return view('training.skills.applications.apply')->with([
             'skill'           => $id === null ? null : $skill,
             'AvailableLevels' => array_keys(array_filter($levels)),
         ]);
     }
 
     /**
-     * Process the form and submit the proposal.
+     * Process the form and submit the application.
      *
-     * @param \App\Http\Requests\Training\Skills\SubmitProposal $request
+     * @param \App\Http\Requests\Training\Skills\SubmitApplication $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function propose(SubmitProposal $request)
+    public function apply(SubmitApplication $request)
     {
-        // Create the proposal
+        $this->authorize('apply', Application::class);
+
+        // Create the application
         $skill    = Skill::find($request->get('skill_id'));
         $user     = $request->user();
-        $proposal = Proposal::create([
+        $application = Application::create([
             'skill_id'        => $skill->id,
             'user_id'         => $user->id,
-            'proposed_level'  => clean($request->get('level')),
+            'applied_level'  => clean($request->get('level')),
             'reasoning'       => clean($request->get('reasoning')),
             'date'            => Carbon::now(),
             'awarded_level'   => null,
@@ -89,29 +91,29 @@ class ProposalController extends Controller
 
         // Email the T&S officer
         Mail::to('training@bts-crew.com')
-            ->queue(new ProposalSubmitted($skill, $proposal, $user));
+            ->queue(new ApplicationSubmitted($skill, $application, $user));
 
-        Notify::success('Proposal submitted');
+        Notify::success('Application submitted');
         return redirect()->route('training.skill.index');
     }
 
     /**
-     * View the proposal index page.
+     * View the application index page.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $unawarded = Proposal::notAwarded()
-                             ->orderBy('date', 'ASC')
-                             ->get();
-        $awarded   = Proposal::awarded()
-                             ->orderBy('awarded_date', 'DESC')
-                             ->paginate(30)
-                             ->appends('tab', 'reviewed');
+        $unawarded = Application::notAwarded()
+                                ->orderBy('date', 'ASC')
+                                ->get();
+        $awarded   = Application::awarded()
+                                ->orderBy('awarded_date', 'DESC')
+                                ->paginate(30)
+                                ->appends('tab', 'reviewed');
         $this->checkPage($awarded);
 
-        return view('training.skills.proposals.index')->with([
+        return view('training.skills.applications.index')->with([
             'unawarded' => $unawarded,
             'awarded'   => $awarded,
             'tab'       => request()->get('tab') == 'reviewed' ? 'reviewed' : 'pending',
@@ -119,7 +121,7 @@ class ProposalController extends Controller
     }
 
     /**
-     * View the details of a proposal.
+     * View the details of an application.
      *
      * @param $id
      *
@@ -127,26 +129,26 @@ class ProposalController extends Controller
      */
     public function view($id)
     {
-        $proposal = Proposal::findOrFail($id);
-        $this->authorize('view', $proposal);
+        $application = Application::findOrFail($id);
+        $this->authorize('view', $application);
 
         $levels = [
             0 => 'Do not award',
         ];
         for ($i = 1; $i <= 3; $i++) {
-            if ($proposal->skill->isLevelAvailable($i)) {
+            if ($application->skill->isLevelAvailable($i)) {
                 $levels[$i] = Skill::LEVEL_NAMES[$i];
             }
         }
 
-        return view('training.skills.proposals.view')->with([
-            'proposal' => $proposal,
-            'levels'   => $levels,
+        return view('training.skills.applications.view')->with([
+            'application' => $application,
+            'levels'      => $levels,
         ]);
     }
 
     /**
-     * Process the proposal form and update the details.
+     * Process the application form and update the details.
      *
      * @param                          $id
      * @param \Illuminate\Http\Request $request
@@ -155,19 +157,19 @@ class ProposalController extends Controller
      */
     public function update($id, Request $request)
     {
-        $proposal = Proposal::findOrFail($id);
-        $this->authorize('update', $proposal);
+        $application = Application::findOrFail($id);
+        $this->authorize('update', $application);
 
-        // If the proposal is already awarded, go back to viewing
-        if ($proposal->isAwarded()) {
-            return redirect()->route('training.skill.proposal.view', ['id' => $id]);
+        // If the application is already awarded, go back to viewing
+        if ($application->isAwarded()) {
+            return redirect()->route('training.skill.application.view', ['id' => $id]);
         }
 
-        // Check the user isn't trying to review their own proposal
+        // Check the user isn't trying to review their own application
         $user = request()->user();
-        if ($proposal->user_id == $user->id) {
-            Notify::warning('You can\'t review your own proposal');
-            return redirect()->route('training.skill.proposal.index');
+        if ($application->user_id == $user->id) {
+            Notify::warning('You can\'t review your own application');
+            return redirect()->route('training.skill.application.index');
         }
 
         // Validate the request
@@ -178,8 +180,8 @@ class ProposalController extends Controller
             'awarded_level.required'      => 'Please select the level to award',
             'awarded_level.in'            => 'Please select the level to award',
             'awarded_comment.required_if' => 'Please provide a reason why you haven\'t awarded the requested level',
-        ])->after(function (Validator $validator) use ($proposal, $request) {
-            $skill = Skill::find($proposal->skill_id);
+        ])->after(function (Validator $validator) use ($application, $request) {
+            $skill = Skill::find($application->skill_id);
 
             // Check the level awarded is available
             if ($request->get('awarded_level') > 0 && !$skill->isLevelAvailable($request->get('awarded_level'))) {
@@ -187,38 +189,38 @@ class ProposalController extends Controller
             }
         }));
 
-        // Update the proposal
+        // Update the application
         $attributes = [
             'awarded_level'   => $request->get('awarded_level'),
             'awarded_by'      => $user->id,
             'awarded_comment' => clean($request->get('awarded_comment')),
             'awarded_date'    => Carbon::now(),
         ];
-        $proposal->update($attributes);
-        Logger::log('training-skill-proposal.process', true, ['id' => $proposal->id] + $attributes);
+        $application->update($attributes);
+        Logger::log('training-skill-application.process', true, ['id' => $application->id] + $attributes);
 
         // Update the user's skill level
         if ($request->get('awarded_level') > 0) {
-            $proposal->user->setSkillLevel($proposal->skill_id, $request->get('awarded_level'));
+            $application->user->setSkillLevel($application->skill_id, $request->get('awarded_level'));
         }
 
         // Email the user
-        Mail::to($proposal->user->email, $proposal->user->name)
-            ->queue(new ProposalProcessed($proposal));
+        Mail::to($application->user->email, $application->user->name)
+            ->queue(new ApplicationProcessed($application));
 
-        Notify::success('Proposal processed');
-        return redirect()->route('training.skill.proposal.index');
+        Notify::success('Application processed');
+        return redirect()->route('training.skill.application.index');
     }
 
     /**
-     * This method determines the skill levels that can be selected when submitting a proposal.
+     * This method determines the skill levels that can be selected when submitting an application.
      *
      * @param \App\Models\Training\Skills\Skill|null $skill
      * @param \App\Models\Users\User                 $user
      *
      * @return array
      */
-    private function determineSelectableProposalSkillLevels(Skill $skill = null, User $user)
+    private function determineSelectableApplicationSkillLevels(Skill $skill = null, User $user)
     {
         $levels = [];
         for ($i = 1; $i <= 3; $i++) {

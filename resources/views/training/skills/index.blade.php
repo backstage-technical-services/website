@@ -37,10 +37,10 @@
                 </div>
             @endforeach
             <div class="btn-group">
-                @can('propose', \App\Models\Training\Skills\Skill::class)
-                    <a class="btn btn-success" href="{{ route('training.skill.propose.form') }}">
+                @can('apply', \App\Models\Training\Skills\Skill::class)
+                    <a class="btn btn-success" href="{{ route('training.skill.apply.form') }}">
                         <span class="fa fa-plus"></span>
-                        <span>Propose Skill Level</span>
+                        <span>Apply for Skill</span>
                     </a>
                 @endcan
                 @if(Auth::user()->isAdmin())

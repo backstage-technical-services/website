@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests\Training\Skills;
 
-use App\Models\Training\Skills\Proposal;
+use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class SubmitProposal extends FormRequest
+class SubmitApplication extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class SubmitProposal extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('propose', Proposal::class);
+        return $this->user()->can('apply', Application::class);
     }
 
     /**
@@ -36,9 +36,9 @@ class SubmitProposal extends FormRequest
             if ((int)$user->getSkillLevel($skill) >= $this->get('level')) {
                 $validator->errors()->add('level', 'Please choose a level you don\'t already have');
             }
-            // Check the user doesn't already have a proposal pending
-            if (Proposal::where('skill_id', $skill->id)->where('user_id', $user->id)->notAwarded()->count() > 0) {
-                $validator->errors()->add('skill_id', 'You already have a proposal pending for this skill');
+            // Check the user doesn't already have an application pending
+            if (Application::where('skill_id', $skill->id)->where('user_id', $user->id)->notAwarded()->count() > 0) {
+                $validator->errors()->add('skill_id', 'You already have an application pending for this skill');
             }
             // Check the level requested is available
             if (!$skill->isLevelAvailable($this->get('level'))) {
@@ -73,7 +73,7 @@ class SubmitProposal extends FormRequest
             'skill_id.exists'    => 'Please select a valid skill',
             'level.required'     => 'Please select a level you\'re applying for',
             'level.in'           => 'Please select a valid level',
-            'reasoning.required' => 'Please provide some reasoning for your proposal',
+            'reasoning.required' => 'Please provide some reasoning for your application',
         ];
     }
 }
