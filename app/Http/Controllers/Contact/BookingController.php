@@ -7,15 +7,17 @@ use App\Http\Requests\Contact\BookRequest;
 use App\Mail\Contact\Booking;
 use App\Mail\Contact\BookingReceipt;
 use bnjns\LaravelNotifications\Facades\Notify;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class BookingController extends Controller
 {
     /**
      * Show the booking form.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function showForm()
     {
@@ -25,15 +27,15 @@ class BookingController extends Controller
     /**
      * Process the booking form.
      *
-     * @param \App\Http\Requests\Contact\BookRequest $request
+     * @param BookRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function process(BookRequest $request)
     {
         $data = $request->all();
 
-        Mail::to('committee@bts-crew.com')
+        Mail::to(config('bts.emails.contact.bookings'))
             ->queue(new Booking($data));
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
             ->queue(new BookingReceipt($data));
@@ -45,9 +47,9 @@ class BookingController extends Controller
     /**
      * Get the booking terms and conditions.
      *
-     * @param   \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return  \Illuminate\View\View
+     * @return  View
      */
     public function getTerms(Request $request)
     {

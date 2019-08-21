@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\NearMissRequest;
 use App\Mail\Contact\NearMissReport;
 use bnjns\LaravelNotifications\Facades\Notify;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class NearMissController extends Controller
 {
@@ -21,7 +23,7 @@ class NearMissController extends Controller
     /**
      * Show the form to report a near miss.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function showForm()
     {
@@ -36,13 +38,13 @@ class NearMissController extends Controller
     }
 
     /**
-     * @param \App\Http\Requests\Contact\NearMissRequest $request
+     * @param NearMissRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function process(NearMissRequest $request)
     {
-        Mail::to(['committee@bts-crew.com', 'safety@bts-crew.com',])
+        Mail::to(config('bts.emails.safety.near_miss_reports'))
             ->queue(new NearMissReport($request));
 
         Notify::success('Thank you for reporting the near miss');

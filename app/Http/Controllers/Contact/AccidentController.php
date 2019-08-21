@@ -8,7 +8,9 @@ use App\Mail\Contact\AccidentReport;
 use App\Mail\Contact\AccidentReportReceipt;
 use bnjns\LaravelNotifications\Facades\Notify;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class AccidentController extends Controller
 {
@@ -23,7 +25,7 @@ class AccidentController extends Controller
     /**
      * Show the accident report form.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function showForm()
     {
@@ -38,9 +40,9 @@ class AccidentController extends Controller
     /**
      * Process the accident report form.
      *
-     * @param \App\Http\Requests\Contact\AccidentRequest $request
+     * @param AccidentRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function process(AccidentRequest $request)
     {
@@ -52,12 +54,7 @@ class AccidentController extends Controller
         ]);
 
         // TODO: Move these to a config file
-        Mail::to([
-            'committee@bts-crew.com',
-            'safety@bts-crew.com',
-            'P.Hawker@bath.ac.uk',
-            'P.Brooks@bath.ac.uk ',
-        ])
+        Mail::to(config('bts.emails.safety.accident_reports'))
             ->queue(new AccidentReport($request->all()));
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
             ->queue(new AccidentReportReceipt($request->all()));
