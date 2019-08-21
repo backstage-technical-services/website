@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ResourceNotCreatedException;
 use App\Http\Requests\QuoteRequest;
 use App\Services\QuoteService;
 use bnjns\LaravelNotifications\NotificationHandler;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class QuoteController extends Controller
 {
@@ -21,22 +25,22 @@ class QuoteController extends Controller
     /**
      * QuoteController constructor.
      *
-     * @param \App\Services\QuoteService                      $service
-     * @param \bnjns\LaravelNotifications\NotificationHandler $notify
+     * @param QuoteService $service
+     * @param NotificationHandler $notify
      */
     public function __construct(QuoteService $service, NotificationHandler $notify)
     {
         $this->middleware('auth');
         $this->service = $service;
-        $this->notify  = $notify;
+        $this->notify = $notify;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $quotes = $this->service->getPaginatedQuotes(15);
 
@@ -46,12 +50,12 @@ class QuoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\QuoteRequest $request
+     * @param QuoteRequest $request
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \App\Exceptions\ResourceNotCreatedException
+     * @return JsonResponse
+     * @throws ResourceNotCreatedException
      */
-    public function store(QuoteRequest $request)
+    public function store(QuoteRequest $request): JsonResponse
     {
         $quote = $this->service->createQuote($request);
 
@@ -64,10 +68,10 @@ class QuoteController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function delete($id)
+    public function delete(int $id): JsonResponse
     {
         $this->service->deleteQuote($id);
 

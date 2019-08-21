@@ -6,20 +6,22 @@ use App\Exceptions\ResourceNotCreatedException;
 use App\Http\Requests\QuoteRequest;
 use App\Models\Quote;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class QuoteService
 {
     /**
      * Get a paginated list of quotes.
      *
-     * @param $numPerPage
+     * @param int $numPerPage
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
-    public function getPaginatedQuotes($numPerPage)
+    public function getPaginatedQuotes(int $numPerPage): LengthAwarePaginator
     {
-        /** @var \Illuminate\Pagination\LengthAwarePaginator $quotes */
+        /** @var LengthAwarePaginator $quotes */
         $quotes = Quote::orderBy('created_at', 'DESC')
                        ->paginate($numPerPage);
 
@@ -34,12 +36,12 @@ class QuoteService
     /**
      * Create a new quote.
      *
-     * @param \App\Http\Requests\QuoteRequest $request
+     * @param QuoteRequest $request
      *
-     * @return \App\Models\Quote
-     * @throws \App\Exceptions\ResourceNotCreatedException
+     * @return Quote
+     * @throws ResourceNotCreatedException
      */
-    public function createQuote(QuoteRequest $request)
+    public function createQuote(QuoteRequest $request): Quote
     {
         $quote = new Quote([
             'culprit'  => clean($request->get('culprit')),
@@ -61,10 +63,10 @@ class QuoteService
      * @param int $quoteId
      *
      * @return void
-     * @throws \Exception
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws Exception
+     * @throws ModelNotFoundException
      */
-    public function deleteQuote($quoteId)
+    public function deleteQuote(int $quoteId): void
     {
         if (!Quote::where('id', $quoteId)->exists()) {
             throw new ModelNotFoundException(sprintf("Could not find quote with ID %s", $quoteId));
