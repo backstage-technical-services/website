@@ -15,6 +15,7 @@ npm-debug.log
 /public/mix.js
 /public/images/profiles/*
 !/public/images/profiles/blank.jpg
+/public/images/lightbox
 /public/js/*
 /public/css/*
 /resources/resources/*
@@ -22,3 +23,4 @@ npm-debug.log
 /storage/temp
 /storage/app/backups
 /storage/google_token.json
+.docker/local/mysql/data

@@ -52,7 +52,7 @@ We use labels to categorise tickets:
 * `Waiting on Feedback` is used to indicate that more information is needed from the reporter before work can continue. Once work is resumed this label should be removed.
 * `Needs Spec/Scope` is used for tickets in the backlog that need more information before they can be worked on.
 
-> **Note:** Labels should only be applied to labels, and not merge requests.
+> **Note:** Labels should only be applied to tickets, and not merge requests.
 
 #### Milestones
 Using milestones is optional, but they can be a useful way of tracking upcoming releases and organising tickets into a specific release. Only tickets should be assigned to a milestone.
@@ -93,9 +93,6 @@ If you want another integration installed, just ask a Workspace Admin.
 ### Bugsnag
 [Bugsnag][link-bugsnag] is used to log errors and provide the team with all the information needed to resolve the error. We're currently on a free plan, so sharing isn't possible - but if you're working on an issue [Ben][link-ben] can provide you with any relevant information.
 
-### Mailtrap
-[Mailtrap][link-mailtrap] is a tools used for testing emails - it provides an inbox so that we can fully test the website but any test emails don't actually get sent. If you wish to use this to test emails you must create a free account and update the credentials in the .env file.
-
 ### One time secret
 [Onetimesecret][link-onetimesecret] is used to share sensitive information, such as values for the environment file. You do not need an account to use this service.
 
@@ -109,24 +106,44 @@ It's possible to make small, simple changes without doing anything on your local
 ## Working locally
 Working locally is more complicated, but allows you to work on the code and test it before pushing any changes to the repository.
 
-### Pre-requisites
-In order to develop locally, you'll need to have the following installed:
-* PHP 7.1+
-* Nginx or Apache
-   > Nginx and PHP-FPM is recommended as they're used on the production server
-* MariaDB 10.2 or MySQL 5.5+
-    > MariaDB 10.2 is recommended as it's used on the production server
-* Composer
-    > Composer is a package manager for PHP. You don't need to know how this works, just how to run the `install` command
-* Node.js and yarn
-    > Yarn is used to manage the asset dependencies and compile the assets. You don't need to know how this works, just how to run the `install` and `run` commands. We used to use npm, but yarn is much better.
-* A PHP-focussed IDE
-    > You can technically use Notepad, but it's recommended you use an IDE to make development easier. We recommend [PhpStorm by JetBrains][link-phpstorm] (students can get a free licence).
+### Docker
+We use [Docker][link-docker] to configure and run the site locally; make sure you've installed [Docker][link-docker-install] and [Docker Compose][link-docker-install-compose] before continuing.
 
-Adding instructions for how to set up and configure these for the various operating systems and distributions is way beyond the scope of this document. There are a lot of good tutorials out there, but one of the development team will be happy to help you get set up if you get stuck.
+It's recommended you are familiar with the following:
 
-### Using virtual hosts
-You can set up your web server to just run on `localhost`, but if you want to develop multiple sites it's recommended that you set up virtual hosts. A quick Google should help, but if not a member of the development team will definitely be able to.
+* [Images and containers][link-docker-images-vs-containers]
+* [Running containers][link-docker-container-run]
+* [Executing commands in containers][link-docker-container-exec]
+* [Docker compose][link-docker-compose]
+
+If you want to learn more, Docker's documentation is fantastic:
+
+* [Docker][link-docker-docs]
+* [Docker Compose CLI][link-docker-docs-compose-cli]
+* [Docker Compose Files][link-docker-docs-compose-file]
+
+> **Windows and macOS users beware:**
+> 
+> Neither Windows 10 nor macOS offer true native containerisation support (and macOS offers none at all). 
+> This means that in order to function, Docker for Windows and Docker for Mac need to run a Linux VM, which is what actually runs the containers. 
+> This VM has an additional RAM footprint of about 4GB, so make sure you have plenty of RAM.
+>
+> Because of this VM, the use of volumes (which is how we enable "hot-reloading" during development), can result in very long load times, making the site practically impossible to use. 
+> 
+> If you experience this, I recommend you manually run a Linux VM for both docker, the project files and your IDE. 
+> Windows 10 users can now run some aspects of Ubuntu natively (see [below](#ubuntu-support-windows-only)), but I have no experience with this so you're on your own.
+>
+> Alternatively, dual boot with Linux (Ubuntu is incredibly easy to use). You may well find you prefer it ... 
+
+### Install an IDE
+You are welcome to use whatever IDE you choose, but we recommend PhpStorm by Jetbrains - it's industry leading and free for students!
+
+### Ubuntu support (Windows only)
+If you're developing on Windows, you can get by with plain old Windows, but we recommend you add the "Windows Subsystem for Linux" - this allows you to run Ubuntu almost natively within Windows.
+
+This will let you use the included scripts to help with development.
+
+See the [docs from Microsoft][link-windows-linux-support] for more information.
 
 ### Installing the site
 Once you have the above configured, you can install the site:
@@ -134,70 +151,102 @@ Once you have the above configured, you can install the site:
     ```sh
     $ git clone git@gitlab.com:backstage-technical-services/laravel-site.git
     ```
-2. Install any PHP dependencies
+2. Create the environment file from the example file
     ```sh
-    $ composer install
+    $ cp .env.example .env
     ```
-3. Install any asset dependencies
-    ```sh
-    $ yarn install
-    ```
-4. Create the environment file from the example file
-    ```sh
-    $ php -r "copy('.env.example', '.env');"
-    ```
-5. Populate the environment file
+3. Populate the environment file
 
-    1. Set `APP_ENV` to 'local'
-    2. Set `APP_DEBUG` to `true`
-    3. Set `APP_URL` to the base url of the site
-    4. Set the `DB_*` variables to connect to your MySQL server
-    5. Run `$ php artisan key:generate` to create an encryption key
-    6. Populate the rest of the details
-        > Ask a maintainer who will be able to share them using onetimesecret
+   > If you're using Docker, most of the environment variables are populated for you. All you need to do are generate the site key (see [below](#some-helpful-commands)) and grab the rest from a member of the team.  
 
-6. Set up the database structure
-    ```sh
-    $ php artisan migrate
-    ```
-    > This will only set up the table structure; you'll need to get the data from a Maintainer.
+### Running the site
+The docker set-up includes the following services:
 
-7. Compile the assets into plain stylesheets and javascript files
-    ```sh
-    $ yarn dev
-    ```
+* A combined Nginx and PHP-FPM service to serve the website
+* MariaDB database
+* Mail server
+
+To start everything up, all you need to do is run
+
+```sh
+$ .docker/local/bin/start.sh
+```
+> The first time you run this Docker will need to download the relevant image layers; this may take a while but this is a one-time thing (well, until the images are updated). 
+
+> The first time you boot the database, it will need to initialise itself and will restart a couple of times before it's ready to be used.
+
+To stop everything, it's
+
+```sh
+$ .docker/local/bin/stop.sh
+```
+
+### Some helpful commands
+Here are some helpful commands for interacting with the PHP container:
+
+* Generate an app key:
+
+  ```sh
+  $ docker exec bts_site sh -c "php artisan key:generate"
+  ```
+
+* Run any database migrations:
+
+  ```sh
+  $ docker exec bts_site sh -c "php artisan migrate"
+  ```
+  
+* View the logs:
+    * Nginx and PHP:
+      ```sh
+      $ docker logs bts_site
+      ```
+    * Database:
+      ```sh
+      $ docker logs bts_mysql
+      ```
+
+* Pull any changes from the repository and update any assets
+
+  ```sh
+  $ .docker/local/bin/update.sh
+  ```
+  
+* Continually re-build assets when they change
+
+  ```sh
+  $ .docker/local/bin/watch-assets.sh
+  ```
+
+You can enter the container with an interactive bash shell with
+
+```sh
+$ docker exec -ti bts_site bash
+```
+
+From here, you can run any command as if you were in a normal terminal session.
+
+> Because the site uses a volume for the files, you can make changes either in your own operating system or in the container and they'll be reflected in the other. 
+> The only thing you can't do is run docker commands.
+
+### Viewing emails
+Included in the Docker set-up is a local SMTP server. This doesn't actually send any emails, so you're free to test with any email address, and provides a user interface for viewing any emails that have been sent.
+
+You can view this interface at [http://localhost:8001](http://localhost:8001) (unless you've changed the value of `PORT_MAIL` in your `.env` file).
+
+### Connecting to the MySQL database
+The MySQL database is exposed to your own computer so you can connect to it using the editor of your choice:
+
+* Host: `localhost`
+* Port: `6001` (unless you've changed the value of `PORT_MYSQL` in your `.env` file)
+* Username: `developer` (unless you've changed the value of `DB_USERNAME` in your `.env` file)
+* Password: `developer` (unless you've changed the value of `DB_PASSWORD` in your `.env` file)
 
 ### Understanding the Website
 
 The website is built using PHP 7, with a framework called Laravel; their [documentation][link-laravel-docs] is the best place to start to familiarise yourself with the organisation of the website.
 
 It's also recommended you familiarise yourself with [SASS][link-sass] as this is used to process the stylesheets.
-
-### Keeping your local copy up-to-date
-It's important to keep your local copy of the website up-to-date, as others work on bugs and features. To merge in the latest changes, simply run
-
-```sh
-$ git pull origin <branch_name>
-```
-
-You may then have to update the dependencies and database structure:
-* Update the PHP dependencies
-    ```sh
-    $ composer install
-    ```
-* Update the asset dependencies and re-compile them
-    ```sh
-    $ yarn install
-    $ yarn dev
-    ```
-* Update the database structure
-    ```sh
-    $ php artisan migrate
-    ```
-* Clear any cached views and configuration
-    ```sh
-    $ php artisan cache:clear
-    ```
 
 ## Development Workflow
 See the [Development Workflow wiki][link-wiki-workflow].
@@ -211,7 +260,6 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-merge-request]: https://gitlab.com/backstage-technical-services/laravel-site/merge_requests/new
 [link-slack]: https://bts-website.slack.com
 [link-bugsnag]: https://app.bugsnag.com/backstage-technical-services
-[link-mailtrap]: https://mailtrap.io
 [link-onetimesecret]: https://onetimesecret.com
 [link-phpstorm]: https://www.jetbrains.com/phpstorm
 [gitlab-register]: https://gitlab.com/users/sign_in#register-pane
@@ -222,3 +270,14 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-sass]: https://sass-lang.com/guide
 [link-gitlab-board]: https://gitlab.com/backstage-technical-services/laravel-site/boards/855759
 [link-wiki-workflow]: https://gitlab.com/backstage-technical-services/laravel-site/wikis/Development-Workflow
+[link-docker]: https://www.docker.com/
+[link-docker-install]: https://docs.docker.com/install/
+[link-docker-install-compose]: https://docs.docker.com/compose/install/
+[link-docker-images-vs-containers]: https://stackoverflow.com/a/23736802
+[link-docker-container-run]: https://docs.docker.com/engine/reference/commandline/container_run/
+[link-docker-container-exec]: https://docs.docker.com/engine/reference/commandline/container_exec/
+[link-docker-compose]: https://docs.docker.com/compose/
+[link-docker-docs]: https://docs.docker.com/engine/reference/commandline/cli/
+[link-docker-docs-compose-cli]: https://docs.docker.com/compose/reference/
+[link-docker-docs-compose-file]: https://docs.docker.com/compose/compose-file/
+[link-windows-linux-support]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
