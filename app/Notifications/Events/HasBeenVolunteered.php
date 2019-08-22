@@ -20,7 +20,7 @@ class HasBeenVolunteered extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      */
     public function __construct(Event $event)
     {
@@ -64,7 +64,7 @@ class HasBeenVolunteered extends Notification
             $msg = $msg->line('There isn\'t currently an Event Manager assigned, but when they are they should get in touch with the details.')
                        ->action('View the Event', route('event.view', ['id' => $this->event['id']]))
                        ->line('If you have any questions, you can get in contact with the Production Manager by replying to this email.')
-                       ->replyTo('pm@bts-crew.com', 'Backstage Production Manager');
+                ->replyTo(config('bts.emails.events.volunteered'));
         }
 
 

@@ -13,13 +13,19 @@ return [
         'risk_assessment' => env('LINK_EVENT_RA'),
         'event_report'    => env('LINK_EVENT_REPORT'),
     ],
+    
+    // Emails
+    'emails'     => [
+        'account' => [
+            'created' => ['sec@bts-crew.com']
+        ],
 
-    // Email recipients
-    'emails' => [
         'contact' => [
-            'bookings' => ['committee@bts-crew.com'],
-            'enquiries' => ['committee@bts-crew.com'],
-            'feedback' => ['committee@bts-crew.com'],
+            'bookings'        => ['committee@bts-crew.com'],
+            'booking_receipt' => ['pm@bts-crew.com'],
+            'enquiries'       => ['committee@bts-crew.com'],
+            'enquiry_receipt' => ['committee@bts-crew.com'],
+            'feedback'        => ['committee@bts-crew.com'],
         ],
 
         'equipment' => [
@@ -27,15 +33,26 @@ return [
         ],
 
         'events' => [
-            'external_accepted' => ['P.Brooks@bath.ac.uk'],
+            'accepted_external' => [
+                'from'  => ['pm@bts-crew.com'],
+                'to'    => ['P.Brooks@bath.ac.uk'],
+                'cc'    => ['committee@bts-crew.com'],
+                'reply' => ['committee@bts-crew.com']
+            ],
+            'volunteered'       => ['pm@bts-crew.com']
         ],
 
+        'finance' => ['treas@bts-crew.com'],
+
         'safety' => [
-            'accident_reports' => [
+            'accident_reports'  => [
                 'committee@bts-crew.com',
                 'safety@bts-crew.com',
                 'P.Hawker@bath.ac.uk',
                 'P.Brooks@bath.ac.uk ',
+            ],
+            'accident_receipt'  => [
+                'safety@bts-crew.com'
             ],
             'near_miss_reports' => [
                 'committee@bts-crew.com',
@@ -44,7 +61,8 @@ return [
         ],
 
         'training' => [
-            'application_submitted' => ['training@bts-crew.com']
+            'application_submitted' => ['training@bts-crew.com'],
+            'application_processed' => ['training@bts-crew.com']
         ]
     ]
 ];

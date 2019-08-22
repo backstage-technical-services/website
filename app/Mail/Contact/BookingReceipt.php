@@ -5,8 +5,7 @@
     use App\Mail\Mailable;
     use Illuminate\Bus\Queueable;
     use Illuminate\Queue\SerializesModels;
-    use Illuminate\Contracts\Queue\ShouldQueue;
-    
+
     class BookingReceipt extends Mailable
     {
         use Queueable, SerializesModels;
@@ -33,8 +32,8 @@
         public function build()
         {
             list($forename) = explode(' ', $this->booking['contact_name']);
-            
-            return $this->replyTo('pm@bts-crew.com', 'BTS Production Manager')
+
+            return $this->replyTo(config('bts.emails.contact.booking_receipt'))
                         ->subject('Booking Request Receipt - ' . $this->booking['event_name'] . ' (' . $this->booking['event_dates'] . ')')
                         ->markdown('emails.contact.booking_receipt')
                         ->with('booking', $this->booking)
