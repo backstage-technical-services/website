@@ -55,6 +55,15 @@
 
                     </div>
                 @endcan
+                    @can('delete', $resource)
+                        <a class="btn btn-danger"
+                           data-submit-ajax="{{ route('resource.destroy', ['id' => $resource->id]) }}"
+                           data-submit-confirm="Are you sure you want to delete this resource?"
+                           data-redirect="true"
+                           data-redirect-location="{{ route('resource.search') }}">
+                            <span class="fa fa-trash"></span> Delete
+                        </a>
+                    @endcan
             </div>
         </div>
         <div class="details">
