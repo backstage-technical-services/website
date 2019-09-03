@@ -7,14 +7,16 @@ use App\Http\Requests\Contact\EnquiryRequest;
 use App\Mail\Contact\Enquiry;
 use App\Mail\Contact\EnquiryReceipt;
 use bnjns\LaravelNotifications\Facades\Notify;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class EnquiryController extends Controller
 {
     /**
      * Show the enquiries form.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function showForm()
     {
@@ -24,15 +26,15 @@ class EnquiryController extends Controller
     /**
      * Process the enquiries form.
      *
-     * @param \App\Http\Requests\Contact\EnquiryRequest $request
+     * @param EnquiryRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function process(EnquiryRequest $request)
     {
         $data = $request->all();
 
-        Mail::to('committee@bts-crew.com')
+        Mail::to(config('bts.emails.contact.enquiries'))
             ->queue(new Enquiry($data));
         Mail::to($request->get('email'), $request->get('name'))
             ->queue(new EnquiryReceipt($data));

@@ -22,7 +22,7 @@ class ApplicationProcessed extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param \App\Models\Training\Skills\Application $application
+     * @param Application $application
      */
     public function __construct(Application $application)
     {
@@ -46,7 +46,7 @@ class ApplicationProcessed extends Mailable
      */
     public function build()
     {
-        return $this->replyTo('training@bts-crew.com')
+        return $this->replyTo(config('bts.emails.training.application_processed'))
                     ->subject('Your Skill Application')
                     ->markdown('emails.training.skills.application.processed')
                     ->with($this->application);

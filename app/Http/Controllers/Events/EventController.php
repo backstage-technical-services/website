@@ -11,9 +11,13 @@ use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\SearchTools\SearchTools;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventController extends Controller
@@ -30,10 +34,10 @@ class EventController extends Controller
     /**
      * View a list of events.
      *
-     * @param \bnjns\SearchTools\SearchTools $searchTools
+     * @param SearchTools $searchTools
      *
      * @return $this
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function index(SearchTools $searchTools)
     {
@@ -61,8 +65,8 @@ class EventController extends Controller
     /**
      * View the form to create an event.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return Factory|View
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -73,9 +77,9 @@ class EventController extends Controller
     /**
      * Process the form and add the event to the database.
      *
-     * @param \App\Http\Requests\Events\EventRequest $request
+     * @param EventRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(EventRequest $request)
     {
@@ -122,7 +126,7 @@ class EventController extends Controller
 
         // If the event is external and off-campus email the SU
         if ($event->client_type > 1 && $event->venue_type == 2) {
-            Mail::to('P.Brooks@bath.ac.uk')
+            Mail::to(config('bts.emails.events.external_accepted.to'))
                 ->queue(new AcceptedExternal($event, $request));
         }
 
@@ -141,10 +145,10 @@ class EventController extends Controller
      * View an event's details.
      *
      * @param                          $eventId
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return $this
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function view($eventId, Request $request)
     {
@@ -166,10 +170,10 @@ class EventController extends Controller
      * Update the event.
      *
      * @param                          $eventId
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function update($eventId, Request $request)
     {
@@ -191,10 +195,10 @@ class EventController extends Controller
     /**
      * Clear the crew list
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      * @param                          $mode
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     private function updateClearCrew(Event $event, $mode)
     {
@@ -225,10 +229,10 @@ class EventController extends Controller
     /**
      * Update the event's details.
      *
-     * @param \App\Models\Events\Event $event
-     * @param \Illuminate\Http\Request $request
+     * @param Event $event
+     * @param Request $request
      *
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return $this|RedirectResponse
      */
     private function updateDetails(Event $event, Request $request)
     {
@@ -280,11 +284,11 @@ class EventController extends Controller
     /**
      * Update the event paperwork.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      * @param                          $paperwork
      * @param                          $value
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updatePaperwork(Event $event, $paperwork, $value)
     {
@@ -301,8 +305,8 @@ class EventController extends Controller
      *
      * @param $eventId
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function destroy($eventId)
     {
@@ -319,10 +323,10 @@ class EventController extends Controller
     /**
      * Allow for simple searching through the events for using in select2 inputs.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function search(Request $request)
     {
@@ -360,8 +364,8 @@ class EventController extends Controller
      *
      * @param null $eventId
      *
-     * @return \Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return View
+     * @throws AuthorizationException
      */
     public function report($eventId = null)
     {
@@ -383,9 +387,9 @@ class EventController extends Controller
 
     /**
      * @param                          $eventId
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function sendFinanceEmail($eventId, Request $request)
     {

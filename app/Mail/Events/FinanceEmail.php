@@ -30,8 +30,8 @@ class FinanceEmail extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Events\Event $event
+     * @param Request $request
+     * @param Event $event
      */
     public function __construct(Request $request, Event $event)
     {
@@ -51,7 +51,7 @@ class FinanceEmail extends Mailable
      */
     public function build()
     {
-        return $this->replyTo('treas@bts-crew.com')
+        return $this->replyTo(config('bts.emails.finance'))
                     ->subject($this->data['subject'] . ' (' . $this->data['event'] . ')')
                     ->markdown('emails.events.finance_db.' . $this->template)
                     ->with($this->data);

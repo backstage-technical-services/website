@@ -7,8 +7,11 @@ use App\Http\Requests\Equipment\RepairRequest;
 use App\Mail\Equipment\Breakage as BreakageEmail;
 use App\Models\Equipment\Breakage;
 use bnjns\LaravelNotifications\Facades\Notify;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class RepairsController extends Controller
 {
@@ -33,7 +36,7 @@ class RepairsController extends Controller
     /**
      * View the form to create a new repair.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -44,9 +47,9 @@ class RepairsController extends Controller
     /**
      * Process the form and create a new breakage.
      *
-     * @param \App\Http\Requests\Equipment\RepairRequest $request
+     * @param RepairRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(RepairRequest $request)
     {
@@ -62,7 +65,7 @@ class RepairsController extends Controller
         ]);
 
         // Send the email
-        Mail::to('equip@bts-crew.com')
+        Mail::to(config('bts.emails.equipment.breakage_reports'))
             ->queue(new BreakageEmail($breakage->toArray() + [
                     'user_email'    => $breakage->user->email,
                     'user_name'     => $breakage->user->name,
@@ -78,7 +81,7 @@ class RepairsController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function view($id)
     {
@@ -91,9 +94,9 @@ class RepairsController extends Controller
      * Update a breakage.
      *
      * @param                          $id
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -121,8 +124,8 @@ class RepairsController extends Controller
     /**
      * Update the status of a breakage.
      *
-     * @param \App\Models\Equipment\Breakage $breakage
-     * @param \Illuminate\Http\Request       $request
+     * @param Breakage $breakage
+     * @param Request $request
      */
     private function updateBreakageStatus(Breakage $breakage, Request $request)
     {
