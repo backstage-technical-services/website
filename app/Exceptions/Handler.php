@@ -2,8 +2,8 @@
 
 namespace App\Exceptions;
 
-use bnjns\WebDevTools\Laravel\Errors\Handler as ExceptionHandler;
 use Exception;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {

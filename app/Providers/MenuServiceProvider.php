@@ -80,7 +80,7 @@ class MenuServiceProvider extends ServiceProvider
                 if ($isMember) {
                     $menu->find('members')
                          ->add(route('membership.view'), 'The Membership', Menu::items('members.users'), [], ['class' => 'admin-users'])
-                         ->add(route('quotes.index'), 'Quotes Board')
+                         ->add(route('quotes.view'), 'Quotes Board')
                          ->add('#', 'Equipment', Menu::items('members.equipment'), [], ['class' => 'equipment'])
                          ->add('#', 'Training', Menu::items('members.training'), [], ['class' => 'training'])
                          ->add('#', 'Other', Menu::items('members.misc'), [], ['class' => 'misc'])

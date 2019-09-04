@@ -21,33 +21,32 @@
 @section('content')
     @if(count($quotes) > 0)
         @yield('add_quote_button')
-        {!! Form::open(['route' => 'quotes.destroy']) !!}
-            @foreach($quotes as $i => $quote)
-                <div class="quote">
-                    <div class="quote-number">#{{ ($quotes->currentPage() - 1) * $quotes->perPage() + $i + 1 }}</div>
-                    <div class="quote-details">
-                        <div class="quote-content">
-                            {!! str_replace(PHP_EOL, '</p><p>', Markdown::convertToHtml($quote->quote)) !!}
+        @foreach($quotes as $i => $quote)
+            <div class="quote">
+                <div class="quote-number">#{{ $quote->num }}</div>
+                <div class="quote-details">
+                    <div class="quote-content">
+                        {!! $quote->html !!}
+                    </div>
+                    @if(!is_null($quote->added_by))
+                        <div class="quote-date">
+                            Said by {{ $quote->culprit }} {{ $quote->date->diffForHumans() }}
                         </div>
-                        @if(!is_null($quote->added_by))
-                            <div class="quote-date">
-                                Said by {{ $quote->culprit }} {{ $quote->date->diffForHumans() }}
-                            </div>
-                        @endif
-                        <div class="quote-actions">
-                            @can('delete', $quote)
-                            {{--<span class="fa fa-thumbs-up" title="Like this quote"></span>--}}
-                            {{--<span class="fa fa-thumbs-down" title="Dislike this quote"></span>--}}
-                            {{--<span class="fa fa-flag" title="Mark this as inappropriate"></span>--}}
-                                <button class="btn btn-link" name="deleteQuote" onclick="return confirm('Are you sure you want to delete this quote?')" title="Delete this quote" value="{{ $quote->id }}">
-                                    <span class="fa fa-trash"></span>
-                                </button>
-                            @endcan
-                        </div>
+                    @endif
+                    <div class="quote-actions">
+                        @can('delete', $quote)
+                            <button class="btn btn-link"
+                                    data-submit-ajax="{{ route('quotes.delete', $quote->id) }}"
+                                    data-submit-confirm="Are you sure you want to delete this quote?"
+                                    data-redirect="true"
+                                    title="Delete this quote">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        @endcan
                     </div>
                 </div>
-            @endforeach
-        {!! Form::close() !!}
+            </div>
+        @endforeach
         @yield('add_quote_button')
         {{ $quotes }}
     @else
