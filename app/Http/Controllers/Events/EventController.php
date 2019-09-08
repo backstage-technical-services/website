@@ -126,7 +126,7 @@ class EventController extends Controller
 
         // If the event is external and off-campus email the SU
         if ($event->client_type > 1 && $event->venue_type == 2) {
-            Mail::to(config('bts.emails.events.external_accepted.to'))
+            Mail::to(config('bts.emails.events.accepted_external.to'))
                 ->queue(new AcceptedExternal($event, $request));
         }
 
