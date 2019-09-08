@@ -2,12 +2,10 @@
     
     namespace App\Mail\Contact;
     
-    use App\Http\Requests\Contact\EnquiryRequest;
     use App\Mail\Mailable;
     use Illuminate\Bus\Queueable;
     use Illuminate\Queue\SerializesModels;
-    use Illuminate\Contracts\Queue\ShouldQueue;
-    
+
     class EnquiryReceipt extends Mailable
     {
         use Queueable, SerializesModels;
@@ -33,7 +31,7 @@
          */
         public function build()
         {
-            return $this->replyTo('committee@bts-crew.com')
+            return $this->replyTo(config('bts.emails.contact.enquiry_receipt'))
                         ->subject('Your enquiry to BTS')
                         ->markdown('emails.contact.enquiry_receipt')
                         ->with('enquiry', $this->enquiry);

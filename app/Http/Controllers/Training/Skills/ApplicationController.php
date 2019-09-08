@@ -13,9 +13,11 @@ use App\Models\Users\User;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\WebDevTools\Laravel\Traits\ChecksPaginationPage;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Validator;
+use Illuminate\View\View;
 
 class ApplicationController extends Controller
 {
@@ -34,7 +36,7 @@ class ApplicationController extends Controller
      *
      * @param int|null $id
      *
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     * @return View|RedirectResponse
      */
     public function form($id = null)
     {
@@ -66,9 +68,9 @@ class ApplicationController extends Controller
     /**
      * Process the form and submit the application.
      *
-     * @param \App\Http\Requests\Training\Skills\SubmitApplication $request
+     * @param SubmitApplication $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function apply(SubmitApplication $request)
     {
@@ -90,7 +92,7 @@ class ApplicationController extends Controller
         ]);
 
         // Email the T&S officer
-        Mail::to('training@bts-crew.com')
+        Mail::to(config('bts.emails.training.application_submitted'))
             ->queue(new ApplicationSubmitted($skill, $application, $user));
 
         Notify::success('Application submitted');
@@ -100,7 +102,7 @@ class ApplicationController extends Controller
     /**
      * View the application index page.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index()
     {
@@ -125,7 +127,7 @@ class ApplicationController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function view($id)
     {
@@ -151,9 +153,9 @@ class ApplicationController extends Controller
      * Process the application form and update the details.
      *
      * @param                          $id
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -215,8 +217,8 @@ class ApplicationController extends Controller
     /**
      * This method determines the skill levels that can be selected when submitting an application.
      *
-     * @param \App\Models\Training\Skills\Skill|null $skill
-     * @param \App\Models\Users\User                 $user
+     * @param Skill|null $skill
+     * @param User $user
      *
      * @return array
      */

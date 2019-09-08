@@ -1,5 +1,14 @@
 <?php
 
+use Spatie\Backup\Notifications\Notifiable;
+use Spatie\Backup\Notifications\Notifications\BackupHasFailed;
+use Spatie\Backup\Notifications\Notifications\BackupWasSuccessful;
+use Spatie\Backup\Notifications\Notifications\CleanupHasFailed;
+use Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful;
+use Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound;
+use Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound;
+use Spatie\Backup\Tasks\Cleanup\Strategies\DefaultStrategy;
+
 return [
 
     'backup'         => [
@@ -101,26 +110,26 @@ return [
      * the `Spatie\Backup\Events` classes.
      */
     'notifications'  => [
-
+    
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class         => ['slack'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['slack'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class        => ['slack'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class     => ['slack'],
-            //\Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class   => ['slack'],
-            //\Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class    => ['slack'],
+            BackupHasFailed::class         => ['slack'],
+            UnhealthyBackupWasFound::class => ['slack'],
+            CleanupHasFailed::class        => ['slack'],
+            BackupWasSuccessful::class     => ['slack'],
+            HealthyBackupWasFound::class   => [],
+            CleanupWasSuccessful::class    => [],
         ],
-
+    
         /*
          * Here you can specify the notifiable to which the notifications should be sent. The default
          * notifiable will use the variables specified in this config file.
          */
-        'notifiable'    => \Spatie\Backup\Notifications\Notifiable::class,
-
+        'notifiable'    => Notifiable::class,
+    
         'mail' => [
             'to' => '',
         ],
-
+    
         'slack' => [
             'webhook_url' => env('BACKUP_WEBHOOK'),
             'channel'     => env('BACKUP_CHANNEL'),
@@ -153,8 +162,8 @@ return [
          * No matter how you configure it the default strategy will never
          * delete the newest backup.
          */
-        'strategy' => \Spatie\Backup\Tasks\Cleanup\Strategies\DefaultStrategy::class,
-
+        'strategy' => DefaultStrategy::class,
+    
         'defaultStrategy' => [
 
             /*

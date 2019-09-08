@@ -20,7 +20,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_USERNAME}
-    restart: on-failure
+    restart: always
     mem_limit: 1g
 
   mail:
@@ -32,7 +32,7 @@ services:
       - 25
     ports:
       - ${PORT_MAIL}:80
-    restart: on-failure
+    restart: always
     mem_limit: 50m
 
   site:
@@ -49,5 +49,5 @@ services:
     depends_on:
       - mysql
       - mail
-    restart: on-failure
+    restart: always
     mem_limit: 512m

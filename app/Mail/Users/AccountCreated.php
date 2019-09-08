@@ -5,7 +5,6 @@ namespace App\Mail\Users;
 use App\Mail\Mailable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AccountCreated extends Mailable
 {
@@ -32,7 +31,7 @@ class AccountCreated extends Mailable
      */
     public function build()
     {
-        return $this->replyTo('sec@bts-crew.com', 'Backstage Secretary')
+        return $this->replyTo(config('bts.emails.account.created'))
                     ->subject('Your new Backstage account')
                     ->markdown('emails.users.created')
                     ->with('user', $this->user);

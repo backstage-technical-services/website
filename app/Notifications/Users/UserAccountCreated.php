@@ -5,7 +5,6 @@ namespace App\Notifications\Users;
 use App\Notifications\MailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserAccountCreated extends Notification
 {
@@ -45,7 +44,7 @@ class UserAccountCreated extends Notification
     {
         return (new MailMessage)
             ->subject('Your new Backstage account')
-            ->replyTo('sec@bts-crew.com', 'Backstage Secretary')
+            ->replyTo(config('bts.emails.account.created'))
             ->greeting($notifiable->greeting())
             ->line('This email is just to let you know that an account has just been created for you on the [Backstage Website](' . route('home') . ').')
             ->line('Your password has been set to "' . $this->password . '", although we recommend you set it to something more memorable.')

@@ -2,12 +2,10 @@
     
     namespace App\Mail\Contact;
     
-    use App\Http\Requests\Contact\AccidentRequest;
     use App\Mail\Mailable;
     use Illuminate\Bus\Queueable;
     use Illuminate\Queue\SerializesModels;
-    use Illuminate\Contracts\Queue\ShouldQueue;
-    
+
     class AccidentReportReceipt extends Mailable
     {
         use Queueable, SerializesModels;
@@ -34,8 +32,8 @@
         public function build()
         {
             list($forename) = explode(' ', $this->report['contact_name']);
-            
-            return $this->replyTo('safety@bts-crew.com')
+
+            return $this->replyTo(config('bts.emails.safety.accident_receipt'))
                         ->subject('BTS Accident Report Receipt')
                         ->markdown('emails.contact.accident_receipt')
                         ->with('report', $this->report)

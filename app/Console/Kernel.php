@@ -19,11 +19,11 @@ class Kernel extends ConsoleKernel
         BackupDb::class,
         AutoCloseCrewLists::class,
     ];
-
+    
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param Schedule $schedule
      *
      * @return void
      */
@@ -31,9 +31,15 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(AutoCloseCrewLists::class)->daily();
         $schedule->command(BackupDb::class)->daily();
-        $schedule->command('backup:run')->weekly();
+        $schedule->command('backup:run')
+                 ->weekly()
+                 ->then(
+                     function () use ($schedule) {
+                         $schedule->command('backup:clean');
+                     }
+                 );
     }
-
+    
     /**
      * Register the Closure based commands for the application.
      *

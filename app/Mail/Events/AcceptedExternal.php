@@ -21,8 +21,8 @@ class AcceptedExternal extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param \App\Models\Events\Event $event
-     * @param \Illuminate\Http\Request $request
+     * @param Event $event
+     * @param Request $request
      */
     public function __construct(Event $event, Request $request)
     {
@@ -43,9 +43,9 @@ class AcceptedExternal extends Mailable
      */
     public function build()
     {
-        return $this->replyTo('committee@bts-crew.com', 'Backstage Committee')
-                    ->from('pm@bts-crew.com', 'Backstage Production Manager')
-                    ->cc('committee@bts-crew.com')
+        return $this->replyTo(config('bts.emails.events.accepted_external.reply'))
+            ->from(config('bts.emails.events.accepted_external.from'))
+            ->cc(config('bts.emails.events.accepted_external.cc'))
                     ->subject('Backstage External Off-Campus Event')
                     ->markdown('emails.events.accepted_external')
                     ->with($this->data);

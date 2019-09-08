@@ -38,11 +38,10 @@ class QuotePolicy
      * Determine whether the user can delete the quote.
      *
      * @param  \App\Models\Users\User $user
-     * @param  \App\Models\Quote      $quote
      *
      * @return mixed
      */
-    public function delete(User $user, Quote $quote)
+    public function delete(User $user)
     {
         return $user->isAdmin();
     }
