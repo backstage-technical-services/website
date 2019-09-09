@@ -6,8 +6,13 @@ use App\Console\Commands\BackupDb;
 use App\Helpers\File;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\WebDevTools\Laravel\Traits\UsesAjax;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Zend\Stdlib\Glob;
 
 class BackupController extends Controller
 {
@@ -24,14 +29,14 @@ class BackupController extends Controller
     /**
      * View the list of existing backup files.
      *
-     * @return \Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return View
+     * @throws AuthorizationException
      */
     public function index()
     {
         $this->authorizeGate('admin');
-
-        $files = glob(storage_path('app/backups/') . '*.{zip,sql}', GLOB_BRACE);
+    
+        $files = Glob::glob(storage_path('app/backups/') . '*.{zip,sql}', Glob::GLOB_BRACE);
         array_multisort(
             array_map('filectime', $files),
             SORT_NUMERIC,
@@ -51,8 +56,8 @@ class BackupController extends Controller
      *
      * @param $filename
      *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return BinaryFileResponse
+     * @throws AuthorizationException
      */
     public function download($filename)
     {
@@ -72,8 +77,8 @@ class BackupController extends Controller
      *
      * @param string $type The type of backup to create.
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function store($type)
     {
@@ -95,8 +100,8 @@ class BackupController extends Controller
      *
      * @param string $filename
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function destroy($filename)
     {

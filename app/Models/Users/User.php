@@ -4,19 +4,22 @@ namespace App\Models\Users;
 
 use App\Models\Events\Event;
 use App\Models\Training\Category;
-use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Application;
+use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Skill;
 use App\Notifications\Auth\ResetPassword;
 use App\Notifications\Users\UserAccountCreated;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
 use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 class User extends Authenticatable
@@ -154,10 +157,10 @@ class User extends Authenticatable
     public static function create(array $attributes = [])
     {
         // Set up the default parameters
-        $password               = str_random(15);
-        $attributes['email']    = $attributes['username'] . '@bath.ac.uk';
-        $attributes['password'] = bcrypt($password);
-        $attributes['status']   = true;
+        $password                        = Str::random(15);
+        $attributes['email']             = $attributes['username'] . '@bath.ac.uk';
+        $attributes['password']          = bcrypt($password);
+        $attributes['status']            = true;
         $attributes['diary_preferences'] = ['event_types'  => ["event","training","social","meeting","hidden"],
                                             'crewing'      => '*'];
 
@@ -175,7 +178,7 @@ class User extends Authenticatable
     /**
      * Define the relationship with the user's group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function group()
     {
@@ -185,7 +188,7 @@ class User extends Authenticatable
     /**
      * Define the pages foreign key link.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function pages()
     {
@@ -195,7 +198,7 @@ class User extends Authenticatable
     /**
      * Define the relationship with the events.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function events()
     {
@@ -218,7 +221,7 @@ class User extends Authenticatable
     /**
      * Define the relationship with the user's skills.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function skills()
     {
@@ -286,7 +289,7 @@ class User extends Authenticatable
      * Add a scope for getting users that are signed up to an event.
      *
      * @param                          $query
-     * @param \App\Models\Events\Event $event
+     * @param Event                    $event
      */
     public function scopeCrewingEvent($query, Event $event)
     {
@@ -299,7 +302,7 @@ class User extends Authenticatable
      * Add a scope for getting users which are not signed up to an event.
      *
      * @param                          $query
-     * @param \App\Models\Events\Event $event
+     * @param Event                    $event
      */
     public function scopeNotCrewingEvent($query, Event $event)
     {
@@ -728,7 +731,7 @@ class User extends Authenticatable
     /**
      * Check if the user is an event's TEM.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      *
      * @return bool
      */
@@ -740,7 +743,7 @@ class User extends Authenticatable
     /**
      * Test if a user is a member of crew for a given event.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      *
      * @return bool
      */
@@ -758,7 +761,7 @@ class User extends Authenticatable
     /**
      * Test if a user has an EM role for a given event.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      *
      * @return bool
      */
@@ -777,7 +780,7 @@ class User extends Authenticatable
     /**
      * Get a list of a member's crew roles for an event.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      *
      * @return null|string
      */
@@ -808,7 +811,7 @@ class User extends Authenticatable
     /**
      * Alias for getting a list of a member's crew roles for an event.
      *
-     * @param \App\Models\Events\Event $event
+     * @param Event $event
      *
      * @return null|string
      */
@@ -877,7 +880,7 @@ class User extends Authenticatable
     /**
      * Test whether the user has a given skill.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return void
      */
@@ -891,7 +894,7 @@ class User extends Authenticatable
     /**
      * Get the awarded skill object.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return mixed
      */
@@ -905,7 +908,7 @@ class User extends Authenticatable
     /**
      * Get the user's awarded skill level.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return null
      */
@@ -922,7 +925,7 @@ class User extends Authenticatable
     /**
      * An alias to get the user's awarded skill level.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return null
      */
@@ -934,7 +937,7 @@ class User extends Authenticatable
     /**
      * Count the number of skills a user has in a given category.
      *
-     * @param \App\Models\Training\Category|null $category
+     * @param Category|null $category
      *
      * @return int
      */
@@ -956,7 +959,7 @@ class User extends Authenticatable
     /**
      * Test whether the user has an application pending for a given skill.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return bool
      */
@@ -994,7 +997,7 @@ class User extends Authenticatable
     /**
      * Test whether the user can award a skill level to another member.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return bool
      */
@@ -1012,7 +1015,7 @@ class User extends Authenticatable
     /**
      * Test whether the user can revoke a skill level from another member.
      *
-     * @param \App\Models\Training\Skills\Skill $skill
+     * @param Skill $skill
      *
      * @return bool
      */

@@ -7,7 +7,11 @@ use App\Models\Events\Event;
 use App\Models\Users\User;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\SearchTools\SearchTools;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class MemberController extends Controller
 {
@@ -22,7 +26,7 @@ class MemberController extends Controller
     /**
      * View the members dashboard.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function dash()
     {
@@ -36,7 +40,7 @@ class MemberController extends Controller
     /**
      * View the members dashboard.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     private function dashMember()
     {
@@ -76,7 +80,7 @@ class MemberController extends Controller
     /**
      * The SU dashboard is currently only a redirect to the events diary.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     private function dashStaff()
     {
@@ -105,8 +109,8 @@ class MemberController extends Controller
     /**
      * View your profile.
      *
-     * @param string                   $tab
-     * @param \Illuminate\Http\Request $request
+     * @param string  $tab
+     * @param Request $request
      *
      * @return $this
      */
@@ -121,9 +125,9 @@ class MemberController extends Controller
     /**
      * Update the member's profile.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request)
     {
@@ -156,9 +160,9 @@ class MemberController extends Controller
     /**
      * Update the member's personal details
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updatePersonal(Request $request)
     {
@@ -170,9 +174,9 @@ class MemberController extends Controller
     /**
      * Update the member's contact details.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updateContact(Request $request)
     {
@@ -184,9 +188,9 @@ class MemberController extends Controller
     /**
      * Update the member's profile picture.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updateAvatar(Request $request)
     {
@@ -207,9 +211,9 @@ class MemberController extends Controller
     /**
      * Remove the member's avatar.
      *
-     * @param \App\Models\Users\User $user
+     * @param User $user
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function removeAvatar(User $user)
     {
@@ -229,9 +233,9 @@ class MemberController extends Controller
     /**
      * Update the member's password.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updatePassword(Request $request)
     {
@@ -270,9 +274,9 @@ class MemberController extends Controller
     /**
      * Update the member's privacy settings.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updatePrivacy(Request $request)
     {
@@ -303,9 +307,9 @@ class MemberController extends Controller
     /**
      * Update the member's diary preferences.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updateDiaryPreferences(Request $request)
     {
@@ -333,9 +337,9 @@ class MemberController extends Controller
     /**
      * Update the member's other settings.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function updateOther(Request $request)
     {
@@ -345,7 +349,7 @@ class MemberController extends Controller
 
         // Process the event export settings
         if ($request->has('event_export') != $request->user()->hasExportToken()) {
-            $request->user()->export_token = $request->has('event_export') ? str_random(100) : null;
+            $request->user()->export_token = $request->has('event_export') ? Str::random(100) : null;
             $request->user()->save();
         }
 
@@ -357,8 +361,8 @@ class MemberController extends Controller
     /**
      * Validate and update a list of fields.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param array                    $fields
+     * @param Request $request
+     * @param array   $fields
      *
      * @return mixed
      */
@@ -384,7 +388,7 @@ class MemberController extends Controller
     /**
      * View the membership
      *
-     * @param \bnjns\SearchTools\SearchTools $searchTools
+     * @param SearchTools $searchTools
      *
      * @return $this
      */

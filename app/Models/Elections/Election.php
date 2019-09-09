@@ -6,6 +6,8 @@ use App\Collection;
 use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Election extends Model
 {
@@ -74,7 +76,7 @@ class Election extends Model
     /**
      * Define the relationship with the election's nominations.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function nominations()
     {
@@ -149,8 +151,8 @@ class Election extends Model
     public function getPositionSlug($index)
     {
         $position = $this->getPosition($index);
-
-        return $position ? str_slug(strtolower($position)) : null;
+    
+        return $position ? Str::slug(strtolower($position)) : null;
     }
 
     /**
