@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group @InputClass('g-recaptcha-response')">
-            {!! Recaptcha::render() !!}
+            {!! NoCaptcha::display() !!}
             @InputError('g-recaptcha-response')
         </div>
 

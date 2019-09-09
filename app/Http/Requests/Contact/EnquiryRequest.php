@@ -30,7 +30,7 @@ class EnquiryRequest extends Request
             'email'                => 'required|email',
             'phone'                => $phone,
             'message'              => 'required|string',
-            'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

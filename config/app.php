@@ -1,5 +1,16 @@
 <?php
 
+use Alaouy\Youtube\Facades\Youtube;
+use Alaouy\Youtube\YoutubeServiceProvider;
+use bnjns\LaravelNotifications\Facades\Notify;
+use bnjns\LaravelNotifications\NotificationServiceProvider;
+use bnjns\SearchTools\Facades\SearchTools;
+use bnjns\SearchTools\SearchToolsServiceProvider;
+use bnjns\WebDevTools\Laravel\Providers\BladeServiceProvider;
+use bnjns\WebDevTools\Laravel\Providers\ValidationServiceProvider;
+use Magyarjeti\LaravelLipsum\LipsumFacade;
+use Spatie\DbSnapshots\DbSnapshotsServiceProvider;
+
 return [
 
     /*
@@ -136,7 +147,7 @@ return [
     */
 
     'providers' => [
-
+    
         /*
          * Laravel Framework Service Providers...
          */
@@ -162,26 +173,23 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+    
         /*
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        //Collective\Html\HtmlServiceProvider::class,
-        Menu\MenuServiceProvider::class,
-        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Magyarjeti\LaravelLipsum\LipsumServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
-        \Alaouy\Youtube\YoutubeServiceProvider::class,
+        YoutubeServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
-        \bnjns\SearchTools\SearchToolsServiceProvider::class,
-        \bnjns\LaravelNotifications\NotificationServiceProvider::class,
-        \bnjns\WebDevTools\Laravel\Providers\BladeServiceProvider::class,
-        \bnjns\WebDevTools\Laravel\Providers\ValidationServiceProvider::class,
-        \Spatie\DbSnapshots\DbSnapshotsServiceProvider::class,
-
+        SearchToolsServiceProvider::class,
+        NotificationServiceProvider::class,
+        BladeServiceProvider::class,
+        ValidationServiceProvider::class,
+        DbSnapshotsServiceProvider::class,
+    
         /*
          * Application Service Providers...
          */
@@ -207,7 +215,7 @@ return [
     */
 
     'aliases' => [
-
+    
         'App'          => Illuminate\Support\Facades\App::class,
         'Artisan'      => Illuminate\Support\Facades\Artisan::class,
         'Auth'         => Illuminate\Support\Facades\Auth::class,
@@ -234,26 +242,24 @@ return [
         'Redis'        => Illuminate\Support\Facades\Redis::class,
         'Request'      => Illuminate\Support\Facades\Request::class,
         'Response'     => Illuminate\Support\Facades\Response::class,
-        'Route'        => Illuminate\Support\Facades\Route::class,
-        'Schema'       => Illuminate\Support\Facades\Schema::class,
-        'Session'      => Illuminate\Support\Facades\Session::class,
-        'Storage'      => Illuminate\Support\Facades\Storage::class,
-        'URL'          => Illuminate\Support\Facades\URL::class,
-        'Validator'    => Illuminate\Support\Facades\Validator::class,
-        'View'         => Illuminate\Support\Facades\View::class,
-
+        'Route'       => Illuminate\Support\Facades\Route::class,
+        'Schema'      => Illuminate\Support\Facades\Schema::class,
+        'Session'     => Illuminate\Support\Facades\Session::class,
+        'Storage'     => Illuminate\Support\Facades\Storage::class,
+        'URL'         => Illuminate\Support\Facades\URL::class,
+        'Validator'   => Illuminate\Support\Facades\Validator::class,
+        'View'        => Illuminate\Support\Facades\View::class,
+    
         // Additional packages
-        'Lipsum'       => \Magyarjeti\LaravelLipsum\LipsumFacade::class,
-        'Menu'         => Menu\Menu::class,
-        'Recaptcha'    => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        'Image'        => Intervention\Image\Facades\Image::class,
-        'Markdown'     => GrahamCampbell\Markdown\Facades\Markdown::class,
-        'Form'         => Collective\Html\FormFacade::class,
-        'HTML'         => Collective\Html\HtmlFacade::class,
-        'Purifier'     => Mews\Purifier\Facades\Purifier::class,
-        'Youtube'      => \Alaouy\Youtube\Facades\Youtube::class,
-        'Bugsnag'      => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
-        'SearchTools'  => \bnjns\SearchTools\Facades\SearchTools::class,
-        'Notify'       => \bnjns\LaravelNotifications\Facades\Notify::class,
+        'Lipsum'      => LipsumFacade::class,
+        'Image'       => Intervention\Image\Facades\Image::class,
+        'Markdown'    => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Form'        => Collective\Html\FormFacade::class,
+        'HTML'        => Collective\Html\HtmlFacade::class,
+        'Purifier'    => Mews\Purifier\Facades\Purifier::class,
+        'Youtube'     => Youtube::class,
+        'Bugsnag'     => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'SearchTools' => SearchTools::class,
+        'Notify'      => Notify::class,
     ],
 ];
