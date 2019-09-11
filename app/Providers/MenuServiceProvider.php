@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Composers\ContactMenuComposer;
 use App\View\Composers\MainMenuComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -16,27 +17,8 @@ class MenuServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('app.includes.menu', MainMenuComposer::class);
-        $this->composeContactMenu();
+        View::composer('contact.shared', ContactMenuComposer::class);
         $this->composeMemberMenus();
-    }
-    
-    /**
-     * Make the sub menu for the contact section.
-     */
-    private function composeContactMenu()
-    {
-        View::composer(
-            'contact.shared',
-            function ($view) {
-//            $menu = Menu::handler('contactMenu');
-//            $menu->add(route('contact.enquiries'), 'General Enquiries')
-//                 ->add(route('contact.book'), 'Book Us')->activePattern('\/contact\/book')
-//                 ->add(route('contact.feedback'), 'Provide Feedback');
-//            $menu->addClass('nav nav-tabs');
-//            $view->with('menu', $menu->render());
-                $view->with('menu', '');
-            }
-        );
     }
     
     /**
