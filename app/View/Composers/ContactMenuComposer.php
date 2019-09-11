@@ -8,7 +8,7 @@ use Illuminate\View\View;
 use Lavary\Menu\Builder;
 use Lavary\Menu\Menu;
 
-class ContactMenuComposer
+class ContactMenuComposer implements ViewComposer
 {
     /**
      * @var Menu

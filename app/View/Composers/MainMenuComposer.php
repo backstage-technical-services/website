@@ -9,7 +9,7 @@ use Illuminate\View\View;
 use Lavary\Menu\Builder;
 use Lavary\Menu\Menu;
 
-class MainMenuComposer
+class MainMenuComposer implements ViewComposer
 {
     /**
      * @var Menu
