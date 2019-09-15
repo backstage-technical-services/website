@@ -15,10 +15,10 @@ stages:
     - scp -r .git $SSH_USER@$SSH_SERVER:/www/$SITE_ROOT
     - ssh $SSH_USER@$SSH_SERVER "
       cd /www/$SITE_ROOT/ &&
-      php artisan down &&
-      git reset --hard &&
       rm -r vendor &&
       rm -r node_modules &&
+      php artisan down &&
+      git reset --hard &&
       composer install --no-interaction --no-dev --prefer-dist &&
       yarn install --no-dev --silent &&
       yarn prod &&
