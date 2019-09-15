@@ -22,12 +22,12 @@ Version 4.0 did not introduce much additional functionality; instead it involved
 
 Version 4 also led the move of the server to a VPS, full use of the Backstage domain ([bts-crew.com](http://www.bts-crew.com)) and the use of git and GitLab to manage version control.
 
-This development is led by [Ben Jones](http://github.com/bnjns) and is built on PHP 7, MySQL 5.6 and Laravel 5.6 and utilises Bootstrap 3.
+This development is led by [Ben Jones](http://github.com/bnjns) and is built on PHP 7, MySQL 5.6 and Laravel 6.0 and utilises Bootstrap 3.
 
 # Contributing
 See the accompanying [contributing.md](contributing.md) file for details on how to contribute;
 
-TL;DR: Anyone can contribute; contact Ben for help or more information.
+TL;DR: Anyone can contribute; contact the secretary for more information.
 
 # Bugs / Feature Suggestions
 Report all bugs, feature suggestions and improvements through the [issue tracker](https://gitlab.com/backstage-technical-services/laravel-site/issues/new). If you're unsure how to do this, please just ask a member of the [development team](https://gitlab.com/groups/backstage-technical-services/-/group_members) or the [secretary](mailto:sec@bts-crew.com).
