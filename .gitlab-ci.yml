@@ -17,6 +17,8 @@ stages:
       cd /www/$SITE_ROOT/ &&
       php artisan down &&
       git reset --hard &&
+      rm -r vendor &&
+      rm -r node_modules &&
       composer install --no-interaction --no-dev --prefer-dist &&
       yarn install --no-dev --silent &&
       yarn prod &&
