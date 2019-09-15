@@ -132,7 +132,7 @@
     <div class="form-group @InputClass('g-recaptcha-response')">
         @InputError('g-recaptcha-response')
         <div class="g-recaptcha-center">
-            {!! Recaptcha::render() !!}
+            {!! NoCaptcha::display() !!}
         </div>
     </div>
     <div class="form-group @InputClass('terms')">

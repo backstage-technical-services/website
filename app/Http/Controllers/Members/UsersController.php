@@ -7,7 +7,12 @@ use App\Models\Users\User;
 use App\Notifications\Users\ResetPasswordAdmin;
 use bnjns\LaravelNotifications\Facades\Notify;
 use bnjns\SearchTools\SearchTools;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class UsersController extends Controller
 {
@@ -36,7 +41,7 @@ class UsersController extends Controller
     /**
      * View the list of user accounts
      *
-     * @param \bnjns\SearchTools\SearchTools $searchTools
+     * @param SearchTools $searchTools
      *
      * @return $this
      */
@@ -91,7 +96,7 @@ class UsersController extends Controller
     /**
      * Show the form to create new users.
      *
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return $this|Factory|View
      */
     public function create()
     {
@@ -102,7 +107,7 @@ class UsersController extends Controller
     /**
      * View the results of creating multiple users.
      *
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return $this|RedirectResponse
      */
     public function createSummary()
     {
@@ -119,9 +124,9 @@ class UsersController extends Controller
     /**
      * Create the new user(s).
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -140,9 +145,9 @@ class UsersController extends Controller
     /**
      * Process the create form for single user mode.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return $this|RedirectResponse
      */
     private function storeSingle(Request $request)
     {
@@ -166,9 +171,9 @@ class UsersController extends Controller
     /**
      * Process the create form for bulk user mode.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return $this|RedirectResponse
      */
     private function storeBulk(Request $request)
     {
@@ -204,7 +209,7 @@ class UsersController extends Controller
                 $results[$i] = [
                     'success'  => false,
                     'username' => $data['username'] ?: $i,
-                    'message'  => implode(PHP_EOL, array_flatten($validator->messages()->getMessages())),
+                    'message'  => implode(PHP_EOL, Arr::flatten($validator->messages()->getMessages())),
                 ];
             } else if ($user = User::create($data)) {
                 $results[$i] = [
@@ -248,7 +253,7 @@ class UsersController extends Controller
      *
      * @param $username
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function view($username)
     {
@@ -275,9 +280,9 @@ class UsersController extends Controller
      * Update the user.
      *
      * @param                          $username
-     * @param \Illuminate\Http\Request $request
+     * @param Request                  $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($username, Request $request)
     {
@@ -304,10 +309,10 @@ class UsersController extends Controller
     /**
      * Update the user's details.
      *
-     * @param \App\Models\Users\User   $user
-     * @param \Illuminate\Http\Request $request
+     * @param User    $user
+     * @param Request $request
      *
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return $this|RedirectResponse
      */
     private function updateDetails(User $user, Request $request)
     {
@@ -352,8 +357,8 @@ class UsersController extends Controller
     /**
      * Archive or unarchive the user account.
      *
-     * @param \App\Models\Users\User   $user
-     * @param \Illuminate\Http\Request $request
+     * @param User    $user
+     * @param Request $request
      */
     private function updateStatus(User $user, Request $request)
     {
@@ -371,8 +376,8 @@ class UsersController extends Controller
     /**
      * Update the user's profile picture.
      *
-     * @param \App\Models\Users\User   $user
-     * @param \Illuminate\Http\Request $request
+     * @param User    $user
+     * @param Request $request
      */
     private function updateAvatar(User $user, Request $request)
     {
@@ -388,7 +393,7 @@ class UsersController extends Controller
     /**
      * Remove the user's profile picture.
      *
-     * @param \App\Models\Users\User $user
+     * @param User $user
      */
     private function updateRemoveAvatar(User $user)
     {
@@ -406,11 +411,11 @@ class UsersController extends Controller
     /**
      * Reset the user's password.
      *
-     * @param \App\Models\Users\User $user
+     * @param User $user
      */
     private function updateResetPassword(User $user)
     {
-        $password = str_random(15);
+        $password = Str::random(15);
         $user->update(['password' => bcrypt($password)]);
 
         $user->notify(new ResetPasswordAdmin($password));
@@ -421,9 +426,9 @@ class UsersController extends Controller
     /**
      * Process and perform the bulk user actions.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function postIndex(Request $request)
     {
@@ -457,7 +462,7 @@ class UsersController extends Controller
     /**
      * Process multiple users in bulk.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      */
     private function updateBulk(Request $request)
     {

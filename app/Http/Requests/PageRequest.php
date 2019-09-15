@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Page;
+use Illuminate\Support\Str;
 
 class PageRequest extends Request
 {
@@ -31,7 +32,7 @@ class PageRequest extends Request
      */
     protected function validationData()
     {
-        $slug = $this->has('slug') ? $this->get('slug') : str_slug($this->get('title'));
+        $slug = $this->has('slug') ? $this->get('slug') : Str::slug($this->get('title'));
         $this->merge([
             'slug' => $slug,
         ]);
