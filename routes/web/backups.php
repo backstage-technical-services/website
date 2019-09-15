@@ -1,27 +1,26 @@
 <?php
-Route::group([
-    'prefix' => 'backups',
-], function () {
-    Route::get('', [
-        'as'   => 'backup.index',
-        'uses' => 'BackupController@index',
-    ]);
-    Route::post('create/{type}', [
-        'as'    => 'backup.store',
-        'uses'  => 'BackupController@store',
-        'where' => ['type' => 'db|full'],
-    ]);
-    Route::group([
-        'prefix' => '{filename}',
-        'where'  => ['filename' => '[A-Za-z0-9_\-\.]+'],
-    ], function () {
-        Route::get('', [
-            'as'   => 'backup.download',
-            'uses' => 'BackupController@download',
-        ]);
-        Route::post('delete', [
-            'as'   => 'backup.destroy',
-            'uses' => 'BackupController@destroy',
-        ]);
-    });
-});
+
+use Illuminate\Support\Facades\Route;
+
+// View all backups
+Route::get('/backups', 'BackupController@index')
+     ->middleware('can:admin')
+     ->name('backup.index');
+
+// Create a backup
+Route::post('/backups/create/{type}', 'BackupController@store')
+     ->where(['type' => 'db|full'])
+     ->middleware('can:admin')
+     ->name('backup.store');
+
+// Download a backup
+Route::get('/backups/{filename}', 'BackupController@download')
+     ->where(['filename' => '[A-Za-z0-9_\-\.]+'])
+     ->middleware('can:admin')
+     ->name('backup.download');
+
+// Delete a backup
+Route::post('/backups/{filename}', 'BackupController@destroy')
+     ->where(['filename' => '[A-Za-z0-9_\-\.]+'])
+     ->middleware('can:admin')
+     ->name('backup.destroy');

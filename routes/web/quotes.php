@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 // View the quotesboard
 Route::get('/quotes', 'QuoteController@index')
      ->middleware('can:view,App\Models\Quote')

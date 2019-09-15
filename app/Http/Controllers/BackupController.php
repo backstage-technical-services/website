@@ -2,121 +2,93 @@
 
 namespace App\Http\Controllers;
 
-use App\Console\Commands\BackupDb;
-use App\Helpers\File;
-use bnjns\LaravelNotifications\Facades\Notify;
+use App\Services\BackupService;
+use bnjns\LaravelNotifications\NotificationHandler;
 use bnjns\WebDevTools\Laravel\Traits\UsesAjax;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Zend\Stdlib\Glob;
 
 class BackupController extends Controller
 {
     use UsesAjax;
-
+    
+    /** @var BackupService $service */
+    private $service;
+    
+    /** @var NotificationHandler $notify */
+    private $notify;
+    
     /**
      * BackupController constructor.
+     *
+     * @param  BackupService        $service
+     * @param  NotificationHandler  $notify
      */
-    public function __construct()
+    public function __construct(BackupService $service, NotificationHandler $notify)
     {
         $this->middleware('auth');
+        $this->service = $service;
+        $this->notify  = $notify;
     }
-
+    
     /**
      * View the list of existing backup files.
      *
      * @return View
-     * @throws AuthorizationException
      */
     public function index()
     {
-        $this->authorizeGate('admin');
+        $backups = $this->service->viewAllBackups();
     
-        $files = Glob::glob(storage_path('app/backups/') . '*.{zip,sql}', Glob::GLOB_BRACE);
-        array_multisort(
-            array_map('filectime', $files),
-            SORT_NUMERIC,
-            SORT_DESC,
-            $files
-        );
-
-        return view('backups.index')->with([
-            'backups' => array_map(function ($filename) {
-                return new File($filename);
-            }, $files),
-        ]);
+        return view('backups.index')->with(compact('backups'));
     }
-
+    
     /**
      * Download a site backup.
      *
-     * @param $filename
+     * @param  string  $filename
      *
      * @return BinaryFileResponse
-     * @throws AuthorizationException
      */
-    public function download($filename)
+    public function download(string $filename)
     {
-        $this->authorizeGate('admin');
-
-        $file = new File(storage_path('app/backups/' . $filename));
-
-        if (!$file->isFile()) {
-            throw new NotFoundHttpException();
-        }
-
+        $file = $this->service->getFile($filename);
+        
         return response()->download($file, $file->getFilename());
     }
-
+    
     /**
      * Create a new backup.
      *
-     * @param string $type The type of backup to create.
+     * @param  string  $type  The type of backup to create.
      *
      * @return JsonResponse
-     * @throws AuthorizationException
      */
-    public function store($type)
+    public function store(string $type)
     {
-        $this->authorizeGate('admin');
         $this->requireAjax();
-
-        if ($type == 'db') {
-            Artisan::call(BackupDb::class);
-        } else if ($type == 'full') {
-            Artisan::call('backup:run');
-        }
-
-        Notify::success('Backup created');
-        return $this->ajaxResponse(true);
+    
+        $this->service->runBackup($type);
+    
+        $this->notify->success('Backup created');
+        return response()->json();
     }
-
+    
     /**
      * Delete a backup.
      *
-     * @param string $filename
+     * @param  string  $filename
      *
      * @return JsonResponse
-     * @throws AuthorizationException
      */
-    public function destroy($filename)
+    public function destroy(string $filename)
     {
-        $this->authorizeGate('admin');
         $this->requireAjax();
-
-        $file = storage_path('app/backups/' . $filename);
-
-        if (!file_exists($file)) {
-            return $this->ajaxError(0, 404, 'Unknown backup');
-        }
-
-        unlink($file);
-
-        Notify::success('Backup deleted');
-        return $this->ajaxResponse(true);
+    
+        $this->service->delete($filename);
+    
+        $this->notify->success('Backup deleted');
+        return response()->json();
     }
 }

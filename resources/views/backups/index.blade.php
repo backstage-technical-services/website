@@ -26,9 +26,9 @@
             @forelse($backups as $backup)
                 <tr>
                     <td class="col--type">
-                        @if($backup->getExtension() == 'sql')
+                        @if($backup->getExtension() === 'sql')
                             <span class="fa fa-database" title="Database only"></span>
-                        @elseif($backup->getExtension() == 'zip')
+                        @elseif($backup->getExtension() === 'zip')
                             <span class="fa fa-sitemap" title="Database and resources"></span>
                         @endif
                     </td>
