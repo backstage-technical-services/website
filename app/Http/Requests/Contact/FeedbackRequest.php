@@ -26,7 +26,7 @@ class FeedbackRequest extends Request
         return [
             'event'                => 'required|string',
             'feedback'             => 'required|string',
-            'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

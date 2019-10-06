@@ -52,8 +52,7 @@ class AccidentController extends Controller
             'person_type_email' => $request->get('person_type') == 'other' ? $request->get('person_type_other') : AccidentRequest::$PersonTypes[$request->get('person_type')],
             'severity_email'    => AccidentRequest::$Severities[$request->get('severity')],
         ]);
-
-        // TODO: Move these to a config file
+    
         Mail::to(config('bts.emails.safety.accident_reports'))
             ->queue(new AccidentReport($request->all()));
         Mail::to($request->get('contact_email'), $request->get('contact_name'))

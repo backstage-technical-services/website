@@ -33,7 +33,7 @@ class BookRequest extends Request
             'contact_email'        => 'required|email',
             'contact_phone'        => 'nullable|phone',
             'terms'                => 'accepted',
-            'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

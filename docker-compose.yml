@@ -43,7 +43,7 @@ services:
     networks:
       - main
     ports:
-      - ${PORT_NGINX}:80
+      - ${PORT_NGINX}:8080
     volumes:
       - ./:/var/www
     depends_on:

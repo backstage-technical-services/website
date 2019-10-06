@@ -64,7 +64,7 @@ Good communication is vital, and ours happens on [Slack][link-slack]. We don't w
 
 Slack is also the place where you can request access to the other tools we use.
 
-To request an invite to our Slack workspace simply drop a quick message to [Ben](mailto:ben@bnjns.uk).
+To get access to our Slack workspace simply ask the secretary.
 
 #### Channels
 Slack makes use of channels to group conversations with a similar subject. By default, new members are only added to the `#general` channel, but you can add yourself to a channel by clicking on `Channels` in the left pane to see the full list. Alternatively, you can ask a Workspace Admin to add to you it. No channels are off limits to anyone (although some are there for Apps to post to so it doesn't make much sense to post there yourself).
@@ -83,10 +83,10 @@ You can mention people in a Slack message simply by including their username aft
 Several Slack apps are installed, collecting notifications from our tools in 1 place to save us having to hop around the internet and check each tool individually.
 
 Apps we currently have installed:
-* Notifications of new issues in the `#gitlab` channel
-* Notifications of pipelines in the `#gitlab` channel
-* Notifications of production errors in the `#bugsnag` channel
-* Notifications of full site backups in the `#backups` channel
+* Notifications of new issues, merge requests and comments in the `#service-gitlab` channel
+* Notifications of pipelines in the `#service-gitlab` channel
+* Notifications of production errors in the `#service-bugsnag` channel
+* Notifications of full site backups in the `#service-backups` channel
 
 If you want another integration installed, just ask a Workspace Admin.
 
@@ -264,8 +264,8 @@ If you get stuck or need help, then just send a message on the Slack workspace.
 [link-phpstorm]: https://www.jetbrains.com/phpstorm
 [gitlab-register]: https://gitlab.com/users/sign_in#register-pane
 [link-ben]: https://www.gitlab.com/bnjns
-[link-laravel-docs]: https://laravel.com/docs/5.6
-[link-bts-dev]: https://dev.bts-crew.com/
+[link-laravel-docs]: https://laravel.com/docs/6.0
+[link-bts-dev]: https://staging.bts-crew.com/
 [link-git-help]: https://guides.github.com/introduction/git-handbook/
 [link-sass]: https://sass-lang.com/guide
 [link-gitlab-board]: https://gitlab.com/backstage-technical-services/laravel-site/boards/855759
