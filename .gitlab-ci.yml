@@ -82,24 +82,24 @@ sast:
       sast: gl-sast-report.json
     when: on_success
 
-dast:
-  stage: security
-  image: registry.gitlab.com/gitlab-org/security-products/zaproxy
-  variables:
-    website: "https://example.com"
-  allow_failure: true
-  script:
-    - mkdir /zap/wrk/
-    - /zap/zap-baseline.py -J gl-dast-report.json -t $website || true
-    - cp /zap/wrk/gl-dast-report.json .
-  only:
-    - /^v[\d.]+$/
-  except:
-    - branches
-  artifacts:
-    reports:
-      dast: gl-dast-report.json
-    when: on_success
+#dast:
+#  stage: security
+#  image: registry.gitlab.com/gitlab-org/security-products/zaproxy
+#  variables:
+#    website: "https://example.com"
+#  allow_failure: true
+#  script:
+#    - mkdir /zap/wrk/
+#    - /zap/zap-baseline.py -J gl-dast-report.json -t $website || true
+#    - cp /zap/wrk/gl-dast-report.json .
+#  only:
+#    - /^v[\d.]+$/
+#  except:
+#    - branches
+#  artifacts:
+#    reports:
+#      dast: gl-dast-report.json
+#    when: on_success
 
 dependency_scanning:
   stage: security
