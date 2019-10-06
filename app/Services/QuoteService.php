@@ -45,7 +45,7 @@ class QuoteService
     {
         $quote = new Quote([
             'culprit'  => clean($request->get('culprit')),
-            'quote'    => clean($request->get('quote')),
+            'quote'    => strip_tags($request->get('quote')),
             'date'     => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('date'))->addMinutes($request->header('TZ-OFFSET')),
             'added_by' => $request->user()->id,
         ]);
