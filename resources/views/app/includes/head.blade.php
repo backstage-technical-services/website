@@ -1,4 +1,4 @@
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-150311689-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ config('bts.analytics_code') }}"></script>
 <script>window.dataLayer = window.dataLayer || [];
 
     function gtag() {
@@ -6,7 +6,7 @@
     }
 
     gtag('js', new Date());
-    gtag('config', 'UA-150311689-1');</script>
+    gtag('config', '{{ config('bts.analytics_code') }}');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">

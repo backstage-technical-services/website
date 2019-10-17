@@ -4,6 +4,8 @@
  */
 
 return [
+    'analytics_code' => env('GOOGLE_ANALYTICS_CODE', ''),
+    
     'finance_db' => [
         'em_finance_url' => env('FINANCE_DB_EM_URL'),
         'url'            => env('FINANCE_DB_ADD_URL'),
