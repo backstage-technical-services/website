@@ -188,7 +188,13 @@
                     @for($i = 1; $i <= 3; $i++)
                         <tr>
                             <td>@include('training.skills.proficiency', ['level' => $i])</td>
-                            <td>{!! Markdown::convertToHtml($application->skill->{'level' . $i}) !!}</td>
+                            <td>
+                                @if($application->skill->{'level' . $i} !== null)
+                                    {!! Markdown::convertToHtml($application->skill->{'level' . $i}) !!}
+                                @else
+                                    <span class="em">Level not available</span>
+                                @endif
+                            </td>
                         </tr>
                     @endfor
                 </table>
