@@ -87,14 +87,14 @@
                                     </div>
                                     <div class="btn-group btn-group-sm">
                                         <a class="btn btn-primary"
-                                           href="{{ route('election.manifesto', ['id' => $election->id, 'nomineeId' => $nominee->id]) }}"
+                                           href="{{ route('election.manifesto', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
                                            target="_blank">
                                             <span class="fa fa-file-pdf-o"></span>
                                             <span>Manifesto</span>
                                         </a>
                                         @if(Auth::user()->can('delete', $nominee) && $election->isNominationsOpen())
                                             <a class="btn btn-danger"
-                                               data-submit-ajax="{{ route('election.nomination.delete', ['id' => $election->id, 'nomineeId' => $nominee->id]) }}"
+                                               data-submit-ajax="{{ route('election.nomination.delete', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
                                                data-submit-confirm="Are you sure you want to delete this nomination?">
                                                 <span class="fa fa-trash"></span>
                                             </a>
