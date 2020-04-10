@@ -30,4 +30,4 @@ How quickly does this need to be resolved? Is this preventing you or anyone else
 
 Use one of: Low, Medium, High, Very High
 
-\label ~"type: bug"
+\label ~"type/bug"
