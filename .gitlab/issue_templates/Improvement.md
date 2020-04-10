@@ -11,4 +11,4 @@ Why should this be implemented? How does this benefit members (or the committee)
 How time sensitive is this? Low? Medium? High? Very High? If there's a date or event this needs to be done by, please enter that here too.
 
 
-\label ~"type: improvement"
+\label ~"type/improvement"
