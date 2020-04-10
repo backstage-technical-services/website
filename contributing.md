@@ -45,12 +45,12 @@ Within the team, we refer to issues in the issue tracker as "tickets"; we feel t
 #### Use of labels
 We use labels to categorise tickets:
 
-* Labels beginning with `status: ` are used to indicate the stage the ticket is in (see [Development Workflow](#development-workflow)) and is used to organise the Kanban board. A ticket can only have 1 of these labels, or none if it's in the backlog or completed.
-* Labels beginning with `module: ` are used to group tickets that are related to a particular functionality within the site. Any number of these labels can be applied to a ticket.
-* Labels beginning with `type: ` are used to indicate the type of ticket (eg, `type: bug` for bugs and `type: feature` for feature requests). A ticket can only have 1 of these labels.
-* `Blocked` is used to indicate that the ticket can't be worked on as it depends on another ticket to be completed first. The reason for the block will usually be described as a comment.
-* `Waiting on Feedback` is used to indicate that more information is needed from the reporter before work can continue. Once work is resumed this label should be removed.
-* `Needs Spec/Scope` is used for tickets in the backlog that need more information before they can be worked on.
+* Labels beginning with `status` are used to indicate the stage the ticket is in (see [Development Workflow](#development-workflow)) and is used to organise the Kanban board. A ticket can only have 1 of these labels, or none if it's in the backlog or completed.
+* Labels beginning with `area` are used to group tickets that are related to a particular functionality within the site. Any number of these labels can be applied to a ticket.
+* Labels beginning with `type` are used to indicate the type of ticket (eg, `type/bug` for bugs and `type/feature` for feature requests). A ticket can only have 1 of these labels.
+* `triage/blocked` is used to indicate that the ticket can't be worked on as it depends on another ticket to be completed first. The reason for the block will usually be described as a comment.
+* `triage/waiting-on-feedback` is used to indicate that more information is needed from the reporter before work can continue. Once work is resumed this label should be removed.
+* `triage/needs-scoping` is used for tickets in the backlog that need more information before they can be worked on.
 
 > **Note:** Labels should only be applied to tickets, and not merge requests.
 
