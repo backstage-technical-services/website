@@ -25,12 +25,12 @@ Version 4 also led the move of the server to a VPS, full use of the Backstage do
 This development is led by [Ben Jones](http://github.com/bnjns) and is built on PHP 7, MySQL 5.6 and Laravel 6.0 and utilises Bootstrap 3.
 
 # Contributing
-See the accompanying [contributing.md](contributing.md) file for details on how to contribute;
+See the [Contribution Guide](https://gitlab.com/backstage-technical-services/website/hub/-/blob/master/Contributing.md) for details on how to contribute;
 
 TL;DR: Anyone can contribute; contact the secretary for more information.
 
 # Bugs / Feature Suggestions
-Report all bugs, feature suggestions and improvements through the [issue tracker](https://gitlab.com/backstage-technical-services/laravel-site/issues/new). If you're unsure how to do this, please just ask a member of the [development team](https://gitlab.com/groups/backstage-technical-services/-/group_members) or the [secretary](mailto:sec@bts-crew.com).
+Report all bugs, feature suggestions and improvements through the [issue tracker](https://gitlab.com/backstage-technical-services/website/hub/-/issues/new). If you're unsure how to do this, please just ask a member of the [development team](https://gitlab.com/groups/backstage-technical-services/website/-/group_members) or the [secretary](mailto:sec@bts-crew.com).
 
 # License
 This website uses code from Laravel and various packages, which retain their original licenses (see each package for more details). The code developed for this website is covered by the GNU General Public License v2 (see the included LICENCE file).
