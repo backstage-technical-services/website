@@ -12,6 +12,15 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
 ;fi
 
 # Fix permissions for all nginx/PHP directories
+RUN mkdir -p \
+    /etc/nginx \
+    /var/lib/nginx \
+    /var/log/nginx \
+    /usr/lib/nginx \
+    /run/nginx \
+    /var/tmp/nginx \
+    /usr/local/lib/php \
+    /usr/local/etc/php
 RUN chown -R www-data:www-data \
     /etc/nginx \
     /var/lib/nginx \

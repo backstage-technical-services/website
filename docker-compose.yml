@@ -39,6 +39,9 @@ services:
     build:
       context: ./
       dockerfile: .docker/local/site/Dockerfile
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
     container_name: bts_site
     networks:
       - main
