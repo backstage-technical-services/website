@@ -31,7 +31,7 @@
     <div class="modal-footer">
         <button class="btn btn-success"
                 data-type="submit-modal"
-                data-form-action="{{ route('election.elect', ['electionId' => $election->id]) }}"
+                data-form-action="{{ route('election.elect', ['id' => $election->id]) }}"
                 data-redirect="true">
             <span class="fa fa-check"></span>
             <span>Save</span>
