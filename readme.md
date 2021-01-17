@@ -1,5 +1,9 @@
 # Laravel Site
 
+[![CircleCI](https://circleci.com/gh/backstage-technical-services/laravel-site.svg?style=shield)](https://circleci.com/gh/backstage-technical-services/laravel-site)
+[![chat](https://img.shields.io/badge/chat-on%20slack-brightgreen)](https://bts-website.slack.com)
+[![license](https://img.shields.io/badge/license-Apache%20v2-blue)](./licence.md)
+
 ## Pre-requisites
 
 > Make sure you are familiar with the [Contribution

@@ -1,0 +1,135 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@3.4.2
+  snyk: snyk/snyk@0.0.10
+
+executors:
+  docker:
+    docker:
+      - image: circleci/node:lts
+  php:
+    docker:
+      - image: circleci/php:7-fpm-node
+
+jobs:
+  checkout-code:
+    executor: php
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install composer v1
+          command: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer --1
+      - run:
+          name: Install PHP dependencies
+          command: composer install --no-interaction --prefer-dist
+      - run:
+          name: Install JS dependencies
+          command: yarn install --no-dev --frozen-lockfile
+      - save_cache:
+          paths:
+            - node_modules
+            - vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: "."
+          paths:
+            - "*"
+
+  test:
+    executor: php
+    steps:
+      - attach_workspace:
+          at: "."
+      - run:
+          name: Configure app
+          command: |
+            cp .env.example .env
+            php artisan key:generate
+      - run:
+          name: Run tests
+          command: ./vendor/bin/phpunit --log-junit tests/results/junit.xml
+      - store_test_results:
+          path: tests/results
+
+  deploy:
+    executor: php
+    steps:
+      - attach_workspace:
+          at: "."
+      - run:
+          name: Configure SSH
+          command: |
+            mkdir -p ~/.ssh
+            echo "$SSH_KEY_PRIVATE" | base64 -d > ~/.ssh/id_rsa
+            echo "$SSH_KEY_PUBLIC" | base64 -d > ~/.ssh/id_rsa.pub
+            chmod 600 ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa.pub
+            echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+      - run:
+          name: Deploy changes
+          command: |
+            ssh $SSH_USER@$SSH_SERVER "chmod -R 744 /www/$SITE_ROOT/.git"
+            scp -r .git $SSH_USER@$SSH_SERVER:/www/$SITE_ROOT
+            ssh $SSH_USER@$SSH_SERVER "
+              cd /www/$SITE_ROOT/ &&
+              php artisan down &&
+              git reset --hard &&
+              git clean -n &&
+              rm -r vendor &&
+              rm -r node_modules &&
+              rm bootstrap/cache/*.php &&
+              composer install --no-interaction --no-dev --prefer-dist &&
+              yarn install --no-dev --silent &&
+              yarn prod &&
+              php artisan migrate --force --no-interaction &&
+              php artisan cache:clear &&
+              php artisan view:clear &&
+              php artisan config:cache &&
+              chown -R $SSH_USER:www-data . &&
+              php artisan up
+              "
+
+workflows:
+  version: 2
+
+  build:
+    jobs:
+      - checkout-code
+      - test:
+          requires:
+            - checkout-code
+      - deploy:
+          name: deploy-staging
+          context:
+            - v4-base
+            - v4-staging
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+      - prd-hold:
+          type: approval
+          requires:
+            - deploy-staging
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          name: deploy-prd
+          context:
+            - v4-base
+            - v4-prd
+          requires:
+            - prd-hold
+          filters:
+            branches:
+              only:
+                - master

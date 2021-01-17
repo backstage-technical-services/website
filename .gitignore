@@ -1,14 +1,11 @@
-/node_modules
-/public/storage
-/public/hot
-/storage/*.key
-/vendor
+# IntelliJ
 /.idea
-Homestead.json
-Homestead.yaml
-.env
-/components
-npm-debug.log
+
+# Dependencies
+/node_modules
+/vendor
+
+# Assets
 /resources/assets/js/app.js
 /public/mix-manifest.json
 /public/app.js
@@ -18,9 +15,26 @@ npm-debug.log
 /public/images/lightbox
 /public/js/*
 /public/css/*
+
+# Resources
 /resources/resources/*
 /resources/elections/*
+
+# Storage
 /storage/temp
 /storage/app/backups
 /storage/google_token.json
-.docker/local/mysql/data
+
+# Tests
+.phpunit.result.cache
+tests/results/*
+
+# Misc
+.env
+Homestead.json
+Homestead.yaml
+/public/storage
+/public/hot
+/storage/*.key
+/components
+npm-debug.log
