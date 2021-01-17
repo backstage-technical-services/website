@@ -1,106 +1,66 @@
-# About
+# Laravel Site
 
-Backstage Technical Services is a student society at the University of
-Bath (UK) that specialises in providing technical support to a variety
-of shows and events held both on- and off-campus. This support can range
-from providing a simple PA to musical and theatrical shows to Freshers'
-Week and Summer Ball.
+## Pre-requisites
 
-Backstage's unique position of supporting any and every event that
-requires technical support results in a busy schedule in need of careful
-administration to ensure the society can function as best as possible.
+> Make sure you are familiar with the [Contribution
+> Guide][contribution-guide] and the main [development
+> readme][development-readme].
 
-This began as a simple paper-based system for tracking the events
-Backstage had been booked for but was replaced by a website when the
-manual nature of the system became difficult to manage.
+* Make sure the [database and SMTP server][running-aux-services] are running
+* Copy the `.env.example` file to `.env` and fill in the missing values
 
-Over time this website has grown from an events tracker to a
-feature-rich system that allows Backstage to monitor both the events and
-its membership while also providing a centralised location for paperwork
-and some simple tools for socialising.
+  > You may need to ask in Slack for some of the sensitive values
 
-## Version History
+* Run the Nginx server using docker
 
-### 2.x
+  > Use [the scripts](#helpful-scripts) included in the to simplify this
+  > process.
 
-Version 2 was built by Colin Paxton and later maintained by Lee Stone.
-It was written in PHP and used a MySQL database due to the limitations
-of hosting the site on the university's "personal home page" server.
-This site was well used by the membership and was continually improved
-by Lee and other interested members.
+## How the nginx server works
 
-### 3.x
+This repository uses a Docker container that includes both nginx and
+PHP-FPM to prevent everyone needing to install PHP and nginx and
+configure their nginx server to correctly forward requests to PHP-FPM.
 
-While Version 3 was never released it did exist in various stages of
-planning. This would use the same structure and hosting as Version 2 but
-would introduce several new features.
+This Docker container is created using the [included
+Dockerfile][local-dockerfile], which creates a volume mount between the
+`/var/www` directory in the container (which is what nginx serves) and
+`laravel-site`. This means that any changes you make locally are also
+changed in the docker container, without the need to re-build and
+restart the container.
 
-### 4.x
+> A caveat to this is that the file watcher between your computer and
+> Docker can make your computer slow and can exceed the operating system
+> limit. This can sometimes be resolved by stopping and then starting
+> the container again.
 
-Due to its age Version 2 made use of numerous outdated or deprecated
-features and the process of continuous improvement had produced a file
-structure that was very difficult to manage and keep updated. The site
-also mixed HTML and PHP making updating the style difficult.
+## Helpful scripts
 
-Version 4.0 did not introduce much additional functionality; instead it
-involved a re-write of Version 2 from the ground up, using a framework
-to promote modularity and aid with future development. This also enabled
-the creation of a responsive and "modern" design.
+The [development repo][development-repo] includes a few helpful scripts
+to simplify the process of running and developing with the site:
 
-Version 4 also led the move of the server to a VPS, full use of the
-Backstage domain ([bts-crew.com][website]) and the use of git and GitLab
-to manage version control.
+* `scripts/build-assets.sh`: Re-builds the JS/CSS files.
+* `scripts/install-dependencies.sh`: Installs both the PHP and JS
+  dependencies.
+* `scrips/rebuild.sh`: Rebuilds the site's nginx server
+* `scripts/start.sh`: Starts the site's nginx server, as well as the
+  auxiliary services.
+* `scripts/stop.sh`: Stops the site's nginx server, as well as the
+  auxiliary services.
+* `scripts/update.sh`: Pulls the latest changes and rebuilds the site
+  (including updating the dependencies and re-building the assets).
+* `scripts/watch-assets.sh`: Watches the assets so that changes are
+  automatically re-built.
 
-This development is led by [Ben Jones][github-ben] and is built on PHP
-7, MySQL 5.6 and Laravel 6.0 and utilises Bootstrap 3.
-
-# Contributing
-
-See the [Contribution Guide][contribution-guide] for details on how to
-contribute.
-
-TL;DR: Anyone can contribute; contact the secretary for more
-information.
-
-## Notes for running locally
-
-1. Make sure you've logged into the docker registry to download the base
-   image
-   * Create a personal token in GitHub
-
-     ```
-     Settings > Developer settings > Personal access tokens
-     ```
-   * Log into the registry
-
-     ```sh
-     $ echo "<token>" | docker login docker.pkg.github.com -u <github-username> --password-stdin
-     ```
-2. Make sure you configure your user ID and group ID
-   * Run `id $(whoami)`
-   * Set these as the `USER_ID` and `GROUP_ID` in `docker-compose.yml`
-3. Run it!
-    ```sh
-   $ docker-compose up -d
-    ```
-
-# Bugs / Feature Suggestions
-
-Report all bugs, feature suggestions and improvements through the [issue
-tracker][new-issue]. If you're unsure how to do this, please just ask a
-member of the [development team][github-team] or the
-[secretary](mailto:sec@bts-crew.com).
-
-# License
+## License
 
 This website uses code from Laravel and various packages, which retain
 their original licenses (see each package for more details). The code
 developed for this website is covered by the GNU General Public License
 v2 (see the included LICENCE file).
 
-[website]: https://www.bts-crew.com
-[github-ben]: http://github.com/bnjns
 [contribution-guide]: https://github.com/backstage-technical-services/hub/blob/master/Contributing.md
-[new-issue]: https://github.com/backstage-technical-services/hub/issues/new/choose
-[github-team]: https://github.com/orgs/backstage-technical-services/people
-
+[development-readme]: https://github.com/backstage-technical-services/website-development/blob/v4.x/readme.md
+[running-aux-services]: https://github.com/backstage-technical-services/website-development/blob/v4.x/readme.md#running-the-auxiliary-services
+[development-repo]: https://github.com/backstage-technical-services/website-development/tree/v4.x
+[local-dockerfile]: .docker/local.Dockerfile
