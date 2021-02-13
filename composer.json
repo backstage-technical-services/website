@@ -5,7 +5,7 @@
   "license"     : "GNU GPLv2",
   "type"        : "project",
   "require"     : {
-    "php"                               : "^7.4|^8.0",
+    "php"                               : "^8.0",
     "alaouy/youtube"                    : "^2.0",
     "anhskohbo/no-captcha"              : "^3.0",
     "bugsnag/bugsnag-laravel"           : "^2.0",
@@ -30,7 +30,7 @@
     "mews/purifier"                     : "^3.0",
     "moment/moment"                     : "^2.17",
     "select2/select2"                   : "^4.0",
-    "spatie/laravel-backup"             : "^6.0",
+    "spatie/laravel-backup"             : "^7.0",
     "spatie/laravel-db-snapshots"       : "^1.1",
     "twbs/bootstrap"                    : "^3.3",
     "laminas/laminas-stdlib"            : "^3.0"

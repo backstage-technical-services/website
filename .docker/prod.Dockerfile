@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/backstage-technical-services/php-docker/php:7.4
+FROM docker.pkg.github.com/backstage-technical-services/php-docker/php:8.0
 
 # Copy dependency files
 COPY composer.json composer.lock ./

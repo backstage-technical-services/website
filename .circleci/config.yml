@@ -10,7 +10,7 @@ executors:
       - image: circleci/node:lts
   php:
     docker:
-      - image: circleci/php:7.4-fpm-node
+      - image: circleci/php:8.0-fpm-node
 
 jobs:
   checkout-code:
@@ -21,9 +21,6 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run:
-          name: Install composer v1
-          command: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer --1
       - run:
           name: Install PHP dependencies
           command: composer install --no-interaction --prefer-dist
@@ -77,7 +74,7 @@ jobs:
             scp -r .git $SSH_USER@$SSH_SERVER:/www/$SITE_ROOT
             ssh $SSH_USER@$SSH_SERVER "
               cd /www/$SITE_ROOT/ &&
-              php artisan down &&
+              php artisan down --render="errors::503" &&
               git reset --hard &&
               git clean -n &&
               rm -r vendor &&
