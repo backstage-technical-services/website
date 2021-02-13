@@ -7,9 +7,9 @@ use App\Models\Resources\Resource;
 use App\Models\Resources\Tag;
 use App\Models\Training\Category as TrainingCategory;
 use App\Models\Training\Skills\Skill;
-use bnjns\WebDevTools\Laravel\Traits\CorrectsPaginatorPath;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
+use Package\WebDevTools\Laravel\Traits\CorrectsPaginatorPath;
 
 class ViewServiceProvider extends ServiceProvider
 {

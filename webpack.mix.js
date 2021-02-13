@@ -32,16 +32,16 @@ mix
         'node_modules/clipboard/dist/clipboard.min.js',
         'node_modules/js-modals/dist/modal.min.js',
         'vendor/eonasdan/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-        'vendor/bnjns/laravel-searchtools/src/resources/assets/js/search_tools.min.js',
-        'vendor/bnjns/laravel-notifications/src/resources/assets/js/notifications.min.js',
+        'packages/SearchTools/resources/assets/js/search_tools.min.js',
+        'packages/Notifications/resources/assets/js/notifications.min.js',
         'resources/assets/js/app/DatetimePicker.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/ApplySelect2/enable.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/CookieAcceptance/enable.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/DisableButtonOnClick/enable.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/EditableFields/enable.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/OtherInput/enable.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/SimpleMDE/enable.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/ToggleVisibility/enable.js',
+        'packages/WebDevTools/assets/js/plugins/ApplySelect2/enable.js',
+        'packages/WebDevTools/assets/js/plugins/CookieAcceptance/enable.js',
+        'packages/WebDevTools/assets/js/plugins/DisableButtonOnClick/enable.js',
+        'packages/WebDevTools/assets/js/plugins/EditableFields/enable.js',
+        'packages/WebDevTools/assets/js/plugins/OtherInput/enable.js',
+        'packages/WebDevTools/assets/js/plugins/SimpleMDE/enable.js',
+        'packages/WebDevTools/assets/js/plugins/ToggleVisibility/enable.js',
     ], 'public/js/vendors.js')
     .combine([
         'resources/assets/css/reset.css',
@@ -53,7 +53,7 @@ mix
         'resources/assets/css/vendors/font-awesome.css',
         'vendor/eonasdan/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
         'resources/assets/css/vendors/lightbox.css',
-        'vendor/bnjns/laravel-notifications/src/resources/assets/css/notifications.min.css',
+        'packages/Notifications/resources/assets/css/notifications.min.css',
     ], 'public/css/vendors.css')
 
     // Process SCSS files
@@ -64,20 +64,20 @@ mix
 
     // Process JS files
     .combine([
-        'vendor/bnjns/web-dev-tools/js/misc.js',
-        'vendor/bnjns/web-dev-tools/js/ajax.js',
+        'packages/WebDevTools/assets/js/misc.js',
+        'packages/WebDevTools/assets/js/ajax.js',
         'resources/assets/js/app/ajax_toggle.js',
         'resources/assets/js/app/clipboard.js',
         'resources/assets/js/app/cookies.js',
-        'vendor/bnjns/web-dev-tools/js/forms.js',
-        'vendor/bnjns/web-dev-tools/js/modals.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/ApplyDatetimePicker/auto-init.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/ApplySelect2/auto-init.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/DisableButtonOnClick/auto-init.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/EditableFields/auto-init.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/OtherInput/auto-init.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/SimpleMDE/auto-init.js',
-        'vendor/bnjns/web-dev-tools/js/plugins/ToggleVisibility/auto-init.js',
+        'packages/WebDevTools/assets/js/forms.js',
+        'packages/WebDevTools/assets/js/modals.js',
+        'packages/WebDevTools/assets/js/plugins/ApplyDatetimePicker/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/ApplySelect2/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/DisableButtonOnClick/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/EditableFields/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/OtherInput/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/SimpleMDE/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/ToggleVisibility/auto-init.js',
         'node_modules/js-tabify/dist/tabify.min.js',
     ], 'public/js/app.js')
     .js('resources/assets/js/partials/events.view.js', 'public/js/partials/events.view.js')

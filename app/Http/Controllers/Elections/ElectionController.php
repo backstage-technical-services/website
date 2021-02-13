@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ElectionRequest;
 use App\Models\Committee\Role;
 use App\Models\Elections\Election;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;

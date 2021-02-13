@@ -1,0 +1,9 @@
+a {
+    &.camo {
+        color: inherit;
+        
+        &:hover, &:focus, &:active {
+            color: $colour_anchor;
+        }
+    }
+}

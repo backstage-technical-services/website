@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Awards;
 
 use App\Http\Controllers\Controller;
 use App\Models\Awards\Award;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 
 class AwardController extends Controller

@@ -1,0 +1,100 @@
+div.modal {
+    z-index: $zindex_modal;
+    
+    div.modal-dialog {
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 30px 5px 5px 5px;
+        position: relative;
+        width: 700px;
+        
+        &.modal-lg {
+            width: 970px;
+        }
+        &.modal-md {
+            width: 550px;
+        }
+        &.modal-sm {
+            width: 400px;
+        }
+        
+        & > div.modal-content {
+            position: relative;
+        }
+        div.modal-header {
+            display: block;
+            
+            & > h5.modal-title {
+                font-weight: 500;
+                text-align: center;
+                margin: 0 1em;
+            }
+            & > button.close {
+                font-size: font-size(15px);
+                line-height: 2em;
+                margin: 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        h2 {
+            //font-size: 20px;
+            //margin-top: 1.5em;
+            //margin-bottom: 0.5em;
+        }
+        h3 {
+            //font-size: 18px;
+            //font-weight: bold;
+        }
+        h4 {
+            //font-size: 15px;
+            //font-weight: bold;
+        }
+        h1, h2, h3, h4 {
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+        p {
+            //margin: 1em 0;
+            //line-height: 1.4em;
+        }
+        ul, ol {
+            //margin-top: 1em;
+            //margin-bottom: 1em;
+        }
+        blockquote {
+            //font-size: 14px;
+        }
+        form {
+            margin: 0 !important;
+        }
+        hr {
+            background: $colour_rule;
+        }
+        div.modal-body {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        span.select2-dropdown {
+            z-index: $zindex_modal + 400;
+        }
+    }
+}
+
+div.modal-backdrop {
+    z-index: $zindex_modal_backdrop;
+    
+    &.in {
+        opacity: 0.8;
+    }
+}
+
+div[data-type="modal-template"], [data-type="data-editable-source"], [data-type="data-toggle-template"] {
+    display: none !important;
+}

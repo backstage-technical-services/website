@@ -1,0 +1,38 @@
+ul.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    overflow: hidden;
+    padding: 1em 0 0 0;
+    
+    & > li.page-item {
+        display: none;
+        margin: 0.5em 0;
+        
+        & > span, & > a, & > a:visited {
+            color: $colour_pagination_text;
+        }
+        &.active {
+            &, &:hover {
+                & > span.page-link {
+                    background: $colour_pagination_active_bg;
+                    border-color: $colour_pagination_active_bg;
+                    color: $colour_pagination_active_text;
+                }
+            }
+        }
+        &:first-child, &:last-child, &.active {
+            display: inline-block;
+        }
+        @media(min-width: 768px) {
+            display: inline-block;
+        }
+    }
+}
+
+div.pagination-count {
+    color: $colour_pagination_count;
+    font-size: font-size(12px);
+    margin-bottom: -1em;
+    text-align: right;
+}

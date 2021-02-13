@@ -5,12 +5,9 @@
   "license"     : "GNU GPLv2",
   "type"        : "project",
   "require"     : {
-    "php"                               : ">=7.2",
+    "php"                               : ">=7.4",
     "alaouy/youtube"                    : "^2.0",
     "anhskohbo/no-captcha"              : "^3.0",
-    "bnjns/laravel-notifications"       : "^3.0",
-    "bnjns/laravel-searchtools"         : "^2.0",
-    "bnjns/web-dev-tools"               : "^4.0",
     "bugsnag/bugsnag-laravel"           : "^2.0",
     "components/jquery"                 : "^3.1",
     "doctrine/dbal"                     : "^2.5",
@@ -48,7 +45,8 @@
       "database"
     ],
     "psr-4"   : {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Package\\": "packages/"
     }
   },
   "autoload-dev": {

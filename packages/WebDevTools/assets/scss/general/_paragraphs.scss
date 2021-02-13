@@ -1,0 +1,12 @@
+p {
+    font-size: 1em;
+    margin-bottom: 1.125em;
+    
+    @include media-breakpoint-up(md) {
+        text-align: justify;
+    }
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

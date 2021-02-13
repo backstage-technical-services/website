@@ -3,9 +3,9 @@
 namespace App\Models\Awards;
 
 use App\Models\Users\User;
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class Award extends Model
 {

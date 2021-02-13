@@ -1,0 +1,85 @@
+.search-tools {
+    align-items: stretch;
+    display: inline-flex;
+    flex-direction: row;
+    float: right;
+    
+    & > div {
+        margin: 0 5px;
+        
+        &:first-child {
+            margin-left: 0;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    & > div.dropdown {
+        & > .btn {
+            padding: 0.5em 0.8em;
+            margin: 0;
+        }
+        
+        & > .dropdown-menu {
+            left: auto;
+            right: 0;
+            padding: 0;
+        }
+    }
+    & > div.search {
+        position: relative;
+        width: 15em;
+        
+        @media(min-width: 768px) {
+            width: 15em;
+        }
+        
+        & > .dropdown-menu {
+            & > .dropdown-item {
+                margin: 0;
+                padding: 0.3em;
+                position: relative;
+                
+                input.form-control {
+                    font-size: font-size(13px);
+                }
+                a.clear-search {
+                    right: 0.5em;
+                    top: 0.8em;
+                }
+            }
+        }
+        a.clear-search {
+            @include transition();
+            color: #000;
+            display: inline-block;
+            font-size: font-size(14px);
+            opacity: 0.5;
+            padding: 0;
+            position: absolute;
+            right: 0.6rem;
+            top: 0.6rem;
+            width: auto;
+            z-index: 500;
+            
+            @include fa {
+                margin: 0;
+            }
+            &:hover {
+                background: none;
+                opacity: 1;
+            }
+        }
+    }
+    & > div.filter {
+        & > .dropdown-menu {
+            font-size: font-size(12px);
+            max-height: 250px;
+            overflow-y: auto;
+        }
+    }
+    &.pull-right > div.dropdown > .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+}

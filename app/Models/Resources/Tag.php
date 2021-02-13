@@ -2,8 +2,8 @@
 
 namespace App\Models\Resources;
 
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
 use Illuminate\Database\Eloquent\Model;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class Tag extends Model
 {

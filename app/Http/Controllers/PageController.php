@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PageRequest;
 use App\Models\Page;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller

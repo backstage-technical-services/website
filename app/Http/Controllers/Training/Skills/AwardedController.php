@@ -9,7 +9,7 @@ use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Carbon\Carbon;
 
 class AwardedController extends Controller

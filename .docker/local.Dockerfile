@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/backstage-technical-services/php-docker/php:7.2
+FROM docker.pkg.github.com/backstage-technical-services/php-docker/php:7.4
 
 ARG USER_ID
 ARG GROUP_ID

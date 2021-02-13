@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\BookRequest;
 use App\Mail\Contact\Booking;
 use App\Mail\Contact\BookingReceipt;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;

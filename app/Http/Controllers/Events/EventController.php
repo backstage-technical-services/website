@@ -7,8 +7,6 @@ use App\Http\Requests\Events\EventRequest;
 use App\Mail\Events\AcceptedExternal;
 use App\Mail\Events\FinanceEmail;
 use App\Models\Events\Event;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\SearchTools\SearchTools;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
@@ -18,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Package\Notifications\Facades\Notify;
+use Package\SearchTools\SearchTools;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventController extends Controller

@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Users\User;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
+use Package\WebDevTools\Traits\AccountsForTimezones;
 
 class Log extends Model
 {

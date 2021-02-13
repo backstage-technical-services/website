@@ -1,0 +1,26 @@
+.admin-tools {
+    font-size: 0.875rem;
+    
+    & > .dropdown {
+        .dropdown-toggle {
+            &:after {
+                display: none !important;
+            }
+        }
+        .dropdown-menu {
+            font-size: 0.8125rem;
+            padding: 0.5em 0;
+            left: auto !important;
+            min-width: 10em !important;
+            right: 0 !important;
+            
+            .dropdown-item {
+                padding: 0;
+                
+                & > a, & > span, & > button {
+                    padding-right: 2em;
+                }
+            }
+        }
+    }
+}

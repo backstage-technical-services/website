@@ -10,7 +10,7 @@ use App\Models\Users\User;
 use App\Notifications\Events\HasBeenVolunteered;
 use App\Notifications\Events\UserHasVolunteered;
 use App\Notifications\Events\VolunteeredToCrew;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 
 class CrewController extends Controller

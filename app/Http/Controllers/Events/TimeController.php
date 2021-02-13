@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Events;
 use App\Http\Controllers\Controller;
 use App\Models\Events\Event;
 use App\Models\Events\Time;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

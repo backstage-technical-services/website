@@ -10,14 +10,14 @@ use App\Mail\Training\Skills\ApplicationSubmitted;
 use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\Skill;
 use App\Models\Users\User;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\WebDevTools\Laravel\Traits\ChecksPaginationPage;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Validator;
 use Illuminate\View\View;
+use Package\Notifications\Facades\Notify;
+use Package\WebDevTools\Laravel\Traits\ChecksPaginationPage;
 
 class ApplicationController extends Controller
 {

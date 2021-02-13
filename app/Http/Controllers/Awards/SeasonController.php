@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Awards;
 use App\Http\Controllers\Controller;
 use App\Models\Awards\Award;
 use App\Models\Awards\Season;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

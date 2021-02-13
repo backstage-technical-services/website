@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Members;
 use App\Http\Controllers\Controller;
 use App\Models\Events\Event;
 use App\Models\Users\User;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\SearchTools\SearchTools;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Package\Notifications\Facades\Notify;
+use Package\SearchTools\SearchTools;
 
 class MemberController extends Controller
 {

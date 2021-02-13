@@ -1,0 +1,9 @@
+.dual-layer {
+    & > .upper {
+    
+    }
+    & > .lower {
+        color: #999;
+        font-size: 0.8125rem;
+    }
+}

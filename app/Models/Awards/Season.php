@@ -2,10 +2,10 @@
 
 namespace App\Models\Awards;
 
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
+use Package\WebDevTools\Traits\AccountsForTimezones;
 
 class Season extends Model
 {

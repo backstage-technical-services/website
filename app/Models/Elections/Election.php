@@ -3,11 +3,11 @@
 namespace App\Models\Elections;
 
 use App\Collection;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Package\WebDevTools\Traits\AccountsForTimezones;
 
 class Election extends Model
 {

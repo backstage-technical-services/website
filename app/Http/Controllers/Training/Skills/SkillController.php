@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Training\Skills\SkillRequest;
 use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Skill;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 
 class SkillController extends Controller
 {
@@ -139,7 +139,7 @@ class SkillController extends Controller
         Notify::success('Skill deleted');
         return $this->ajaxResponse(true);
     }
-
+    
     /**
      * View the skills log.
      *

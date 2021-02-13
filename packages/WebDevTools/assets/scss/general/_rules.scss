@@ -1,0 +1,13 @@
+hr {
+    border: none;
+    background: $colour_rule;
+    height: 1px;
+    margin: 1.5em 0;
+    
+    &.alt {
+        background: $colour_rule_alt;
+    }
+    & + * {
+        margin-top: 0;
+    }
+}

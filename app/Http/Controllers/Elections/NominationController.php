@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Elections;
 use App\Http\Controllers\Controller;
 use App\Models\Elections\Election;
 use App\Models\Elections\Nomination;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 

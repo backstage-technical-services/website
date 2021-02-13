@@ -1,0 +1,81 @@
+// Import "namespaced" bootstrap variables
+@import "bootstrap_vars";
+
+// Breakpoints
+$breakpoint_sm: 576px !default;
+$breakpoint_md: 768px !default;
+$breakpoint_lg: 992px !default;
+$breakpoint_xl: 1200px !default;
+
+// Widths
+$width_container_sm: 100% !default;
+$width_container_md: 750px !default;
+$width_container_lg: 970px !default;
+$width_container_xl: 1170px !default;
+
+// Font sizes
+$font-size-default: 16px !default;
+
+// Contextual colours
+$colour_danger: #d9534f !default;
+$colour_success: #5cb85c !default;
+$colour_primary: darken(#428bca, 6.5%) !default;
+$colour_info: #5bc0de !default;
+$colour_warning: #f0ad4e !default;
+
+// Header colours
+$colour_h1: #000 !default;
+$colour_h2: #000 !default;
+$colour_h3: #000 !default;
+$colour_h4: #000 !default;
+$colour_h5: #000 !default;
+$colour_h6: #000 !default;
+
+// Component colours
+$colour_anchor: #337ab7 !default;
+$colour_abbr: #999 !default;
+$colour_dropdown_text: #000 !default;
+$colour_dropdown_bg_hover: rgba(0, 0, 0, 0.05) !default;
+$colour_dropdown_active_text: #000 !default;
+$colour_dropdown_active_bg: rgba(0, 0, 0, 0.05) !default;
+$colour_dropdown_current_bg: rgba(0, 0, 0, 0.05) !default;
+$colour_fieldset_bg: #f5f5f5 !default;
+$colour_fieldset_border: #ddd !default;
+$colour_fieldset_legend_bg: #fff !default;
+$colour_fieldset_legend_border: $colour_fieldset_border !default;
+$colour_link: $colour_anchor;
+$colour_menu_active: #000 !default;
+$colour_pagination_bg: #FFF !default;
+$colour_pagination_text: #000 !default;
+$colour_pagination_active_bg: #000 !default;
+$colour_pagination_active_text: #FFF !default;
+$colour_pagination_count: #999 !default;
+$colour_rule: #000 !default;
+$colour_rule_alt: #666 !default;
+$colour_tab_header_bg: #f5f5f5 !default;
+$colour_tab_header_text: #000 !default;
+$colour_table_head_bg: #FFF !default;
+$colour_table_head: #FFF !default;
+$colour_table_trashed: rgba(#B00, 0.1) !default;
+$colour_tooltip: #333 !default;
+
+// Color scheme
+$colour_blue_light: rgb(43, 111, 169) !default;
+$colour_blue_dark: rgb(0, 51, 153) !default;
+$colour_blue_medium: rgb(0, 102, 204) !default;
+$colour_grey: rgb(231, 231, 231) !default;
+$colour_grey_light: #f5f5f5 !default;
+$colour_grey_light_accent: #ddd !default;
+$colour_button: rgb(48, 113, 169) !default;
+$colour_warning: #ec971f !default;
+
+// z-index
+$zindex_messages: 10000 !default;
+$zindex_datepicker: 9000 !default;
+$zindex_markdown_modal: 8000 !default;
+$zindex_modal: 7100 !default;
+$zindex_modal_backdrop: 7000 !default;
+$zindex_markdown: 6000 !default;
+$zindex_menu: 5000 !default;
+$zindex_submenu: 4000 !default;
+$zindex_tabs: 3000 !default;

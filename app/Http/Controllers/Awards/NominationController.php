@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Awards;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Awards\Nominate;
 use App\Models\Awards\Season;
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 
 class NominationController extends Controller
 {

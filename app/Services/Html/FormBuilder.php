@@ -3,7 +3,7 @@
 namespace App\Services\Html;
 
 use App\Models\Users\User;
-use bnjns\WebDevTools\Laravel\Html\FormBuilder as BaseFormBuilder;
+use Package\WebDevTools\Laravel\Html\FormBuilder as BaseFormBuilder;
 
 class FormBuilder extends BaseFormBuilder
 {

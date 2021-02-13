@@ -3,13 +3,13 @@
 namespace App\Models\Events;
 
 use App\Models\Users\User;
-use bnjns\WebDevTools\Laravel\Traits\ChecksIfJoined;
-use bnjns\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Package\WebDevTools\Laravel\Traits\ChecksIfJoined;
+use Package\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class Event extends Model
 {

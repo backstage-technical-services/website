@@ -1,0 +1,47 @@
+.editable {
+    padding: 0.5em 0.75em;
+    
+    &[data-editable] {
+        border-radius: 2px;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+    }
+    &[data-editable="toggle"] {
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        width: 2em;
+        
+        &:hover {
+            background: none;
+        }
+        &:first-child {
+            margin-left: -0.75em;
+        }
+        &:last-child {
+            margin-right: -0.75em;
+        }
+        @include fa() {
+            @include transition();
+            
+            &.fa-check {
+                color: $colour_success;
+            }
+            &.fa-times, &.fa-remove {
+                color: $colour_danger;
+                opacity: 0.5;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+table [data-editable] {
+    margin: -0.5em 0;
+}

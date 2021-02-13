@@ -1,0 +1,15 @@
+div.g-recaptcha-center {
+    & > div.g-recaptcha {
+        display: block;
+        text-align: center;
+        width: 100%;
+        
+        & > div {
+            display: inline-block;
+            margin: 0 auto;
+        }
+    }
+    & > p.help-block {
+        text-align: center;
+    }
+}

@@ -3,10 +3,10 @@
 namespace App\Models\Events;
 
 use App\Models\Users\User;
-use bnjns\WebDevTools\Laravel\Traits\ChecksIfJoined;
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Package\WebDevTools\Laravel\Traits\ChecksIfJoined;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class Crew extends Model
 {

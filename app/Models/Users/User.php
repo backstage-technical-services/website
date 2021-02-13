@@ -9,9 +9,6 @@ use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Skill;
 use App\Notifications\Auth\ResetPassword;
 use App\Notifications\Users\UserAccountCreated;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,6 +18,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Package\Notifications\Facades\Notify;
+use Package\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class User extends Authenticatable
 {
@@ -447,7 +447,7 @@ class User extends Authenticatable
      */
     public function setNameAttribute($value)
     {
-        list($this->forename, $this->surname) = explode(' ', $value);
+        [$this->forename, $this->surname] = explode(' ', $value);
 
         return $this;
     }

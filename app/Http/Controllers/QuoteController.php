@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Exceptions\ResourceNotCreatedException;
 use App\Http\Requests\QuoteRequest;
 use App\Services\QuoteService;
-use bnjns\LaravelNotifications\NotificationHandler;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
+use Package\Notifications\NotificationHandler;
 
 class QuoteController extends Controller
 {

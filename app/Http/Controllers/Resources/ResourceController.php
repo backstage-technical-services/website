@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Resources;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Resources\ResourceRequest;
 use App\Models\Resources\Resource;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\SearchTools\SearchTools;
-use bnjns\WebDevTools\Laravel\Traits\CorrectsPaginatorPath;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Package\Notifications\Facades\Notify;
+use Package\SearchTools\SearchTools;
+use Package\WebDevTools\Laravel\Traits\CorrectsPaginatorPath;
 
 class ResourceController extends Controller
 {

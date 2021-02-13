@@ -5,7 +5,7 @@ namespace App\Observers\Resources;
 use App\Logger;
 use App\Models\Resources\Resource;
 use App\Observers\ModelObserver;
-use bnjns\WebDevTools\Traits\DeletesDirectory;
+use Package\WebDevTools\Traits\DeletesDirectory;
 
 class ResourceObserver extends ModelObserver
 {

@@ -1,0 +1,7 @@
+abbr {
+    border-bottom: 1px dotted $colour_abbr;
+    
+    &:hover {
+        cursor: default;
+    }
+}

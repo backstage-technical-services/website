@@ -10,7 +10,7 @@ executors:
       - image: circleci/node:lts
   php:
     docker:
-      - image: circleci/php:7-fpm-node
+      - image: circleci/php:7.4-fpm-node
 
 jobs:
   checkout-code:

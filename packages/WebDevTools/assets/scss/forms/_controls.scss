@@ -1,0 +1,45 @@
+.form-control {
+    color: #000;
+    
+    &.search-input {
+        display: inline-block;
+        height: 2em;
+        width: 10em;
+    }
+    &.form-control-inline {
+        display: inline-block;
+        width: auto !important;
+    }
+}
+
+textarea.form-control {
+    max-width: 100%;
+    resize: vertical;
+    
+    &.no-resize {
+        resize: none;
+    }
+}
+
+.form-control-static {
+    line-height: 1.4 !important;
+    min-height: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.input-other {
+    background: rgba(0, 0, 0, 0.075);
+    border-radius: 0.25rem;
+    margin-top: 0.5em;
+    padding: 0.5em;
+    display: none;
+    position: relative;
+    
+    label, input {
+        font-size: 0.8125em;
+    }
+    &.show {
+        display: block;
+    }
+}

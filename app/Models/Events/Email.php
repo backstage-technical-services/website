@@ -4,11 +4,11 @@ namespace App\Models\Events;
 
 use App\Mail\Events\CrewEmail;
 use App\Models\Users\User;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Package\Notifications\Facades\Notify;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
+use Package\WebDevTools\Traits\AccountsForTimezones;
 
 class Email extends Model
 {

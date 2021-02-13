@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Members;
 use App\Http\Controllers\Controller;
 use App\Models\Users\User;
 use App\Notifications\Users\ResetPasswordAdmin;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\SearchTools\SearchTools;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Package\Notifications\Facades\Notify;
+use Package\SearchTools\SearchTools;
 
 class UsersController extends Controller
 {
@@ -203,7 +203,7 @@ class UsersController extends Controller
         $results = [];
         foreach ($user_details as $i => $user) {
             $data = ['type' => $request->get('type')];
-            list($data['name'], $data['username']) = explode(',', $user);
+            [$data['name'], $data['username']] = explode(',', $user);
             $validator = validator($data, $rules, $messages);
             if ($validator->fails()) {
                 $results[$i] = [

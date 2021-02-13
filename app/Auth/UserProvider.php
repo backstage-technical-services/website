@@ -2,8 +2,8 @@
 
 namespace App\Auth;
 
-use bnjns\LaravelNotifications\Facades\Notify;
 use Illuminate\Auth\EloquentUserProvider;
+use Package\Notifications\Facades\Notify;
 
 class UserProvider extends EloquentUserProvider
 {

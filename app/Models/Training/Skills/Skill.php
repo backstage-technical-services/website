@@ -4,8 +4,8 @@ namespace App\Models\Training\Skills;
 
 use App\Models\Training\Category;
 use App\Models\Users\User;
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
 use Illuminate\Database\Eloquent\Model;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class Skill extends Model
 {

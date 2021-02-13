@@ -1,4 +1,4 @@
-@import "../../../vendor/bnjns/web-dev-tools/scss/mixins";
+@import "../../../packages/WebDevTools/assets/scss/mixins";
 
 @mixin bg_gradient_yellow() {
 	@include bg_gradient(#{$btsyellow}, #9E7E00);

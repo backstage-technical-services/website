@@ -2,9 +2,9 @@
 
 namespace App\Models\Events;
 
-use bnjns\WebDevTools\Laravel\Traits\ValidatableModel;
-use bnjns\WebDevTools\Traits\AccountsForTimezones;
 use Illuminate\Database\Eloquent\Model;
+use Package\WebDevTools\Laravel\Traits\ValidatableModel;
+use Package\WebDevTools\Traits\AccountsForTimezones;
 
 class Time extends Model
 {

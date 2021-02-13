@@ -2,13 +2,13 @@
 
 use Alaouy\Youtube\Facades\Youtube;
 use Alaouy\Youtube\YoutubeServiceProvider;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\LaravelNotifications\NotificationServiceProvider;
-use bnjns\SearchTools\Facades\SearchTools;
-use bnjns\SearchTools\SearchToolsServiceProvider;
-use bnjns\WebDevTools\Laravel\Providers\BladeServiceProvider;
-use bnjns\WebDevTools\Laravel\Providers\ValidationServiceProvider;
+use App\Providers\NotificationServiceProvider;
+use App\Providers\SearchToolsServiceProvider;
 use Magyarjeti\LaravelLipsum\LipsumFacade;
+use Package\Notifications\Facades\Notify;
+use Package\SearchTools\Facades\SearchTools;
+use Package\WebDevTools\Laravel\Providers\BladeServiceProvider;
+use Package\WebDevTools\Laravel\Providers\ValidationServiceProvider;
 use Spatie\DbSnapshots\DbSnapshotsServiceProvider;
 
 return [

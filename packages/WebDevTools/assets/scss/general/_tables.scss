@@ -1,0 +1,107 @@
+.table {
+    margin: 1em auto;
+
+    & > thead, & > div.thead {
+        background: $colour_table_head_bg;
+        color: $colour_table_head;
+
+        & > tr, & > div.row {
+            & > th, & > div {
+                margin: 0 auto;
+            }
+        }
+    }
+    & > tbody, & > div.tbody {
+        font-size: font-size(15px);
+
+    }
+    & > tbody > tr, & > div.tbody > div.row {
+        & > td, & > div {
+            vertical-align: baseline;
+
+            &:first-child:last-child {
+                padding: 1em 0;
+
+                &[colspan] {
+                    font-style: italic;
+                    text-align: center;
+                }
+            }
+        }
+        &[onclick]:hover, &.link:hover {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+            cursor: pointer;
+        }
+        &.trashed, &.deleted {
+            background: $colour_table_trashed;
+
+            small {
+                font-style: italic;
+            }
+        }
+
+        ul:not(.dropdown-menu) {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .col--checkbox {
+        text-align: center;
+        width: 2em;
+
+        & > input[type='checkbox'] {
+            margin: 0;
+        }
+    }
+    .col--id {
+        text-align: center;
+        width: 4em;
+
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+    }
+    tbody .col--id, div.tbody .col--id {
+        color: #999;
+        font-size: 0.8125rem;
+    }
+    td.admin-tools {
+        text-align: right;
+        width: 0.1em;
+
+        & > button, .dropdown-toggle {
+            font-size: inherit;
+            line-height: 1;
+            padding: 0.5em 0.6em;
+        }
+    }
+    td.dual-layer {
+        &.dual-layer-mobile {
+            @media(min-width: 768px) {
+                & > .lower {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+div.table {
+    display: table;
+
+    & > div.thead {
+        display: table-header-group;
+    }
+    & > div.tfoot {
+        display: table-footer-group;
+    }
+    & > div.tbody {
+        display: table-row-group;
+    }
+    div.row {
+        display: table-row;
+    }
+    div.row > div, div.table-cell {
+        display: table-cell;
+    }
+}

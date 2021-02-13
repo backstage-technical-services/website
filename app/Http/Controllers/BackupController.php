@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Console\Commands\BackupDb;
 use App\Helpers\File;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\WebDevTools\Laravel\Traits\UsesAjax;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
+use Package\Notifications\Facades\Notify;
+use Package\WebDevTools\Laravel\Traits\UsesAjax;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zend\Stdlib\Glob;

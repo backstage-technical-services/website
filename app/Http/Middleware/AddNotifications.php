@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use bnjns\LaravelNotifications\Facades\Notify;
+use Package\Notifications\Facades\Notify;
 use Closure;
 
 class AddNotifications

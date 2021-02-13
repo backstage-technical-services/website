@@ -1,0 +1,56 @@
+div.notification {
+    margin: 0 auto 0.5em;
+    padding: 0.7em 1em 0.7em 2.1em;
+    position: relative;
+    
+    &.has-close-button {
+        padding-right: 2em;
+    }
+    & > span.icon {
+        height: 2.6em;
+        line-height: 2.6em;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 2em;
+    }
+    & > button.close-notification {
+        background: none;
+        border: none;
+        height: 2.3em;
+        line-height: 2.3em;
+        opacity: 0.3;
+        position: absolute;
+        right: 0.4em;
+        text-align: center;
+        top: 0;
+        width: 1.5em;
+        
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    h1, h2, h3, h4 {
+        color: inherit;
+        font-size: 1em;
+        font-weight: bold;
+        margin: 0 0 0.5em 0;
+        text-align: left;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    p {
+        line-height: 1.2em;
+        margin: 0 0 1em 0;
+        
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}

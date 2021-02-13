@@ -1,0 +1,43 @@
+.checkbox, .radio {
+    @include user_select_none();
+    
+    label {
+        font-weight: 300;
+    }
+}
+
+.form-check {
+    line-height: 1;
+    padding-left: 2em;
+    
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+    
+    & > .form-check-input {
+        left: 0;
+        margin-left: 0;
+        margin-top: 0;
+        top: 0;
+    }
+}
+
+form, .form-horizontal {
+    .checkbox-inline, .radio-inline {
+        & + .checkbox-inline, & + .radio-inline {
+            margin-left: 0;
+        }
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+    }
+}
+
+.form-horizontal {
+    .checkbox-inline, .radio-inline {
+        padding-top: 0;
+    }
+}

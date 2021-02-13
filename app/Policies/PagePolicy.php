@@ -4,8 +4,8 @@
 
     use App\Models\Page;
     use App\Models\Users\User;
-    use bnjns\FlashNotifications\Facades\Notifications;
     use Illuminate\Auth\Access\HandlesAuthorization;
+    use Package\Notifications\Facades\Notify;
 
     class PagePolicy
     {
@@ -36,7 +36,7 @@
             if($page->published == 1) {
                 return true;
             } else if($user->isAdmin()) {
-                Notifications::warning('This page will not be viewable by non-admins until it is published.', 'Page not published');
+                Notify::warning('This page will not be viewable by non-admins until it is published.', 'Page not published');
                 return true;
             }
 

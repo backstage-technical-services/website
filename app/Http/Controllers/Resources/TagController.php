@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Resources;
 
 use App\Http\Controllers\Controller;
 use App\Models\Resources\Tag;
-use bnjns\LaravelNotifications\Facades\Notify;
-use bnjns\WebDevTools\Laravel\Traits\CreatesSlugs;
 use Illuminate\Http\Request;
+use Package\Notifications\Facades\Notify;
+use Package\WebDevTools\Laravel\Traits\CreatesSlugs;
 
 class TagController extends Controller
 {

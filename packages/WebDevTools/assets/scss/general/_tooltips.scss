@@ -1,0 +1,26 @@
+div.tooltip {
+    &.left {
+        div.tooltip-arrow {
+            border-left-color: $colour_tooltip;
+        }
+    }
+    &.right {
+        div.tooltip-arrow {
+            border-right-color: $colour_tooltip;
+        }
+    }
+    &.top {
+        div.tooltip-arrow {
+            border-top-color: $colour_tooltip;
+        }
+    }
+    &.bottom {
+        div.tooltip-arrow {
+            border-bottom-color: $colour_tooltip;
+        }
+    }
+    
+    div.tooltip-inner {
+        background: $colour_tooltip;
+    }
+}

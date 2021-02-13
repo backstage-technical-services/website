@@ -1,0 +1,23 @@
+em, .em, .italic {
+    font-style: italic;
+}
+
+strong, .strong, .bold {
+    font-weight: 700;
+}
+
+.success {
+    color: $colour_success;
+}
+
+.warning {
+    color: $colour_warning;
+}
+
+.danger {
+    color: $colour_danger;
+}
+
+@import "admin_tools";
+@import "dual_layer";
+@import "search_tools";

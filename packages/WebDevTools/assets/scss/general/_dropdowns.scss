@@ -1,0 +1,93 @@
+main, footer {
+    .dropdown-toggle {
+    
+    }
+    
+    .dropdown-menu {
+        font-size: 0.9375rem;
+        padding: 0.5em 0;
+    
+        a, button {
+            background-color: transparent;
+            border: none;
+            display: block;
+            padding: 0.5em 1em;
+            clear: both;
+            font-weight: normal;
+            color: $colour_dropdown_text;
+            text-align: left;
+            white-space: nowrap;
+            width: 100%;
+        
+            &:hover, &:focus {
+                cursor: pointer;
+                text-decoration: none;
+                color: $colour_dropdown_text;
+                background-color: $colour_dropdown_bg_hover;
+            }
+            &:active {
+                cursor: pointer;
+                text-decoration: none;
+                background-color: $colour_dropdown_active_bg;
+                color: $colour_dropdown_active_text;
+            }
+            @include fa_direct {
+                margin: 0 0.6em 0 -0.3em;
+                text-align: center;
+                width: 1.5em;
+            }
+        
+        }
+        
+        & > .dropdown-item {
+            //margin: 0.3em 0;
+            padding: 0.5em 1em;
+            
+            &.active, &:active {
+                background-color: $colour_dropdown_active_bg;
+                color: $colour_dropdown_active_text;
+            }
+            &.current {
+                background: $colour_dropdown_current_bg;
+                color: #fff;
+            }
+            
+            &.disabled > a, &.disabled > button {
+                &, &:hover, &:focus {
+                    //color: #777;
+                }
+                
+                // Nuke hover/focus effects
+                &:hover, &:focus {
+                    //text-decoration: none;
+                    //background-color: transparent;
+                    //background-image: none; // Remove CSS gradient
+                    //cursor: not-allowed;
+                }
+            }
+        }
+        &.dropdown-sm {
+            //font-size: 13px;
+        }
+        &.dropdown-scroll {
+            //max-height: 250px;
+            //overflow-y: auto;
+        }
+    }
+    
+    div.dropdown-menu {
+        //min-width: 0;
+        //padding: 1em;
+        
+        form {
+            //font-size: 13px;
+            
+            select.form-control {
+                //font-size: 12px;
+            }
+            .form-control:not(:last-child) {
+                //margin-bottom: 5px;
+            }
+        }
+    }
+}

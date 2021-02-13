@@ -1,0 +1,35 @@
+fieldset, div.fieldset {
+    background-color: $colour_fieldset_bg;
+    border: 1px solid $colour_fieldset_border;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin: 1em 0;
+    padding: 1em;
+    position: relative;
+    
+    legend, & > h1.legend {
+        background: $colour_fieldset_legend_bg;
+        border: 1px solid $colour_fieldset_legend_border;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 1rem;
+        line-height: 1em;
+        margin-bottom: 0px;
+        padding: 0.4em 0.75em;
+        text-align: left;
+        width: auto;
+        
+        & + p {
+            margin-top: 0;
+        }
+    }
+    & > h1.legend {
+        margin-top: -0.65em;
+        position: absolute;
+        top: 0;
+    }
+    & > h1 {
+        font-size: 1.733em;
+        text-align: left;
+    }
+}
