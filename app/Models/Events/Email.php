@@ -93,7 +93,7 @@ class Email extends Model
      *
      * @return mixed
      */
-    public function send($crew = 'all', User $sentFrom)
+    public function send(string $crew, User $sentFrom)
     {
         // Get the crew
         $crew_list = $this->event->crew();

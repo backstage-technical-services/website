@@ -37,6 +37,6 @@ class EmailController extends Controller
         ]);
 
         // Send the email to the crew
-        return $email->send($request->get('crew'), $request->user());
+        return $email->send($request->get('crew', 'all'), $request->user());
     }
 }
