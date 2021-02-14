@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  sonarcloud: sonarsource/sonarcloud@1
   slack: circleci/slack@3.4.2
   snyk: snyk/snyk@0.0.10
 
@@ -36,6 +37,13 @@ jobs:
           root: "."
           paths:
             - "*"
+
+  sonarcloud:
+    executor: php
+    steps:
+      - attach_workspace:
+          at: "."
+      - sonarcloud/scan
 
   test:
     executor: php
@@ -87,6 +95,11 @@ workflows:
       - test:
           requires:
             - checkout-code
+      - sonarcloud:
+          context:
+            - SonarCloud
+          requires:
+            - test
       - deploy:
           name: deploy-staging
           context:
@@ -94,6 +107,7 @@ workflows:
             - v4-staging
           requires:
             - test
+            - sonarcloud
           filters:
             branches:
               only:
