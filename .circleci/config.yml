@@ -66,30 +66,17 @@ jobs:
             echo "$SSH_KEY_PUBLIC" | base64 -d > ~/.ssh/id_rsa.pub
             chmod 600 ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa.pub
-            echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+            ssh-keyscan -H $SSH_SERVER >> ~/.ssh/known_hosts
       - run:
-          name: Deploy changes
+          name: Deploy
           command: |
-            ssh $SSH_USER@$SSH_SERVER "chmod -R 744 /www/$SITE_ROOT/.git"
-            scp -r .git $SSH_USER@$SSH_SERVER:/www/$SITE_ROOT
+            scp scripts/deploy.sh $SSH_USER@$SSH_SERVER:/var/www/$SITE_ROOT/deploy.sh
             ssh $SSH_USER@$SSH_SERVER "
-              cd /www/$SITE_ROOT/ &&
-              php artisan down --render="errors::503" &&
-              git reset --hard &&
-              git clean -n &&
-              rm -r vendor &&
-              rm -r node_modules &&
-              rm bootstrap/cache/*.php &&
-              composer install --no-interaction --no-dev --prefer-dist &&
-              yarn install --no-dev --silent &&
-              yarn prod &&
-              php artisan migrate --force --no-interaction &&
-              php artisan cache:clear &&
-              php artisan view:clear &&
-              php artisan config:cache &&
-              chown -R $SSH_USER:www-data . &&
-              php artisan up
-              "
+              /var/www/$SITE_ROOT/deploy.sh \
+                $CIRCLE_REPOSITORY_URL \
+                $CIRCLE_SHA1 \
+                $SITE_ROOT
+            "
 
 workflows:
   version: 2
