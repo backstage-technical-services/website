@@ -21,7 +21,7 @@ class DiaryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return $this
      */
-    public function view($year = null, $month = null, Request $request)
+    public function view(Request $request, $year = null, $month = null)
     {
         // Get the month of the diary
         $date       = $year && $month ? Carbon::create($year, $month, 1) : Carbon::now();

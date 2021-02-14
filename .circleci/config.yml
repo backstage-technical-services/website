@@ -38,13 +38,6 @@ jobs:
           paths:
             - "*"
 
-  sonarcloud:
-    executor: php
-    steps:
-      - attach_workspace:
-          at: "."
-      - sonarcloud/scan
-
   test:
     executor: php
     steps:
@@ -57,9 +50,28 @@ jobs:
             php artisan key:generate
       - run:
           name: Run tests
-          command: ./vendor/bin/phpunit --log-junit tests/results/junit.xml
+          command: |
+            export XDEBUG_MODE=coverage
+            ./vendor/bin/phpunit \
+              --log-junit tests/results/junit.xml \
+              --coverage-html tests/results/coverage-html \
+              --coverage-clover tests/results/coverage.xml
       - store_test_results:
           path: tests/results
+      - store_artifacts:
+          path: tests/results/coverage-html/
+          destination: coverage
+      - persist_to_workspace:
+          root: "."
+          paths:
+            - "tests/results"
+
+  sonarcloud:
+    executor: php
+    steps:
+      - attach_workspace:
+          at: "."
+      - sonarcloud/scan
 
   deploy:
     executor: php
