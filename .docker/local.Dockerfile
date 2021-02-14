@@ -7,6 +7,7 @@ ARG GROUP_ID
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
     deluser --remove-home www-data && \
     if getent group www-data ; then delgroup www-data; fi && \
+    if getent group ${GROUP_ID}; then delgroup $(getent group ${GROUP_ID}); fi && \
     addgroup --gid ${GROUP_ID} www-data && \
     adduser -D -u ${USER_ID} -G www-data www-data \
 ;fi
