@@ -114,7 +114,7 @@ class MemberController extends Controller
      *
      * @return $this
      */
-    public function profile($tab = 'profile', Request $request)
+    public function profile(Request $request, $tab = 'profile')
     {
         return view('members.view')->with([
             'user' => $request->user(),

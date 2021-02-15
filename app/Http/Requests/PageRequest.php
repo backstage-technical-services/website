@@ -30,7 +30,7 @@ class PageRequest extends Request
      *
      * @return array
      */
-    protected function validationData()
+    public function validationData()
     {
         $slug = $this->has('slug') ? $this->get('slug') : Str::slug($this->get('title'));
         $this->merge([
