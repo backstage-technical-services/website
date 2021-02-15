@@ -46,7 +46,7 @@ yarn prod
 
 # Copy config
 echo "=> Configuring application ..."
-cp ../active/.env ./.env
+cp "${siteRootPath}/.env" .env
 
 # Migrations
 echo "=> Running migrations ..."
