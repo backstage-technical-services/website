@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+    const UNPUBLISHED_WARNING = 'This page will not be viewable by non-admins until it is published.';
+    
     /**
      * PageController constructor.
      */
@@ -81,7 +83,7 @@ class PageController extends Controller
         // hack as authorisation doesn't support guest users.
         if (!$page->published) {
             if (Auth::check() && Auth::user()->isAdmin()) {
-                Notify::warning('This page will not be viewable by non-admins until it is published.', 'Page not published');
+                Notify::warning(self::UNPUBLISHED_WARNING, 'Page not published');
             } else if (!Auth::check()) {
                 return redirect()->guest('login');
             } else {

@@ -2,10 +2,13 @@
 
 namespace App\Models\Users;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    use HasFactory;
+    
     /**
      * The database table used by the model.
      *
@@ -22,6 +25,8 @@ class Group extends Model
         'title',
         'name',
     ];
+    
+    public $timestamps = false;
 
     /**
      * Define the relationship with the group's users.

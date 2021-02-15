@@ -9,6 +9,7 @@ use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Skill;
 use App\Notifications\Auth\ResetPassword;
 use App\Notifications\Users\UserAccountCreated;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +25,7 @@ use Package\WebDevTools\Laravel\Traits\ValidatableModel;
 
 class User extends Authenticatable
 {
-    use Notifiable, ValidatableModel, CorrectsDistinctPagination;
+    use Notifiable, ValidatableModel, CorrectsDistinctPagination, HasFactory;
 
     /**
      * Define the user account types.
