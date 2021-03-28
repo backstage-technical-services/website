@@ -37,7 +37,7 @@ return [
         'events' => [
             'accepted_external' => [
                 'from'  => ['pm@bts-crew.com'],
-                'to'    => ['P.Brooks@bath.ac.uk'],
+                'to'    => ['cw887@bath.ac.uk'],
                 'cc'    => ['committee@bts-crew.com'],
                 'reply' => ['committee@bts-crew.com']
             ],
@@ -51,7 +51,7 @@ return [
                 'committee@bts-crew.com',
                 'safety@bts-crew.com',
                 'P.Hawker@bath.ac.uk',
-                'P.Brooks@bath.ac.uk ',
+                'cw887@bath.ac.uk ',
             ],
             'accident_receipt'  => [
                 'safety@bts-crew.com'
