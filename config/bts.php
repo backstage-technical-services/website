@@ -51,7 +51,7 @@ return [
                 'committee@bts-crew.com',
                 'safety@bts-crew.com',
                 'P.Hawker@bath.ac.uk',
-                'cw887@bath.ac.uk ',
+                'cw887@bath.ac.uk',
             ],
             'accident_receipt'  => [
                 'safety@bts-crew.com'
