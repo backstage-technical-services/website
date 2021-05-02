@@ -4,7 +4,6 @@ namespace App\Console;
 
 use App\Console\Commands\AutoCloseCrewLists;
 use App\Console\Commands\BackupDb;
-use App\Console\Schedules\CloseCrewLists;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
