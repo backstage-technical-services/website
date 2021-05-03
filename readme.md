@@ -27,7 +27,7 @@ their original licenses (see each package for more details). The code
 developed for this website is covered by the GNU General Public License
 v2 (see the included LICENCE file).
 
-[contribution-guide]: https://github.com/backstage-technical-services/hub/blob/master/Contributing.md
+[contribution-guide]: https://github.com/backstage-technical-services/hub/blob/main/Contributing.md
 [development-readme]: https://github.com/backstage-technical-services/website-development/blob/v4.x/readme.md
 [running-aux-services]: https://github.com/backstage-technical-services/website-development/blob/v4.x/readme.md#running-the-auxiliary-services
 
