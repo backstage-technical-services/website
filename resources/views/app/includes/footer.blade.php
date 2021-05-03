@@ -27,7 +27,7 @@
                 <span class="fa fa-twitter" title="Follow us on twitter"></span>
             </a>
             <a href="https://github.com/backstage-technical-services/hub/issues/new/choose" target="_blank">
-                <span class="fa fa-gitlab" title="Report an issue"></span>
+                <span class="fa fa-github" title="Report an issue"></span>
             </a>
         </div>
     </div>

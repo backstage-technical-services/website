@@ -13,7 +13,7 @@
                         <span class="fa fa-home" title="Try the homepage"></span>
                     </a>
                     <a href="https://github.com/backstage-technical-services/hub/issues/new/choose" target="_blank" title="Report issue">
-                        <span class="fa fa-gitlab"></span>
+                        <span class="fa fa-github"></span>
                     </a>
                 </div>
             </div>
