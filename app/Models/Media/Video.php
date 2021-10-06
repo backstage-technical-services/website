@@ -132,8 +132,8 @@ class Video
     private function loadVideoDetails()
     {
         $this->title       = $this->src->snippet->title;
-        $this->description = $this->src->snippet->description;
-        $this->tags        = $this->src->snippet->tags;
+        $this->description = $this->src->snippet->description ?? '';
+        $this->tags        = $this->src->snippet->tags ?? [];
         $this->thumbnail   = '';
         $this->duration    = CarbonInterval::instance(new DateInterval($this->src->contentDetails->duration));
         $this->created     = new Carbon($this->src->snippet->publishedAt);
