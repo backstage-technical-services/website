@@ -1,4 +1,4 @@
-const {mix} = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -74,7 +74,7 @@ mix
         'packages/WebDevTools/assets/js/plugins/ApplyDatetimePicker/auto-init.js',
         'packages/WebDevTools/assets/js/plugins/ApplySelect2/auto-init.js',
         'packages/WebDevTools/assets/js/plugins/DisableButtonOnClick/auto-init.js',
-        'packages/WebDevTools/assets/js/plugins/EditableFields/auto-init.js',
+        'packages/WebDevTools/assets/js/plugins/EditableFields/enable.js',
         'packages/WebDevTools/assets/js/plugins/OtherInput/auto-init.js',
         'packages/WebDevTools/assets/js/plugins/SimpleMDE/auto-init.js',
         'packages/WebDevTools/assets/js/plugins/ToggleVisibility/auto-init.js',
