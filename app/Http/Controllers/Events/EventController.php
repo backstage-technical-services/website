@@ -240,8 +240,6 @@ class EventController extends Controller
         $fields = [
             'name',
             'type',
-            'client_type',
-            'venue_type',
             'venue',
             'description',
             'crew_list_status',
