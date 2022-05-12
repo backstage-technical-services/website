@@ -57,7 +57,7 @@ class SkillController extends Controller
     {
         $skill = Skill::create([
             'name'        => clean($request->get('name')),
-            'category_id' => clean($request->get('category_id')),
+            'category_id' => clean($request->get('category_id')) ?: null,
             'description' => clean($request->get('description')),
             'level1'      => $request->has('available.level1') ? clean($request->get('level1')) : null,
             'level2'      => $request->has('available.level2') ? clean($request->get('level2')) : null,
