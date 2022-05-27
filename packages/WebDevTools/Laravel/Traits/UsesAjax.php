@@ -2,6 +2,8 @@
 
 namespace Package\WebDevTools\Laravel\Traits;
 
+use Illuminate\Support\Facades\Log;
+
 trait UsesAjax
 {
     /**
@@ -17,6 +19,8 @@ trait UsesAjax
     protected function ajaxResponse($text, $status = 200, array $data = [], array $headers = [])
     {
         $data = array_merge($data, [($status == 200 ? 'response' : 'error') => $text]);
+
+        Log::debug("Sending JSON response", ['response' => response()->json($data, $status, $headers)]);
 
         return response()->json($data, $status, $headers);
     }
