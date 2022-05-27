@@ -10,6 +10,7 @@ use App\Models\Users\User;
 use App\Notifications\Events\HasBeenVolunteered;
 use App\Notifications\Events\UserHasVolunteered;
 use App\Notifications\Events\VolunteeredToCrew;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 
@@ -274,16 +275,23 @@ class CrewController extends Controller
      */
     private function volunteer(Event $event, Request $request)
     {
+        Log::info("Volunteering user {$request->user()->id} to event $event->id");
+
         // Create the crew role
         $crew = $event->crew()->create([
             'name'    => null,
             'user_id' => $request->user()->id,
         ]);
 
+        Log::debug("Crew role created for user {$request->user()->id} and event $event->id", ['crew' => $crew]);
+
         // Notify the user and EM
         if ($event->hasEM()) {
+            Log::debug("Notifying the TEM ({$event->em->id}) that user has volunteered");
             $event->em->notify(new UserHasVolunteered($crew));
         }
+
+        Log::debug("Notifying the user that they have volunteered");
         $request->user()->notify(new VolunteeredToCrew($event));
 
         Logger::log('event.volunteer', true, $crew->getAttributes());
@@ -305,8 +313,11 @@ class CrewController extends Controller
     {
         // Disallow unvolunteering from socials
         if ($event->isSocial()) {
+            Log::debug("Event {$event->id} is a social event so unvolunteering is disallowed");
             return $this->ajaxError(0, 401, 'You can\'t unvolunteer from a social.');
         }
+
+        Log::debug("Unvolunteering user {$request->user()->id} from event $event->id.");
 
         // Delete all crew entries
         $event->crew()

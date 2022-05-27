@@ -27,7 +27,15 @@ return [
     'channels' => [
         'stack'    => [
             'driver'   => 'stack',
-            'channels' => ['daily', 'bugsnag'],
+            'channels' => ['monolog', 'bugsnag'],
+        ],
+        'monolog' => [
+            'driver' => 'monolog',
+            'handler' => Monolog\Handler\StreamHandler::class,
+            'handler_with' => [
+                'stream'   => storage_path('logs/laravel.log'),
+            ],
+            'formatter' => Monolog\Formatter\LineFormatter::class
         ],
         'single'   => [
             'driver' => 'single',
