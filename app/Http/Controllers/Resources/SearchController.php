@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Resources;
 use App\Http\Controllers\Controller;
 use App\Models\Resources\Resource;
 use App\Models\Resources\Category;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
+use Package\Notifications\Facades\Notify;
 
 class SearchController extends Controller
 {
@@ -43,35 +47,49 @@ class SearchController extends Controller
      * @param       $query
      * @param       $category
      * @param array $tags
-     * @return $this
+     * @return View
      */
-    private function viewResults($query, $category, array $tags)
+    private function viewResults($query, $category, array $tags): View
     {
-        // Decode the search term
-        $query = urldecode($query);
+        $search = (object)[
+            'query' => $query,
+            'category' => $category,
+            'tags' => $tags,
+        ];
 
-        // Search using the query and category
-        $resources = Resource::select('resources.*');
-        $resources = $query ? $resources->search($query) : $resources->orderBy('title');
-        $resources = $category ? $resources->inCategory($category) : $resources;
-        $resources = $tags ? $resources->withTags($tags) : $resources;
+        try {
+            // Decode the search term
+            $query = urldecode($query);
 
-        // Access and paginate
-        $resources = $resources->accessible()
-                               ->paginate(20);
-        $this->checkPage($resources);
-        $resources->appends(request()->only('query', 'category', 'tag'));
+            // Search using the query and category
+            $resources = Resource::select('resources.*');
+            $resources = $query ? $resources->search($query) : $resources->orderBy('title');
+            $resources = $category ? $resources->inCategory($category) : $resources;
+            $resources = $tags ? $resources->withTags($tags) : $resources;
 
-        // Render the view
-        return view('resources.search.results')->with([
-            'resources' => $resources,
-            'search'    => (object) [
-                'query'    => $query,
-                'category' => $category,
-                'tags'     => $tags,
-            ],
-            'category'  => Category::where('slug', $category)->first(),
-        ]);
+            // Access and paginate
+            $resources = $resources->accessible()
+                ->paginate(20);
+            $this->checkPage($resources);
+            $resources->appends(request()->only('query', 'category', 'tag'));
+
+            // Render the view
+            return view('resources.search.results')->with([
+                'resources' => $resources,
+                'search' => $search,
+                'category' => Category::where('slug', $category)->first(),
+            ]);
+        } catch (QueryException $exception) {
+            Log::error("Query to search resources failed: {$exception->getMessage()}");
+            Notify::error('You provided an invalid query');
+
+            return $this->viewForm()->with([
+                'search' => $search,
+                'category' => null,
+                'CategoryList' => [],
+                'TagList' => []
+            ]);
+        }
     }
 
     /**

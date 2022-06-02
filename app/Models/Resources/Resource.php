@@ -132,9 +132,8 @@ class Resource extends Model
      */
     public function scopeSearch($query, $searchTerm)
     {
-        return $query->whereRaw("MATCH(title,description) AGAINST(? IN BOOLEAN MODE)", [
-            preg_replace('/([\s]{2,})/', ' ', preg_replace('/(^|\s)([\w]+)(\s|$)/', '$1*$2*$3', preg_replace('/\s/', '  ', $searchTerm))),
-        ]);
+        $searchTerm = preg_replace('/(\s{2,})/', ' ', preg_replace('/(^|\s)(\w+)(\s|$)/', '$1*$2*$3', preg_replace('/\s/', '  ', $searchTerm)));
+        return $query->whereRaw("MATCH(title, description) AGAINST(? IN BOOLEAN MODE)", [$searchTerm]);
     }
 
     /**
