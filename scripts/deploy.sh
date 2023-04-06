@@ -71,4 +71,8 @@ rm "${siteRootPath}/active" && ln -s "${siteRootPath}/${commit}" "${siteRootPath
 chown -R forge:www-data "${siteRootPath}/active"
 rm -rf "${current}"
 
+# Restart nginx
+echo "=> Restarting nginx"
+sudo service nginx reload
+
 echo "=> Done."
