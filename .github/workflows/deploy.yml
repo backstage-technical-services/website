@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY_PUBLIC }}" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa.pub
+      - name: Deploy
+        run: |
+          ssh-keyscan -H ${{ vars.SSH_SERVER }} >> ~/.ssh/known_hosts
+          scp scripts/deploy.sh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }}:/var/www/${{ vars.SITE_ROOT }}/deploy.sh
+                      ssh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }} "
+                        /var/www/${{ vars.SITE_ROOT }}/deploy.sh \
+                          ${{ github.server_url }}/${{ github.repository }}.git \
+                          ${{ github.sha }} \
+                          ${{ vars.SITE_ROOT }}
+                      "
+  production:
+    runs-on: ubuntu-latest
+    environment: production
+    needs:
+      - staging
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY_PUBLIC }}" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa.pub
+      - name: Deploy
+        run: |
+          ssh-keyscan -H ${{ vars.SSH_SERVER }} >> ~/.ssh/known_hosts
+          scp scripts/deploy.sh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }}:/var/www/${{ vars.SITE_ROOT }}/deploy.sh
+                      ssh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }} "
+                        /var/www/${{ vars.SITE_ROOT }}/deploy.sh \
+                          ${{ github.server_url }}/${{ github.repository }}.git \
+                          ${{ github.sha }} \
+                          ${{ vars.SITE_ROOT }}
+                      "
