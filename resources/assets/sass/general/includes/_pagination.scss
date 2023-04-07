@@ -58,7 +58,7 @@ ul.pagination {
         }
         @media (max-width: #{$breakpoint_md - 1px}) {
             display: none !important;
-            
+
             &.active, &.next-link, &.prev-link {
                 display: inline-block !important;
             }
