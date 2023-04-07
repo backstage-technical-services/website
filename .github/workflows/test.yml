@@ -38,6 +38,7 @@ jobs:
           path: tests/results
 
   sonarcloud:
+    if: github.repository == 'backstage-technical-services/laravel-site'
     runs-on: ubuntu-latest
     needs:
       - test
