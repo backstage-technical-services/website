@@ -1,12 +1,17 @@
 name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - Test
+    types:
+      - completed
     branches:
       - main
 
 jobs:
   staging:
+    if: github.event.workflow_run.conclusion == 'success' && github.repository == 'backstage-technical-services/laravel-site'
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -29,6 +34,7 @@ jobs:
                           ${{ vars.SITE_ROOT }}
                       "
   production:
+    if: github.event.workflow_run.conclusion == 'success' && github.repository == 'backstage-technical-services/laravel-site'
     runs-on: ubuntu-latest
     environment: production
     needs:
