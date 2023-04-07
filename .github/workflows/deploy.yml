@@ -8,10 +8,7 @@ on:
 jobs:
   staging:
     runs-on: ubuntu-latest
-    env:
-      SITE_ROOT: ${{ secrets.SITE_ROOT_STAGING }}
-      SSH_SERVER: ${{ secrets.SSH_SERVER_STAGING }}
-      SSH_USER: ${{ secrets.SSH_USER_STAGING }}
+    environment: staging
     steps:
       - uses: actions/checkout@v3
       - name: Configure SSH
@@ -23,20 +20,17 @@ jobs:
           chmod 600 ~/.ssh/id_rsa.pub
       - name: Deploy
         run: |
-          ssh-keyscan -H ${{ env.SSH_SERVER }} >> ~/.ssh/known_hosts
-          scp scripts/deploy.sh ${{ env.SSH_USER }}@${{ env.SSH_SERVER }}:/var/www/${{ env.SITE_ROOT }}/deploy.sh
-                      ssh ${{ env.SSH_USER }}@${{ env.SSH_SERVER }} "
-                        /var/www/${{ env.SITE_ROOT }}/deploy.sh \
+          ssh-keyscan -H ${{ vars.SSH_SERVER }} >> ~/.ssh/known_hosts
+          scp scripts/deploy.sh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }}:/var/www/${{ vars.SITE_ROOT }}/deploy.sh
+                      ssh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }} "
+                        /var/www/${{ vars.SITE_ROOT }}/deploy.sh \
                           ${{ github.server_url }}/${{ github.repository }}.git \
                           ${{ github.sha }} \
-                          ${{ env.SITE_ROOT }}
+                          ${{ vars.SITE_ROOT }}
                       "
-  prod:
+  production:
     runs-on: ubuntu-latest
-    env:
-      SITE_ROOT: ${{ secrets.SITE_ROOT_PROD }}
-      SSH_SERVER: ${{ secrets.SSH_SERVER_PROD }}
-      SSH_USER: ${{ secrets.SSH_USER_PROD }}
+    environment: production
     needs:
       - staging
     steps:
@@ -50,11 +44,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa.pub
       - name: Deploy
         run: |
-          ssh-keyscan -H ${{ env.SSH_SERVER }} >> ~/.ssh/known_hosts
-          scp scripts/deploy.sh ${{ env.SSH_USER }}@${{ env.SSH_SERVER }}:/var/www/${{ env.SITE_ROOT }}/deploy.sh
-                      ssh ${{ env.SSH_USER }}@${{ env.SSH_SERVER }} "
-                        /var/www/${{ env.SITE_ROOT }}/deploy.sh \
+          ssh-keyscan -H ${{ vars.SSH_SERVER }} >> ~/.ssh/known_hosts
+          scp scripts/deploy.sh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }}:/var/www/${{ vars.SITE_ROOT }}/deploy.sh
+                      ssh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }} "
+                        /var/www/${{ vars.SITE_ROOT }}/deploy.sh \
                           ${{ github.server_url }}/${{ github.repository }}.git \
                           ${{ github.sha }} \
-                          ${{ env.SITE_ROOT }}
+                          ${{ vars.SITE_ROOT }}
                       "
