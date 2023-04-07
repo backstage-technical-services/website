@@ -1,6 +1,6 @@
 # Laravel Site
 
-[![CircleCI](https://circleci.com/gh/backstage-technical-services/laravel-site.svg?style=shield)](https://circleci.com/gh/backstage-technical-services/laravel-site)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/backstage-technical-services/laravel-site/deploy.yml?branch=main)](https://github.com/backstage-technical-services/laravel-site/actions)
 [![chat](https://img.shields.io/badge/chat-on%20slack-brightgreen)](https://bts-website.slack.com)
 [![license](https://img.shields.io/badge/license-Apache%20v2-blue)](./licence.md)
 
