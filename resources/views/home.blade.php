@@ -6,7 +6,7 @@
 
 @section('content')
     <p style="text-align: center;">
-        <img title="BUSMS's performance of Grease, 2015" src="/images/carousel/grease2015.jpg" alt="">
+        <img title="BUSMS's performance of Grease, 2023" src="/images/carousel/Grease2023.jpg" alt="">
     </p>
     <p>Backstage Technical Services is a society formed of students at the University of Bath, who provide technical expertise to other Students' Union Clubs and Societies and event organisers in Sound, Lighting and Stage Management.</p>
     <p>We offer support at a wide range of events including the Students' Union's Summer Ball and Freshers' Week, theatre performances from student and external performers, band and club nights in The Tub and many more.</p>
