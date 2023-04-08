@@ -1,0 +1,48 @@
+version: '2.4'
+
+networks:
+  main:
+    name: bts-v4
+
+services:
+  database:
+    image: mariadb:10.2
+    container_name: bts-v4-database
+    networks:
+      - main
+    ports:
+      - '6001:3306'
+    environment:
+      MYSQL_DATABASE: backstage
+      MYSQL_ROOT_PASSWORD: developer
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: developer
+    restart: unless-stopped
+    mem_limit: 1g
+
+  mail:
+    image: djfarrelly/maildev
+    container_name: bts-v4-mail
+    networks:
+      - main
+    ports:
+      - '6002:80'
+    restart: unless-stopped
+    mem_limit: 50m
+
+  site:
+    build:
+      context: .
+      dockerfile: .docker/local.Dockerfile
+    container_name: bts-v4-site
+    networks:
+      - main
+    ports:
+      - '8080:8080'
+    volumes:
+      - '.:/var/www'
+    depends_on:
+      - database
+      - mail
+    restart: unless-stopped
+    mem_limit: 512m
