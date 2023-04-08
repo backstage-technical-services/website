@@ -16,7 +16,7 @@ installed [the required prerequisites][prerequisites].
 Clone the repository:
 
 ```
-git clone git@github.com:backstage-technical-services/laravel-site.git
+git clone git@github.com:backstage-technical-services/website.git
 ```
 
 This will be downloaded into a `website` folder, in your current directory.
