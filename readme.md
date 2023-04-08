@@ -1,6 +1,6 @@
-# Laravel Site
+# Website (v4)
 
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/backstage-technical-services/laravel-site/deploy.yml?branch=main)](https://github.com/backstage-technical-services/laravel-site/actions)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/backstage-technical-services/website/deploy.yml?branch=main)](https://github.com/backstage-technical-services/website/actions)
 [![chat](https://img.shields.io/badge/chat-on%20slack-brightgreen)](https://bts-website.slack.com)
 [![license](https://img.shields.io/badge/license-Apache%20v2-blue)](./licence.md)
 
@@ -19,7 +19,7 @@ Clone the repository:
 git clone git@github.com:backstage-technical-services/laravel-site.git
 ```
 
-This will be downloaded into a `laravel-site` folder, in your current directory.
+This will be downloaded into a `website` folder, in your current directory.
 
 ### Configuring
 
