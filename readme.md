@@ -4,7 +4,7 @@
 [![chat](https://img.shields.io/badge/chat-on%20slack-brightgreen)](https://bts-website.slack.com)
 [![license](https://img.shields.io/badge/license-Apache%20v2-blue)](./licence.md)
 
-## Getting Started
+## 🏁 Getting Started
 
 ### Pre-requisites
 
@@ -26,7 +26,7 @@ This will be downloaded into a `laravel-site` folder, in your current directory.
 - Copy the `.env.example` file to `.env`. You may need to [ask][slack] for some of the configuration values.
 - Generate the site key using `scripts/site.sh artisan key:generate`.
 
-## Usage
+## 🎈 Usage
 
 ### Running the site
 
@@ -87,13 +87,13 @@ any email address, and provides a user interface for viewing any emails that hav
 The site is automatically configured to connect to this over the internal port `25`, and you can view the web interface
 at <http://localhost:6002>.
 
-## License
+## 📃 License
 
 This website uses code from Laravel and various packages, which retain their original licenses (see each package for
 more details). The code developed for this website is covered by the GNU General Public License v2 (see the included
 LICENCE file).
 
-## CI/CD
+## 🚀 CI/CD
 
 This repository uses GitHub Actions for CI/CD.
 
