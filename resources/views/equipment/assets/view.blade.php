@@ -10,5 +10,5 @@
     <iframe width="100%"
             height="700"
             frameborder="0"
-            src="https://docs.google.com/spreadsheets/d/19oMod3uCJp51h_BfpCy0sprKueOWOxBXSmI1PcIm19I/pubhtml?widget=false&headers=false&chrome=false&gid=0"></iframe>
+            src="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vRBIJLyKO--ffboCd90BXWBD95DZm99cXXqi9eSnzPkoCMeMIilnRC81udAtD3ghbF4zt5bzeqDLGQb/pubhtml?widget=true&amp;headers=false"></iframe>
 @endsection
