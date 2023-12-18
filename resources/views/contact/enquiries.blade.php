@@ -6,7 +6,7 @@
 
 @section('tab')
     <p>If you have a general question for Backstage then you can use the form below to send us an email; alternatively you are welcome to pop over to our office
-        (<em class="bts">1E 3.4</em>) or call us on <em class="bts">01225 383067</em>.</p>
+        (<em class="bts">1E 3.4</em>) or call us on <em class="bts">(01225) 666076</em>.</p>
     <p>Please do not use this to submit a booking request; use the {!! link_to_route('contact.book', 'booking request form') !!} instead.</p>
     {!! Form::open() !!}
         <!-- Text field for 'name' -->
