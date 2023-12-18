@@ -8,7 +8,7 @@
 
             <div>
                 <span class="fa fa-phone"></span>
-                +44 (0) 1225 383067
+                (01225) 666076
             </div>
             <div>
                 <span class="fa fa-home"></span>
