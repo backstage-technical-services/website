@@ -57,6 +57,9 @@ echo "=> Configuring cache ..."
 php artisan config:cache
 
 # Symlink resources
+echo "=> Configuring symlinks ..."
+rm -rf "${siteRootPath}/${commit}/public/images/profiles"
+ln -s "${siteRootPath}/storage/profiles" "${siteRootPath}/${commit}/public/images/profiles"
 ln -s "${siteRootPath}/storage/elections" "${siteRootPath}/${commit}/resources/elections"
 ln -s "${siteRootPath}/storage/resources" "${siteRootPath}/${commit}/resources/resources"
 
