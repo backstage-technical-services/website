@@ -17,9 +17,6 @@
             return view('home');
         },
     ]);
-    Route::get('/random', function () {
-        return view('random');
-    });
 
     include base_path('routes/web/auth.php');
     include base_path('routes/web/awards.php');

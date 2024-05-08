@@ -4,7 +4,6 @@ use Alaouy\Youtube\Facades\Youtube;
 use Alaouy\Youtube\YoutubeServiceProvider;
 use App\Providers\NotificationServiceProvider;
 use App\Providers\SearchToolsServiceProvider;
-use Magyarjeti\LaravelLipsum\LipsumFacade;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\Facades\SearchTools;
 use Package\WebDevTools\Laravel\Providers\BladeServiceProvider;
@@ -180,7 +179,6 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-        Magyarjeti\LaravelLipsum\LipsumServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         YoutubeServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
@@ -251,7 +249,6 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
         
         // Additional packages
-        'Lipsum'       => LipsumFacade::class,
         'Image'        => Intervention\Image\Facades\Image::class,
         'Markdown'     => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Form'         => Collective\Html\FormFacade::class,

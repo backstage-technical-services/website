@@ -27,7 +27,6 @@
     "laravel/ui": "^3.0",
     "laravelcollective/html": "^6.0",
     "lavary/laravel-menu": "^1.7",
-    "magyarjeti/laravel-lipsum": "^1.1",
     "mews/purifier": "^3.0",
     "moment/moment": "^2.17",
     "nunomaduro/collision": "^5.3",

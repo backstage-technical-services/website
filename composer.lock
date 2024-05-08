@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "252d67759dbd63c0e62b93a37b8bac56",
+    "content-hash": "8c70942ec64f612272e7c32e0d68f103",
     "packages": [
         {
             "name": "alaouy/youtube",
@@ -3434,84 +3434,6 @@
                 }
             ],
             "time": "2021-01-18T20:58:21+00:00"
-        },
-        {
-            "name": "magyarjeti/laravel-lipsum",
-            "version": "v1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/magyarjeti/laravel-lipsum.git",
-                "reference": "defb47d4931cd6ba724e0f62e037c5c463e12431"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/magyarjeti/laravel-lipsum/zipball/defb47d4931cd6ba724e0f62e037c5c463e12431",
-                "reference": "defb47d4931cd6ba724e0f62e037c5c463e12431",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=4.0",
-                "magyarjeti/loripsum-client": "v2.0",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Magyarjeti\\LaravelLipsum": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "Lorem ipsum generator for Laravel Framework",
-            "support": {
-                "issues": "https://github.com/magyarjeti/laravel-lipsum/issues",
-                "source": "https://github.com/magyarjeti/laravel-lipsum/tree/master"
-            },
-            "time": "2015-02-09T13:54:32+00:00"
-        },
-        {
-            "name": "magyarjeti/loripsum-client",
-            "version": "v2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/magyarjeti/loripsum-client.git",
-                "reference": "ce686fb76ee41baeb65fb8c9474dbbad7e54a03e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/magyarjeti/loripsum-client/zipball/ce686fb76ee41baeb65fb8c9474dbbad7e54a03e",
-                "reference": "ce686fb76ee41baeb65fb8c9474dbbad7e54a03e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.2",
-                "phpunit/phpunit": "4.3.1",
-                "squizlabs/php_codesniffer": "2.0.0RC2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Magyarjeti\\Loripsum": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Lorem ipsum generator.",
-            "keywords": [
-                "ipsum",
-                "lipsum",
-                "lorem",
-                "loripsum"
-            ],
-            "support": {
-                "issues": "https://github.com/magyarjeti/loripsum-client/issues",
-                "source": "https://github.com/magyarjeti/loripsum-client/tree/v2.0"
-            },
-            "time": "2014-10-09T15:07:00+00:00"
         },
         {
             "name": "mews/purifier",
