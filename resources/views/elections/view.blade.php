@@ -40,9 +40,9 @@
                 </div>
                 <div>
                     <div class="btn-group btn-group-sm">
-                        @if($election->isVotingOpen())
+                        @if($election->isVotingOpen() && $election->bathstudent_id)
                             <a class="btn btn-success"
-                               href="http://www.bathstudent.com/elections/vote/{{ $election->bathstudent_id ?: '' }}"
+                               href="https://www.thesubath.com/elections/vote/{{ $election->bathstudent_id }}"
                                target="_blank">
                                 <span class="fa fa-check"></span>
                                 <span>Vote now</span>

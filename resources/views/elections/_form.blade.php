@@ -26,9 +26,9 @@
 
     {{-- BathStudent link --}}
     <div class="form-group @InputClass('bathstudent_id')">
-        {!! Form::label('bathstudent_id', 'BathStudent Link:', ['class' => 'control-label col-md-4']) !!}
+        {!! Form::label('bathstudent_id', 'SU Bath ID:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
-            {!! Form::text('bathstudent_id', null, ['class' => 'form-control']) !!}
+            {!! Form::text('bathstudent_id', null, ['class' => 'form-control', 'placeholder' => 'Optional']) !!}
             @InputError('bathstudent_id')
         </div>
     </div>

@@ -31,11 +31,9 @@ class ElectionRequest extends Request
      */
     public function rules()
     {
-        $bathstudent_id = $this->has('bathstudent_id') ? 'integer' : '';
-
         return [
             'type'              => 'required|in:' . implode(',', array_keys(Election::$Types)),
-            'bathstudent_id'    => $bathstudent_id,
+            'bathstudent_id'    => 'nullable|integer',
             'hustings_time'     => 'required|datetime',
             'hustings_location' => 'required',
             'nominations_start' => 'required|datetime',
