@@ -31,16 +31,16 @@ class Election extends Model
     protected $table = 'elections';
 
     /**
-     * Define the attributes that should be Carbon instances.
+     * Define variable types to cast some attributes to.
      *
      * @var array
      */
-    protected $dates = [
-        'nominations_start',
-        'nominations_end',
-        'voting_start',
-        'voting_end',
-        'hustings_time',
+    protected $casts = [
+        'nominations_start' => 'datetime',
+        'nominations_end' => 'datetime',
+        'voting_start' => 'datetime',
+        'voting_end' => 'datetime',
+        'hustings_time' => 'datetime',
     ];
 
     /**

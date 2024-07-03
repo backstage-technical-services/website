@@ -56,13 +56,13 @@ class Time extends Model
     ];
 
     /**
-     * Define the additional fields that should be Carbon instances.
+     * Define variable types to cast some attributes to.
      *
      * @var array
      */
-    protected $dates = [
-        'start',
-        'end',
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
     ];
 
     /**
