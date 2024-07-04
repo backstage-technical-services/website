@@ -86,7 +86,10 @@ class ElectionController extends Controller
             'voting_start'      => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_start')),
             'voting_end'        => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_end')),
         ]);
-        $election = Election::create(clean($request->all()));
+        $election = Election::create(array_merge(
+            clean($request->all()),
+            ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
+        ));
         File::makeDirectory($election->getManifestoPath(), 0775, true);
         Notify::success('Election created');
 
@@ -124,8 +127,11 @@ class ElectionController extends Controller
         $election  = Election::findOrFail($id);
         $positions = $this->determineElectionPositions($request);
 
-        $request->merge(['positions' => $positions]);
-        $election->update(clean($request->all()));
+        $request->merge(['positions'    => $positions]);
+        $election->update(array_merge(
+            clean($request->all()),
+            ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
+        ));
 
         Notify::success('Election updated');
         return redirect()->route('election.view', ['id' => $id]);
