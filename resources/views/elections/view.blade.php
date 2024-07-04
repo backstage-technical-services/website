@@ -92,7 +92,7 @@
                                             <span class="fa fa-file-pdf-o"></span>
                                             <span>Manifesto</span>
                                         </a>
-                                        @if(Auth::user()->can('delete', $nominee) && $election->isNominationsOpen())
+                                        @if(Auth::user()->can('delete', $nominee) && $election->canModifyNominations())
                                             <a class="btn btn-danger"
                                                data-submit-ajax="{{ route('election.nomination.delete', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
                                                data-submit-confirm="Are you sure you want to delete this nomination?">
@@ -116,7 +116,7 @@
 
         <p>
             @can('create', \App\Models\Elections\Nomination::class)
-                @if($election->isNominationsOpen())
+                @if($election->canModifyNominations())
                     <button class="btn btn-success"
                             data-toggle="modal"
                             data-target="#modal"
@@ -128,7 +128,7 @@
                 @endif
             @endcan
             @can('update', $election)
-                @if($election->hasVotingClosed())
+                @if($election->canModifyResults())
                     <button class="btn btn-success"
                             data-toggle="modal"
                             data-target="#modal"
@@ -145,12 +145,12 @@
 
 @section('modal')
     @can('create', \App\Models\Elections\Nomination::class)
-        @if($election->isNominationsOpen())
+        @if($election->canModifyNominations())
             @include('elections.modals.nominate')
         @endif
     @endcan
     @can('update', $election)
-        @if($election->hasVotingClosed())
+        @if($election->canModifyResults())
             @include('elections.modals.elect')
         @endif
     @endcan
