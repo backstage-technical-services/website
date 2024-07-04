@@ -19,7 +19,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name'                         => env('APP_NAME', 'laravel-backup'),
+        'name'                         => env('APP_NAME', 'backups'),
         'source'                       => [
             'files'     => [
 
@@ -150,10 +150,10 @@ return [
      */
     'notifications'   => [
         'notifications' => [
-            BackupHasFailedNotification::class         => ['slack'],
-            UnhealthyBackupWasFoundNotification::class => ['slack'],
-            CleanupHasFailedNotification::class        => ['slack'],
-            BackupWasSuccessfulNotification::class     => ['slack'],
+            BackupHasFailedNotification::class         => [],
+            UnhealthyBackupWasFoundNotification::class => [],
+            CleanupHasFailedNotification::class        => [],
+            BackupWasSuccessfulNotification::class     => [],
             HealthyBackupWasFoundNotification::class   => [],
             CleanupWasSuccessfulNotification::class    => []
         ],
@@ -172,13 +172,6 @@ return [
                 'name'    => env('MAIL_FROM_NAME', 'Example'),
             ],
         ],
-
-        'slack' => [
-            'webhook_url' => env('BACKUP_WEBHOOK'),
-            'channel'     => env('BACKUP_CHANNEL'),
-            'username'    => null,
-            'icon'        => null,
-        ],
     ],
 
     /*
@@ -188,7 +181,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name'          => env('APP_NAME', 'laravel-backup'),
+            'name'          => env('APP_NAME', 'backups'),
             'disks'         => ['local'],
             'health_checks' => [
                 MaximumAgeInDays::class          => 1,

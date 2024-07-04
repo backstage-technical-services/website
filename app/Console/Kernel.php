@@ -6,6 +6,8 @@ use App\Console\Commands\AutoCloseCrewLists;
 use App\Console\Commands\BackupDb;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Spatie\Backup\Commands\BackupCommand;
+use Spatie\Backup\Commands\CleanupCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,6 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         BackupDb::class,
         AutoCloseCrewLists::class,
+        BackupCommand::class,
+        CleanupCommand::class,
     ];
     
     /**
@@ -30,11 +34,11 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(AutoCloseCrewLists::class)->daily();
         $schedule->command(BackupDb::class)->daily();
-        $schedule->command('backup:run')
+        $schedule->command(BackupCommand::class)
                  ->weekly()
                  ->then(
                      function () use ($schedule) {
-                         $schedule->command('backup:clean');
+                         $schedule->command(CleanupCommand::class);
                      }
                  );
     }

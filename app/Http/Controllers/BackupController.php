@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\View\View;
 use Package\Notifications\Facades\Notify;
 use Package\WebDevTools\Laravel\Traits\UsesAjax;
+use Spatie\Backup\Commands\BackupCommand;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zend\Stdlib\Glob;
@@ -88,7 +89,7 @@ class BackupController extends Controller
         if ($type == 'db') {
             Artisan::call(BackupDb::class);
         } else if ($type == 'full') {
-            Artisan::call('backup:run');
+            Artisan::call(BackupCommand::class);
         }
 
         Notify::success('Backup created');
