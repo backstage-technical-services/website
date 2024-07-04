@@ -223,4 +223,28 @@ class Election extends Model
 
         return $now->gt($this->voting_end);
     }
+
+    /**
+     * Test if the user can make changes to the nominations; either:
+     * - Nominations are open
+     * - The user is an admin
+     *
+     * @return bool
+     */
+    public function canModifyNominations(): bool
+    {
+        return $this->isNominationsOpen() || (auth()->check() && auth()->user()->can('admin'));
+    }
+
+    /**
+     * Test if the user can make changes to the results; either:
+     * - Voting has closed
+     * - The user is an admin
+     *
+     * @return bool
+     */
+    public function canModifyResults(): bool
+    {
+        return $this->hasVotingClosed() || (auth()->check() && auth()->user()->can('admin'));
+    }
 }

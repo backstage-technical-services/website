@@ -38,6 +38,7 @@ class ElectionController extends Controller
      */
     public function view($id)
     {
+        /* @var Election $election */
         $election = Election::findOrFail($id);
         $this->authorize('view', $election);
 
@@ -89,7 +90,7 @@ class ElectionController extends Controller
         $election = Election::create(array_merge(
             clean($request->all()),
             ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
-        ));
+        )); /* @var Election $election */
         File::makeDirectory($election->getManifestoPath(), 0775, true);
         Notify::success('Election created');
 
@@ -105,6 +106,7 @@ class ElectionController extends Controller
      */
     public function edit($id)
     {
+        /* @var Election $election */
         $election = Election::findOrFail($id);
         $this->authorize('update', $election);
 
@@ -124,6 +126,7 @@ class ElectionController extends Controller
      */
     public function update($id, ElectionRequest $request)
     {
+        /* @var Election $election */
         $election  = Election::findOrFail($id);
         $positions = $this->determineElectionPositions($request);
 
@@ -150,7 +153,7 @@ class ElectionController extends Controller
         $this->requireAjax();
 
         // Get the election
-        $election = Election::find($id);
+        $election = Election::find($id); /* @var Election $election */
         if (!$election) {
             return $this->ajaxError('404', 404, 'Couldn\'t find that election.');
         }
@@ -177,13 +180,13 @@ class ElectionController extends Controller
         $this->requireAjax();
 
         // Get the election
-        $election = Election::find($id);
+        $election = Election::find($id); /* @var Election $election */
         if (!$election) {
             return $this->ajaxError('404', 404, 'Couldn\'t find that election.');
         }
 
         // Check that voting has closed
-        if (!$election->hasVotingClosed()) {
+        if (!$election->canModifyResults()) {
             return $this->ajaxError('voting_open', 405, 'Voting has not yet closed.');
         }
 

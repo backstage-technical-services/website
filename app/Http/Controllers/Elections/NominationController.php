@@ -28,13 +28,13 @@ class NominationController extends Controller
         $this->authorize('create', Nomination::class);
 
         // Get the election
-        $election = Election::find($electionId);
+        $election = Election::find($electionId); /* @var Election $election */
         if (!$election) {
             return $this->ajaxError('404', 404, 'Couldn\'t find that election.');
         }
 
         // Check that nominations are open
-        if (!$election->isNominationsOpen()) {
+        if (!$election->canModifyNominations()) {
             return $this->ajaxError('nominations_closed', 405, 'Nominations are closed and so cannot be deleted.');
         }
 
@@ -75,8 +75,8 @@ class NominationController extends Controller
     public function manifesto($id, $nominationId)
     {
         // Get the election and nomination
-        $election   = Election::findOrFail($id);
-        $nomination = $election->nominations()->where('id', $nominationId)->first();
+        $election   = Election::findOrFail($id); /* @var Election $election */
+        $nomination = $election->nominations()->where('id', $nominationId)->first(); /* @var Nomination $nomination */
 
         // Authorise
         $this->authorize('manifesto', $nomination);
@@ -109,13 +109,13 @@ class NominationController extends Controller
         $this->requireAjax();
 
         // Get the election
-        $election = Election::find($id);
+        $election = Election::find($id); /* @var Election $election */
         if (!$election) {
             return $this->ajaxError('404', 404, 'Couldn\'t find that election.');
         }
 
         // Check that nominations are open
-        if (!$election->isNominationsOpen()) {
+        if (!$election->canModifyNominations()) {
             return $this->ajaxError('nominations_closed', 405, 'Nominations are closed and so cannot be deleted.');
         }
 
