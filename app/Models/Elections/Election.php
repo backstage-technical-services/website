@@ -37,10 +37,10 @@ class Election extends Model
      */
     protected $casts = [
         'nominations_start' => 'datetime',
-        'nominations_end' => 'datetime',
-        'voting_start' => 'datetime',
-        'voting_end' => 'datetime',
-        'hustings_time' => 'datetime',
+        'nominations_end'   => 'datetime',
+        'voting_start'      => 'datetime',
+        'voting_end'        => 'datetime',
+        'hustings_time'     => 'datetime',
     ];
 
     /**
