@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/backstage-technical-services/php-docker/php:8.2
+FROM ghcr.io/backstage-technical-services/php-docker:8.2
 
 USER root
 
