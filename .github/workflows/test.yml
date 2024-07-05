@@ -27,8 +27,9 @@ jobs:
           cp .env.example .env
           php artisan key:generate
       - name: Run tests
+        env:
+          XDEBUG_MODE: coverage
         run: |
-          export XDEBUG_MODE=coverage
           ./vendor/bin/phpunit \
             --log-junit tests/results/junit.xml \
             --coverage-clover tests/results/coverage.xml
