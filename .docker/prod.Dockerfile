@@ -1,4 +1,4 @@
-FROM ghcr.io/backstage-technical-services/php-docker:8.2
+FROM ghcr.io/backstage-technical-services/php-docker:8.2 as builder
 
 USER root
 
@@ -19,7 +19,7 @@ RUN composer install --prefer-dist --no-dev --no-scripts
 RUN yarn install \
     && yarn run production
 
-FROM ghcr.io/backstage-technical-services/php-docker:8.0
+FROM ghcr.io/backstage-technical-services/php-docker:8.2
 
 # Copy the source code
 COPY --chown=www-data:www-data . .
