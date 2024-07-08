@@ -134,7 +134,7 @@ class User extends Authenticatable
         'show_phone'        => 'boolean',
         'show_address'      => 'boolean',
         'show_age'          => 'boolean',
-        'diary_preferences' => 'arr     ay',
+        'diary_preferences' => 'array',
         'dob'               => 'datetime',
     ];
 
