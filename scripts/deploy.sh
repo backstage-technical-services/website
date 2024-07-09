@@ -72,10 +72,17 @@ echo "=> Switching over ..."
 current="$(readlink -f "${siteRootPath}/active")"
 rm "${siteRootPath}/active" && ln -s "${siteRootPath}/${commit}" "${siteRootPath}/active"
 chown -R forge:www-data "${siteRootPath}/active"
-rm -rf "${current}"
 
 # Restart nginx
 echo "=> Restarting nginx"
 sudo service nginx reload
+
+# Restart queue workers
+echo "=> Restarting queue workers"
+sudo supervisorctl restart "worker-${siteRoot}:*"
+
+# Delete the old version
+echo "=> Deleting previous version"
+rm -rf "${current}"
 
 echo "=> Done."
