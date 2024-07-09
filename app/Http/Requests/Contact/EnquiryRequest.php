@@ -23,12 +23,10 @@ class EnquiryRequest extends Request
      */
     public function rules()
     {
-        $phone = $this->has('phone') ? 'phone' : '';
-
         return [
             'name'                 => 'required|regex:/[a-zA-z]+\s[a-zA-z]+/',
             'email'                => 'required|email',
-            'phone'                => $phone,
+            'phone'                => 'nullable|phone',
             'message'              => 'required|string',
             'g-recaptcha-response' => 'required|captcha',
         ];

@@ -11,7 +11,7 @@ We have recently received an enquiry from {{ $enquiry['name'] }}:
 
 **Email:**  [{{ $enquiry['email'] }}](mailto:{{ $enquiry['email'] }})
 
-@if(isset($enquiry['phone']))
+@if(isset($enquiry['phone']) && @$enquiry['phone'])
 **Phone:** {{ $enquiry['phone'] }}
 @endif
 
