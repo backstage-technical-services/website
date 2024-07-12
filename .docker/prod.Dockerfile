@@ -1,4 +1,4 @@
-FROM ghcr.io/backstage-technical-services/php-docker:8.2 as builder
+FROM ghcr.io/backstage-technical-services/php-docker:8.2 AS builder
 
 USER root
 
