@@ -31,13 +31,14 @@ class Quote extends Model
         "date",
         "added_by",
     ];
+
     /**
-     * Define the additional fields that should be Carbon instances.
+     * Define variable types to cast some attributes to.
      *
      * @var array
      */
-    protected $dates = [
-        'date',
+    protected $casts = [
+      'date' => 'datetime',
     ];
 
     /**

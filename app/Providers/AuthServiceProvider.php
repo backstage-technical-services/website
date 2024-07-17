@@ -81,7 +81,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
         $this->registerAuthGates();
 
         // Tell Laravel to use the custom UserProvider

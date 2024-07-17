@@ -101,7 +101,7 @@ function _rebuild() {
 
 function _exec() {
   _requireRunning
-  _docker exec site "$@"
+  _docker exec --user www-data:www-data site "$@"
 }
 
 function _composer() {
