@@ -14,6 +14,7 @@ return [
     'links'      => [
         'risk_assessment' => env('LINK_EVENT_RA'),
         'event_report'    => env('LINK_EVENT_REPORT'),
+        'instagram'       => 'https://www.instagram.com/backstageatbath/',
     ],
     
     // Emails

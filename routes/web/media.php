@@ -3,21 +3,8 @@ Route::group([
     'prefix' => 'media',
 ], function () {
     // Images
-    Route::group([
-        'prefix' => 'images',
-    ], function () {
-        Route::get('', [
-            'as'   => 'media.image.index',
-            'uses' => 'Media\ImageController@index',
-        ]);
-        Route::get('{id}', [
-            'as'   => 'media.image',
-            'uses' => 'Media\ImageController@view',
-        ]);
-        Route::get('album/{id}', [
-            'as'   => 'media.image.album',
-            'uses' => 'Media\ImageController@album',
-        ]);
+    Route::get('images', function () {
+        return redirect(config('bts.links.instagram'));
     });
     // Videos
     Route::group([

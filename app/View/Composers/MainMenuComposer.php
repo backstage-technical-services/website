@@ -71,9 +71,11 @@ class MainMenuComposer implements ViewComposer
         $mediaMenu = $menu->add('Media', '#')
                           ->active('media/*')
                           ->attr('class', 'dropdown');
-        
-        $mediaMenu->add('Image Gallery', route('media.image.index'))
-                  ->active('media/images/*');
+
+        $mediaMenu->add('Image Gallery', [
+            'url'     => config('bts.links.instagram'),
+            '_target' => 'blank',
+        ]);
         $mediaMenu->add('Videos', route('media.videos.index'))
                   ->active('media/images/*');
     }
