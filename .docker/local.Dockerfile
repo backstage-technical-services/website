@@ -1,7 +1,20 @@
-FROM ghcr.io/backstage-technical-services/php-docker/php:8.0
+FROM ghcr.io/backstage-technical-services/php-docker:8.0
 
 ARG USER_ID
 ARG GROUP_ID
+
+# Install additional dependencies
+RUN apk update && apk upgrade && apk add --update \
+    git \
+    nodejs \
+    npm \
+    mysql-client
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install yarn
+RUN npm install -g yarn
 
 # Recreate the www-data user and group to match that of the host machine's user
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
@@ -32,7 +45,5 @@ RUN chown -R www-data:www-data \
     /usr/local/lib/php \
     /usr/local/etc/php/ \
     /usr/local/etc/php*
-
-USER www-data
 
 VOLUME /var/www

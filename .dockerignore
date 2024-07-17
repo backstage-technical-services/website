@@ -1,6 +1,7 @@
 *
 !app
 !bootstrap
+bootstrap/cache/*.php
 !config
 !database
 !packages
@@ -10,7 +11,7 @@
 !resources/lang
 !resources/views
 !routes
-!storage
+!storage/framework/*/.gitignore
 !artisan
 !composer.json
 !composer.lock

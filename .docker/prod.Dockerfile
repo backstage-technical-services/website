@@ -1,28 +1,34 @@
-FROM docker.pkg.github.com/backstage-technical-services/php-docker/php:8.0
+FROM ghcr.io/backstage-technical-services/php-docker:8.0 AS builder
 
-# Copy dependency files
-COPY composer.json composer.lock ./
-COPY yarn.lock ./
+USER root
 
-# Install dependencies
-RUN composer install --prefer-dist --no-dev --no-scripts --no-autoloader
-RUN yarn install
+# Install yarn and composer
+RUN apk update && apk upgrade && apk add --update npm \
+    && npm install --global yarn \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy the source code
-COPY . ./
-
-# Generate the autoloader
-RUN composer dump-autoload
-
-# Generate the assets
-RUN yarn run production
-
-# Fix permissions
-RUN chown -R www-data:www-data /var/www
-
-# Run as user
 USER www-data
 
-# Set up the resource volumes
+# Copy source
+COPY --chown=www-data:www-data . ./
+
+# Install PHP dependencies and generate autoloader
+RUN composer install --prefer-dist --no-dev --no-scripts
+
+# Build assets
+RUN yarn install \
+    && yarn run production
+
+FROM ghcr.io/backstage-technical-services/php-docker:8.0
+
+# Copy the source code
+COPY --chown=www-data:www-data . .
+
+# Copy the dependencies and prebuilt files from the builder
+COPY --chown=www-data:www-data --from=builder /var/www/public/ ./public/
+COPY --chown=www-data:www-data --from=builder /var/www/vendor/ ./vendor/
+
+#  Declare the volumes
+VOLUME /var/www/public/images/profiles
 VOLUME /var/www/resources/resources
 VOLUME /var/www/resources/elections
