@@ -1,0 +1,9 @@
+environment: ''
+domain: ''
+
+image:
+  tag: ''
+
+smtp:
+  host: smtp.mailtrap.io
+  port: 2525

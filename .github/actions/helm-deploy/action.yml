@@ -1,0 +1,36 @@
+name: Deploy
+description: Deploys the website to the selected environment using the Helm chart
+
+inputs:
+  k3s-url:
+    description: The URL of the K3s API
+    required: true
+  k3s-secret:
+    description: The secret used to authenticate with the K3s API
+    required: true
+  environment:
+    description: The name of the environment to deploy to
+    required: true
+  sha:
+    description: The commit SHA to deploy
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: azure/setup-kubectl@v4
+    - uses: azure/k8s-set-context@v4
+      with:
+        method: service-account
+        k8s-url: ${{ inputs.k3s-url }}
+        k8s-secret: ${{ inputs.k3s-secret }}
+    - uses: azure/setup-helm@v4
+    - name: deploy
+      shell: bash
+      run: |
+        helm upgrade "${{ inputs.environment}}-website-v4" \
+          ./chart \
+          -n backstage \
+          -f chart/${{ inputs.environment}}-values.yaml \
+          --set image.tag="${{ inputs.sha }}" \
+          --wait

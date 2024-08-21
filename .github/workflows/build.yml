@@ -2,13 +2,12 @@ name: Build
 
 permissions:
   contents: read
-  packages: write
+  packages: read
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-      - feat/upgrade # TODO: remove
 
 jobs:
   build:
@@ -22,12 +21,11 @@ jobs:
             --driver docker-container
       - name: Log into the registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-      - name: Build and push image
+      - name: Build image
         run: |
           docker buildx build \
             --builder container \
             --platform linux/amd64,linux/arm64 \
             -f .docker/prod.Dockerfile \
-            -t ghcr.io/backstage-technical-services/website:${{ github.sha }} \
-            --push \
+            -t ghcr.io/${{ github.repository }}:${{ github.sha }} \
             .

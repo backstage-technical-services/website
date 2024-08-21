@@ -1,0 +1,6 @@
+environment: prod
+domain: bts-crew.com
+
+smtp:
+  host: smtp.gmail.com
+  port: 587
