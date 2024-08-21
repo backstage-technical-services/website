@@ -62,9 +62,9 @@ jobs:
             <details>
             <summary>${{ steps.template.outcome == 'success' && '🟢' || '🔴' }} <strong>template</strong></summary>
 
-            ```text
+            ```yaml
             ${{ steps.template.outputs.stdout }}
-            ${{ steps.template.outputs.stderr }}  
+            ${{ steps.template.outputs.stderr }}
             ```
             </details>
             
