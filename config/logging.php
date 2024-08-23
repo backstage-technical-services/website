@@ -33,7 +33,7 @@ return [
             'driver' => 'monolog',
             'handler' => Monolog\Handler\StreamHandler::class,
             'handler_with' => [
-                'stream'   => storage_path('logs/laravel.log'),
+                'stream'   => 'php://stdout',
             ],
             'formatter' => Monolog\Formatter\LineFormatter::class
         ],
