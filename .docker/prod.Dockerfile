@@ -32,3 +32,9 @@ COPY --chown=www-data:www-data --from=builder /var/www/vendor/ ./vendor/
 VOLUME /var/www/public/images/profiles
 VOLUME /var/www/resources/resources
 VOLUME /var/www/resources/elections
+
+# Configure the entrypoint
+COPY --chown=www-data:www-data .docker/entrypoint.sh /usr/local/bin/entrypoint
+RUN chmod +x /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
+CMD ["supervisord", "-n", "-c", "/etc/supervisord.conf"]

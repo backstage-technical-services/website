@@ -18,3 +18,4 @@ bootstrap/cache/*.php
 !package.json
 !webpack.mix.js
 !yarn.lock
+!.docker/entrypoint.sh
