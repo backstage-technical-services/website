@@ -30,6 +30,7 @@ runs:
       run: |
         helm upgrade "${{ inputs.environment}}-website-v4" \
           ./chart \
+          --install \
           -n backstage \
           -f chart/${{ inputs.environment}}-values.yaml \
           --set image.tag="${{ inputs.sha }}" \
