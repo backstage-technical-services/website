@@ -4,3 +4,6 @@ domain: bts-crew.com
 smtp:
   host: smtp.gmail.com
   port: 587
+
+logging:
+  driver: stack

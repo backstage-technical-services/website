@@ -26,10 +26,10 @@ spec:
               value: production
             - name: APP_DEBUG
               value: 'false'
-            - name: APP_LOG
-              value: daily
             - name: APP_URL
               value: https://{{ .Values.domain }}
+            - name: LOG_CHANNEL
+              value: {{ .Values.logging.driver }}
             - name: DB_CONNECTION
               value: mysql
             - name: DB_HOST
