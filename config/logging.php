@@ -1,4 +1,7 @@
 <?php
+
+use Monolog\Handler\StreamHandler;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -27,15 +30,23 @@ return [
     'channels' => [
         'stack'    => [
             'driver'   => 'stack',
-            'channels' => ['monolog', 'bugsnag'],
+            'channels' => ['monolog', 'stdout', 'bugsnag'],
         ],
         'monolog' => [
             'driver' => 'monolog',
-            'handler' => Monolog\Handler\StreamHandler::class,
-            'handler_with' => [
-                'stream'   => 'php://stdout',
+            'handler' => StreamHandler::class,
+            'with' => [
+                'stream' => storage_path('logs/laravel.log'),
             ],
             'formatter' => Monolog\Formatter\LineFormatter::class
+        ],
+        'stdout' => [
+            'driver' => 'monolog',
+            'handler' => Monolog\Handler\StreamHandler::class,
+            'with' => [
+                'stream' => 'php://stdout',
+            ],
+            'formatter' => Monolog\Formatter\JsonFormatter::class,
         ],
         'single'   => [
             'driver' => 'single',

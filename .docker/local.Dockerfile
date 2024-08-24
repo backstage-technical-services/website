@@ -46,4 +46,8 @@ RUN chown -R www-data:www-data \
     /usr/local/etc/php/ \
     /usr/local/etc/php*
 
+# Append the extra supervisord config
+COPY .docker/conf.d/supervisord.conf /tmp/supervisord.conf.extra
+RUN cat /tmp/supervisord.conf.extra >> /etc/supervisord.conf
+
 VOLUME /var/www
