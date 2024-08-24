@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\MonologLogFmtFormatter;
 use Monolog\Handler\StreamHandler;
 
 return [
@@ -38,15 +39,15 @@ return [
             'with' => [
                 'stream' => storage_path('logs/laravel.log'),
             ],
-            'formatter' => Monolog\Formatter\LineFormatter::class
+            'formatter' => MonologLogFmtFormatter::class,
         ],
         'stdout' => [
             'driver' => 'monolog',
-            'handler' => Monolog\Handler\StreamHandler::class,
+            'handler' => StreamHandler::class,
             'with' => [
                 'stream' => 'php://stdout',
             ],
-            'formatter' => Monolog\Formatter\JsonFormatter::class,
+            'formatter' => MonologLogFmtFormatter::class,
         ],
         'single'   => [
             'driver' => 'single',
