@@ -43,10 +43,7 @@ RUN chown -R www-data:www-data \
     /var/tmp/nginx \
     /usr/local/lib/php \
     /usr/local/etc/php/ \
-    /usr/local/etc/php*
-
-# Append the extra supervisord config
-COPY .docker/conf.d/supervisord.conf /tmp/supervisord.conf.extra
-RUN cat /tmp/supervisord.conf.extra >> /etc/supervisord.conf
+    /usr/local/etc/php* \
+    /var/log/app.log
 
 VOLUME /var/www

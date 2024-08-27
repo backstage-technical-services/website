@@ -37,7 +37,7 @@ return [
             'driver' => 'monolog',
             'handler' => StreamHandler::class,
             'with' => [
-                'stream' => storage_path('logs/laravel.log'),
+                'stream' => '/var/log/app.log',
             ],
             'formatter' => MonologLogFmtFormatter::class,
         ],
@@ -51,12 +51,12 @@ return [
         ],
         'single'   => [
             'driver' => 'single',
-            'path'   => storage_path('logs/laravel.log'),
+            'path'   => '/var/log/app.log',
             'level'  => 'debug',
         ],
         'daily'    => [
             'driver' => 'daily',
-            'path'   => storage_path('logs/laravel.log'),
+            'path'   => '/var/log/app.log',
             'level'  => 'debug',
             'days'   => 7,
         ],
