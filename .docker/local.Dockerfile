@@ -37,7 +37,6 @@ RUN mkdir -p \
     /usr/local/etc/php
 RUN chown -R www-data:www-data \
     /etc/nginx \
-    /var/lib/nginx \
     /var/log/nginx \
     /usr/lib/nginx \
     /run/nginx \
