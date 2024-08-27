@@ -179,7 +179,7 @@ function _update() {
 }
 
 function _logs() {
-    tail -f "${rootDir}/storage/logs/laravel.log"
+  docker compose logs -f site
 }
 
 readonly cmd="${1}"
