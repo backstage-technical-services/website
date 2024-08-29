@@ -36,7 +36,6 @@ class MonologLogFmtFormatter extends NormalizerFormatter
         $vars = parent::format($record);
 
         $pairs = [
-            'service' => 'php',
             $this->timeKey => $vars['datetime'],
             $this->lvlKey => strtolower($vars['level_name']),
             $this->msgKey => $vars['message']
