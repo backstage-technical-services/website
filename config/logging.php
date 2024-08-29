@@ -31,17 +31,9 @@ return [
     'channels' => [
         'stack'    => [
             'driver'   => 'stack',
-            'channels' => ['monolog', 'stdout', 'bugsnag'],
+            'channels' => ['monolog', 'bugsnag'],
         ],
         'monolog' => [
-            'driver' => 'monolog',
-            'handler' => StreamHandler::class,
-            'with' => [
-                'stream' => '/var/log/app.log',
-            ],
-            'formatter' => MonologLogFmtFormatter::class,
-        ],
-        'stdout' => [
             'driver' => 'monolog',
             'handler' => StreamHandler::class,
             'with' => [

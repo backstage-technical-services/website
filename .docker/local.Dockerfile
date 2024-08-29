@@ -43,7 +43,6 @@ RUN chown -R www-data:www-data \
     /var/tmp/nginx \
     /usr/local/lib/php \
     /usr/local/etc/php/ \
-    /usr/local/etc/php* \
-    /var/log/app.log
+    /usr/local/etc/php*
 
 VOLUME /var/www
