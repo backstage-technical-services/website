@@ -6,7 +6,7 @@ networks:
 
 services:
   database:
-    image: mariadb:10.2
+    image: mariadb:10.4
     container_name: bts-v4-database
     networks:
       - main
