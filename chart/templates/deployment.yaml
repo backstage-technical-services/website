@@ -27,7 +27,7 @@ spec:
             - name: APP_DEBUG
               value: 'false'
             - name: APP_URL
-              value: https://{{ .Values.domain }}
+              value: https://{{ index .Values.domains 0 }}
             - name: LOG_CHANNEL
               value: {{ .Values.logging.driver }}
             - name: DB_CONNECTION
