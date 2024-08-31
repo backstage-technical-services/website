@@ -59,7 +59,13 @@ spec:
             - name: MAIL_FROM_NAME
               value: Backstage Website
             - name: GOOGLE_ANALYTICS_CODE
-              value: UA-150311689-1
+              value: {{ index .Values "google-analytics-code" }}
+            - name: FINANCE_DB_ADD_URL
+              value: https://bts-finance.co.uk/events.json
+            - name: FINANCE_DB_EM_URL
+              value: https://bts-finance.co.uk/emfinance/
+            - name: BACKUP_DIRECTORY
+              value: backups
             - name: LINK_EVENT_RA
               value: https://docs.google.com/forms/d/e/1FAIpQLSdvaBOleqmMPlVjoKsMpIcwzyJHWUNiNoI_a5d0PT_mLF_xyQ/viewform
             - name: LINK_EVENT_REPORT

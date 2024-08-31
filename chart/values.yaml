@@ -10,3 +10,5 @@ smtp:
 
 logging:
   driver: monolog
+
+google-analytics-code: ''
