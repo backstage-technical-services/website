@@ -43,9 +43,9 @@ jobs:
           environment: staging
           sha: ${{ github.sha }}
 
-  production:
+  prod:
     runs-on: ubuntu-latest
-    environment: production
+    environment: prod
     needs: [push-image, staging]
     steps:
       - uses: actions/checkout@v4
@@ -53,5 +53,5 @@ jobs:
         with:
           k3s-url: ${{ vars.K3S_URL }}
           k3s-secret: ${{ secrets.K3S_SERVICE_ACCOUNT_SECRET }}
-          environment: production
+          environment: prod
           sha: ${{ github.sha }}
