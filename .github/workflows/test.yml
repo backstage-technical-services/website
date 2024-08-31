@@ -9,15 +9,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: kirschbaumdevelopment/laravel-test-runner:8.0
+      image: kirschbaumdevelopment/laravel-test-runner:8.2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Install OS dependencies
         run: |
           apt-get update -y
-          apt-get install -y php8.0-xdebug
+          apt-get install -y php8.2-xdebug
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Install JS dependencies
@@ -27,12 +27,13 @@ jobs:
           cp .env.example .env
           php artisan key:generate
       - name: Run tests
+        env:
+          XDEBUG_MODE: coverage
         run: |
-          export XDEBUG_MODE=coverage
           ./vendor/bin/phpunit \
             --log-junit tests/results/junit.xml \
             --coverage-clover tests/results/coverage.xml
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: tests/results

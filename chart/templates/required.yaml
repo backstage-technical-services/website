@@ -1,0 +1,3 @@
+{{- $_ := required "environment is a required value" .Values.environment }}
+{{- $_ := required "domain is a required value" .Values.domain }}
+{{- $_ := required "image.tag is a required value" .Values.image.tag }}

@@ -1,4 +1,8 @@
 <?php
+
+use App\Helpers\MonologLogFmtFormatter;
+use Monolog\Handler\StreamHandler;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -31,20 +35,20 @@ return [
         ],
         'monolog' => [
             'driver' => 'monolog',
-            'handler' => Monolog\Handler\StreamHandler::class,
-            'handler_with' => [
-                'stream'   => storage_path('logs/laravel.log'),
+            'handler' => StreamHandler::class,
+            'with' => [
+                'stream' => 'php://stdout',
             ],
-            'formatter' => Monolog\Formatter\LineFormatter::class
+            'formatter' => MonologLogFmtFormatter::class,
         ],
         'single'   => [
             'driver' => 'single',
-            'path'   => storage_path('logs/laravel.log'),
+            'path'   => '/var/log/app.log',
             'level'  => 'debug',
         ],
         'daily'    => [
             'driver' => 'daily',
-            'path'   => storage_path('logs/laravel.log'),
+            'path'   => '/var/log/app.log',
             'level'  => 'debug',
             'days'   => 7,
         ],

@@ -1,4 +1,4 @@
-FROM ghcr.io/backstage-technical-services/php-docker:8.0 AS builder
+FROM ghcr.io/backstage-technical-services/php-docker:8.2 AS builder
 
 USER root
 
@@ -19,7 +19,7 @@ RUN composer install --prefer-dist --no-dev --no-scripts
 RUN yarn install \
     && yarn run production
 
-FROM ghcr.io/backstage-technical-services/php-docker:8.0
+FROM ghcr.io/backstage-technical-services/php-docker:8.2
 
 # Copy the source code
 COPY --chown=www-data:www-data . .
@@ -32,3 +32,9 @@ COPY --chown=www-data:www-data --from=builder /var/www/vendor/ ./vendor/
 VOLUME /var/www/public/images/profiles
 VOLUME /var/www/resources/resources
 VOLUME /var/www/resources/elections
+
+# Configure the entrypoint
+COPY --chown=www-data:www-data .docker/bin/entrypoint.sh /usr/local/bin/entrypoint
+RUN chmod +x /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
+CMD ["supervisord", "-n", "-c", "/etc/supervisord.conf"]

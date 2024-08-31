@@ -6,49 +6,52 @@ on:
       - main
 
 jobs:
+  push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up builder
+        run: |
+          docker buildx create \
+            --name container \
+            --driver docker-container
+      - name: Log into the registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+      - name: Build and push image
+        run: |
+          docker buildx build \
+            --builder container \
+            --platform linux/amd64,linux/arm64 \
+            -f .docker/prod.Dockerfile \
+            -t ghcr.io/${{ github.repository }}:${{ github.sha }} \
+            --push \
+            .
+
   staging:
     runs-on: ubuntu-latest
     environment: staging
+    needs: [push-image]
     steps:
-      - uses: actions/checkout@v3
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_KEY_PUBLIC }}" > ~/.ssh/id_rsa.pub
-          chmod 600 ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa.pub
-      - name: Deploy
-        run: |
-          ssh-keyscan -H ${{ vars.SSH_SERVER }} >> ~/.ssh/known_hosts
-          scp scripts/deploy.sh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }}:/var/www/${{ vars.SITE_ROOT }}/deploy.sh
-                      ssh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }} "
-                        /var/www/${{ vars.SITE_ROOT }}/deploy.sh \
-                          ${{ github.server_url }}/${{ github.repository }}.git \
-                          ${{ github.sha }} \
-                          ${{ vars.SITE_ROOT }}
-                      "
-  production:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/helm-deploy
+        with:
+          k3s-url: ${{ vars.K3S_URL }}
+          k3s-secret: ${{ secrets.K3S_SERVICE_ACCOUNT_SECRET }}
+          environment: staging
+          sha: ${{ github.sha }}
+
+  prod:
     runs-on: ubuntu-latest
-    environment: production
-    needs:
-      - staging
+    environment: prod
+    needs: [push-image, staging]
     steps:
-      - uses: actions/checkout@v3
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY_PRIVATE }}" > ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_KEY_PUBLIC }}" > ~/.ssh/id_rsa.pub
-          chmod 600 ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa.pub
-      - name: Deploy
-        run: |
-          ssh-keyscan -H ${{ vars.SSH_SERVER }} >> ~/.ssh/known_hosts
-          scp scripts/deploy.sh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }}:/var/www/${{ vars.SITE_ROOT }}/deploy.sh
-                      ssh ${{ secrets.SSH_USER }}@${{ vars.SSH_SERVER }} "
-                        /var/www/${{ vars.SITE_ROOT }}/deploy.sh \
-                          ${{ github.server_url }}/${{ github.repository }}.git \
-                          ${{ github.sha }} \
-                          ${{ vars.SITE_ROOT }}
-                      "
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/helm-deploy
+        with:
+          k3s-url: ${{ vars.K3S_URL }}
+          k3s-secret: ${{ secrets.K3S_SERVICE_ACCOUNT_SECRET }}
+          environment: prod
+          sha: ${{ github.sha }}

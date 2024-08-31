@@ -1,0 +1,80 @@
+name: Validate Chart
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'chart/**/*'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [staging, prod]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.22
+      - run: go install github.com/yannh/kubeconform/cmd/kubeconform@v0.6.7
+      - id: lint
+        name: lint
+        uses: mathiasvr/command-output@v2.0.0
+        with:
+          run: |
+            helm lint chart \
+              -f chart/${{ matrix.environment }}-values.yaml \
+              --set image.tag="${{ github.sha }}"
+      - id: template
+        name: template
+        uses: mathiasvr/command-output@v2.0.0
+        with:
+          run: |
+            helm template website-v4 chart \
+              -n backstage \
+              -f chart/${{ matrix.environment }}-values.yaml \
+              --set image.tag="${{ github.sha }}"
+      - id: validate
+        name: validate
+        uses: mathiasvr/command-output@v2.0.0
+        with:
+          run: echo "${{ steps.template.outputs.stdout }}" | kubeconform -summary -ignore-missing-schemas
+      - name: post comment
+        if: always()
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            # helm chart: `${{ matrix.environment }}`
+            
+            <details>
+            <summary>${{ steps.lint.outcome == 'success' && '🟢' || '🔴' }} <strong>lint</strong></summary>
+            
+            
+            ```text
+            ${{ steps.lint.outputs.stdout }}
+            ${{ steps.lint.outputs.stderr }}
+            ```
+            </details>
+            
+            <details>
+            <summary>${{ steps.template.outcome == 'success' && '🟢' || '🔴' }} <strong>template</strong></summary>
+
+            ```yaml
+            ${{ steps.template.outputs.stdout }}
+            ${{ steps.template.outputs.stderr }}
+            ```
+            </details>
+            
+            <details>
+            <summary>${{ steps.validate.outcome == 'success' && '🟢' || '🔴' }} <strong>validate</strong></summary>
+
+            ```text
+            ${{ steps.validate.outputs.stdout }}
+            ${{ steps.validate.outputs.stderr }}
+            ```
+            </details>
+          comment_tag: chart-${{ matrix.environment }}
+          mode: upsert

@@ -101,7 +101,7 @@ function _rebuild() {
 
 function _exec() {
   _requireRunning
-  _docker exec site "$@"
+  _docker exec --user www-data:www-data site "$@"
 }
 
 function _composer() {
@@ -179,7 +179,7 @@ function _update() {
 }
 
 function _logs() {
-    tail -f "${rootDir}/storage/logs/laravel.log"
+  docker compose logs -f site
 }
 
 readonly cmd="${1}"

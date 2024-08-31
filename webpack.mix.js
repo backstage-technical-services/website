@@ -69,6 +69,7 @@ mix
         'resources/assets/js/app/ajax_toggle.js',
         'resources/assets/js/app/clipboard.js',
         'resources/assets/js/app/cookies.js',
+        'resources/assets/js/app/modals.js',
         'packages/WebDevTools/assets/js/forms.js',
         'packages/WebDevTools/assets/js/modals.js',
         'packages/WebDevTools/assets/js/plugins/ApplyDatetimePicker/auto-init.js',

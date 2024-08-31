@@ -125,15 +125,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Define the attributes which should be provided as Carbon dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'dob',
-    ];
-
-    /**
      * Define variable types to cast some attributes to.
      *
      * @var array
@@ -144,6 +135,7 @@ class User extends Authenticatable
         'show_address'      => 'boolean',
         'show_age'          => 'boolean',
         'diary_preferences' => 'array',
+        'dob'               => 'datetime',
     ];
 
     /**

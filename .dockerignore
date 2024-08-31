@@ -18,3 +18,5 @@ bootstrap/cache/*.php
 !package.json
 !webpack.mix.js
 !yarn.lock
+!.docker/bin/*
+!.docker/conf.d/*

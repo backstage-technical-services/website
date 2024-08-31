@@ -1,0 +1,4 @@
+environment: staging
+domain: staging.bts-crew.com
+
+google-analytics-code: UA-150311689-1

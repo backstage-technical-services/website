@@ -1,4 +1,4 @@
-FROM ghcr.io/backstage-technical-services/php-docker:8.0
+FROM ghcr.io/backstage-technical-services/php-docker:8.2
 
 ARG USER_ID
 ARG GROUP_ID
@@ -37,7 +37,6 @@ RUN mkdir -p \
     /usr/local/etc/php
 RUN chown -R www-data:www-data \
     /etc/nginx \
-    /var/lib/nginx \
     /var/log/nginx \
     /usr/lib/nginx \
     /run/nginx \

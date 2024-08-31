@@ -39,13 +39,13 @@ class Application extends Model
     ];
 
     /**
-     * The attributes that should be Carbon instances.
+     * Define variable types to cast some attributes to.
      *
      * @var array
      */
-    protected $dates = [
-        'date',
-        'awarded_date',
+    protected $casts = [
+        'date'         => 'datetime',
+        'awarded_date' => 'datetime',
     ];
 
     /**

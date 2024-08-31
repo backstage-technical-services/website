@@ -1,0 +1,11 @@
+environment: prod
+domain: bts-crew.com
+
+smtp:
+  host: smtp.gmail.com
+  port: 587
+
+logging:
+  driver: stack
+
+google-analytics-code: UA-150311689-2
