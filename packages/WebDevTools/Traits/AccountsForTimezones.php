@@ -49,7 +49,7 @@ trait AccountsForTimezones
         if (function_exists('request') && function_exists('session')) {
             $request = request();
             session([
-                'tz_correction' => $request->has('TZ-OFFSET') ? $request->get('TZ-OFFSET') : $request->header('TZ-OFFSET'),
+                'tz_correction' => $request->has('TZ-OFFSET') ? (float)$request->get('TZ-OFFSET') : (float)$request->header('TZ-OFFSET'),
             ]);
         }
     }
@@ -67,11 +67,11 @@ trait AccountsForTimezones
             $session = session();
 
             if ($request->has('TZ-OFFSET')) {
-                return $request->get('TZ-OFFSET');
+                return (float)$request->get('TZ-OFFSET');
             } else if ($request->header('TZ-OFFSET')) {
-                return $request->header('TZ-OFFSET');
+                return (float)$request->header('TZ-OFFSET');
             } else if ($session->has('tz_correction')) {
-                return $session->get('tz_correction');
+                return (float)$session->get('tz_correction');
             }
         }
 
