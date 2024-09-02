@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class QuoteService
 {
@@ -54,6 +55,8 @@ class QuoteService
             throw new ResourceNotCreatedException('Could not create quote');
         }
 
+        Log::info("User {$request->user()->id} created quote with ID {$quote->id}");
+
         return $quote;
     }
 
@@ -71,6 +74,9 @@ class QuoteService
         if (!Quote::where('id', $quoteId)->exists()) {
             throw new ModelNotFoundException(sprintf("Could not find quote with ID %s", $quoteId));
         }
+
+        $userId = request()->user()->id;
+        Log::info("User $userId deleted quote with ID $quoteId");
 
         Quote::destroy($quoteId);
     }
