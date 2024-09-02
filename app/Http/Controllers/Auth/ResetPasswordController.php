@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Logger;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -39,8 +40,10 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetResponse(Request $request, $response)
     {
+        $userId = $this->guard()->user()->id;
+        Log::info("User $userId has reset their password");
+        Logger::log('auth.reset-password', true, ['user_id' => $userId]);
         Notify::success('Password reset');
-        Logger::log('auth.reset-password', true, ['user_id' => $this->guard()->user()->id]);
         return $this->traitSendResetResponse($request, $response);
     }
 }

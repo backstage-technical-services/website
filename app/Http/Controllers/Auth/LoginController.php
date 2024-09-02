@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Logger;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -84,6 +85,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+        Log::info("User {$user->id} logged in");
         Logger::log('auth.login');
         Notify::success('Logged in');
     }
@@ -98,6 +100,7 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
+        Log::warning("Failed log in attempt for {$request->get('username')}");
         Logger::log('auth.login', false, $request->only('username'));
         return $this->traitSendFailedLoginResponse($request);
     }
@@ -111,8 +114,12 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        Logger::log('auth.logout');
-        Notify::success('Logged out');
+        if (auth()->check()) {
+            Log::info("User {$request->user()->id} logged out");
+            Logger::log('auth.logout');
+            Notify::success('Logged out');
+        }
+
         return $this->traitLogout($request);
     }
 }
