@@ -813,7 +813,7 @@ class Event extends Model
      */
     public function addToFinanceDb()
     {
-        if ($this->type == static::TYPE_EVENT && app()->environment('production')) {
+        if ($this->type == static::TYPE_EVENT && app()->environment('prod')) {
             $fields       = [
                 'data[Event][event_name]'  => $this->name,
                 'data[Event][start_date]'  => Carbon::createFromFormat('d/m/Y', $this->start_date)->format('d-m-Y'),
