@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Package\WebDevTools\Laravel\Traits\ChecksIfJoined;
 use Package\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
 use Package\WebDevTools\Laravel\Traits\ValidatableModel;
@@ -813,24 +814,35 @@ class Event extends Model
      */
     public function addToFinanceDb()
     {
-        if ($this->type == static::TYPE_EVENT && app()->environment('prod')) {
-            $fields       = [
-                'data[Event][event_name]'  => $this->name,
-                'data[Event][start_date]'  => Carbon::createFromFormat('d/m/Y', $this->start_date)->format('d-m-Y'),
-                'data[Event][end_date]'    => Carbon::createFromFormat('d/m/Y', $this->end_date)->format('d-m-Y'),
-                'data[Event][verified]'    => 0,
-                'data[Event][bts_crew_id]' => $this->id,
-            ];
-            $field_string = http_build_query($fields);
-
-            // Send the data using cURL
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, config('bts.finance_db.url'));
-            curl_setopt($ch, CURLOPT_POST, count($fields));
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $field_string);
-            curl_exec($ch);
-            curl_close($ch);
+        if (!app()->environment('prod')) {
+            Log::debug("Not sending event {$this->id} to finance database as environment is " . app()->environment());
+            return false;
         }
+
+        if ($this->type !== static::TYPE_EVENT) {
+            Log::debug("Not sending event {$this->id} to finance database as type is '{$this->type_string}'");
+            return false;
+        }
+
+        $fields       = [
+            'data[Event][event_name]'  => $this->name,
+            'data[Event][start_date]'  => Carbon::createFromFormat('d/m/Y', $this->start_date)->format('d-m-Y'),
+            'data[Event][end_date]'    => Carbon::createFromFormat('d/m/Y', $this->end_date)->format('d-m-Y'),
+            'data[Event][verified]'    => 0,
+            'data[Event][bts_crew_id]' => $this->id,
+        ];
+        $field_string = http_build_query($fields);
+
+        // Send the data using cURL
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, config('bts.finance_db.url'));
+        curl_setopt($ch, CURLOPT_POST, count($fields));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $field_string);
+        curl_exec($ch);
+        curl_close($ch);
+
+        Log::info("Sent event {$this->id} to finance database");
+        return true;
     }
 
     /**

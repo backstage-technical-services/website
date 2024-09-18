@@ -317,7 +317,7 @@ class CrewController extends Controller
             return $this->ajaxError(0, 401, 'You can\'t unvolunteer from a social.');
         }
 
-        Log::debug("Unvolunteering user {$request->user()->id} from event $event->id.");
+        Log::info("Unvolunteering user {$request->user()->id} from event {$event->id}.");
 
         // Delete all crew entries
         $event->crew()

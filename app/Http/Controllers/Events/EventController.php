@@ -13,7 +13,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Package\Notifications\Facades\Notify;
@@ -102,6 +104,7 @@ class EventController extends Controller
             ],
             'production_charge' => clean($request->get('production_charge')),
         ]);
+        Log::debug("Created event {$event->id}: " . json_encode($request->only('name', 'venue', 'type', 'production_charge')));
 
         // Set the event time limits
         $start_time = explode(':', $request->get('time_start'));
@@ -110,13 +113,18 @@ class EventController extends Controller
                             ->setTime(0, 0, 0);
         $date_end   = Carbon::createFromFormat('Y-m-d', $request->has('one_day') ? $request->get('date_start') : $request->get('date_end'))
                             ->setTime(23, 59, 59);
+        Log::debug("Event {$event->id} starts {$date} and ends {$date_end}");
 
         // Create each event time
         while ($date->lte($date_end)) {
+            $start = $date->copy()->setTime($start_time[0], $start_time[1]);
+            $end = $date->copy()->setTime($end_time[0], $end_time[1]);
+            Log::debug("Creating event time (start = $start, end = $end) on $date for event {$event->id}");
+
             $event->times()->create([
                 'name'  => $event->name,
-                'start' => $date->copy()->setTime($start_time[0], $start_time[1]),
-                'end'   => $date->copy()->setTime($end_time[0], $end_time[1]),
+                'start' => $start,
+                'end'   => $end,
             ]);
             $date->day++;
         }
@@ -128,11 +136,12 @@ class EventController extends Controller
         if ($event->client_type > 1 && $event->venue_type == 2) {
             Mail::to(config('bts.emails.events.accepted_external.to'))
                 ->queue(new AcceptedExternal($event, $request));
+            Log::info("Sent email notifying of new external off-campus event {$event->id}");
         }
-
 
         // Create a flash message and redirect
         Notify::success('Event created');
+        Log::info("User " . request()->user()->id . " created event {$event->id}");
 
         if ($request->get('action') == 'create-another') {
             return redirect()->back();
@@ -181,6 +190,7 @@ class EventController extends Controller
         $this->authorize('update', $event);
 
         $action = $request->get('action');
+        Log::debug("Processing update request '$action' for event $eventId");
         if ($action == 'update') {
             return $this->updateDetails($event, $request);
         } else if (preg_match('/^clear-crew:(.*)$/', $action, $matches)) {
@@ -203,23 +213,20 @@ class EventController extends Controller
     private function updateClearCrew(Event $event, $mode)
     {
         if ($mode == 'all') {
-            $event->crew()
-                  ->delete();
+            $event->crew()->delete();
+            Log::info("User " . request()->user()->id . " cleared crew list for event {$event->id}");
             Notify::success('Crew list cleared');
         } else if ($mode == 'general') {
-            $event->crew()
-                  ->general()
-                  ->delete();
+            $event->crew()->general()->delete();
+            Log::info("User " . request()->user()->id . " cleared general crew for event {$event->id}");
             Notify::success('General crew cleared');
         } else if ($mode == 'core') {
-            $event->crew()
-                  ->core()
-                  ->delete();
+            $event->crew()->core()->delete();
+            Log::info("User " . request()->user()->id . " cleared core crew for event {$event->id}");
             Notify::success('Core crew cleared');
         } else if ($mode == 'guests' && $event->isSocial()) {
-            $event->crew()
-                  ->guest()
-                  ->delete();
+            $event->crew()->guest()->delete();
+            Log::info("User " . request()->user()->id . " cleared guests from event {$event->id}");
             Notify::success('Guests cleared');
         }
 
@@ -270,11 +277,13 @@ class EventController extends Controller
 
         // If the event is no longer a social, remove any guests
         if ($event->type != Event::TYPE_SOCIAL) {
+            Log::debug("Event {$event->id} has been changed to a non-social so clearing any guests");
             $event->crew()
                   ->guest()
                   ->delete();
         }
 
+        Log::info("User " . request()->user()->id . " updated event {$event->id}");
         Notify::success('Event updated');
         return redirect()->route('event.view', ['id' => $event->id, 'tab' => 'settings']);
     }
@@ -295,6 +304,7 @@ class EventController extends Controller
         }
 
         $event->setPaperwork($paperwork, $value);
+        Log::info("User " . request()->user()->id . " set paperwork '$paperwork' for event {$event->id} to '$value'");
         return $this->ajaxResponse('Paperwork status updated');
     }
 
@@ -315,6 +325,7 @@ class EventController extends Controller
              ->delete();
 
         Notify::success('Event deleted.');
+        Log::info("User " . request()->user()->id . " deleted event $eventId");
         return $this->ajaxResponse('Event deleted.');
     }
 
@@ -387,7 +398,7 @@ class EventController extends Controller
      * @param                          $eventId
      * @param Request $request
      *
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function sendFinanceEmail($eventId, Request $request)
     {
@@ -399,12 +410,14 @@ class EventController extends Controller
                 Mail::to($event->em->email, $event->em->name)
                     ->queue(new FinanceEmail($request, $event));
 
+                Log::info("Sent finance email for event $eventId: " . json_encode($request));
                 return response()->json(['code' => 200, 'result' => 'success']);
             } else {
                 return response()->json(['code' => '500', 'result' => 'Event not found or no EM assigned'], 500);
             }
         } else {
-            return response()->json(['code' => 500, 'result' => 'Incorrect key'], 500);
+            Log::warning("Received request to send finance email for event $eventId but key was invalid");
+            return response()->noContent(403);
         }
     }
 }
