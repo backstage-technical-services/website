@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\AccidentRequest;
 use App\Mail\Contact\AccidentReport;
 use App\Mail\Contact\AccidentReportReceipt;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -58,6 +59,7 @@ class AccidentController extends Controller
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
             ->queue(new AccidentReportReceipt($request->all()));
 
+        Log::info("Accident has been reported for location '{$request->get('location')}' at {$request->get('date_formatted')}");
         Notify::success('Thank you for reporting the accident');
         return redirect()->route('home');
     }
