@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Awards;
 use App\Http\Controllers\Controller;
 use App\Models\Awards\Award;
 use App\Models\Awards\Season;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,8 @@ class SeasonController extends Controller
         // Create the season
         $season = Season::create(clean($request->only('name')) + ['status' => $request->get('status') ?: null]);
         $season->awards()->sync($request->get('awards') ?: []);
+
+        Log::info("User {$request->user()->id} created award season {$season->id} ({$season->name})");
 
         Notify::success('Award season created');
         return $this->ajaxResponse('Award season created');
@@ -88,6 +91,8 @@ class SeasonController extends Controller
         // Update
         $season->update(clean($request->only('name')) + ['status' => $request->get('status') ?: null]);
 
+        Log::info("User {$request->user()->id} updated award season $id");
+
         Notify::success('Award season updated');
         return $this->ajaxResponse('Award season updated');
     }
@@ -118,6 +123,8 @@ class SeasonController extends Controller
             'status' => $status === $season->status ? null : $status,
         ]);
 
+        Log::info("User {$request->user()->id} updated the status of award season $id to '{$season->status}'");
+
         Notify::success('Status updated');
         return $this->ajaxResponse(true);
     }
@@ -146,17 +153,31 @@ class SeasonController extends Controller
         // Process each award in turn
         $successful = 0;
         foreach ($awards as $awardId => $nominationId) {
+            Log::withContext(['award' => $awardId, 'nomination' => $nominationId, 'season' => $id]);
+            Log::debug("Processing vote for user {$request->user()->id}");
             $nomination = $season->nominations()->find($nominationId);
             $award      = Award::find($awardId);
 
-            // Only process if both the award and nomination are found and the user hasn't already voted
-            if ($award && $nomination && !$award->userHasVoted($season, $request->user())) {
-                if ($nomination->votes()->create([
-                    'award_season_id' => $id,
-                    'user_id'         => $request->user()->id,
-                ])) {
-                    $successful++;
-                }
+            if (!$award) {
+                Log::warning("Cannot process vote for user {$request->user()->id} - award $awardId does not exist");
+                continue;
+            }
+
+            if (!$nomination) {
+                Log::warning("Cannot process vote for user {$request->user()->id} - nomination $nominationId does not exist for season $id");
+                continue;
+            }
+
+            if ($award->userHasVoted($season, $request->user())) {
+                Log::debug("User {$request->user()->id} has already voted for award season $id");
+                continue;
+            }
+
+            if ($nomination->votes()->create(['award_season_id' => $id, 'user_id' => $request->user()->id])) {
+                Log::info("Recorded vote for user {$request->user()->id} on award season $id");
+                $successful++;
+            } else {
+                Log::warning("Failed to record vote for user {$request->user()->id}");
             }
         }
 
@@ -186,6 +207,9 @@ class SeasonController extends Controller
         $this->authorize('delete', $season);
 
         $season->delete();
+
+        Log::info("User " . request()->user()->id . " deleted award season $id");
+
         Notify::success('Award season deleted');
         return $this->ajaxResponse('Award season deleted');
     }
