@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\FeedbackRequest;
 use App\Mail\Contact\Feedback;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
@@ -35,6 +36,7 @@ class FeedbackController extends Controller
             ->queue(new Feedback($request->all()));
         Notify::success('Thank you for providing feedback');
 
+        Log::info("Feedback has been sent");
         return redirect()->route('home');
     }
 }
