@@ -19,4 +19,4 @@ bootstrap/cache/*.php
 !webpack.mix.js
 !yarn.lock
 !.docker/bin/*
-!.docker/conf.d/*
+!.docker/supervisor.d

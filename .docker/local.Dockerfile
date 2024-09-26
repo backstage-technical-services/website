@@ -25,6 +25,9 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
     adduser -D -u ${USER_ID} -G www-data www-data \
 ;fi
 
+# Copy the additional supervisor config
+COPY .docker/supervisor.d /etc/supervisor.d
+
 # Fix permissions for all nginx/PHP directories
 RUN mkdir -p \
     /etc/nginx \
@@ -43,6 +46,7 @@ RUN chown -R www-data:www-data \
     /var/tmp/nginx \
     /usr/local/lib/php \
     /usr/local/etc/php/ \
-    /usr/local/etc/php*
+    /usr/local/etc/php* \
+    /etc/supervisor.d
 
 VOLUME /var/www
