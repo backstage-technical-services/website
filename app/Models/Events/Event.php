@@ -819,7 +819,7 @@ class Event extends Model
             return false;
         }
 
-        if ($this->type !== static::TYPE_EVENT) {
+        if ($this->type != static::TYPE_EVENT) {
             Log::debug("Not sending event {$this->id} to finance database as type is '{$this->type_string}'");
             return false;
         }
