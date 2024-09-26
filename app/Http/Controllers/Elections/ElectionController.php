@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ElectionRequest;
 use App\Models\Committee\Role;
 use App\Models\Elections\Election;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -92,8 +93,10 @@ class ElectionController extends Controller
             ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
         )); /* @var Election $election */
         File::makeDirectory($election->getManifestoPath(), 0775, true);
-        Notify::success('Election created');
 
+        Log::info("User {$request->user()->id} created election {$election->id}");
+
+        Notify::success('Election created');
         return redirect()->route('election.view', ['id' => $election->id]);
     }
 
@@ -136,6 +139,8 @@ class ElectionController extends Controller
             ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
         ));
 
+        Log::info("User {$request->user()->id} updated election $id");
+
         Notify::success('Election updated');
         return redirect()->route('election.view', ['id' => $id]);
     }
@@ -162,6 +167,7 @@ class ElectionController extends Controller
         $election->delete();
         File::deleteDirectory($election->getManifestoPath());
 
+        Log::info("User " . request()->user()->id . " deleted election $id");
         Notify::success('Election deleted');
         return $this->ajaxResponse(true);
     }
@@ -187,6 +193,7 @@ class ElectionController extends Controller
 
         // Check that voting has closed
         if (!$election->canModifyResults()) {
+            Log::debug("Cannot set the committee for election $id - voting has not yet closed");
             return $this->ajaxError('voting_open', 405, 'Voting has not yet closed.');
         }
 
@@ -202,8 +209,12 @@ class ElectionController extends Controller
         // Set those elected
         $elected = $request->get('elected') ?: [];
         foreach ($election->nominations as $nomination) {
-            $nomination->update(['elected' => in_array($nomination->id, $elected)]);
+            $update = ['elected' => in_array($nomination->id, $elected)];
+            Log::debug("Updating nomination {$nomination->id} for election $id to " . json_encode($update));
+            $nomination->update($update);
         }
+
+        Log::info("User " . request()->user()->id . " set the committee for election $id");
 
         Notify::success('Committee saved');
         return $this->ajaxResponse(true);
