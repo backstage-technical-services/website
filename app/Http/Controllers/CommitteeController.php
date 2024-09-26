@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommitteeRequest;
 use App\Models\Committee\Role;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 
@@ -44,13 +45,15 @@ class CommitteeController extends Controller
         $order = $this->verifyRoleOrder($request->get('order'));
 
         // Create the new role
-        Role::create([
+        $role = Role::create([
             'name'        => clean($request->name),
             'email'       => clean($request->email),
             'description' => clean($request->description),
             'user_id'     => $request->user_id ?? null,
             'order'       => $order,
         ]);
+
+        Log::info("User {$request->user()->id} created committee role {$role->id}");
 
         // Flash message
         Notify::success('Committee role added');
@@ -88,6 +91,7 @@ class CommitteeController extends Controller
             'order'       => $order,
         ]);
 
+        Log::info("User {$request->user()->id} updated committee role {$role->id}");
         Notify::success("Role '{$role->name}' updated");
         return $this->ajaxResponse(true);
     }
@@ -112,6 +116,8 @@ class CommitteeController extends Controller
 
         // Delete the role
         $role->delete();
+
+        Log::info("User {$request->user()->id} deleted committee role {$role->id}");
         Notify::success('Committee role deleted');
         return $this->ajaxResponse(true);
     }
