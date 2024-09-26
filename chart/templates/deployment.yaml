@@ -21,55 +21,8 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "website-v4.fullname" . }}
-          env:
-            - name: APP_ENV
-              value: {{ .Values.environment }}
-            - name: APP_DEBUG
-              value: 'false'
-            - name: APP_URL
-              value: https://{{ index .Values.domains 0 }}
-            - name: LOG_CHANNEL
-              value: {{ .Values.logging.driver }}
-            - name: DB_CONNECTION
-              value: mysql
-            - name: DB_HOST
-              value: mariadb-10-4
-            - name: DB_PORT
-              value: '3306'
-            - name: DB_DATABASE
-              value: 'website_v4_{{ .Values.environment }}'
-            - name: BROADCAST_DRIVER
-              value: log
-            - name: CACHE_DRIVER
-              value: file
-            - name: SESSION_DRIVER
-              value: file
-            - name: QUEUE_DRIVER
-              value: database
-            - name: MAIL_DRIVER
-              value: smtp
-            - name: MAIL_HOST
-              value: {{ .Values.smtp.host }}
-            - name: MAIL_PORT
-              value: '{{ .Values.smtp.port }}'
-            - name: MAIL_ENCRYPTION
-              value: tls
-            - name: MAIL_FROM_ADDRESS
-              value: website@bts-crew.com
-            - name: MAIL_FROM_NAME
-              value: Backstage Website
-            - name: GOOGLE_ANALYTICS_CODE
-              value: {{ index .Values "google-analytics-code" }}
-            - name: FINANCE_DB_ADD_URL
-              value: https://bts-finance.co.uk/events.json
-            - name: FINANCE_DB_EM_URL
-              value: https://bts-finance.co.uk/emfinance/
-            - name: BACKUP_DIRECTORY
-              value: backups
-            - name: LINK_EVENT_RA
-              value: https://docs.google.com/forms/d/e/1FAIpQLSdvaBOleqmMPlVjoKsMpIcwzyJHWUNiNoI_a5d0PT_mLF_xyQ/viewform
-            - name: LINK_EVENT_REPORT
-              value: https://docs.google.com/a/bts-crew.com/forms/d/e/1FAIpQLSekw6oEojBdD1REd2krli3U-4BYWNG9zfThCmTJKc1A1OaR3g/viewform
+            - configMapRef:
+                name: {{ include "website-v4.fullname" . }}
           volumeMounts:
             - name: profiles
               mountPath: /var/www/public/images/profiles
