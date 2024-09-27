@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "website-v4.fullname" . }}
+  labels:
+      {{- include "website-v4.labels" . | nindent 4 }}
+data:
+  APP_ENV: '{{ .Values.environment }}'
+  APP_DEBUG: 'false'
+  APP_URL: 'https://{{ index .Values.domains 0 }}'
+  LOG_CHANNEL: '{{ .Values.logging.driver }}'
+  DB_CONNECTION: 'mysql'
+  DB_HOST: 'mariadb-10-4'
+  DB_PORT: '3306'
+  DB_DATABASE: 'website_v4_{{ .Values.environment }}'
+  BROADCAST_DRIVER: 'log'
+  CACHE_DRIVER: 'file'
+  SESSION_DRIVER: 'file'
+  QUEUE_DRIVER: 'database'
+  MAIL_DRIVER: 'smtp'
+  MAIL_HOST: '{{ .Values.smtp.host }}'
+  MAIL_PORT: '{{ .Values.smtp.port }}'
+  MAIL_ENCRYPTION: 'tls'
+  MAIL_FROM_ADDRESS: 'website@bts-crew.com'
+  MAIL_FROM_NAME: 'Backstage Website'
+  GOOGLE_ANALYTICS_CODE: '{{ index .Values "google-analytics-code" }}'
+  FINANCE_DB_ADD_URL: 'https://bts-finance.co.uk/events.json'
+  FINANCE_DB_EM_URL: 'https://bts-finance.co.uk/emfinance/'
+  BACKUP_DIRECTORY: 'backups'
+  LINK_EVENT_RA: 'https://docs.google.com/forms/d/e/1FAIpQLSdvaBOleqmMPlVjoKsMpIcwzyJHWUNiNoI_a5d0PT_mLF_xyQ/viewform'
+  LINK_EVENT_REPORT: 'https://docs.google.com/a/bts-crew.com/forms/d/e/1FAIpQLSekw6oEojBdD1REd2krli3U-4BYWNG9zfThCmTJKc1A1OaR3g/viewform'

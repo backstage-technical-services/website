@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "website-v4.fullname" . }}-scheduled-commands
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+spec:
+  schedule: '0/15 * * * *'
+  startingDeadlineSeconds: 15
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ include "website-v4.fullname" . }}-scheduled-commands
+          labels:
+            {{- include "website-v4.labels" . | nindent 12 }}
+        spec:
+          containers:
+            - name: app
+              image: 'ghcr.io/backstage-technical-services/website:{{ .Values.image.tag }}'
+              imagePullPolicy: IfNotPresent
+              command:
+                - /usr/local/bin/php
+              args:
+                - /var/www/artisan
+                - schedule:run
+              envFrom:
+                - secretRef:
+                    name: {{ include "website-v4.fullname" . }}
+                - configMapRef:
+                    name: {{ include "website-v4.fullname" . }}
+              volumeMounts:
+                - name: profiles
+                  mountPath: /var/www/public/images/profiles
+                - name: elections
+                  mountPath: /var/www/resources/elections
+                - name: resources
+                  mountPath: /var/www/resources/resources
+          restartPolicy: Never
+          volumes:
+            - name: profiles
+              hostPath:
+                path: /opt/data/backstage/website-v4/{{ .Values.environment }}/profiles
+            - name: elections
+              hostPath:
+                path: /opt/data/backstage/website-v4/{{ .Values.environment }}/elections
+            - name: resources
+              hostPath:
+                path: /opt/data/backstage/website-v4/{{ .Values.environment }}/resources
+          nodeSelector:
+            bnjns.uk/owner: backstage
+          tolerations:
+            - key: bnjns.uk/reserved-for
+              operator: Equal
+              value: backstage
+              effect: NoSchedule
