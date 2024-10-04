@@ -117,6 +117,7 @@ class SearchController extends Controller
         $query    = $request->get('query') ?: null;
         $category = $request->get('category') ?: null;
         $tags     = $request->get('tag') ?: [];
+        Log::debug("Parsing resource search: " . json_encode(compact('query', 'category', 'tags')));
 
         // Initialise the parsed array
         $params = ['query' => $query];
@@ -134,6 +135,7 @@ class SearchController extends Controller
         if(count($matches) > 0) {
             $params['category'] = $matches[1];
             $query              = trim(str_replace($matches[0], '', $query));
+            Log::debug("Found category {$matches[1]} in query. Query modified to: $query");
         }
 
         // Look for any tags in the query
@@ -142,12 +144,14 @@ class SearchController extends Controller
             foreach($matches[1] as $i => $tag) {
                 @$params['tag'][] = $tag;
                 $query = trim(str_replace($matches[0][$i], '', $query));
+                Log::debug("Found tag $tag in query. Query modified to: $query");
             }
         }
 
         // Set the query
         $params['query'] = $query;
 
+        Log::debug("Resource query parsed as: " . json_encode($params));
         return $params;
     }
 }

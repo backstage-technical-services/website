@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resources;
 use App\Http\Controllers\Controller;
 use App\Models\Resources\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Package\WebDevTools\Laravel\Traits\CreatesSlugs;
 
@@ -54,7 +55,9 @@ class CategoryController extends Controller
         );
 
         // Create
-        Category::create(clean($request->only($fields)));
+        $category = Category::create(clean($request->only($fields)));
+
+        Log::info("User {$request->user()->id} created resource category {$category->id}");
         Notify::success('Category created');
         return $this->ajaxResponse('Category created');
     }
@@ -89,6 +92,8 @@ class CategoryController extends Controller
 
         // Update
         $category->update(clean($request->only($fields)));
+
+        Log::info("User {$request->user()->id} updated resource category $id");
         Notify::success('Category updated');
         return $this->ajaxResponse('Category updated');
     }
@@ -109,6 +114,8 @@ class CategoryController extends Controller
 
         // Delete
         $category->delete();
+
+        Log::info("User " . request()->user()->id . " deleted resource category $id");
         Notify::success('Category deleted');
         return $this->ajaxResponse('Category deleted');
     }
