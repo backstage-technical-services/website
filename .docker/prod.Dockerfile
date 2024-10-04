@@ -21,6 +21,9 @@ RUN yarn install \
 
 FROM ghcr.io/backstage-technical-services/php-docker:8.2
 
+# Copy mariadb-client
+RUN apk add --no-cache mariadb-client
+
 # Copy the additional supervisor config
 COPY .docker/supervisor.d /etc/supervisor.d
 
