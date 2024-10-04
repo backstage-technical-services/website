@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resources;
 use App\Http\Controllers\Controller;
 use App\Models\Resources\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Package\WebDevTools\Laravel\Traits\CreatesSlugs;
 
@@ -54,7 +55,9 @@ class TagController extends Controller
         );
 
         // Create
-        Tag::create(clean($request->only($fields)));
+        $tag = Tag::create(clean($request->only($fields)));
+
+        Log::info("User {$request->user()->id} created resource tag {$tag->id}");
         Notify::success('Tag created');
         return $this->ajaxResponse('Tag created');
     }
@@ -89,6 +92,8 @@ class TagController extends Controller
 
         // Update
         $tag->update(clean($request->only($fields)));
+
+        Log::info("User {$request->user()->id} updated resource tag $id");
         Notify::success('Tag updated');
         return $this->ajaxResponse('Tag updated');
     }
@@ -109,6 +114,8 @@ class TagController extends Controller
 
         // Delete
         $tag->delete();
+
+        Log::info("User " . request()->user()->id . " deleted resource tag $id");
         Notify::success('Tag deleted');
         return $this->ajaxResponse('Tag deleted');
     }
