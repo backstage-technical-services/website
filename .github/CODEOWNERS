@@ -1,8 +1,8 @@
 * @backstage-technical-services/site-devs
 
 # Helm, k3s, etc
-/chart/ @bnjns
+/chart/ @backstage-technical-services/devops
 
 # Docker
-.docker/       @bnjns
-.dockerignore  @bnjns
+.docker/       @backstage-technical-services/devops
+.dockerignore  @backstage-technical-services/devops
