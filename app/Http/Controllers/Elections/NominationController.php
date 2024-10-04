@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Elections;
 use App\Http\Controllers\Controller;
 use App\Models\Elections\Election;
 use App\Models\Elections\Nomination;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -35,6 +36,7 @@ class NominationController extends Controller
 
         // Check that nominations are open
         if (!$election->canModifyNominations()) {
+            Log::debug("User {$request->user()->id} tried to add nomination for election $electionId but nominations are closed");
             return $this->ajaxError('nominations_closed', 405, 'Nominations are closed and so cannot be deleted.');
         }
 
@@ -60,6 +62,7 @@ class NominationController extends Controller
         $request->file('manifesto')
                 ->move($election->getManifestoPath(), $nomination->getManifestoName());
 
+        Log::info("User {$request->user()->id} created nomination {$nomination->id} for election $electionId");
         Notify::success('Nomination created');
         return $this->ajaxResponse(true);
     }
@@ -84,6 +87,7 @@ class NominationController extends Controller
         // Get the manifesto path
         $path = $nomination->getManifestoPath();
         if (!$nomination || !file_exists($path)) {
+            Log::error("Could not find manifesto for nomination $nominationId on election $id");
             app()->abort(404);
         }
 
@@ -116,6 +120,7 @@ class NominationController extends Controller
 
         // Check that nominations are open
         if (!$election->canModifyNominations()) {
+            Log::debug("User " . request()->user()->id . " tried to delete nomination $nominationId for election $id but nominations are closed");
             return $this->ajaxError('nominations_closed', 405, 'Nominations are closed and so cannot be deleted.');
         }
 
@@ -133,6 +138,8 @@ class NominationController extends Controller
         // Delete
         $nomination->delete();
         File::delete($nomination->getManifestoPath());
+
+        Log::info("User " . request()->user()->id . " deleted nomination $nominationId for election $id");
 
         Notify::success('Nomination deleted');
         return $this->ajaxResponse(true);

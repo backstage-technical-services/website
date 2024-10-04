@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\NearMissRequest;
 use App\Mail\Contact\NearMissReport;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
@@ -47,6 +48,7 @@ class NearMissController extends Controller
         Mail::to(config('bts.emails.safety.near_miss_reports'))
             ->queue(new NearMissReport($request));
 
+        Log::info("Near miss has been reported for location '{$request->get('location')}' on {$request->get('date')} at {$request->get('time')}");
         Notify::success('Thank you for reporting the near miss');
         return redirect()->route('home');
     }

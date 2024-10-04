@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Console\Commands\BackupDb;
 use App\Helpers\File;
+use App\Http\Requests\Request;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Laminas\Stdlib\Glob;
 use Package\Notifications\Facades\Notify;
@@ -81,15 +83,17 @@ class BackupController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function store($type)
+    public function store($type, Request $request)
     {
         $this->authorizeGate('admin');
         $this->requireAjax();
 
         if ($type == 'db') {
             Artisan::call(BackupDb::class);
+            Log::info("User {$request->user()->id} created database backup");
         } else if ($type == 'full') {
             Artisan::call(BackupCommand::class);
+            Log::info("User {$request->user()->id} created full backup");
         }
 
         Notify::success('Backup created');
@@ -116,6 +120,8 @@ class BackupController extends Controller
         }
 
         unlink($file);
+
+        Log::info("User " . request()->user()->id . " deleted backup $filename");
 
         Notify::success('Backup deleted');
         return $this->ajaxResponse(true);

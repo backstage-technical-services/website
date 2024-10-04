@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\EnquiryRequest;
 use App\Mail\Contact\Enquiry;
 use App\Mail\Contact\EnquiryReceipt;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
@@ -39,6 +40,7 @@ class EnquiryController extends Controller
         Mail::to($request->get('email'), $request->get('name'))
             ->queue(new EnquiryReceipt($data));
 
+        Log::info("General enquiry has been sent");
         Notify::success('Enquiry sent. You should receive a receipt soon.');
         return redirect()->route('home');
     }

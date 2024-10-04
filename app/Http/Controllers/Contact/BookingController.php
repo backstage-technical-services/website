@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\BookRequest;
 use App\Mail\Contact\Booking;
 use App\Mail\Contact\BookingReceipt;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class BookingController extends Controller
         Mail::to($request->get('contact_email'), $request->get('contact_name'))
             ->queue(new BookingReceipt($data));
 
+        Log::info("Booking request has been sent: " . json_encode($request->only('event_name', 'event_venue', 'event_dates')));
         Notify::success('Thank you for your booking. You should receive a receipt soon.');
         return redirect()->route('home');
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Equipment\RepairRequest;
 use App\Mail\Equipment\Breakage as BreakageEmail;
 use App\Models\Equipment\Breakage;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -72,6 +73,8 @@ class RepairsController extends Controller
                     'user_username' => $breakage->user->username,
                 ]));
 
+        Log::info("User {$request->user()->id} reported breakage for '{$request->get('name')}'");
+
         Notify::success('Breakage reported');
         return redirect()->route('equipment.repairs.index');
     }
@@ -106,15 +109,20 @@ class RepairsController extends Controller
 
         if ($request->get('action') == 'update') {
             $this->updateBreakageStatus($breakage, $request);
+
+            $statusString = Breakage::$Status[$request->get('status')];
+            Log::info("User {$request->user()->id} updated status of breakage $id to '$statusString'");
         } else if ($request->get('action') == 'close') {
             $breakage->update([
                 'closed' => true,
             ]);
+            Log::info("User {$request->user()->id} closed breakage $id");
             Notify::success('Breakage closed');
         } else if ($request->get('action') == 'reopen') {
             $breakage->update([
                 'closed' => false,
             ]);
+            Log::info("User {$request->user()->id} reopened breakage $id");
             Notify::success('Breakage re-opened');
         }
 

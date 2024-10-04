@@ -8,6 +8,7 @@ use App\Models\Resources\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\SearchTools;
 use Package\WebDevTools\Laravel\Traits\CorrectsPaginatorPath;
@@ -95,6 +96,7 @@ class ResourceController extends Controller
             ]);
         }
 
+        Log::info("User {$request->user()->id} created resource {$resource->id}");
         Notify::success('Resource created');
         return redirect()->route('resource.view', ['id' => $resource->id]);
     }
@@ -179,6 +181,7 @@ class ResourceController extends Controller
         $resource->tags()
                  ->sync($request->has('tags') ? $request->get('tags') : []);
 
+        Log::info("User {$request->user()->id} updated resource $id");
         Notify::success('Resource saved');
         return redirect()->route('resource.view', ['id' => $resource->id]);
     }
@@ -230,8 +233,9 @@ class ResourceController extends Controller
         ], ResourceRequest::FILE_MESSAGES + ['reason.required' => 'Please enter a reason for the new issue']);
 
         // Create the new issue
-        $resource->reissue($request->file('file'), $request->get('reason'));
+        $newIssue = $resource->reissue($request->file('file'), $request->get('reason'));
 
+        Log::info("User {$request->user()->id} created issue {$newIssue->issue} on resource $id");
         Notify::success('Issue submitted');
         return redirect()->route('resource.view', ['id' => $id]);
     }
@@ -269,6 +273,9 @@ class ResourceController extends Controller
         $this->authorize('delete', $resource);
 
         $resource->delete();
+
+        Log::info("User " . request()->user()->id . " deleted resource $id");
+
         Notify::success('Resource deleted');
         return $this->ajaxResponse('Resource deleted');
     }
