@@ -93,6 +93,8 @@ class CrewController extends Controller
 
         // Delete
         $crew->delete();
+
+        Log::info("User " . request()->user()->id . " removed crew $crewId from event $eventId");
         Notify::success($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
         return $this->ajaxResponse($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
     }
@@ -145,6 +147,7 @@ class CrewController extends Controller
 
         Logger::log('event-crew.create', true, $crew->getAttributes());
 
+        Log::info("User {$request->user()->id} added guest {$crew->id} to event {$event->id}");
         Notify::success('Guest added');
         return $this->ajaxResponse('Guest added');
     }
@@ -167,6 +170,7 @@ class CrewController extends Controller
 
         // Check the member doesn't already have the same crew role
         if ($event->crew()->where('user_id', $request->get('user_id'))->where('name', $request->get('name') ?: null)->count()) {
+            Log::debug("User {$request->user()->id} tried to add user {$request->get('user_id')} to event {$event->id} but they're already on the crew");
             return $this->ajaxError(0, 422, $user->forename . ' already has that crew role.');
         }
 
@@ -182,8 +186,10 @@ class CrewController extends Controller
         Logger::log('event-crew.create', true, $crew->getAttributes());
 
         // Send an email to the user
+        Log::debug("Sending email to notify user {$request->get('user_id')} they have been added to event {$event->id}");
         User::find($request->get('user_id'))->notify(new HasBeenVolunteered($event));
 
+        Log::info("User {$request->user()->id} added crew {$crew->id} to event {$event->id}");
         Notify::success('Member added to crew');
         return $this->ajaxResponse('Member added to crew');
     }
@@ -213,6 +219,7 @@ class CrewController extends Controller
         $crew->update([
             $field => $value,
         ]);
+        Log::info("User {$request->user()->id} updated field $field of crew {$crew->id} for event {$crew->event()->id}");
         return $this->ajaxResponse('Field updated');
     }
 
@@ -236,6 +243,7 @@ class CrewController extends Controller
             'guest_name' => clean($request->get('guest_name')),
         ]);
 
+        Log::info("User {$request->user()->id} updated guest {$crew->id} for event {$crew->event()->id}");
         Notify::success('Guest updated');
         return $this->ajaxResponse('Guest updated');
     }
@@ -261,6 +269,7 @@ class CrewController extends Controller
             'confirmed' => $crew->event->isTracked() ? $request->has('confirmed') : false,
         ]);
 
+        Log::info("User {$request->user()->id} updated crew {$crew->id} for event {$crew->event()->id}");
         Notify::success('Crew role updated');
         return $this->ajaxResponse('Crew role updated');
     }
@@ -275,8 +284,6 @@ class CrewController extends Controller
      */
     private function volunteer(Event $event, Request $request)
     {
-        Log::info("Volunteering user {$request->user()->id} to event $event->id");
-
         // Create the crew role
         $crew = $event->crew()->create([
             'name'    => null,
@@ -297,6 +304,7 @@ class CrewController extends Controller
         Logger::log('event.volunteer', true, $crew->getAttributes());
 
         // Message
+        Log::info("User {$request->user()->id} volunteered to event $event->id");
         Notify::success('You have volunteered');
         return $this->ajaxResponse('Volunteered');
     }
@@ -317,8 +325,6 @@ class CrewController extends Controller
             return $this->ajaxError(0, 401, 'You can\'t unvolunteer from a social.');
         }
 
-        Log::info("Unvolunteering user {$request->user()->id} from event {$event->id}.");
-
         // Delete all crew entries
         $event->crew()
               ->where('user_id', $request->user()->id)
@@ -326,6 +332,7 @@ class CrewController extends Controller
 
         Logger::log('event.unvolunteer', true, ['event_id' => $event->id, 'user_id', $request->user()->id]);
 
+        Log::info("User {$request->user()->id} unvolunteered from event {$event->id}.");
         Notify::success('You have unvolunteered');
         return $this->ajaxResponse('Unvolunteered');
     }

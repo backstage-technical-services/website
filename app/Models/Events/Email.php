@@ -5,6 +5,7 @@ namespace App\Models\Events;
 use App\Mail\Events\CrewEmail;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Package\Notifications\Facades\Notify;
 use Package\WebDevTools\Laravel\Traits\ValidatableModel;
@@ -108,10 +109,12 @@ class Email extends Model
 
         if ($crew_list->count() > 0) {
             Mail::to($crew_list)->send(new CrewEmail($this, $sentFrom));
+
+            Log::info("User {$sentFrom->id} emailed $crew crew for event {$this->event->id}");
             Notify::success('Email sent');
             return response()->json(['response' => 'Email sent']);
         } else {
-            return response()->json(['error' => 'Email sent', '__error' => true], 422);
+            return response()->json(['error' => 'No crew to send email to', '__error' => true], 422);
         }
     }
 }
