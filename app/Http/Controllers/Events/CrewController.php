@@ -65,13 +65,13 @@ class CrewController extends Controller
             $action = $request->get('action');
 
             if ($action == 'update-field') {
-                return $this->updateField($crew, $request);
+                return $this->updateField($eventId, $crew, $request);
             }
         } else {
             if ($this->isGuestAction($event, $request)) {
-                return $this->updateGuest($crew, $request);
+                return $this->updateGuest($eventId, $crew, $request);
             } else {
-                return $this->updateMember($crew, $request);
+                return $this->updateMember($eventId, $crew, $request);
             }
         }
     }
@@ -195,12 +195,13 @@ class CrewController extends Controller
     }
 
     /**
+     * @param string                   $eventId
      * @param \App\Models\Events\Crew  $crew
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function updateField(Crew $crew, Request $request)
+    private function updateField(string $eventId, Crew $crew, Request $request)
     {
         $field = $request->get('field');
         $value = $request->has('value') ? $request->get('value') : false;
@@ -219,19 +220,20 @@ class CrewController extends Controller
         $crew->update([
             $field => $value,
         ]);
-        Log::info("User {$request->user()->id} updated field $field of crew {$crew->id} for event {$crew->event()->id}");
+        Log::info("User {$request->user()->id} updated field $field of crew {$crew->id} for event $eventId");
         return $this->ajaxResponse('Field updated');
     }
 
     /**
      * Update a guest's details.
      *
+     * @param string                   $eventId
      * @param \App\Models\Events\Crew  $crew
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function updateGuest(Crew $crew, Request $request)
+    private function updateGuest(string $eventId, Crew $crew, Request $request)
     {
         // Validate
         $fields = ['guest_name'];
@@ -243,7 +245,7 @@ class CrewController extends Controller
             'guest_name' => clean($request->get('guest_name')),
         ]);
 
-        Log::info("User {$request->user()->id} updated guest {$crew->id} for event {$crew->event()->id}");
+        Log::info("User {$request->user()->id} updated guest {$crew->id} for event $eventId");
         Notify::success('Guest updated');
         return $this->ajaxResponse('Guest updated');
     }
@@ -251,12 +253,13 @@ class CrewController extends Controller
     /**
      * Update a member's role.
      *
+     * @param string                   $eventId
      * @param \App\Models\Events\Crew  $crew
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    private function updateMember(Crew $crew, Request $request)
+    private function updateMember(string $eventId, Crew $crew, Request $request)
     {
         // Validate
         $fields = ['name'];
@@ -269,7 +272,7 @@ class CrewController extends Controller
             'confirmed' => $crew->event->isTracked() ? $request->has('confirmed') : false,
         ]);
 
-        Log::info("User {$request->user()->id} updated crew {$crew->id} for event {$crew->event()->id}");
+        Log::info("User {$request->user()->id} updated crew {$crew->id} for event $eventId");
         Notify::success('Crew role updated');
         return $this->ajaxResponse('Crew role updated');
     }
