@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\TrimStrings;
+use App\Http\Middleware\TrustedProxies;
 use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
@@ -23,7 +24,8 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        HandleCors::class
+        HandleCors::class,
+        TrustedProxies::class,
     ];
 
     /**
