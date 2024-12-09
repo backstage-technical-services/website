@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 readonly rootDir="$(dirname "$(realpath "${0}")")/.."
-# adds support for compose v2
-if command -v docker-compose >/dev/null 2>&1; then
-  readonly composeCmd="docker-compose"
-else
-  readonly composeCmd="docker compose"
-fi
-
 
 # Ensure that Docker is running...
 if ! docker info >/dev/null 2>&1; then
@@ -62,7 +55,7 @@ EOF
 }
 
 function _docker() {
-  $composeCmd -f "$rootDir/docker-compose.yml" "$@"
+  docker compose -f "$rootDir/docker-compose.yml" "$@"
 }
 
 function _start() {
