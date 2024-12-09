@@ -157,7 +157,7 @@ function _update() {
   fi
 
   echo "=> Updating your local copy ..."
-  git pull -ff-only &>/dev/null
+  git pull --ff-only &>/dev/null
 
   echo "=> Installing dependencies ..."
   _install &>/dev/null
