@@ -25,16 +25,18 @@ function processAjaxErrors(data) {
         error.code = data.status;
 
         // Error code
-        if (typeof(response_error.error_code) != 'undefined') {
+        if (response_error.error_code !== undefined) {
             error.key = response_error.error_code;
         }
 
         // Error message
-        if (typeof(response_error.__error) != 'undefined') {
+        if (response_error.error !== undefined) {
             error.message = response_error.error;
-        } else {
+        } else if (response_error.errors !== undefined) {
             error.message = response_error.errors;
             error.isList  = true;
+        } else if (response_error.message !== undefined) {
+            error.message = response_error.message;
         }
     }
 
