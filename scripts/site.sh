@@ -55,7 +55,7 @@ EOF
 }
 
 function _docker() {
-  docker-compose -f "$rootDir/docker-compose.yml" "$@"
+  docker compose -f "$rootDir/docker-compose.yml" "$@"
 }
 
 function _start() {
