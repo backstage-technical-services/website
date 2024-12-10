@@ -7,27 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class BreakageImage extends Model
 {
     /**
-     * Define the 'resolved' and 'reported' statuses
-     */
-    const STATUS_RESOLVED = 0;
-    const STATUS_REPORTED = 1;
-
-    /**
-     * Define the acceptable breakage statuses.
-     *
-     * @var array
-     */
-    public static $Status = [
-        self::STATUS_REPORTED => 'Reported',
-        2                     => 'Diagnosed',
-        3                     => 'Awaiting Parts',
-        4                     => 'Usable (Issue still exists)',
-        5                     => 'Unrepairable',
-        6                     => 'Awaiting Repair',
-        self::STATUS_RESOLVED => 'Resolved',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
