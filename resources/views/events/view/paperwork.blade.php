@@ -4,6 +4,7 @@
     <div class="paperwork">
         @include('events.view._paperwork', ['paperwork' => 'risk_assessment'])
         <div class="name">Risk assessment</div>
+
         @can('update', $event)
         <p class="link{{ $event->paperwork['risk_assessment'] ? ' hidden' : '' }}" data-show="incomplete">
             <span class="fa fa-link"></span>
@@ -30,6 +31,7 @@
     <div class="paperwork">
         @include('events.view._paperwork', ['paperwork' => 'event_report'])
         <div class="name">Event report</div>
+        
         @can('update', $event)
         <p class="link{{ $event->paperwork['event_report'] ? ' hidden' : '' }}" data-show="incomplete">
             <span class="fa fa-link"></span>
