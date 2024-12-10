@@ -4,7 +4,7 @@ namespace App\Models\Equipment;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Breakage extends Model
+class BreakageImage extends Model
 {
     /**
      * Define the 'resolved' and 'reported' statuses
@@ -31,14 +31,10 @@ class Breakage extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'name',
-        'location',
-        'label',
-        'description',
-        'comment',
-        'status',
-        'user_id',
-        'closed',
+        'filename',
+        'mime',
+        'report_id',
+        'position_id'
     ];
 
     /**
@@ -46,33 +42,40 @@ class Breakage extends Model
      *
      * @var string
      */
-    protected $table = 'equipment_breakages';
+    protected $table = 'equipment_breakages_images';
 
     /**
      * Define the foreign-key relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function report()
     {
-        return $this->belongsTo('App\Models\Users\User');
-    }
-
-    public function saveImage($image)
-    {
-        // save image to /resources/breakages
-        $filename = uniqid() . '.' . $image->extension();
-        $image->move(resource_path("breakages/"), $filename);
-        return $filename;
+        return $this->belongsTo('App\Models\Equipment\Breakage');
     }
 
     /**
-     * Define the foreign-key relationship.
+     * Get the internal path to the image.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @param bool $absolute
+     *
+     * @return string
      */
-    public function images()
+    public function getImagePath($absolute = false)
     {
-        return $this->hasMany('App\Models\Equipment\BreakageImage', 'report_id');
+        $path  = resource_path("breakages/") . $this->filename;
+
+        return $absolute ? base_path('/' . $path) : $path;
+    }
+
+    /**
+     * Get the public route to the image.
+     *
+     * @return string
+     */
+    public function getImageRoute()
+    {
+        return route('equipment.repairs.images.stream', ['id' => $this->report_id, 'imageId' => $this->position_id]);
+
     }
 }

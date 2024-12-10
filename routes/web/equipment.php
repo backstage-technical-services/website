@@ -31,6 +31,15 @@ Route::group([
                 'as'   => 'equipment.repairs.view',
                 'uses' => 'Equipment\RepairsController@view',
             ]);
+            Route::group([
+                'prefix' => 'images',
+            ], function () {
+                Route::get('{imageId}', [
+                    'as'   => 'equipment.repairs.images.stream',
+                    'uses' => 'Equipment\RepairsController@streamImage',
+                    'where' => ['imageId' => '[\d]+'],
+                ]);
+            });
             Route::post('', [
                 'as'   => 'equipment.repairs.update',
                 'uses' => 'Equipment\RepairsController@update',

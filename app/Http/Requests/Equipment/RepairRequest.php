@@ -47,7 +47,7 @@ class RepairRequest extends FormRequest
             //TODO discuss if an image should be required
             'images.array'         => 'The images must be an array',
             'images.max'           => 'Please upload no more than 5 images per report',
-            'images.*.image'       => 'The file must be an image',
+            'images.*.image'       => 'One of the uploaded files could not be processed as an image. Ensure the file is not corrupt',
             'images.*.mimes'       => 'Only JPEG and PNG images are supported',
             'images.*.max'         => 'Each image must be less than 20MB',
         ];

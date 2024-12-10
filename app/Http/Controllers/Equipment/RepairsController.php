@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Intervention\Image\Facades\Image;
 
 class RepairsController extends Controller
 {
@@ -67,8 +68,18 @@ class RepairsController extends Controller
 
         if ($request->hasFile('images')) {
             $images = $request->file('images');
+            $i = 0;
             foreach ($images as $image) {
-                //TODO
+                $filename = $breakage->saveImage($image);
+                $image = $breakage->images()->create([
+                    'filename' => $filename,
+                    'position_id' => $i++,
+                    // TODO not sure i want to take this from the client
+                    // we should decide the mime type based on the validated file extension
+                    'mime'     => $image->getClientMimeType(),
+                ]);
+
+                
             }
         }
 
@@ -160,4 +171,25 @@ class RepairsController extends Controller
         ]);
         Notify::success('Breakage updated');
     }
+
+    /**
+     * Stream an image.
+     * 
+     * @param $id
+     * @param $image
+     * 
+     * @return mixed
+     */
+    public function streamImage($id, $imageId) {
+        $breakage = Breakage::findOrFail($id);
+        $this->authorize('view', $breakage);
+
+        $image = $breakage->images()->where('position_id', $imageId)->firstOrFail();
+        $path = $image->getImagePath(false);
+
+        return response(file_get_contents($path), 200, [
+            'Content-Type' => $image->mime,
+        ]);
+    }
+
 }
