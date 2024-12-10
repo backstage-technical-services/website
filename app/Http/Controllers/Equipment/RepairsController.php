@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Intervention\Image\Facades\Image;
 
 class RepairsController extends Controller
 {
@@ -63,7 +64,20 @@ class RepairsController extends Controller
             'status'      => Breakage::STATUS_REPORTED,
             'user_id'     => $request->user()->id,
             'closed'      => false,
-        ]);
+        ]); 
+        // Save the images
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            $i = 0;
+            foreach ($images as $image) {
+                $filename = $breakage->saveImage($image);
+                $image = $breakage->images()->create([
+                    'filename' => $filename,
+                    'position_id' => $i++,
+                    'mime'     => $image->getClientMimeType(),
+                ]);                
+            }
+        }
 
         // Send the email
         Mail::to(config('bts.emails.equipment.breakage_reports'))
@@ -153,4 +167,26 @@ class RepairsController extends Controller
         ]);
         Notify::success('Breakage updated');
     }
+
+    /**
+     * Stream an image.
+     * 
+     * @param $id
+     * @param $image
+     * 
+     * @return mixed
+     */
+    public function streamImage($id, $imageId) {
+        $breakage = Breakage::findOrFail($id);
+        $this->authorize('view', $breakage);
+
+        $image = $breakage->images()->where('position_id', $imageId)->firstOrFail();
+        $path = $image->getImagePath(false);
+
+        return response(file_get_contents($path), 200, [
+            'Content-Type' => $image->mime,
+            'Content-Disposition' => 'inline; filename="break-' . $breakage->id . '-' . $image->position_id . '.' . pathinfo($path, PATHINFO_EXTENSION) . '"',
+        ]);
+    }
+
 }

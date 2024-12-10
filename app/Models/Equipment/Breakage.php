@@ -57,4 +57,22 @@ class Breakage extends Model
     {
         return $this->belongsTo('App\Models\Users\User');
     }
+
+    public function saveImage($image)
+    {
+        // save image to /resources/breakages
+        $filename = uniqid() . '.' . $image->extension();
+        $image->move(resource_path("breakages/"), $filename);
+        return $filename;
+    }
+
+    /**
+     * Define the foreign-key relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany('App\Models\Equipment\BreakageImage', 'report_id');
+    }
 }

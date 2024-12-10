@@ -39,6 +39,8 @@ spec:
                   mountPath: /var/www/resources/elections
                 - name: resources
                   mountPath: /var/www/resources/resources
+                - name: breakages
+                  mountPath: /var/www/resources/breakages
           restartPolicy: Never
           volumes:
             - name: profiles

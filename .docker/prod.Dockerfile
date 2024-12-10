@@ -36,6 +36,7 @@ COPY --chown=www-data:www-data --from=builder /var/www/vendor/ ./vendor/
 
 #  Declare the volumes
 VOLUME /var/www/public/images/profiles
+VOLUME /var/www/resources/breakages
 VOLUME /var/www/resources/resources
 VOLUME /var/www/resources/elections
 
