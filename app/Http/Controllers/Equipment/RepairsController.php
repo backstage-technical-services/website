@@ -65,7 +65,7 @@ class RepairsController extends Controller
             'user_id'     => $request->user()->id,
             'closed'      => false,
         ]); 
-
+        // Save the images
         if ($request->hasFile('images')) {
             $images = $request->file('images');
             $i = 0;
@@ -74,12 +74,8 @@ class RepairsController extends Controller
                 $image = $breakage->images()->create([
                     'filename' => $filename,
                     'position_id' => $i++,
-                    // TODO not sure i want to take this from the client
-                    // we should decide the mime type based on the validated file extension
                     'mime'     => $image->getClientMimeType(),
-                ]);
-
-                
+                ]);                
             }
         }
 
@@ -189,6 +185,7 @@ class RepairsController extends Controller
 
         return response(file_get_contents($path), 200, [
             'Content-Type' => $image->mime,
+            'Content-Disposition' => 'inline; filename="break-' . $breakage->id . '-' . $image->position_id . '.' . pathinfo($path, PATHINFO_EXTENSION) . '"',
         ]);
     }
 
