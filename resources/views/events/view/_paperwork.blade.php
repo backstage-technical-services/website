@@ -6,7 +6,7 @@
         <span class="fa fa-{{ $event->paperwork[$paperwork] ? 'check' : 'remove' }}"></span>
     </span>
 @else
-<span class="editable data-editable__toggle">
+<span class="editable data-editable data-editable--toggle">
     <span class="fa fa-{{ $event->paperwork[$paperwork] ? 'check' : 'remove' }}"></span>
 </span>
 @endcan
