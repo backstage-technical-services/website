@@ -1,14 +1,17 @@
 .editable {
     padding: 0.5em 0.75em;
     
-    &[data-editable] {
+    &[data-editable], &.data-editable {
         border-radius: 2px;
+    }
+    &[data-editable] {
         &:hover {
             background: rgba(255, 255, 255, 0.1);
             cursor: pointer;
         }
     }
-    &[data-editable="toggle"] {
+
+    &[data-editable="toggle"], &.data-editable--toggle {
         display: inline-block;
         padding: 0;
         text-align: center;
@@ -32,7 +35,11 @@
         span.fa-remove {
             color: $colour_danger;
             opacity: 0.5;
-            
+        }
+    }
+
+    &[data-editable="toggle"] {
+        span.fa-remove {
             &:hover {
                 opacity: 1;
             }
