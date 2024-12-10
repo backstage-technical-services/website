@@ -28,9 +28,10 @@ class RepairRequest extends FormRequest
             'location'    => 'required',
             'label'       => 'required',
             'description' => 'required',
+            'images'      => 'array|max:5',
+            'images.*'    => 'image|max:20480|mimes:jpeg,png',
         ];
     }
-
     /**
      * Define the custom messages.
      *
@@ -43,6 +44,12 @@ class RepairRequest extends FormRequest
             'location.required'    => 'Please enter the current location of the equipment',
             'label.required'       => 'Please enter how the item is labelled',
             'description.required' => 'Please enter the details of the breakage',
+            //TODO discuss if an image should be required
+            'images.array'         => 'The images must be an array',
+            'images.max'           => 'Please upload no more than 5 images per report',
+            'images.*.image'       => 'The file must be an image',
+            'images.*.mimes'       => 'Only JPEG and PNG images are supported',
+            'images.*.max'         => 'Each image must be less than 20MB',
         ];
     }
 }

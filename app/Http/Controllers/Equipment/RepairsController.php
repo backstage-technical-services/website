@@ -63,7 +63,14 @@ class RepairsController extends Controller
             'status'      => Breakage::STATUS_REPORTED,
             'user_id'     => $request->user()->id,
             'closed'      => false,
-        ]);
+        ]); 
+
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                //TODO
+            }
+        }
 
         // Send the email
         Mail::to(config('bts.emails.equipment.breakage_reports'))
