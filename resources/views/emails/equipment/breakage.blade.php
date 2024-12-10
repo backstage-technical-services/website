@@ -10,6 +10,10 @@ This is just to let you know that a breakage has just been reported.
 **Reported by:** {{ $breakage['user_name'] }} ({{ $breakage['user_username'] }})<br>
 **Description:**<br>
 {{ $breakage['description'] }}
+<br>
+@if($breakage['images'])
+**View images of the breakage on the website**<br>
+@endif
 @endcomponent
 
 @component('mail::button', ['color' => 'green', 'url' => route('equipment.repairs.view', ['id' => $breakage['id']])])
