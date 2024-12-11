@@ -85,6 +85,7 @@ class RepairsController extends Controller
                     'user_email'    => $breakage->user->email,
                     'user_name'     => $breakage->user->name,
                     'user_username' => $breakage->user->username,
+                    'image_count'   => $breakage->images->count(),
                 ]));
 
         Log::info("User {$request->user()->id} reported breakage for '{$request->get('name')}'");

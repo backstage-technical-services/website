@@ -11,8 +11,8 @@ This is just to let you know that a breakage has just been reported.
 **Description:**<br>
 {{ $breakage['description'] }}
 <br>
-@if($breakage['images'])
-**View images of the breakage on the website**<br>
+@if($breakage['image_count'] > 0)
+**View {{ $breakage['image_count'] }} images on the website**<br>
 @endif
 @endcomponent
 
