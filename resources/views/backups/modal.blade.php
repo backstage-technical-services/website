@@ -21,7 +21,7 @@
         </button>
         <p class="help-block">
             A <strong>Database and Resources</strong> backup includes any files that aren't version controlled.
-            At the moment this includes: member profile pictures, resources and election manifestos.
+            At the moment this includes: member profile pictures, resources, breakage report images and election manifestos.
         </p>
     </div>
 </div>
