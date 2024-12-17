@@ -30,6 +30,11 @@ spec:
               mountPath: /var/www/resources/elections
             - name: resources
               mountPath: /var/www/resources/resources
+          resources:
+            requests:
+              memory: '{{ .Values.resources.memory }}'
+            limits:
+              memory: '{{ .Values.resources.memory }}'
       volumes:
         - name: profiles
           hostPath:

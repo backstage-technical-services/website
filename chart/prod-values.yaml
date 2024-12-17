@@ -11,3 +11,6 @@ logging:
   driver: stack
 
 google-analytics-code: UA-150311689-2
+
+resources:
+  memory: '256Mi'
