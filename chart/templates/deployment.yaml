@@ -24,6 +24,8 @@ spec:
             - configMapRef:
                 name: {{ include "website-v4.fullname" . }}
           volumeMounts:
+            - name: backups
+              mountPath: /var/www/storage/app/backups
             - name: profiles
               mountPath: /var/www/public/images/profiles
             - name: elections
@@ -36,6 +38,9 @@ spec:
             limits:
               memory: '{{ .Values.resources.memory }}'
       volumes:
+        - name: backups
+          hostPath:
+            path: /opt/data/backstage/website-v4/{{ .Values.environment }}/backups
         - name: profiles
           hostPath:
             path: /opt/data/backstage/website-v4/{{ .Values.environment }}/profiles
