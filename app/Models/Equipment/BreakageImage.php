@@ -10,10 +10,9 @@ class BreakageImage extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'filename',
         'mime',
-        'report_id',
-        'position_id'
+        'equipment_breakage_id',
+        'extension'
     ];
 
     /**
@@ -42,7 +41,7 @@ class BreakageImage extends Model
      */
     public function getImagePath($absolute = false)
     {
-        $path  = resource_path("breakages/") . $this->filename;
+        $path  = resource_path("breakages/") . $this->id . "." . $this->extension;
 
         return $absolute ? base_path('/' . $path) : $path;
     }
@@ -54,7 +53,7 @@ class BreakageImage extends Model
      */
     public function getImageRoute()
     {
-        return route('equipment.repairs.images.stream', ['id' => $this->report_id, 'imageId' => $this->position_id]);
+        return route('equipment.repairs.images.stream', ['id' => $this->equipment_breakage_id, 'imageId' => $this->id]);
 
     }
 }

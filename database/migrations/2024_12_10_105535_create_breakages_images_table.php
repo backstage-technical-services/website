@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('equipment_breakages_images', function (Blueprint $table) {
             $table->increments("id");
-            $table->unsignedInteger('report_id');
-            // id specific to the report, 0,1,2,3,4
-            $table->unsignedInteger('position_id');
-            $table->string('filename');
+            $table->unsignedInteger('equipment_breakage_id');
             $table->string('mime');
+            $table->string('extension');
             // shares created_at with the equipment_breakages table and is never updated
             $table->timestamps();
 
-            $table->foreign('report_id')->references('id')->on('equipment_breakages')
+            $table->foreign('equipment_breakage_id')->references('id')->on('equipment_breakages')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
         });

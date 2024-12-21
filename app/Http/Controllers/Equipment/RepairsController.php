@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Equipment\RepairRequest;
 use App\Mail\Equipment\Breakage as BreakageEmail;
 use App\Models\Equipment\Breakage;
+use App\Models\Equipment\BreakageImage;
 use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Contracts\View\Factory;
@@ -13,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use Intervention\Image\Facades\Image;
 
 class RepairsController extends Controller
 {
@@ -68,14 +68,12 @@ class RepairsController extends Controller
         // Save the images
         if ($request->hasFile('images')) {
             $images = $request->file('images');
-            $i = 0;
             foreach ($images as $image) {
-                $filename = $breakage->saveImage($image);
-                $image = $breakage->images()->create([
-                    'filename' => $filename,
-                    'position_id' => $i++,
-                    'mime'     => $image->getClientMimeType(),
+                $imageRow = $breakage->images()->create([
+                    'mime'      => $image->getClientMimeType(),
+                    'extension' => $image->extension(),
                 ]);                
+                $breakage->saveImage($image, $imageRow);
             }
         }
 
@@ -181,12 +179,13 @@ class RepairsController extends Controller
         $breakage = Breakage::findOrFail($id);
         $this->authorize('view', $breakage);
 
-        $image = $breakage->images()->where('position_id', $imageId)->firstOrFail();
+        $image = BreakageImage::findOrFail($imageId);
+
         $path = $image->getImagePath(false);
 
         return response(file_get_contents($path), 200, [
             'Content-Type' => $image->mime,
-            'Content-Disposition' => 'inline; filename="break-' . $breakage->id . '-' . $image->position_id . '.' . pathinfo($path, PATHINFO_EXTENSION) . '"',
+            'Content-Disposition' => 'inline; filename="break-' . $breakage->id . '-' . $image->id . '.' . $image->extension . '"',
         ]);
     }
 

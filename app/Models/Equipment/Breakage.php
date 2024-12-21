@@ -58,12 +58,11 @@ class Breakage extends Model
         return $this->belongsTo('App\Models\Users\User');
     }
 
-    public function saveImage($image)
+    public function saveImage($image, $imageRow)
     {
         // save image to /resources/breakages
-        $filename = uniqid() . '.' . $image->extension();
+        $filename = $imageRow->id . '.' . $image->extension();
         $image->move(resource_path("breakages/"), $filename);
-        return $filename;
     }
 
     /**
@@ -73,6 +72,6 @@ class Breakage extends Model
      */
     public function images()
     {
-        return $this->hasMany('App\Models\Equipment\BreakageImage', 'report_id');
+        return $this->hasMany('App\Models\Equipment\BreakageImage', 'equipment_breakage_id');
     }
 }
