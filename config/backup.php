@@ -28,6 +28,7 @@ return [
                  */
                 'include'                       => [
                     public_path('images/profiles'),
+                    resource_path('breakages'),
                     resource_path('resources'),
                     resource_path('elections')
                 ],
