@@ -52,6 +52,9 @@ spec:
             - name: resources
               hostPath:
                 path: /opt/data/backstage/website-v4/{{ .Values.environment }}/resources
+            - name: breakages
+              hostPath:
+                path: /opt/data/backstage/website-v4/{{ .Values.environment }}/breakages
           nodeSelector:
             bnjns.uk/owner: backstage
           tolerations:
