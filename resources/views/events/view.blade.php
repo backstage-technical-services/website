@@ -45,7 +45,7 @@
                         </li>
                     @endif
                     @if(Auth::check() && Auth::user()->isMember())
-                        <li {{ $tab == 'paperwork' ? ' class=active' : '' }} title="Event Resources">
+                        <li {{ $tab == 'paperwork' ? ' class=active' : '' }} title="Event Paperwork">
                             <a href="{{ route('event.view', ['id' => $event->id, 'tab' => 'paperwork']) }}">
                                 <span class="fa fa-folder"></span>
                             </a>
