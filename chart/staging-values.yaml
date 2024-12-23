@@ -2,7 +2,13 @@ environment: staging
 domains:
   - staging.bts-crew.com
 
+smtp:
+  host: maildev
+  port: 25
+  encryption: none
+  auth: false
+
 google-analytics-code: UA-150311689-1
 
 resources:
-  memory: '100Mi'
+  memory: '256Mi'

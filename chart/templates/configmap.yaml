@@ -20,7 +20,7 @@ data:
   MAIL_DRIVER: 'smtp'
   MAIL_HOST: '{{ .Values.smtp.host }}'
   MAIL_PORT: '{{ .Values.smtp.port }}'
-  MAIL_ENCRYPTION: 'tls'
+  MAIL_ENCRYPTION: '{{ .Values.smtp.encryption }}'
   MAIL_FROM_ADDRESS: 'website@bts-crew.com'
   MAIL_FROM_NAME: 'Backstage Website'
   GOOGLE_ANALYTICS_CODE: '{{ index .Values "google-analytics-code" }}'

@@ -5,8 +5,10 @@ image:
   tag: ''
 
 smtp:
-  host: smtp.mailtrap.io
-  port: 2525
+  host: ''
+  port: ''
+  encryption: ''
+  auth: ''
 
 logging:
   driver: monolog

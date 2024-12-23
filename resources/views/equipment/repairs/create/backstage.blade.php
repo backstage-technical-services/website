@@ -1,4 +1,4 @@
-{!! Form::model(new \App\Models\Equipment\Breakage(), ['route' => 'equipment.repairs.store']) !!}
+{!! Form::model(new \App\Models\Equipment\Breakage(), ['route' => 'equipment.repairs.store', 'files' => true]) !!}
 <p>If you discover a piece of equipment is broken please fill in the form form below, so that the Equipment Officer is informed of the breakage. Please also
     label the equipment and, if necessary, take it out of service.</p>
 
@@ -41,6 +41,19 @@
     </div>
     @InputError('description')
 </div>
+
+{{-- Images --}}
+<div class="form-group @InputClass('images') @InputClass('images.*')">
+    {!! Form::label('images', 'Images:', ['class' => 'control-label']) !!}
+    <div class="input-group">
+        <span class="input-group-addon"><span class="fa fa-camera"></span></span>
+        {!! Form::file('images[]', ['accept' => '.png, .jpg, .jpeg', 'multiple']) !!}
+    </div>
+    <p class="help-block small">Maximum 5 images, 20MB each.</p>
+    @InputError('images')
+    @InputError('images.*')
+</div>
+
 
 {{-- Buttons --}}
 <div class="form-group">
