@@ -56,6 +56,26 @@
             </div>
         </div>
 
+        <div class="form-group">
+            {!! Form::label('images', 'Images:', ['class' => 'control-label col-md-4']) !!}
+            <div class="col-md-8">
+                @if($breakage->images->count() > 0)
+                    <div class="row">
+                        @foreach($breakage->images as $image)
+                            <div class="col-xs-6 col-md-4">
+                                <a href="{{ $image->getImageRoute() }}" class="thumbnail" target="_blank">
+                                    <img src="{{ $image->getImageRoute() }}" alt="Image">
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="form-control-static"><em>- none -</em></p>
+                @endif
+            </div>
+
+        </div>
+
         {{-- Status --}}
         <div class="form-group @InputClass('status')">
             {!! Form::label('status', 'Status:', ['class' => 'control-label col-md-4']) !!}

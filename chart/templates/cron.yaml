@@ -41,6 +41,8 @@ spec:
                   mountPath: /var/www/resources/elections
                 - name: resources
                   mountPath: /var/www/resources/resources
+                - name: breakages
+                  mountPath: /var/www/resources/breakages
           restartPolicy: Never
           volumes:
             - name: backups
@@ -55,6 +57,9 @@ spec:
             - name: resources
               hostPath:
                 path: /opt/data/backstage/website-v4/{{ .Values.environment }}/resources
+            - name: breakages
+              hostPath:
+                path: /opt/data/backstage/website-v4/{{ .Values.environment }}/breakages
           nodeSelector:
             bnjns.uk/owner: backstage
           tolerations:

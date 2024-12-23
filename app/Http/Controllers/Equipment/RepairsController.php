@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Equipment\RepairRequest;
 use App\Mail\Equipment\Breakage as BreakageEmail;
 use App\Models\Equipment\Breakage;
+use App\Models\Equipment\BreakageImage;
 use Illuminate\Support\Facades\Log;
 use Package\Notifications\Facades\Notify;
 use Illuminate\Contracts\View\Factory;
@@ -63,7 +64,18 @@ class RepairsController extends Controller
             'status'      => Breakage::STATUS_REPORTED,
             'user_id'     => $request->user()->id,
             'closed'      => false,
-        ]);
+        ]); 
+        // Save the images
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                $imageRow = $breakage->images()->create([
+                    'mime'      => $image->getClientMimeType(),
+                    'extension' => $image->extension(),
+                ]);                
+                $breakage->saveImage($image, $imageRow);
+            }
+        }
 
         // Send the email
         Mail::to(config('bts.emails.equipment.breakage_reports'))
@@ -71,6 +83,7 @@ class RepairsController extends Controller
                     'user_email'    => $breakage->user->email,
                     'user_name'     => $breakage->user->name,
                     'user_username' => $breakage->user->username,
+                    'image_count'   => $breakage->images->count(),
                 ]));
 
         Log::info("User {$request->user()->id} reported breakage for '{$request->get('name')}'");
@@ -153,4 +166,27 @@ class RepairsController extends Controller
         ]);
         Notify::success('Breakage updated');
     }
+
+    /**
+     * Stream an image.
+     * 
+     * @param $id
+     * @param $image
+     * 
+     * @return mixed
+     */
+    public function streamImage($id, $imageId) {
+        $breakage = Breakage::findOrFail($id);
+        $this->authorize('view', $breakage);
+
+        $image = $breakage->images()->where('id', $imageId)->firstOrFail();
+
+        $path = $image->getImagePath(false);
+
+        return response(file_get_contents($path), 200, [
+            'Content-Type' => $image->mime,
+            'Content-Disposition' => 'inline; filename="break-' . $breakage->id . '-' . $image->id . '.' . $image->extension . '"',
+        ]);
+    }
+
 }
