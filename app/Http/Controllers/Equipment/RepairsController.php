@@ -179,7 +179,7 @@ class RepairsController extends Controller
         $breakage = Breakage::findOrFail($id);
         $this->authorize('view', $breakage);
 
-        $image = BreakageImage::findOrFail($imageId);
+        $image = $breakage->images()->where('id', $imageId)->firstOrFail();
 
         $path = $image->getImagePath(false);
 
