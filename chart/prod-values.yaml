@@ -6,6 +6,8 @@ domains:
 smtp:
   host: smtp.gmail.com
   port: 587
+  encryption: tls
+  auth: true
 
 logging:
   driver: stack
