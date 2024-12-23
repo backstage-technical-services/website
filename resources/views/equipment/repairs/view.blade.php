@@ -70,7 +70,7 @@
                         @endforeach
                     </div>
                 @else
-                    <p class="form-control-static"><em>- no images -</em></p>
+                    <p class="form-control-static"><em>- none -</em></p>
                 @endif
             </div>
 
