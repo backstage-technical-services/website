@@ -63,7 +63,7 @@
                     <div class="row">
                         @foreach($breakage->images as $image)
                             <div class="col-xs-6 col-md-4">
-                                <a href="{{ $image->getImageRoute() }}" class="thumbnail" target="_blank">
+                                <a data-lightbox="breakage" href="{{ $image->getImageRoute() }}" class="thumbnail" target="_blank">
                                     <img src="{{ $image->getImageRoute() }}" alt="Image">
                                 </a>
                             </div>
