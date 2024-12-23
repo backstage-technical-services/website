@@ -3,3 +3,6 @@ domains:
   - staging.bts-crew.com
 
 google-analytics-code: UA-150311689-1
+
+resources:
+  memory: '100Mi'

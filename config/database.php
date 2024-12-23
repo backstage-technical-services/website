@@ -51,6 +51,9 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
+            'dump' => [
+                'skip_ssl' => true,
+            ]
         ],
 
         'pgsql' => [
