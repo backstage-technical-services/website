@@ -59,7 +59,7 @@
         <div class="form-group">
             {!! Form::label('images', 'Images:', ['class' => 'control-label col-md-4']) !!}
             <div class="col-md-8">
-                @if($breakage->images->count())
+                @if($breakage->images->count() > 0)
                     <div class="row">
                         @foreach($breakage->images as $image)
                             <div class="col-xs-6 col-md-4">
