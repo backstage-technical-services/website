@@ -1,52 +1,28 @@
-### Issue summary
+<!-- PLEASE COMPLETE THIS TO THE BEST OF YOUR ABILITY -->
 
-Briefly describe the issue that this pull request resolves. Don't simply
-copy over the text from the ticket - use this section to summarise it in
-your own words. This gives context to the code review.
+<!-- NOTE: your PR title will need to conform to the conventional commit spec -->
 
-Ticket: https://github.com/backstage-technical-services/hub/issues/XXX
+### Description
 
-### Work included
+Describe what work this pull request includes. There's no need to list line-by-line (the change list will do that);
+instead just summarise each bit of functionality that's been added, edited or removed. Good code should be
+self-documenting (aka, show _what_ it's achieving) so focus on the explaining why you took the approach you did. We also
+recommend highlighting any specific testing that may need to be performed on the staging server before it's deployed to
+production.
 
-Describe what work this pull request includes. There's no need to list
-line-by-line (the change list will do that); instead just summarise each
-bit of functionality that's been added, edited or removed. Link these
-back to the issue summary if you can.
+There's no need to write an essay - we welcome bullet points over prose.
 
-The "why" is just as (if not more) important than the "what" - so please
-include any reasoning behind any decisions you made to help the reviewer
-understand why you've done it that way.
-
-Don't be afraid to use bullet points here!
-
-### Testing
-
-Outline how you should test this piece of work, including any
-pre-requisites (eg, any new environment variables? do you need any API
-keys or new accounts? do you need any resources?).
-
-Describe how to test both happy and unhappy paths. What are the expected
-outcomes? Are there any possible quirks you discovered during
-development?
-
-### Acceptance criteria
-
-List all the criteria that need to be met for this work to pass QA.
-
-### Links
-
-Provide any links to any issues or other pull requests related to this
-work.
+Ticket: https://github.com/backstage-technical-services/hub/issues/XXX <!-- delete this if there's no issue -->
 
 ### Checklist
 
-> Make sure you follow these wherever possible; if you have then check
-> it off, and if not then use a strikethrough (\~) to cross it off.
+> [!IMPORTANT]
+> Make sure you follow these wherever possible; if you have then check it off, and if not then use a strikethrough (\~)
+> to cross it off. This will help the reviewer identify any changes that may have been missed.
 
 **General**
 
-* [ ] Readme updated (including additional environment variables)
-* [ ] Additional documentation written (if applicable)
+* [ ] Documentation updated/written (if applicable)
 * [ ] Good coverage of tests
 * [ ] Updated docker config
 * [ ] CI/CD config updated
