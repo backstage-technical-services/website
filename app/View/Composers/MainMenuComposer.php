@@ -120,8 +120,12 @@ class MainMenuComposer implements ViewComposer
                     $usersMenu->add('View all users', route('user.index'));
                     $usersMenu->add('Create a new user', route('user.create'));
                 }
-                
+
+                //Quotes Board
                 $membersMenu->add('Quotes Board', route('quotes.view'));
+
+                //Wiki
+                $membersMenu->add('Wiki', config('bts.links.wiki'));
                 
                 // Equipment
                 $equipMenu = $membersMenu->add('Equipment', '#')
