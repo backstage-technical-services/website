@@ -16,6 +16,7 @@ return [
         'event_report'    => env('LINK_EVENT_REPORT'),
         'instagram'       => 'https://www.instagram.com/backstageatbath/',
         'wiki'            => 'https://wiki.bts-crew.com',
+        'pc_deployment'   => 'https://pc-deployment.bts-crew.com'
     ],
     
     // Emails
