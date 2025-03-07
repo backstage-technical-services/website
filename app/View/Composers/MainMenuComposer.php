@@ -134,6 +134,7 @@ class MainMenuComposer implements ViewComposer
                 $equipMenu->add('View repairs db', route('equipment.repairs.index'));
                 $equipMenu->add('Report broken kit', route('equipment.repairs.create'));
                 $equipMenu->add('PAT database', 'https://assets.bts-crew.com');
+                $equipMenu->add('PC Deployment Portal', 'https://pc-deployment.bts-crew.com');
                 
                 // Training
                 $trainingMenu = $membersMenu->add('Training', '#')
