@@ -17,6 +17,7 @@ return [
         'instagram'       => 'https://www.instagram.com/backstageatbath/',
         'wiki'            => 'https://wiki.bts-crew.com',
         'pc_deployment'   => 'https://pc-deployment.bts-crew.com'
+        'network_management' => 'https://librenms.bts-crew.com'
     ],
     
     // Emails
