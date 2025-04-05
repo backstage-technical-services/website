@@ -138,7 +138,21 @@ class MainMenuComposer implements ViewComposer
                 $equipMenu->add('Network management portal', config('bts.links.network_management'));
                 
                 // Training
-                $membersMenu->add('Skills matrix', config('bts.links.skills_matrix'));
+                $trainingMenu = $membersMenu->add('Training', '#')
+                    ->attr('class', 'dropdown training');
+                $trainingMenu->add('Skills matrix', config('bts.links.skills_matrix'));
+
+                $trainingArchiveMenu = $trainingMenu->add('Archive', '#')
+                    ->attr('class', 'dropdown')
+                    ->active('/training/*');
+                $trainingArchiveMenu->add('View skills', route('training.skill.index'))
+                    ->active('/training/skills/*');
+                if ($this->isAdmin) {
+                    $trainingArchiveMenu->add('View categories', route('training.category.index'));
+                    $trainingArchiveMenu->add('Review applications', route('training.skill.application.index'))
+                        ->active('training/applications/*');
+                    $trainingArchiveMenu->add('Skills log', route('training.skill.log'));
+                }
                 
                 // Misc
                 $miscMenu = $membersMenu->add('Other', '#')
@@ -149,16 +163,10 @@ class MainMenuComposer implements ViewComposer
                              ->active('elections/*');
                     $miscMenu->add('Awards', route('award.season.index'))
                              ->active('awards/*');
-                    $miscMenu->add('Archive: skills view', route('training.skill.index'))
-                             ->active('training/skills/*');
                 }
                 if ($this->isAdmin) {
                     $miscMenu->add('Backups', route('backup.index'));
                     $miscMenu->add('Webpages', route('page.index'));
-                    $miscMenu->add('Archive: skills categories', route('training.category.index'));
-                    $miscMenu->add('Archive: skills applications', route('training.skill.application.index'))
-                             ->active('training/applications/*');
-                    $miscMenu->add('Archive: skills log', route('training.skill.log'));
                 }
                 
                 // H&S reporting
