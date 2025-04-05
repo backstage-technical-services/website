@@ -139,16 +139,19 @@ class MainMenuComposer implements ViewComposer
                 
                 // Training
                 $trainingMenu = $membersMenu->add('Training', '#')
-                                            ->attr('class', 'dropdown training');
-                if ($this->isMember) {
-                    $trainingMenu->add('View skills', route('training.skill.index'))
-                                 ->active('training/skills/*');
-                }
+                    ->attr('class', 'dropdown training');
+                $trainingMenu->add('Skills matrix', config('bts.links.skills_matrix'));
+
+                $trainingArchiveMenu = $trainingMenu->add('Archive', '#')
+                    ->attr('class', 'dropdown')
+                    ->active('/training/*');
+                $trainingArchiveMenu->add('View skills', route('training.skill.index'))
+                    ->active('/training/skills/*');
                 if ($this->isAdmin) {
-                    $trainingMenu->add('View categories', route('training.category.index'));
-                    $trainingMenu->add('Review applications', route('training.skill.application.index'))
-                                 ->active('training/applications/*');
-                    $trainingMenu->add('Skills log', route('training.skill.log'));
+                    $trainingArchiveMenu->add('View categories', route('training.category.index'));
+                    $trainingArchiveMenu->add('Review applications', route('training.skill.application.index'))
+                        ->active('training/applications/*');
+                    $trainingArchiveMenu->add('Skills log', route('training.skill.log'));
                 }
                 
                 // Misc

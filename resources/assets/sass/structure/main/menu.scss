@@ -197,7 +197,7 @@ div#menu-wrapper {
                         &.dropdown {
                             // SECTION: Sub nav bar
                             & > ul {
-                                & > li {
+                                li {
                                     text-align: left;
                                     & > a {
                                         //background: none;
@@ -239,6 +239,13 @@ div#menu-wrapper {
                                                         font-weight: bold;
                                                     }
                                                 }
+                                                @media (max-width: 767px) {
+                                                    &.active {
+                                                        & > a {
+                                                            background: rgba(0, 0, 0, 0.1);
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                         
@@ -262,7 +269,7 @@ div#menu-wrapper {
                                     position: inherit;
                                     width: 100%;
                                     
-                                    & > li {
+                                    li {
                                         & > a {
                                             padding-bottom: 0.75em;
                                             padding-top: 0.75em;
@@ -272,7 +279,7 @@ div#menu-wrapper {
                                             & > ul {
                                                 background: none;
                                                 display: block;
-                                                margin: 0 0.5em;
+                                                margin-left: 0.5em;
                                                 position: inherit;
                                                 width: 100%;
                                             }
@@ -294,7 +301,7 @@ div#menu-wrapper {
                                     //position: absolute;
                                     
                                     // SECTION: Sub nav bar items
-                                    & > li {
+                                    li {
                                         background: $btsyellow;
                                         
                                         &:hover > a, &.active > a {
@@ -335,7 +342,7 @@ div#menu-wrapper {
                                                     & > a {
                                                         display: block;
                                                         font: bold 12px Arial;
-                                                        padding: 0.4em 0 0.4em 1.5em;
+                                                        padding: 0.4em 1.5em;
                                                         
                                                         &:hover {
                                                             text-decoration: underline;
@@ -385,6 +392,10 @@ div#menu-wrapper {
                                         &.admin-users > ul {
                                             width: 11em;
                                         }
+                                    }
+
+                                    & > li.dropdown > ul > li.dropdown > ul {
+                                        background: darken($btsyellow, 15%);
                                     }
                                 }
                             }
