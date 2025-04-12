@@ -128,7 +128,7 @@ class MainMenuComposer implements ViewComposer
                 $membersMenu->add('Wiki', config('bts.links.wiki'));
 
                 // Telephony Portal
-                $membersMenu -> add('Telephony Portal', config('bts.links.telephony'));                
+                $membersMenu->add('Telephony Portal', config('bts.links.telephony'));
                 
                 // Equipment
                 $equipMenu = $membersMenu->add('Equipment', '#')
