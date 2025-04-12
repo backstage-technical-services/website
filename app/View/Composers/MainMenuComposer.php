@@ -163,7 +163,7 @@ class MainMenuComposer implements ViewComposer
                              ->active('awards/*');
                     $miscMenu->add('PC deployment portal', config('bts.links.pc_deployment'));
                     $miscMenu->add('Network management portal', config('bts.links.network_management'));
-                    $miscMenu->add('Telephony Portal', config('bts.links.telephony'));
+                    $miscMenu->add('Telephony portal', config('bts.links.telephony'));
                 }
                 if ($this->isAdmin) {
                     $miscMenu->add('Backups', route('backup.index'));
