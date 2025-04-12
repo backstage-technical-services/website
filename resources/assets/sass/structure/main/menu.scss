@@ -372,25 +372,25 @@ div#menu-wrapper {
                                         
                                         // SECTION: Sub-sub nav bar widths
                                         &.profile > ul {
-                                            width: 9em;
+                                            min-width: 9em;
                                         }
                                         &.events > ul {
-                                            width: 12em;
+                                            min-width: 12em;
                                         }
                                         &.equipment > ul {
-                                            width: 13em;
+                                            min-width: 13em;
                                         }
                                         &.training > ul {
-                                            width: 10em;
+                                            min-width: 10em;
                                         }
                                         &.resources > ul {
-                                            width: 12.5em;
+                                            min-width: 12.5em;
                                         }
                                         &.misc > ul {
-                                            width: 11em;
+                                            min-width: 11em;
                                         }
                                         &.admin-users > ul {
-                                            width: 11em;
+                                            min-width: 11em;
                                         }
                                     }
 
