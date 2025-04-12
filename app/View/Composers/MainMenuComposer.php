@@ -134,8 +134,6 @@ class MainMenuComposer implements ViewComposer
                 $equipMenu->add('View repairs db', route('equipment.repairs.index'));
                 $equipMenu->add('Report broken kit', route('equipment.repairs.create'));
                 $equipMenu->add('PAT database', 'https://assets.bts-crew.com');
-                $equipMenu->add('PC deployment portal', config('bts.links.pc_deployment'));
-                $equipMenu->add('Network management portal', config('bts.links.network_management'));
                 
                 // Training
                 $trainingMenu = $membersMenu->add('Training', '#')
@@ -163,6 +161,9 @@ class MainMenuComposer implements ViewComposer
                              ->active('elections/*');
                     $miscMenu->add('Awards', route('award.season.index'))
                              ->active('awards/*');
+                    $miscMenu->add('PC deployment portal', config('bts.links.pc_deployment'));
+                    $miscMenu->add('Network management portal', config('bts.links.network_management'));
+                    $miscMenu->add('Telephony portal', config('bts.links.telephony'));
                 }
                 if ($this->isAdmin) {
                     $miscMenu->add('Backups', route('backup.index'));
