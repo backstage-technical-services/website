@@ -12,7 +12,7 @@ production.
 
 There's no need to write an essay - we welcome bullet points over prose.
 
-Ticket: https://github.com/backstage-technical-services/hub/issues/XXX <!-- delete this if there's no issue -->
+Ticket: <!-- past the link to the issue or delete this line if there's no issue -->
 
 ### Checklist
 
