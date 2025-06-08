@@ -3,6 +3,7 @@ description: Use this to suggest an improvement on something that already exists
 labels:
   - status/triage
   - type/improvement
+type: Improvement
 body:
   - type: checkboxes
     attributes:

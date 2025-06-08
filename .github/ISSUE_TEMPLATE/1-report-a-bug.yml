@@ -3,6 +3,7 @@ description: Use this to report when something doesn't work as expected.
 labels:
   - status/triage
   - type/bug
+type: Bug
 body:
   - type: checkboxes
     attributes:

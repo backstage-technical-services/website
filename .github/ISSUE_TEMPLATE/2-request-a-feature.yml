@@ -3,6 +3,7 @@ description: Use this when you would like some new functionality to be added.
 labels:
   - status/triage
   - type/feature
+type: Feature
 body:
   - type: checkboxes
     attributes:
