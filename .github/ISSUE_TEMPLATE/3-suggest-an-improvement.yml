@@ -1,0 +1,47 @@
+name: ⚡ Suggest an Improvement
+description: Use this to suggest an improvement on something that already exists.
+labels:
+  - status/triage
+  - type/improvement
+body:
+  - type: checkboxes
+    attributes:
+      label: Confirm there isn't an existing issue for this
+      description: Please search to see if an issue already exists for this improvement
+      options:
+      - label: I have searched the existing issues
+        required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Improvement
+      description: Describe what your improvement is. Smaller improvements may just need a few sentences, but the bigger the request the more information we'll need to make it happen! Don't be afraid to write out any ideas you've already thought of, and take advantage of formatting and lists to make it easier to read!
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why should this be implemented? How does this benefit members, the committee, our clients or the university?
+    validations:
+      required: true
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How quickly does this need to be implemented? If theres a certain date or event this needs to be done by, include that in the "Other details" section below.
+      options:
+        - Low
+        - Medium
+        - High
+        - Very high
+      default: 1
+    validations:
+      required: true
+  - type: textarea
+    id: other-details
+    attributes:
+      label: Other details
+      description: Are there any other details you think we should know?
+    validations:
+      required: false

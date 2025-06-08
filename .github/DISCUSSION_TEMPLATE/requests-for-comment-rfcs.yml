@@ -1,0 +1,50 @@
+body:
+  - id: decision-date
+    type: input
+    attributes:
+      label: Decision Date
+      description: When does this RFC need to be decided by?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - id: summary
+    type: textarea
+    attributes:
+      label: Summary
+      description: Provide a brief explanation of the proposal
+    validations:
+      required: true
+  - id: motivation
+    type: textarea
+    attributes:
+      label: Motivation
+      description: What is the motivation for doing this? Be as detailed as you can be; RFCs should invite comments from as many people as possible, so it's important to provide them with as much information as possible to avoid confusion.
+    validations:
+      required: true
+  - id: drawbacks
+    type: textarea
+    attributes:
+      label: Drawbacks
+      description: |
+        Understanding the drawbacks is just as important as the motivation. Consider:
+            
+          - Any impact on the learning curve
+          - Any infrastructure changes
+          - How this would impact the ability to address other issues
+          - Any additional costs
+    validations:
+      required: true
+  - id: alternatives
+    type: textarea
+    attributes:
+      label: Alternatives
+      description: Are there any alternatives to the problem not described here? Why not choose one of these?
+    validations:
+      required: true
+  - id: adoption-strategy
+    type: textarea
+    attributes:
+      label: Adoption Strategy
+      description: If the RFC is approved, how would we go about adopting or implementing it?
+    validations:
+      required: true

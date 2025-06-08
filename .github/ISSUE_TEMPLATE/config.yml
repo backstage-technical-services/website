@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❔ Ask a Question
+    url: https://github.com/backstage-technical-services/hub/discussions/categories/questions
+    about: Ask any other question
+  - name: 💬 Open a Discussion
+    url: https://github.com/backstage-technical-services/hub/discussions/categories/discussions
+    about: Use this to have a general discussion on any topic
+  - name: 📝 Open a Request for Comments (RFC)
+    url: https://github.com/backstage-technical-services/hub/discussions/categories/requests-for-comment-rfcs
+    about: Use this for a proposal which needs feedback from the wider community before it can be approved and worked on
