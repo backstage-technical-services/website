@@ -20,6 +20,8 @@ Allow: /favicon-32x32.png
 Allow: /favicon-96x96.png
 Allow: /favicon-16x16.png
 Allow: /ms-icon-144x144.png
+Allow: /images/bts-logo.png
+Allow: /images/carousel
 
 User-agent: *
 Disallow: /
