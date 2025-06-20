@@ -22,3 +22,9 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 backstage.uk/environment: {{ .Values.environment }}
 backstage.uk/component: website-v4
 {{- end }}
+
+{{- define "website-v4.ingress-middleware" -}}
+{{- $middlewares := list "default-redirect-http-to-https@kubernetescrd" }}
+{{- if not (eq "prod" .Values.environment) }}{{ $middlewares = append $middlewares "backstage-basic-auth@kubernetescrd" }}{{ end }}
+{{- join "," $middlewares }}
+{{- end }}
