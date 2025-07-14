@@ -20,6 +20,7 @@ metadata:
     {{- include "website-v4.labels" . | nindent 4 }}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.domains | join "," }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ include "website-v4.ingress-middleware" . }}
 spec:
   ingressClassName: traefik

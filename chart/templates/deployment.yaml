@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: 'ghcr.io/backstage-technical-services/website:{{ .Values.image.tag }}'
+          image: '685624812686.dkr.ecr.eu-west-1.amazonaws.com/backstage-website-v4:{{ .Values.image.tag }}'
           imagePullPolicy: Always
           envFrom:
             - secretRef:
@@ -39,22 +39,23 @@ spec:
               memory: '{{ .Values.resources.memory }}'
             limits:
               memory: '{{ .Values.resources.memory }}'
+      # volumes need to be declared using a PVC and PV in the storage.yaml file
       volumes:
         - name: backups
-          hostPath:
-            path: /opt/data/backstage/website-v4/{{ .Values.environment }}/backups
+          persistentVolumeClaim:
+            claimName: {{ .Values.environment }}-website-v4-backups
         - name: profiles
-          hostPath:
-            path: /opt/data/backstage/website-v4/{{ .Values.environment }}/profiles
+          persistentVolumeClaim:
+            claimName: {{ .Values.environment }}-website-v4-profiles
         - name: elections
-          hostPath:
-            path: /opt/data/backstage/website-v4/{{ .Values.environment }}/elections
+          persistentVolumeClaim:
+            claimName: {{ .Values.environment }}-website-v4-elections
         - name: resources
-          hostPath:
-            path: /opt/data/backstage/website-v4/{{ .Values.environment }}/resources
+          persistentVolumeClaim:
+            claimName: {{ .Values.environment }}-website-v4-resources
         - name: breakages
-          hostPath:
-            path: /opt/data/backstage/website-v4/{{ .Values.environment }}/breakages
+          persistentVolumeClaim:
+            claimName: {{ .Values.environment }}-website-v4-breakages
       nodeSelector:
         bnjns.uk/owner: backstage
       tolerations:
