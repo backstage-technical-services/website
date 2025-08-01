@@ -33,14 +33,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(AutoCloseCrewLists::class)->daily();
-        $schedule->command(BackupDb::class)->daily();
-        $schedule->command(BackupCommand::class)
-                 ->weekly()
-                 ->then(
-                     function () use ($schedule) {
-                         $schedule->command(CleanupCommand::class);
-                     }
-                 );
     }
     
     /**
