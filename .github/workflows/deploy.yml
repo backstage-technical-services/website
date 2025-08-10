@@ -10,51 +10,77 @@ on:
       - .github/*.yml
       - .github/*.md
 
+env:
+  ECR_URL: ${{ vars.ECR_BASE_URL }}/backstage-website-v4
+
 jobs:
   push-image:
-    runs-on: ubuntu-latest
+    name: Push image
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
-      packages: write
+      packages: read
       id-token: write
-    env:
-      ECR_URL: ${{ vars.ECR_BASE_URL }}/backstage-website-v4
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-22.04
+            tag: amd64
+          - runner: ubuntu-22.04-arm
+            tag: arm64
     steps:
       - uses: actions/checkout@v4
-      - uses: docker/setup-qemu-action@v3
       - name: Set up builder
         uses: docker/setup-buildx-action@v3
+      - name: Log into the GitHub container registry
+        uses: docker/login-action@v3
         with:
-          platforms: linux/amd64,linux/arm64
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: eu-west-1
           role-to-assume: ${{ vars.IMAGE_PUSH_ROLE_ARN }}
       - name: Log into ECR
         uses: aws-actions/amazon-ecr-login@v2
-      - name: Log into the GitHub registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           push: true
-          platforms: linux/amd64,linux/arm64
           file: .docker/prod.Dockerfile
-          cache-from: type=registry,ref=${{ env.ECR_URL }}:cache
-          cache-to: type=registry,ref=${{ env.ECR_URL }}:cache
+          cache-from: type=registry,ref=${{ env.ECR_URL }}:cache-${{ matrix.tag }}
+          cache-to: type=registry,ref=${{ env.ECR_URL }}:cache-${{ matrix.tag }}
           provenance: false
           tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ${{ env.ECR_URL }}:${{ github.sha }}
+            ${{ env.ECR_URL }}:${{ github.sha }}-${{ matrix.tag }}
+
+  manifest:
+    name: Create manifest
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      id-token: write
+    needs: [push-image]
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-west-1
+          role-to-assume: ${{ vars.IMAGE_PUSH_ROLE_ARN }}
+      - name: Log into ECR
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Create manifest
+        run: |
+          docker manifest create ${{ env.ECR_URL }}:${{ github.sha }} \
+            --amend ${{ env.ECR_URL }}:${{ github.sha }}-amd64 \
+            --amend ${{ env.ECR_URL }}:${{ github.sha }}-arm64
+          docker manifest push ${{ env.ECR_URL }}:${{ github.sha }}
 
   staging:
     runs-on: ubuntu-latest
     environment: staging
-    needs: [push-image]
+    needs: [manifest]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/helm-deploy
@@ -67,7 +93,7 @@ jobs:
   prod:
     runs-on: ubuntu-latest
     environment: prod
-    needs: [push-image, staging]
+    needs: [manifest, staging]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/helm-deploy
