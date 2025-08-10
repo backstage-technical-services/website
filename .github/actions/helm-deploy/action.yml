@@ -2,11 +2,11 @@ name: Deploy
 description: Deploys the website to the selected environment using the Helm chart
 
 inputs:
-  k3s-url:
-    description: The URL of the K3s API
+  k8s-url:
+    description: The URL of the K8s API
     required: true
-  k3s-secret:
-    description: The secret used to authenticate with the K3s API
+  k8s-secret:
+    description: The secret used to authenticate with the K8s API
     required: true
   environment:
     description: The name of the environment to deploy to
@@ -22,8 +22,8 @@ runs:
     - uses: azure/k8s-set-context@v4
       with:
         method: service-account
-        k8s-url: ${{ inputs.k3s-url }}
-        k8s-secret: ${{ inputs.k3s-secret }}
+        k8s-url: ${{ inputs.k8s-url }}
+        k8s-secret: ${{ inputs.k8s-secret }}
     - uses: azure/setup-helm@v4
     - name: deploy
       shell: bash

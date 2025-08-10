@@ -1,0 +1,214 @@
+########################################################################################################################
+# backups
+########################################################################################################################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backstage-{{ .Values.environment }}-website-v4-backups
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: backups
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  storageClassName: aws-efs
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-05929b3d75352ac77:/website-v4/{{ .Values.environment }}/backups
+    volumeAttributes:
+      encryptInTransit: 'true'
+  capacity:
+    storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.environment }}-website-v4-backups
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: backups
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: aws-efs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      {{- include "website-v4.selectorLabels" . | nindent 6 }}
+      backstage.uk/storage-name: backups
+---
+########################################################################################################################
+# breakages
+########################################################################################################################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backstage-{{ .Values.environment }}-website-v4-breakages
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: breakages
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  storageClassName: aws-efs
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-05929b3d75352ac77:/website-v4/{{ .Values.environment }}/breakages
+    volumeAttributes:
+      encryptInTransit: 'true'
+  capacity:
+    storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.environment }}-website-v4-breakages
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: breakages
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: aws-efs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      {{- include "website-v4.selectorLabels" . | nindent 6 }}
+      backstage.uk/storage-name: breakages
+---
+########################################################################################################################
+# elections
+########################################################################################################################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backstage-{{ .Values.environment }}-website-v4-elections
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: elections
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  storageClassName: aws-efs
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-05929b3d75352ac77:/website-v4/{{ .Values.environment }}/elections
+    volumeAttributes:
+      encryptInTransit: 'true'
+  capacity:
+    storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.environment }}-website-v4-elections
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: elections
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: aws-efs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      {{- include "website-v4.selectorLabels" . | nindent 6 }}
+      backstage.uk/storage-name: elections
+---
+########################################################################################################################
+# profiles
+########################################################################################################################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backstage-{{ .Values.environment }}-website-v4-profiles
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: profiles
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  storageClassName: aws-efs
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-05929b3d75352ac77:/website-v4/{{ .Values.environment }}/profiles
+    volumeAttributes:
+      encryptInTransit: 'true'
+  capacity:
+    storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.environment }}-website-v4-profiles
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: profiles
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: aws-efs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      {{- include "website-v4.selectorLabels" . | nindent 6 }}
+      backstage.uk/storage-name: profiles
+---
+########################################################################################################################
+# resources
+########################################################################################################################
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: backstage-{{ .Values.environment }}-website-v4-resources
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: resources
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  storageClassName: aws-efs
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-05929b3d75352ac77:/website-v4/{{ .Values.environment }}/resources
+    volumeAttributes:
+      encryptInTransit: 'true'
+  capacity:
+    storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.environment }}-website-v4-resources
+  labels:
+    {{- include "website-v4.labels" . | nindent 4 }}
+    backstage.uk/storage-name: resources
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: aws-efs
+  resources:
+    requests:
+      storage: 10Gi
+  selector:
+    matchLabels:
+      {{- include "website-v4.selectorLabels" . | nindent 6 }}
+      backstage.uk/storage-name: resources
