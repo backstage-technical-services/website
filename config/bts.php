@@ -65,7 +65,7 @@ return [
             'near_miss_reports' => [
                 'committee@bts-crew.com',
                 'safety@bts-crew.com',
-                'su-healthandsafety@bath.ac.uk'
+                'su-healthandsafety@bath.ac.uk',
             ]
         ],
 
