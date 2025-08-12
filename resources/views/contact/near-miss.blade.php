@@ -8,7 +8,7 @@
 @section('content')
     <p>Use this form to report an incident that occurred during a Backstage-supported event or activity which could have led to an injury. If an injury did
         occur, please use the {!! link_to_route('contact.accident', 'accident reporting form') !!} instead.</p>
-    <p>This email is only sent internally to the committee, and is only used to help improve the safety of the society and its
+    <p>This email is sent to the Committee and SU H&S inbox, and is only used to help improve the safety of the society and its
         members.</p>
     {!! Form::open() !!}
     <fieldset>
