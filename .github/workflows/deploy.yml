@@ -24,11 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - runner: ubuntu-22.04
-            tag: amd64
-          - runner: ubuntu-22.04-arm
-            tag: arm64
+        include: ${{ fromJSON(vars.MULTI_PLATFORM_MATRIX) }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up builder
