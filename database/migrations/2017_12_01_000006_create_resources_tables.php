@@ -54,7 +54,9 @@ class CreateResourcesTables extends Migration
                   ->onUpdate('cascade')
                   ->onDelete('set null');
         });
-        DB::statement('ALTER TABLE resources ADD FULLTEXT search(title, description)');
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('ALTER TABLE resources ADD FULLTEXT search(title, description)');
+        }
 
         // Tags pivot table
         Schema::create('resource_tag', function (Blueprint $table) {

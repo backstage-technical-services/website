@@ -30,9 +30,10 @@ jobs:
         env:
           XDEBUG_MODE: coverage
         run: |
-          ./vendor/bin/phpunit \
+          ./vendor/bin/pest \
             --log-junit tests/results/junit.xml \
-            --coverage-clover tests/results/coverage.xml
+            --coverage-clover tests/results/coverage.xml \
+            --ci
       - uses: actions/upload-artifact@v4
         with:
           name: test-results
