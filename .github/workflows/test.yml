@@ -8,8 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: kirschbaumdevelopment/laravel-test-runner:8.4
     permissions:
       checks: write
       contents: read
@@ -18,10 +16,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Install OS dependencies
-        run: |
-          apt-get update -y
-          apt-get install -y php8.4-xdebug
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          tools: composer
+          coverage: xdebug
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Install JS dependencies
