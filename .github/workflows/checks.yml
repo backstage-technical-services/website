@@ -1,0 +1,70 @@
+name: Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          tools: composer
+          coverage: xdebug
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+      - name: Install JS dependencies
+        run: yarn install --no-dev --frozen-lockfile
+      - name: Configure app
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+      - name: Run tests
+        env:
+          XDEBUG_MODE: coverage
+        run: |
+          ./vendor/bin/pest \
+            --log-junit tests/results/junit.xml \
+            --coverage-clover tests/results/coverage.xml \
+            --ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: tests/results
+      - uses: ctrf-io/github-test-reporter@v1
+        if: success() || failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: Test Report
+          report-path: 'tests/results/junit.xml'
+          integrations-config: |
+            {
+              "junit-to-ctrf": {
+                "enabled": true,
+                "action": "convert",
+                "options": {
+                  "output": "./ctrf-reports/ctrf-report.json",
+                  "toolname": "junit-to-ctrf",
+                  "useSuiteName": true
+                }
+              }
+            }
+          pull-request-report: 'true'
+          update-comment: 'true'
+          overwrite-comment: 'true'
+          comment-tag: 'ctrf-test-report'
