@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.4
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,3 +42,26 @@ jobs:
         with:
           name: test-results
           path: tests/results
+      - uses: ctrf-io/github-test-reporter@v1
+        if: success() || failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: Test Report
+          report-path: 'tests/results/junit.xml'
+          integrations-config: |
+            {
+              "junit-to-ctrf": {
+                "enabled": true,
+                "action": "convert",
+                "options": {
+                  "output": "./ctrf-reports/ctrf-report.json",
+                  "toolname": "junit-to-ctrf",
+                  "useSuiteName": true
+                }
+              }
+            }
+          pull-request-report: 'true'
+          update-comment: 'true'
+          overwrite-comment: 'true'
+          comment-tag: 'ctrf-test-report'
