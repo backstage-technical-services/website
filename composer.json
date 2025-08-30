@@ -39,9 +39,12 @@
         "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.9.1",
         "filp/whoops": "^2.0",
+        "larastan/larastan": "^3.0",
         "mockery/mockery": "^1.4.2",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-laravel": "^4.0",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/php-code-coverage": "^12"
     },
     "autoload": {

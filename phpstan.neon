@@ -1,0 +1,15 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/pestphp/pest/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - app/
+        - config/
+        - database/
+        - packages/
+        - routes/
+        - tests/
