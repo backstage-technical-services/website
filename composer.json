@@ -38,8 +38,9 @@
     "fakerphp/faker": "^1.9.1",
     "filp/whoops": "^2.0",
     "mockery/mockery": "^1.4.2",
-    "phpunit/php-code-coverage": "^10.0",
-    "phpunit/phpunit": "^10.0"
+    "pestphp/pest": "^4.0",
+    "pestphp/pest-plugin-laravel": "^4.0",
+    "phpunit/php-code-coverage": "^12"
   },
   "autoload"    : {
     "psr-4": {
@@ -79,6 +80,7 @@
     "allow-plugins": {
       "composer/installers": true,
       "oomphinc/composer-installers-extender": true,
+      "pestphp/pest-plugin": true,
       "robloach/component-installer": true
     }
   },
