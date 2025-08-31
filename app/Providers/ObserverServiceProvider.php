@@ -14,7 +14,6 @@ use App\Models\Events\Crew;
 use App\Models\Events\Email;
 use App\Models\Events\Event;
 use App\Models\Events\Time;
-use App\Models\Page;
 use App\Models\Quote;
 use App\Models\Resources\Category;
 use App\Models\Resources\Issue;
@@ -38,7 +37,6 @@ use App\Observers\Events\CrewObserver;
 use App\Observers\Events\EmailObserver;
 use App\Observers\Events\EventObserver;
 use App\Observers\Events\TimeObserver;
-use App\Observers\PageObserver;
 use App\Observers\QuoteObserver;
 use App\Observers\Resources\CategoryObserver;
 use App\Observers\Resources\IssueObserver;
@@ -70,7 +68,6 @@ class ObserverServiceProvider extends ServiceProvider
         $this->observeTraining();
         $this->observeUsers();
 
-        Page::observe(PageObserver::class);
         Quote::observe(QuoteObserver::class);
     }
 

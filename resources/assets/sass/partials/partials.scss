@@ -45,10 +45,6 @@ body[page-section*="members"] {
     @import "members";
 }
 
-body[page-section*="pages"] {
-    @import "pages";
-}
-
 body[page-section*="quotes"] {
     @import "quotes";
 }
