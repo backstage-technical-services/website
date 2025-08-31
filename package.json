@@ -1,40 +1,44 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "yarn run development",
-    "development": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "prod": "yarn run production",
-    "production": "mix --production"
-  },
-  "devDependencies": {
-    "axios": "^0.15.3",
-    "bootstrap-sass": "^3.3.7",
-    "cross-env": "^3.2.3",
-    "jquery": "^3.3.1",
-    "js-modals": "^2.3.0",
-    "js-tabify": "^1.3.0",
-    "laravel-mix": "^6.0.0",
-    "lodash": "^4.17.19",
-    "postcss": "^8.4.5",
-    "resolve-url-loader": "^4.0.0",
-    "sass": "^1.45.0",
-    "sass-loader": "^12.1.0",
-    "vue": "^2.5.16",
-    "webpack": "^5.65.0"
-  },
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "bootstrap-datetimepicker": "0.0.7",
-    "bootstrap-markdown": "^2.10.0",
-    "clipboard": "^1.7.1",
-    "js-cookie": "^2.2.0",
-    "lightbox2": "^2.10.0",
-    "moment": "^2.22.2",
-    "select2": "^4.0.6-rc.1",
-    "select2-bootstrap-theme": "0.1.0-beta.10",
-    "simplemde": "^1.11.2"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "yarn run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "yarn run production",
+        "production": "mix --production",
+        "check:format": "prettier --check \"{**/*,*}.{js,jsx,cjs,mjs,ts,tsx,cts,mts,md,mdx,json,html,php,scss,sass,css}\"",
+        "fix:format": "yarn check:format --write"
+    },
+    "devDependencies": {
+        "@prettier/plugin-php": "^0.24.0",
+        "axios": "^0.15.3",
+        "bootstrap-sass": "^3.3.7",
+        "cross-env": "^3.2.3",
+        "jquery": "^3.3.1",
+        "js-modals": "^2.3.0",
+        "js-tabify": "^1.3.0",
+        "laravel-mix": "^6.0.0",
+        "lodash": "^4.17.19",
+        "postcss": "^8.4.5",
+        "prettier": "^3.6.2",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.45.0",
+        "sass-loader": "^12.1.0",
+        "vue": "^2.5.16",
+        "webpack": "^5.65.0"
+    },
+    "dependencies": {
+        "bootstrap": "^3.3.7",
+        "bootstrap-datetimepicker": "0.0.7",
+        "bootstrap-markdown": "^2.10.0",
+        "clipboard": "^1.7.1",
+        "js-cookie": "^2.2.0",
+        "lightbox2": "^2.10.0",
+        "moment": "^2.22.2",
+        "select2": "^4.0.6-rc.1",
+        "select2-bootstrap-theme": "0.1.0-beta.10",
+        "simplemde": "^1.11.2"
+    }
 }
