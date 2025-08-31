@@ -21,12 +21,19 @@
     </div>
     <div class="form-group @InputClass('type')">
         {!! Form::label('type', 'Event Type:', ['class' => 'control-label']) !!}
-        {!! Form::select('type', \App\Models\Events\Event::$Types, null, ['class' => 'form-control', 'data-type' => 'toggle-visibility']) !!}
+        {!! Form::select('type', \App\Models\Events\Event::$Types, null, [
+            'class' => 'form-control',
+            'data-type' => 'toggle-visibility',
+        ]) !!}
         @InputError('type')
     </div>
     <div class="form-group @InputClass('description')">
         {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}
-        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'Briefly describe what the event is about']) !!}
+        {!! Form::textarea('description', null, [
+            'class' => 'form-control',
+            'rows' => 4,
+            'placeholder' => 'Briefly describe what the event is about',
+        ]) !!}
         @InputError('description')
         <p class="help-block alt">This will be visible to the public</p>
     </div>
@@ -35,12 +42,16 @@
         {!! Form::text('venue', null, ['class' => 'form-control', 'placeholder' => 'Where is it?']) !!}
         @InputError('venue')
     </div>
-    <div class="form-group @InputClass('venue_type')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
+    <div class="form-group @InputClass('venue_type')" data-visibility-input="type"
+        data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}"
+    >
         {!! Form::label('venue_type', 'Venue Type:', ['class' => 'control-label']) !!}
         {!! Form::select('venue_type', \App\Models\Events\Event::$VenueTypes, null, ['class' => 'form-control']) !!}
         @InputError('venue_type')
     </div>
-    <div class="form-group @InputClass('client_type')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
+    <div class="form-group @InputClass('client_type')" data-visibility-input="type"
+        data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}"
+    >
         {!! Form::label('client_type', 'Client Type:', ['class' => 'control-label']) !!}
         {!! Form::select('client_type', \App\Models\Events\Event::$Clients, null, ['class' => 'form-control']) !!}
         @InputError('client_type')
@@ -78,13 +89,21 @@
         {!! Form::label('time_start', 'Time:', ['class' => 'control-label']) !!}
         <div class="row">
             <div class="col-xs-5">
-                {!! Form::time('time_start', '19:00', ['class' => 'form-control', 'placeholder' => 'hh:mm', 'data-date-format' => 'HH:mm']) !!}
+                {!! Form::time('time_start', '19:00', [
+                    'class' => 'form-control',
+                    'placeholder' => 'hh:mm',
+                    'data-date-format' => 'HH:mm',
+                ]) !!}
             </div>
             <div class="col-xs-2">
                 <p class="form-control-static text-center">to</p>
             </div>
             <div class="col-xs-5">
-                {!! Form::time('time_end', '22:30', ['class' => 'form-control', 'placeholder' => 'hh:mm', 'data-date-format' => 'HH:mm']) !!}
+                {!! Form::time('time_end', '22:30', [
+                    'class' => 'form-control',
+                    'placeholder' => 'hh:mm',
+                    'data-date-format' => 'HH:mm',
+                ]) !!}
             </div>
         </div>
         <div class="row">
@@ -93,7 +112,9 @@
             <div class="col-xs-5">@InputError('time_end')</div>
         </div>
     </div>
-    <div class="form-group @InputClass('production_charge')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}">
+    <div class="form-group @InputClass('production_charge')" data-visibility-input="type"
+        data-visibility-value="{{ \App\Models\Events\Event::TYPE_EVENT }}"
+    >
         {!! Form::label('production_charge', 'Production Charge:', ['class' => 'control-label']) !!}
         <div class="input-group">
             <span class="input-group-addon">
@@ -105,11 +126,23 @@
     </div>
     <div class="form-group" id="buttons">
         <div class="btn-group">
-            <button class="btn btn-success" data-disable="click" data-disable-text="Creating event..." name="action" value="create">
+            <button
+                class="btn btn-success"
+                data-disable="click"
+                data-disable-text="Creating event..."
+                name="action"
+                value="create"
+            >
                 <span class="fa fa-check"></span>
                 <span>Create event</span>
             </button>
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button
+                class="btn btn-success dropdown-toggle"
+                data-toggle="dropdown"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -123,8 +156,8 @@
             </ul>
         </div>
         <span class="form-link">
-                or {!! link_to_route('event.index', 'Cancel') !!}
-            </span>
+            or {!! link_to_route('event.index', 'Cancel') !!}
+        </span>
     </div>
     {!! Form::close() !!}
 @endsection

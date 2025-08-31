@@ -9,7 +9,7 @@
     <div id="dash--upcoming">
         <div class="event-list">
             <h2>Upcoming Events</h2>
-            @if(count($events))
+            @if (count($events))
                 @include('members.dash.event_list', ['events' => $events])
             @else
                 <h3>There are no upcoming events</h3>
@@ -17,7 +17,7 @@
         </div>
         <div class="event-list">
             <h2>Upcoming Training</h2>
-            @if(count($events))
+            @if (count($events))
                 @include('members.dash.event_list', ['events' => $training])
             @else
                 <h3>There are no upcoming training sessions</h3>
@@ -25,7 +25,7 @@
         </div>
         <div class="event-list">
             <h2>Upcoming Socials</h2>
-            @if(count($events))
+            @if (count($events))
                 @include('members.dash.event_list', ['events' => $socials])
             @else
                 <h3>There are no upcoming socials</h3>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div id="dash--central">
-        @if(count($paperwork) > 0)
+        @if (count($paperwork) > 0)
             <h2>Your events with outstanding paperwork</h2>
             <table class="table table-striped event-paperwork">
                 <thead>
@@ -44,14 +44,20 @@
                     <th class="col--report">Event Report</th>
                 </thead>
                 <tbody>
-                    @foreach($paperwork as $event)
+                    @foreach ($paperwork as $event)
                         <tr>
                             <td class="col--event">
-                                {!! link_to_route('event.view', $event->name, ['id' => $event->id, 'tab' => 'paperwork'], ['class' => 'grey', 'target' =>
-                            '_blank']) !!}
+                                {!! link_to_route(
+                                    'event.view',
+                                    $event->name,
+                                    ['id' => $event->id, 'tab' => 'paperwork'],
+                                    ['class' => 'grey', 'target' => '_blank'],
+                                ) !!}
                                 <div class="mobile-only">
                                     <ul>
-                                        <li>@include('members.dash.paperwork', ['paperwork' => 'risk_assessment']) Risk Assessment</li>
+                                        <li>@include('members.dash.paperwork', [
+                                            'paperwork' => 'risk_assessment',
+                                        ]) Risk Assessment</li>
                                         <li>@include('members.dash.paperwork', ['paperwork' => 'insurance']) Insurance</li>
                                         <li>@include('members.dash.paperwork', ['paperwork' => 'finance_em']) Finance</li>
                                         <li>@include('members.dash.paperwork', ['paperwork' => 'event_report']) Event Report</li>
@@ -75,18 +81,24 @@
                 </tbody>
             </table>
         @endif
-        @if(count($need_tem))
+        @if (count($need_tem))
             <h2>Events needing a TEM</h2>
             <table class="table table-striped event-tem">
                 <tbody>
-                    @foreach($need_tem as $event)
+                    @foreach ($need_tem as $event)
                         <tr>
                             <td class="col--event dual-layer">
                                 <div class="upper">
-                                    {!! link_to_route('event.view', $event->name, ['id' => $event->id, 'tab' => 'paperwork'], ['class' => 'grey', 'target' => '_blank']) !!}
+                                    {!! link_to_route(
+                                        'event.view',
+                                        $event->name,
+                                        ['id' => $event->id, 'tab' => 'paperwork'],
+                                        ['class' => 'grey', 'target' => '_blank'],
+                                    ) !!}
                                 </div>
                                 <div class="lower">
-                                    <div class="lower">{{ $event->start->format('H:i D jS M y') }} &ndash; {{ $event->end->format('H:i D jS M y') }}</div>
+                                    <div class="lower">{{ $event->start->format('H:i D jS M y') }} &ndash;
+                                        {{ $event->end->format('H:i D jS M y') }}</div>
                                 </div>
                             </td>
                             <td class="col--venue">
@@ -98,8 +110,5 @@
             </table>
         @endif
     </div>
-
-
-
 
 @endsection

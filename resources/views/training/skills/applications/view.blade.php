@@ -15,8 +15,11 @@
         <div class="col-sm-8">
             <p class="form-control-static">
                 <a class="grey"
-                   href="{{ route('member.view', ['username' => $application->user->username, 'tab' => 'training']) }}"
-                   target="_blank">{{ $application->user->name }}</a> ({{ $application->user->username }})
+                    href="{{ route('member.view', ['username' => $application->user->username, 'tab' => 'training']) }}"
+                    target="_blank"
+                >
+                    {{ $application->user->name }}
+                </a> ({{ $application->user->username }})
             </p>
         </div>
     </div>
@@ -26,9 +29,11 @@
         {!! Form::label('skill', 'Skill:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
             <p class="form-control-static">
-                <a class="grey"
-                   href="{{ route('training.skill.view', ['id' => $application->skill->id]) }}"
-                   target="_blank">{{ $application->skill->name }}</a>
+                <a class="grey" href="{{ route('training.skill.view', ['id' => $application->skill->id]) }}"
+                    target="_blank"
+                >
+                    {{ $application->skill->name }}
+                </a>
                 <br>({{ $application->skill->category_name }})
             </p>
         </div>
@@ -45,13 +50,15 @@
     </div>
 
     {{-- Current level --}}
-    @if(!$application->isAwarded())
+    @if (!$application->isAwarded())
         <div class="form-group">
             {!! Form::label('current_level', 'Current Level:', ['class' => 'col-sm-4 control-label']) !!}
             <div class="col-sm-8">
                 <p class="form-control-static">
-                    @if($application->user->hasSkill($application->skill))
-                        @include('training.skills.proficiency', ['level' => $application->user->getSkillLevel($application->skill)])
+                    @if ($application->user->hasSkill($application->skill))
+                        @include('training.skills.proficiency', [
+                            'level' => $application->user->getSkillLevel($application->skill),
+                        ])
                     @else
                         <em>- none -</em>
                     @endif
@@ -72,9 +79,9 @@
     <div class="form-group @InputClass('awarded_level')">
         {!! Form::label('awarded_level', 'Awarded Level:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
-            @if($application->isAwarded())
+            @if ($application->isAwarded())
                 <p class="form-control-static">
-                    @if($application->awarded_level == 0)
+                    @if ($application->awarded_level == 0)
                         <em>&ndash; no level awarded &ndash;</em>
                     @else
                         @include('training.skills.proficiency', ['level' => $application->awarded_level])
@@ -91,8 +98,8 @@
     <div class="form-group @InputClass('awarded_comment')">
         {!! Form::label('awarded_comment', 'Comment:', ['class' => 'col-sm-4 control-label']) !!}
         <div class="col-sm-8">
-            @if($application->isAwarded())
-                @if($application->awarded_comment)
+            @if ($application->isAwarded())
+                @if ($application->awarded_comment)
                     {!! Markdown::convertToHtml($application->awarded_comment) !!}
                 @else
                     <p class="form-control-static">
@@ -100,14 +107,18 @@
                     </p>
                 @endif
             @else
-                {!! Form::textarea('awarded_comment', null, ['class' => 'form-control', 'placeholder' => 'This is optional if you award a level, but nice to provide', 'rows' => 4]) !!}
+                {!! Form::textarea('awarded_comment', null, [
+                    'class' => 'form-control',
+                    'placeholder' => 'This is optional if you award a level, but nice to provide',
+                    'rows' => 4,
+                ]) !!}
                 @InputError('awarded_comment')
             @endif
         </div>
     </div>
 
     {{-- Awarded details --}}
-    @if($application->isAwarded())
+    @if ($application->isAwarded())
         <div class="form-group">
             {!! Form::label('awarded', 'Awarded by:', ['class' => 'col-sm-4 control-label']) !!}
             <div class="col-sm-8">
@@ -122,7 +133,7 @@
     <div class="form-group">
         <div class="col-sm-4"></div>
         <div class="col-sm-8">
-            @if($application->isAwarded())
+            @if ($application->isAwarded())
                 <a class="btn btn-success" href="{{ route('training.skill.application.index') }}">
                     <span class="fa fa-long-arrow-left"></span>
                     <span>Back to the index</span>
@@ -133,12 +144,14 @@
                         <span class="fa fa-check"></span>
                         <span>Submit</span>
                     </button>
-                    <a class="btn btn-primary"
-                       data-toggle="modal"
-                       data-target="#modal"
-                       data-modal-template="skill_details"
-                       data-modal-title="Skill Details"
-                       href="#">
+                    <a
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="skill_details"
+                        data-modal-title="Skill Details"
+                        href="#"
+                    >
                         <span class="fa fa-question"></span>
                         <span>Skill details</span>
                     </a>
@@ -154,7 +167,7 @@
 @endsection
 
 @section('modal')
-    @if(!$application->isAwarded())
+    @if (!$application->isAwarded())
         <div data-type="modal-template" data-id="skill_details">
             <div class="modal-body">
                 {!! Form::open(['class' => 'form-horizontal']) !!}
@@ -185,11 +198,11 @@
                 {{-- Level requirements --}}
                 <h2 style="font-size: 18px;">Level Requirements</h2>
                 <table class="table level-requirements">
-                    @for($i = 1; $i <= 3; $i++)
+                    @for ($i = 1; $i <= 3; $i++)
                         <tr>
                             <td>@include('training.skills.proficiency', ['level' => $i])</td>
                             <td>
-                                @if($application->skill->{'level' . $i} !== null)
+                                @if ($application->skill->{'level' . $i} !== null)
                                     {!! Markdown::convertToHtml($application->skill->{'level' . $i}) !!}
                                 @else
                                     <span class="em">Level not available</span>
@@ -201,7 +214,12 @@
                 {!! Form::close() !!}
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-toggle="modal" data-target="#modal" type="button">
+                <button
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#modal"
+                    type="button"
+                >
                     <span class="fa fa-check"></span>
                     <span>Ok, got it</span>
                 </button>

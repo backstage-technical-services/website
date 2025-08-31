@@ -15,25 +15,31 @@
         <div class="form-group">
             {!! Form::label('avatar', 'Select your new picture:', ['class' => 'control-label']) !!}
             {!! Form::file('avatar') !!}
-            <p class="help-block small">This will be resized to 500px by 500px while maintaining the original aspect ratio. At the moment you don't have
-                any ability to crop or zoom, but this may change in the future.</p>
+            <p class="help-block small">
+                This will be resized to 500px by 500px while maintaining the original aspect ratio. At the moment you
+                don't have any ability to crop or zoom, but this may change in the future.
+            </p>
         </div>
     </div>
     <div class="modal-footer">
         <div class="btn-group">
-            <button class="btn btn-success"
-                    data-type="submit-modal"
-                    data-redirect="true"
-                    name="update"
-                    value="avatar">
+            <button
+                class="btn btn-success"
+                data-type="submit-modal"
+                data-redirect="true"
+                name="update"
+                value="avatar"
+            >
                 <span class="fa fa-check"></span>
                 <span>Change picture</span>
             </button>
-            <button class="btn btn-danger"
-                    data-type="submit-modal"
-                    data-redirect="true"
-                    name="remove"
-                    value="avatar">
+            <button
+                class="btn btn-danger"
+                data-type="submit-modal"
+                data-redirect="true"
+                name="remove"
+                value="avatar"
+            >
                 <span class="fa fa-remove"></span>
                 <span>Remove picture</span>
             </button>

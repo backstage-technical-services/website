@@ -22,11 +22,21 @@
     </div>
     <div class="modal-footer">
         <div class="btn-group">
-            <button class="btn btn-success" name="action" type="button" value="select">
+            <button
+                class="btn btn-success"
+                name="action"
+                type="button"
+                value="select"
+            >
                 <span class="fa fa-check"></span>
                 <span>Select date</span>
             </button>
-            <button class="btn btn-primary" name="action" type="button" value="today">
+            <button
+                class="btn btn-primary"
+                name="action"
+                type="button"
+                value="today"
+            >
                 <span class="fa fa-refresh"></span>
                 <span>Go to this month</span>
             </button>

@@ -5,11 +5,11 @@
 
 @section('scripts')
     $('select[name="type"]').on('change', function() {
-        if($(this).val() == 1) {
-            $('#position-list').addClass('hidden');
-        } else {
-            $('#position-list').removeClass('hidden');
-        }
+    if($(this).val() == 1) {
+    $('#position-list').addClass('hidden');
+    } else {
+    $('#position-list').removeClass('hidden');
+    }
     });
 @endsection
 
@@ -97,17 +97,20 @@
     </div>
 
     {{-- Positions --}}
-    <div class="form-group @InputClass('positions_checked') @if($election->isFull()) hidden @endif " id="position-list">
+    <div class="form-group @InputClass('positions_checked') @if ($election->isFull()) hidden @endif " id="position-list">
         {!! Form::label('', 'Positions:', ['class' => 'control-label col-md-4']) !!}
         <div class="col-md-8">
             <div class="container-fluid">
-                @foreach($positions as $i => $position)
+                @foreach ($positions as $i => $position)
                     <div class="form-group ">
                         <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('positions_checked[]', $i, true) !!}
                                 {{ $position }}
-                                {!! Form::hidden('positions['.$i.']', $position, ['class' => 'form-control form-control-inline', 'style' => '']) !!}
+                                {!! Form::hidden('positions[' . $i . ']', $position, [
+                                    'class' => 'form-control form-control-inline',
+                                    'style' => '',
+                                ]) !!}
                             </label>
                         </div>
                     </div>

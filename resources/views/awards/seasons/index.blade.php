@@ -9,20 +9,28 @@
     <div class="buttons">
         <div class="btn-group">
             @can('create', \App\Models\Awards\Season::class)
-                <button class="btn btn-success"
-                        data-toggle="modal"
-                        data-target="#modal"
-                        data-modal-class="sm"
-                        data-modal-template="award_season"
-                        data-modal-title="Create Award Season"
-                        data-mode="create"
-                        data-form-action="{{ route('award.season.store') }}"
-                        type="button">
+                <button
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#modal"
+                    data-modal-class="sm"
+                    data-modal-template="award_season"
+                    data-modal-title="Create Award Season"
+                    data-mode="create"
+                    data-form-action="{{ route('award.season.store') }}"
+                    type="button"
+                >
                     <span class="fa fa-plus"></span>
                     <span>Create Award Season</span>
                 </button>
                 @can('index', \App\Models\Awards\Award::class)
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button
+                        class="btn btn-success dropdown-toggle"
+                        data-toggle="dropdown"
+                        type="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
@@ -39,14 +47,16 @@
 
         <div class="btn-group">
             @can('suggest', \App\Models\Awards\Award::class)
-                <button class="btn btn-success"
-                        data-toggle="modal"
-                        data-target="#modal"
-                        data-modal-template="award_suggest"
-                        data-modal-title="Suggest Award"
-                        data-modal-class="sm"
-                        data-form-action="{{ route('award.suggest') }}"
-                        type="button">
+                <button
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#modal"
+                    data-modal-template="award_suggest"
+                    data-modal-title="Suggest Award"
+                    data-modal-class="sm"
+                    data-form-action="{{ route('award.suggest') }}"
+                    type="button"
+                >
                     <span class="fa fa-plus"></span>
                     <span>Suggest Award</span>
                 </button>
@@ -66,7 +76,7 @@
                         <div class="upper">
                             {!! link_to_route('award.season.view', $season->name, ['id' => $season->id], ['class' => 'grey']) !!}
                         </div>
-                        @if($season->status !== null)
+                        @if ($season->status !== null)
                             <div class="lower">
                                 {{ $season->status_text }}
                             </div>
@@ -80,15 +90,17 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <button data-toggle="modal"
-                                                data-target="#modal"
-                                                data-modal-class="sm"
-                                                data-modal-template="award_season"
-                                                data-modal-title="Edit Award Season"
-                                                data-mode="edit"
-                                                data-form-data="{{ json_encode($season) }}"
-                                                data-save-action="{{ route('award.season.update', ['id' => $season->id]) }}"
-                                                type="button">
+                                        <button
+                                            data-toggle="modal"
+                                            data-target="#modal"
+                                            data-modal-class="sm"
+                                            data-modal-template="award_season"
+                                            data-modal-title="Edit Award Season"
+                                            data-mode="edit"
+                                            data-form-data="{{ json_encode($season) }}"
+                                            data-save-action="{{ route('award.season.update', ['id' => $season->id]) }}"
+                                            type="button"
+                                        >
                                             <span class="fa fa-pencil"></span> Edit
                                         </button>
                                     </li>
@@ -98,10 +110,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <button data-submit-ajax="{{ route('award.season.destroy', ['id' => $season->id]) }}"
-                                                data-submit-confirm="Are you sure you want to delete this award season?"
-                                                data-redirect="true"
-                                                type="button">
+                                        <button
+                                            data-submit-ajax="{{ route('award.season.destroy', ['id' => $season->id]) }}"
+                                            data-submit-confirm="Are you sure you want to delete this award season?"
+                                            data-redirect="true"
+                                            type="button"
+                                        >
                                             <span class="fa fa-trash"></span> Delete
                                         </button>
                                     </li>

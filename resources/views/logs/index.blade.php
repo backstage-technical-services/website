@@ -21,15 +21,17 @@
             @forelse($logs as $entry)
                 <tr>
                     <td col="status">
-                        <span class="fa fa-{{ $entry->status ? 'check' : 'remove' }} {{ $entry->status ? 'success' : 'danger' }}"
-                              title="{{ $entry->status ? 'Success' : 'Failed' }}"></span>
+                        <span
+                            class="fa fa-{{ $entry->status ? 'check' : 'remove' }} {{ $entry->status ? 'success' : 'danger' }}"
+                            title="{{ $entry->status ? 'Success' : 'Failed' }}"
+                        ></span>
                     </td>
                     <td class="dual-layer" col="date">
                         <div class="upper">{{ $entry->date }}</div>
                         <div class="lower">{{ $entry->time }}</div>
                     </td>
                     <td class="dual-layer" col="user">
-                        @if($entry->isGuest())
+                        @if ($entry->isGuest())
                             <em>Guest</em>
                         @else
                             <div class="upper">{{ $entry->user->name }}</div>
@@ -38,13 +40,16 @@
                     </td>
                     <td col="action">{{ $entry->action }}</td>
                     <td col="payload">
-                        @if(empty($entry->payload))
+                        @if (empty($entry->payload))
                             <em>&ndash; none &ndash;</em>
                         @else
-                            @if(is_array($entry->payload))
+                            @if (is_array($entry->payload))
                                 <ul>
-                                    @foreach($entry->payload as $key => $value)
-                                        <li><code>{{ $key }}:</code> {{ is_array($value) || is_object($value) ? json_encode($value) : $value }}</li>
+                                    @foreach ($entry->payload as $key => $value)
+                                        <li>
+                                            <code>{{ $key }}:</code>
+                                            {{ is_array($value) || is_object($value) ? json_encode($value) : $value }}
+                                        </li>
                                     @endforeach
                                 </ul>
                             @else

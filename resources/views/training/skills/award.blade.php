@@ -7,14 +7,15 @@
 @section('header-sub', 'Award Skill')
 
 @section('content')
-    <p>If you are a committee member, or a {{ $LevelNames[3] }} in a skill, you can award it to any other member. Please note that this currently doesn't
-        support providing reasoning so it is recommended that
-        members {!! link_to_route('training.skill.apply.form', 'apply for', ['id' => request()->route()->parameter('id')]) !!} their skill
-        level instead.</p>
+    <p>
+        If you are a committee member, or a {{ $LevelNames[3] }} in a skill, you can award it to any other member. Please
+        note that this currently doesn't support providing reasoning so it is recommended that members
+        {!! link_to_route('training.skill.apply.form', 'apply for', ['id' => request()->route()->parameter('id')]) !!} their skill level instead.
+    </p>
     {!! Form::open() !!}
     <div class="form-group @InputClass('skill_id')">
         {!! Form::label('skill_id', 'Select skill:', ['class' => 'control-label']) !!}
-        @if($skill === null)
+        @if ($skill === null)
             {!! Form::select('skill_id', $SkillList, null, ['class' => 'form-control']) !!}
             @InputError('skill_id')
         @else
@@ -32,7 +33,10 @@
     <div class="form-group @InputClass('members')">
         {!! Form::label('members', 'Select member(s):', ['class' => 'control-label']) !!}
         {!! Form::memberList('members[]', null, ['class' => 'form-control', 'select2' => true, 'multiple' => true]) !!}
-        <p class="help-block alt">You can select as many members as you want to award the skill to. Any members that already have this skill at a higher level will be ignored.</p>
+        <p class="help-block alt">
+            You can select as many members as you want to award the skill to. Any members that already have this skill at a
+            higher level will be ignored.
+        </p>
         @InputError('members')
     </div>
 

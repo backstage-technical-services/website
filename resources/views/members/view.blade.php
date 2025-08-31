@@ -5,46 +5,88 @@
 @section('title', $user->isActiveUser() ? 'My Profile' : $user->getPossessiveName('Profile'))
 
 @section('content')
-    @if($user->isActiveUser())
+    @if ($user->isActiveUser())
         <div class="btn-group" id="edit-tools">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button
+                class="btn btn-default dropdown-toggle"
+                data-toggle="dropdown"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
                 Edit Profile
                 <span class="fa fa-caret-down"></span>
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="personal" data-modal-class="modal-sm" type="button">
+                    <button
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="personal"
+                        data-modal-class="modal-sm"
+                        type="button"
+                    >
                         <span class="fa fa-user"></span>
                         <span>Personal details</span>
                     </button>
                 </li>
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="contact" data-modal-class="modal-sm" type="button">
+                    <button
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="contact"
+                        data-modal-class="modal-sm"
+                        type="button"
+                    >
                         <span class="fa fa-envelope"></span>
                         <span>Contact details</span>
                     </button>
                 </li>
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="avatar" data-modal-class="modal-sm" type="button">
+                    <button
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="avatar"
+                        data-modal-class="modal-sm"
+                        type="button"
+                    >
                         <span class="fa fa-user-circle"></span>
                         <span>Profile picture</span>
                     </button>
                 </li>
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="password" data-modal-class="modal-sm" type="button">
+                    <button
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="password"
+                        data-modal-class="modal-sm"
+                        type="button"
+                    >
                         <span class="fa fa-key"></span>
                         <span>Password</span>
                     </button>
                 </li>
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="privacy" data-modal-class="modal-sm" type="button">
+                    <button
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="privacy"
+                        data-modal-class="modal-sm"
+                        type="button"
+                    >
                         <span class="fa fa-user-secret"></span>
                         <span>Privacy settings</span>
                     </button>
                 </li>
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="other" data-modal-class="modal-sm" type="button">
+                    <button
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-template="other"
+                        data-modal-class="modal-sm"
+                        type="button"
+                    >
                         <span class="fa fa-pencil"></span>
                         <span>Other settings</span>
                     </button>
@@ -58,11 +100,12 @@
                 <img class="img-rounded" src="{{ $user->getAvatarUrl() }}">
             </div>
             <div class="col-sm-7">
-                <h1>{{ $user->nickname ? sprintf('%s "%s" %s', $user->forename, $user->nickname, $user->surname) : $user->name }}</h1>
+                <h1>{{ $user->nickname ? sprintf('%s "%s" %s', $user->forename, $user->nickname, $user->surname) : $user->name }}
+                </h1>
                 <h3>{{ $user->username }}</h3>
             </div>
         </div>
-        @if($user->isMember())
+        @if ($user->isMember())
             <div class="tabpanel" id="profileTab">
                 <div class="tab-links">
                     {!! $menu !!}

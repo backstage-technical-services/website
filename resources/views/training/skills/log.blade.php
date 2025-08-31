@@ -26,9 +26,9 @@
                     </td>
                     <td class="dual-layer">
                         <div class="upper">
-                            <a class="grey"
-                               href="{{ route('training.skill.view', ['id' => $skill->skill_id]) }}"
-                               target="_blank">
+                            <a class="grey" href="{{ route('training.skill.view', ['id' => $skill->skill_id]) }}"
+                                target="_blank"
+                            >
                                 {{ $skill->skill->name }}
                             </a>
                         </div>
@@ -39,8 +39,9 @@
                     <td class="skill-user dual-layer">
                         <div class="upper">
                             <a class="grey"
-                               href="{{ route('member.view', ['username' => $skill->user->username, 'tab' => 'training']) }}"
-                               target="_blank">
+                                href="{{ route('member.view', ['username' => $skill->user->username, 'tab' => 'training']) }}"
+                                target="_blank"
+                            >
                                 {{ $skill->user->name }}
                             </a>
                         </div>
@@ -53,9 +54,9 @@
                     </td>
                     <td class="skill-user dual-layer">
                         <div class="upper">
-                            <a class="grey"
-                               href="{{ route('member.view', ['username' => $skill->awarder->username]) }}"
-                               target="_blank">
+                            <a class="grey" href="{{ route('member.view', ['username' => $skill->awarder->username]) }}"
+                                target="_blank"
+                            >
                                 {{ $skill->awarder->name }}
                             </a>
                         </div>

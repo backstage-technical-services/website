@@ -21,14 +21,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($resource->issues as $issue)
+            @foreach ($resource->issues as $issue)
                 <tr>
                     <td col="num">{{ $issue->issue }}</td>
                     <td col="date">{{ $issue->created_at->format('jS F Y') }}</td>
                     <td col="author">{{ $issue->author->name }}</td>
                     <td col="reason">{!! Markdown::convertToHtml($issue->reason) !!}</td>
                     <td class="admin-tools">
-                        <a class="btn btn-primary" href="{{ route('resource.stream', ['id' => $resource->id, 'issue' => $issue->issue]) }}">
+                        <a class="btn btn-primary"
+                            href="{{ route('resource.stream', ['id' => $resource->id, 'issue' => $issue->issue]) }}"
+                        >
                             View
                         </a>
                     </td>

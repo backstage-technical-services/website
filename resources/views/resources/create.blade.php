@@ -20,8 +20,8 @@
             <span>Add Resource</span>
         </button>
         <span class="form-link">
-        or {!! link_to_route('resource.index', 'Cancel', [], ['onclick' => 'return history.back();']) !!}
-    </span>
+            or {!! link_to_route('resource.index', 'Cancel', [], ['onclick' => 'return history.back();']) !!}
+        </span>
     </div>
     {!! Form::close() !!}
 @endsection

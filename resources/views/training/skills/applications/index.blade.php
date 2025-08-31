@@ -18,10 +18,10 @@
             <ul class="nav nav-tabs">
                 <li{{ $tab == 'pending' ? ' class=active' : '' }}>
                     <a href="{{ route('training.skill.application.index', ['tab' => 'pending']) }}">Pending Review</a>
-                </li>
-                <li{{ $tab == 'reviewed' ? ' class=active' : '' }}>
-                    <a href="{{ route('training.skill.application.index', ['tab' => 'reviewed']) }}">Reviewed</a>
-                </li>
+                    </li>
+                    <li{{ $tab == 'reviewed' ? ' class=active' : '' }}>
+                        <a href="{{ route('training.skill.application.index', ['tab' => 'reviewed']) }}">Reviewed</a>
+                        </li>
             </ul>
         </div>
         <div class="tab-content">
@@ -33,4 +33,4 @@
                 @Paginator($awarded)
             </div>
         </div>
-@endsection
+    @endsection

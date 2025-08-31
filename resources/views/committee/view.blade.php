@@ -7,9 +7,10 @@
 
 @section('scripts')
     $modal.onShow(function(event) {
-        if($modal.mode == 'edit') {
-            $modal.find('select[name=order]').find('option[value=' + ($modal.button.data('formData')['order'] + 1) + ']').attr('disabled', 'disabled');
-        }
+    if($modal.mode == 'edit') {
+    $modal.find('select[name=order]').find('option[value=' + ($modal.button.data('formData')['order'] + 1) +
+    ']').attr('disabled', 'disabled');
+    }
     });
 @endsection
 
@@ -21,15 +22,17 @@
     @endforelse
     @can('create', \App\Models\Committee\Role::class)
         <hr>
-        <a class="btn btn-success"
-           data-toggle="modal"
-           data-target="#modal"
-           data-modal-template="committee_add"
-           data-modal-title="Add Committee Position"
-           data-modal-class="modal-sm"
-           data-form-action="{{ route('committee.add') }}"
-           data-mode="create"
-           href="#">
+        <a
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#modal"
+            data-modal-template="committee_add"
+            data-modal-title="Add Committee Position"
+            data-modal-class="modal-sm"
+            data-form-action="{{ route('committee.add') }}"
+            data-mode="create"
+            href="#"
+        >
             <span class="fa fa-plus"></span>
             <span>Add a new role</span>
         </a>

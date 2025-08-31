@@ -8,7 +8,7 @@
 @section('content')
     <h2>
         {{ $skill->name }}
-        @if(Auth::user()->hasApplicationPending($skill))
+        @if (Auth::user()->hasApplicationPending($skill))
             <span class="badge">application pending</span>
         @endif
     </h2>
@@ -17,7 +17,7 @@
     <h3>Level Requirements</h3>
     <table class="table table-striped level-requirements">
         <tbody>
-            @for($i = 1; $i <= 3; $i++)
+            @for ($i = 1; $i <= 3; $i++)
                 <tr>
                     <td>
                         @include('training.skills.proficiency', ['level' => $i])
@@ -25,8 +25,8 @@
                         <small>{{ $LevelNames[$i] }}</small>
                     </td>
                     <td>
-                        @if($skill->{'level'.$i} !== null)
-                            {!! Markdown::convertToHtml($skill->{'level'.$i}) !!}
+                        @if ($skill->{'level' . $i} !== null)
+                            {!! Markdown::convertToHtml($skill->{'level' . $i}) !!}
                         @else
                             <p class="em">Level not available</p>
                         @endif
@@ -45,12 +45,15 @@
             </tr>
         </thead>
         <tbody>
-            @for($i = 0; $i < max(count(max($skill->users)), 1); $i++)
+            @for ($i = 0; $i < max(count(max($skill->users)), 1); $i++)
                 <tr>
-                    @for($j = 3; $j >= 1; $j--)
+                    @for ($j = 3; $j >= 1; $j--)
                         <td>
-                            @if(isset($skill->users[$j][$i]))
-                                {!! link_to_route('member.view', $skill->users[$j][$i]->name, ['username' => $skill->users[$j][$i]->username, 'tab' => 'training']) !!}
+                            @if (isset($skill->users[$j][$i]))
+                                {!! link_to_route('member.view', $skill->users[$j][$i]->name, [
+                                    'username' => $skill->users[$j][$i]->username,
+                                    'tab' => 'training',
+                                ]) !!}
                             @elseif($i == 0)
                                 <div class="text-center em">no members</div>
                             @endif
@@ -68,16 +71,18 @@
                     <span>Edit</span>
                 </a>
                 @can('delete', $skill)
-                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" type="button">
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button data-submit-ajax="{{ route('training.skill.destroy', $skill->id) }}"
-                                    data-submit-confirm="Are you sure you want to delete this skill?"
-                                    data-redirect="true"
-                                    data-redirect-location="{{ route('training.skill.index') }}"
-                                    type="button">
+                            <button
+                                data-submit-ajax="{{ route('training.skill.destroy', $skill->id) }}"
+                                data-submit-confirm="Are you sure you want to delete this skill?"
+                                data-redirect="true"
+                                data-redirect-location="{{ route('training.skill.index') }}"
+                                type="button"
+                            >
                                 <span class="fa fa-trash"></span> Delete
                             </button>
                         </li>
@@ -85,7 +90,7 @@
                 @endcan
             </div>
         @endcan
-        @if(Auth::user()->can('apply', $skill) && Auth::user()->getSkillLevel($skill) < 3)
+        @if (Auth::user()->can('apply', $skill) && Auth::user()->getSkillLevel($skill) < 3)
             <a class="btn btn-success" href="{{ route('training.skill.apply.form', ['id' => $skill->id]) }}">
                 <span class="fa fa-plus"></span>
                 <span>Apply for a level</span>
@@ -98,7 +103,7 @@
                     <span>Award level</span>
                 </a>
                 @can('revoke', $skill)
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" type="button">
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
@@ -111,5 +116,5 @@
                 @endcan
             </div>
         @endcan
-    </div>
+</div>
 @endsection

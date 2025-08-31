@@ -9,11 +9,23 @@
 @section('buttons')
     <div class="buttons">
         <div class="btn-group">
-            <button class="btn btn-success" data-disable="click" data-disable-text="Saving..." name="action" value="save">
+            <button
+                class="btn btn-success"
+                data-disable="click"
+                data-disable-text="Saving..."
+                name="action"
+                value="save"
+            >
                 <span class="fa fa-check"></span>
                 <span>Save Changes</span>
             </button>
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button
+                class="btn btn-success dropdown-toggle"
+                data-toggle="dropdown"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
@@ -24,9 +36,9 @@
                         <span>Reset password</span>
                     </button>
                 </li>
-                @if(!$user->isActiveUser())
+                @if (!$user->isActiveUser())
                     <li>
-                        @if($user->status)
+                        @if ($user->status)
                             <button name="action" value="archive">
                                 <span class="fa fa-archive"></span>
                                 <span>Archive</span>
@@ -42,8 +54,8 @@
             </ul>
         </div>
         <span class="form-link">
-        or {!! link_to_route('user.index', 'Cancel') !!}
-    </span>
+            or {!! link_to_route('user.index', 'Cancel') !!}
+        </span>
     </div>
 @endsection
 
@@ -51,7 +63,7 @@
     {!! Form::model($user, ['route' => ['user.update', $user->username]]) !!}
     <div id="account-status">
         Status:
-        @if($user->status)
+        @if ($user->status)
             <span class="success">Active</span>
         @else
             <span class="warning">Archived</span>
@@ -69,7 +81,7 @@
                 </div>
                 <div class="form-group @InputClass('username')">
                     {!! Form::label('username', 'BUCS Username:', ['class' => 'control-label']) !!}
-                    @if($user->isActiveUser())
+                    @if ($user->isActiveUser())
                         <p class="form-control-static">{{ $user->username }}</p>
                     @else
                         {!! Form::text('username', null, ['class' => 'form-control']) !!}
@@ -84,9 +96,9 @@
                 <div class="form-group @InputClass('email')">
                     {!! Form::label('email', 'Email Address:', ['class' => 'control-label']) !!}
                     <div class="input-group">
-                            <span class="input-group-addon">
-                                <span class="fa fa-envelope"></span>
-                            </span>
+                        <span class="input-group-addon">
+                            <span class="fa fa-envelope"></span>
+                        </span>
                         {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     </div>
                     @InputError('email')
@@ -94,9 +106,9 @@
                 <div class="form-group @InputClass('phone')">
                     {!! Form::label('phone', 'Phone Number:', ['class' => 'control-label']) !!}
                     <div class="input-group">
-                            <span class="input-group-addon">
-                                <span class="fa fa-phone"></span>
-                            </span>
+                        <span class="input-group-addon">
+                            <span class="fa fa-phone"></span>
+                        </span>
                         {!! Form::text('phone', null, ['class' => 'form-control']) !!}
                     </div>
                     @InputError('phone')
@@ -104,9 +116,9 @@
                 <div class="form-group @InputClass('dob')">
                     {!! Form::label('dob', 'Date of Birth:', ['class' => 'control-label']) !!}
                     <div class="input-group">
-                            <span class="input-group-addon">
-                                <span class="fa fa-calendar"></span>
-                            </span>
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
                         {!! Form::date('dob', null, ['class' => 'form-control']) !!}
                     </div>
                     @InputError('dob')
@@ -114,26 +126,26 @@
                 <div class="form-group @InputClass('address')">
                     {!! Form::label('address', 'Address:', ['class' => 'control-label']) !!}
                     <div class="input-group textarea">
-                            <span class="input-group-addon">
-                                <span class="fa fa-home"></span>
-                            </span>
-                        {!! Form::textarea('address', null, ['class' => 'form-control', 'rows' =>'4']) !!}
+                        <span class="input-group-addon">
+                            <span class="fa fa-home"></span>
+                        </span>
+                        {!! Form::textarea('address', null, ['class' => 'form-control', 'rows' => '4']) !!}
                     </div>
                     @InputError('address')
                 </div>
                 <div class="form-group @InputClass('tool_colours')">
                     {!! Form::label('tool_colours', 'Tool Colours:', ['class' => 'control-label']) !!}
                     <div class="input-group">
-                            <span class="input-group-addon">
-                                <span class="fa fa-wrench"></span>
-                            </span>
+                        <span class="input-group-addon">
+                            <span class="fa fa-wrench"></span>
+                        </span>
                         {!! Form::text('tool_colours', null, ['class' => 'form-control']) !!}
                     </div>
                     @InputError('tool_colours')
                 </div>
                 <div class="form-group @InputClass('type')">
                     {!! Form::label('type', 'Account Type:', ['class' => 'control-label']) !!}
-                    @if($user->isActiveUser())
+                    @if ($user->isActiveUser())
                         <p class="form-control-static">{{ $user->account_type }}</p>
                     @else
                         {!! Form::select('type', \App\Models\Users\User::$AccountTypes, null, ['class' => 'form-control']) !!}

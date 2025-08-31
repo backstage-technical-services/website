@@ -6,10 +6,14 @@
 @section('header-main', 'Report a Near Miss')
 
 @section('content')
-    <p>Use this form to report an incident that occurred during a Backstage-supported event or activity which could have led to an injury. If an injury did
-        occur, please use the {!! link_to_route('contact.accident', 'accident reporting form') !!} instead.</p>
-    <p>This email is sent to the Committee and SU H&S inbox, and is only used to help improve the safety of the society and its
-        members.</p>
+    <p>
+        Use this form to report an incident that occurred during a Backstage-supported event or activity which could have
+        led to an injury. If an injury did occur, please use the {!! link_to_route('contact.accident', 'accident reporting form') !!} instead.
+    </p>
+    <p>
+        This email is sent to the Committee and SU H&S inbox, and is only used to help improve the safety of the society and
+        its members.
+    </p>
     {!! Form::open() !!}
     <fieldset>
         <legend>Incident Details</legend>
@@ -48,9 +52,9 @@
         <div class="form-group @InputClass('details')">
             {!! Form::label('details', 'Details:') !!}
             {!! Form::textarea('details', null, [
-            'placeholder' => 'Please provide any details regarding the near miss, including the events leading up to it.',
-            'rows' => 4
-            ])!!}
+                'placeholder' => 'Please provide any details regarding the near miss, including the events leading up to it.',
+                'rows' => 4,
+            ]) !!}
             @InputError('details')
         </div>
 
@@ -58,17 +62,19 @@
         <div class="form-group @InputClass('safety_recommendations')">
             {!! Form::label('safety_recommendations', 'Safety Recommendations:') !!}
             {!! Form::textarea('safety_recommendations', null, [
-            'placeholder' => 'Are there any safety steps you feel were overlooked, or should be implemented as a result?',
-            'rows' => 4
-            ])!!}
+                'placeholder' => 'Are there any safety steps you feel were overlooked, or should be implemented as a result?',
+                'rows' => 4,
+            ]) !!}
             @InputError('safety_recommendations')
         </div>
     </fieldset>
 
     <fieldset>
         <legend>Your Details</legend>
-        <p>You do not need to provide your details, but we discourage anonymous reporting as it prevents the committee from collecting further information if
-            needed.</p>
+        <p>
+            You do not need to provide your details, but we discourage anonymous reporting as it prevents the committee from
+            collecting further information if needed.
+        </p>
 
         <!-- Name -->
         <div class="form-group @InputClass('user_name')">
@@ -92,7 +98,12 @@
     </fieldset>
 
     <div class="text-center">
-        <button class="btn btn-success" data-disable="click" data-disable-text="Sending report ..." type="submit">
+        <button
+            class="btn btn-success"
+            data-disable="click"
+            data-disable-text="Sending report ..."
+            type="submit"
+        >
             <span class="fa fa-send"></span>
             <span>Send Report</span>
         </button>

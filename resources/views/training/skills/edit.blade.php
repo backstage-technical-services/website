@@ -15,12 +15,14 @@
                 <span class="fa fa-check"></span>
                 <span>Save Changes</span>
             </button>
-            <button class="btn btn-danger"
-                    data-submit-ajax="{{ route('training.skill.destroy', $skill->id) }}"
-                    data-submit-confirm="Are you sure you want to delete this skill?"
-                    data-redirect="true"
-                    data-redirect-location="{{ route('training.skill.index') }}"
-                    type="button">
+            <button
+                class="btn btn-danger"
+                data-submit-ajax="{{ route('training.skill.destroy', $skill->id) }}"
+                data-submit-confirm="Are you sure you want to delete this skill?"
+                data-redirect="true"
+                data-redirect-location="{{ route('training.skill.index') }}"
+                type="button"
+            >
                 <span class="fa fa-remove"></span>
                 <span>Delete</span>
             </button>

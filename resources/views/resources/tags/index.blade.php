@@ -8,16 +8,18 @@
 
 @section('content')
     <div>
-        <button class="btn btn-success"
-                data-toggle="modal"
-                data-target="#modal"
-                data-modal-class="modal-sm"
-                data-modal-template="tag"
-                data-modal-title="Create Tag"
-                data-form-action="{{ route('resource.tag.store') }}"
-                data-redirect="true"
-                data-mode="create"
-                type="button">
+        <button
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#modal"
+            data-modal-class="modal-sm"
+            data-modal-template="tag"
+            data-modal-title="Create Tag"
+            data-form-action="{{ route('resource.tag.store') }}"
+            data-redirect="true"
+            data-mode="create"
+            type="button"
+        >
             <span class="fa fa-plus"></span>
             <span>Add a tag</span>
         </button>
@@ -47,21 +49,24 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <button data-toggle="modal"
-                                            data-target="#modal"
-                                            data-modal-class="modal-sm"
-                                            data-modal-template="tag"
-                                            data-modal-title="Edit Tag"
-                                            data-mode="edit"
-                                            data-form-data="{{ json_encode($tag) }}"
-                                            data-form-action="{{ route('resource.tag.update', ['id' => $tag->id]) }}"
-                                            data-redirect="true">
+                                    <button
+                                        data-toggle="modal"
+                                        data-target="#modal"
+                                        data-modal-class="modal-sm"
+                                        data-modal-template="tag"
+                                        data-modal-title="Edit Tag"
+                                        data-mode="edit"
+                                        data-form-data="{{ json_encode($tag) }}"
+                                        data-form-action="{{ route('resource.tag.update', ['id' => $tag->id]) }}"
+                                        data-redirect="true"
+                                    >
                                         <span class="fa fa-pencil"></span> Edit
                                     </button>
                                 </li>
                                 <li>
                                     <button data-submit-ajax="{{ route('resource.tag.destroy', $tag->id) }}"
-                                            data-submit-confirm="Are you sure you want to delete this tag?">
+                                        data-submit-confirm="Are you sure you want to delete this tag?"
+                                    >
                                         <span class="fa fa-trash"></span> Delete
                                     </button>
                                 </li>
