@@ -11,7 +11,7 @@
         @forelse($awarded as $application)
             <tr onclick="window.location='{{ route('training.skill.application.view', ['id' => $application->id]) }}';">
                 <td class="application-status">
-                    @if($application->awarded_level == $application->applied_level)
+                    @if ($application->awarded_level == $application->applied_level)
                         <span class="fa fa-check success" title="Awarded"></span>
                     @elseif($application->awarded_level > 0)
                         <span class="fa fa-exclamation warning" title="Awarded a lower skill level"></span>

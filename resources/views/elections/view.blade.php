@@ -40,24 +40,29 @@
                 </div>
                 <div>
                     <div class="btn-group btn-group-sm">
-                        @if($election->isVotingOpen() && $election->bathstudent_id)
+                        @if ($election->isVotingOpen() && $election->bathstudent_id)
                             <a class="btn btn-success"
-                               href="https://www.thesubath.com/elections/vote/{{ $election->bathstudent_id }}"
-                               target="_blank">
+                                href="https://www.thesubath.com/elections/vote/{{ $election->bathstudent_id }}"
+                                target="_blank"
+                            >
                                 <span class="fa fa-check"></span>
                                 <span>Vote now</span>
                             </a>
                         @endif
-                        <button class="btn btn-primary"
-                                data-toggle="modal"
-                                data-target="#modal"
-                                data-modal-template="position_details">
+                        <button
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#modal"
+                            data-modal-template="position_details"
+                        >
                             Position Details
                         </button>
-                        <button class="btn btn-primary"
-                                data-toggle="modal"
-                                data-target="#modal"
-                                data-modal-template="election_procedure">
+                        <button
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#modal"
+                            data-modal-template="election_procedure"
+                        >
                             Election Procedure
                         </button>
                     </div>
@@ -71,31 +76,38 @@
         <h2>Positions</h2>
 
         <div class="container-fluid">
-            @foreach($election->positions as $index => $position)
+            @foreach ($election->positions as $index => $position)
                 <div class="row position">
                     <div class="col-sm-5 name">{{ $position }}:</div>
                     <div class="col-sm-7 nominations">
                         <div class="container-fluid">
                             @forelse($election->getNominations($index) as $nominee)
                                 <div class="row">
-                                    @if($nominee->elected)
+                                    @if ($nominee->elected)
                                         <div class="elected-status" title="Elected"><span
-                                                    class="fa fa-check success "></span></div>
+                                                class="fa fa-check success "></span></div>
                                     @endif
                                     <div class="name">
-                                        {!! link_to_route('member.view', $nominee->user->name, ['username' => $nominee->user->username], ['class' => 'grey', 'target' => '_blank']) !!}
+                                        {!! link_to_route(
+                                            'member.view',
+                                            $nominee->user->name,
+                                            ['username' => $nominee->user->username],
+                                            ['class' => 'grey', 'target' => '_blank'],
+                                        ) !!}
                                     </div>
                                     <div class="btn-group btn-group-sm">
                                         <a class="btn btn-primary"
-                                           href="{{ route('election.manifesto', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
-                                           target="_blank">
+                                            href="{{ route('election.manifesto', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
+                                            target="_blank"
+                                        >
                                             <span class="fa fa-file-pdf-o"></span>
                                             <span>Manifesto</span>
                                         </a>
-                                        @if(Auth::user()->can('delete', $nominee) && $election->canModifyNominations())
+                                        @if (Auth::user()->can('delete', $nominee) && $election->canModifyNominations())
                                             <a class="btn btn-danger"
-                                               data-submit-ajax="{{ route('election.nomination.delete', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
-                                               data-submit-confirm="Are you sure you want to delete this nomination?">
+                                                data-submit-ajax="{{ route('election.nomination.delete', ['id' => $election->id, 'nominationId' => $nominee->id]) }}"
+                                                data-submit-confirm="Are you sure you want to delete this nomination?"
+                                            >
                                                 <span class="fa fa-trash"></span>
                                             </a>
                                         @endif
@@ -116,24 +128,28 @@
 
         <p>
             @can('create', \App\Models\Elections\Nomination::class)
-                @if($election->canModifyNominations())
-                    <button class="btn btn-success"
-                            data-toggle="modal"
-                            data-target="#modal"
-                            data-modal-class="modal-sm"
-                            data-modal-template="nominate">
+                @if ($election->canModifyNominations())
+                    <button
+                        class="btn btn-success"
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-class="modal-sm"
+                        data-modal-template="nominate"
+                    >
                         <span class="fa fa-user-plus"></span>
                         <span>Add Nominee</span>
                     </button>
                 @endif
             @endcan
             @can('update', $election)
-                @if($election->canModifyResults())
-                    <button class="btn btn-success"
-                            data-toggle="modal"
-                            data-target="#modal"
-                            data-modal-class="modal-md"
-                            data-modal-template="elect">
+                @if ($election->canModifyResults())
+                    <button
+                        class="btn btn-success"
+                        data-toggle="modal"
+                        data-target="#modal"
+                        data-modal-class="modal-md"
+                        data-modal-template="elect"
+                    >
                         <span class="fa fa-group"></span>
                         <span>Set committee</span>
                     </button>
@@ -145,12 +161,12 @@
 
 @section('modal')
     @can('create', \App\Models\Elections\Nomination::class)
-        @if($election->canModifyNominations())
+        @if ($election->canModifyNominations())
             @include('elections.modals.nominate')
         @endif
     @endcan
     @can('update', $election)
-        @if($election->canModifyResults())
+        @if ($election->canModifyResults())
             @include('elections.modals.elect')
         @endif
     @endcan

@@ -6,8 +6,10 @@
 @section('page-id', 'login')
 
 @section('content')
-    <p>To access the members' area you need a username and password; these are provided once you have attended our induction. If you have attended this
-        induction but have not received your log in details please <a href="mailto:sec@bts-crew.com">contact the secretary</a>.</p>
+    <p>To access the members' area you need a username and password; these are provided once you have attended our
+        induction. If you have attended this induction but have not received your log in details please
+        <a href="mailto:sec@bts-crew.com">contact the secretary</a>.
+    </p>
 
     {!! Form::open() !!}
 
@@ -16,7 +18,7 @@
             <span class="input-group-addon"><span class="fa fa-user"></span></span>
             {!! Form::text('username', null, [
                 'placeholder' => 'Enter your username or email address',
-                'class' => 'form-control'
+                'class' => 'form-control',
             ]) !!}
         </div>
         @InputError('username')
@@ -27,7 +29,7 @@
             <span class="input-group-addon"><span class="fa fa-key"></span></span>
             {!! Form::input('password', 'password', null, [
                 'placeholder' => 'Enter your password',
-                'class' => 'form-control'
+                'class' => 'form-control',
             ]) !!}
         </div>
         @InputError('password')

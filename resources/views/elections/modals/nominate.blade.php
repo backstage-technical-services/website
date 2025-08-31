@@ -23,10 +23,12 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success"
-                data-type="submit-modal"
-                data-form-action="{{ route('election.nominate', ['id' => $election->id]) }}"
-                data-redirect="true">
+        <button
+            class="btn btn-success"
+            data-type="submit-modal"
+            data-form-action="{{ route('election.nominate', ['id' => $election->id]) }}"
+            data-redirect="true"
+        >
             <span class="fa fa-check"></span>
             <span>Nominate</span>
         </button>

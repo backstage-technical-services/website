@@ -11,10 +11,10 @@
     <div class="category-tag-summary">
         <fieldset>
             <legend>Categories</legend>
-            @if(count($ResourceCategories) > 0)
+            @if (count($ResourceCategories) > 0)
                 <div class="summary-wrapper">
                     <ul>
-                        @foreach($ResourceCategories as $category)
+                        @foreach ($ResourceCategories as $category)
                             <li>{!! link_to_route('resource.search', $category->name, ['category' => $category->slug], ['class' => 'grey']) !!}
                                 ({{ $category->resources()->accessible()->count() }})
                             </li>
@@ -27,10 +27,10 @@
         </fieldset>
         <fieldset>
             <legend>Tags</legend>
-            @if(count($ResourceTags) > 0)
+            @if (count($ResourceTags) > 0)
                 <div class="summary-wrapper">
                     <ul class="tag-list">
-                        @foreach($ResourceTags as $tag)
+                        @foreach ($ResourceTags as $tag)
                             <li>@include('resources.tags.partial')</li>
                         @endforeach
                     </ul>

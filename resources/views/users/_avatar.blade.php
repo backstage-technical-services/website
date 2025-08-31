@@ -6,12 +6,14 @@
 
     <div class="form-group text-center">
         <div class="btn-group">
-            @if($user->hasAvatar())
-                <a class="btn btn-success btn-sm"
-                   data-toggle="modal"
-                   data-target="#modal"
-                   data-modal-template="avatar"
-                   data-modal-class="modal-sm">
+            @if ($user->hasAvatar())
+                <a
+                    class="btn btn-success btn-sm"
+                    data-toggle="modal"
+                    data-target="#modal"
+                    data-modal-template="avatar"
+                    data-modal-class="modal-sm"
+                >
                     <span class="fa fa-upload"></span>
                     <span>Change</span>
                 </a>
@@ -20,11 +22,13 @@
                     <span>Remove</span>
                 </button>
             @else
-                <a class="btn btn-success btn-sm"
-                   data-toggle="modal"
-                   data-target="#modal"
-                   data-modal-template="avatar"
-                   data-modal-class="modal-sm">
+                <a
+                    class="btn btn-success btn-sm"
+                    data-toggle="modal"
+                    data-target="#modal"
+                    data-modal-template="avatar"
+                    data-modal-class="modal-sm"
+                >
                     <span class="fa fa-upload"></span>
                     <span>Upload photo</span>
                 </a>

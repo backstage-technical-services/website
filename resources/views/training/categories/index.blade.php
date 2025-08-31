@@ -7,15 +7,17 @@
 
 @section('content')
     <div>
-        <button class="btn btn-success"
-                data-toggle="modal"
-                data-target="#modal"
-                data-modal-class="modal-sm"
-                data-modal-template="training_category"
-                data-modal-title="Add a Category"
-                data-mode="create"
-                data-form-action="{{ route('training.category.store') }}"
-                type="button">
+        <button
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#modal"
+            data-modal-class="modal-sm"
+            data-modal-template="training_category"
+            data-modal-title="Add a Category"
+            data-mode="create"
+            data-form-action="{{ route('training.category.store') }}"
+            type="button"
+        >
             <span class="fa fa-plus"></span>
             <span>Create Category</span>
         </button>
@@ -41,30 +43,32 @@
                     </td>
                     <td class="admin-tools admin-tools-icon">
                         <div class="dropdown admin-tools">
-                            <button class="btn btn-default dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    type="button">
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
                                 <span class="fa fa-cog"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <button data-toggle="modal"
-                                            data-target="#modal"
-                                            data-modal-class="modal-sm"
-                                            data-modal-template="training_category"
-                                            data-modal-title="Edit Category"
-                                            data-form-data="{{ json_encode(['name' => $category->name]) }}"
-                                            data-form-action="{{ route('training.category.update', $category->id) }}"
-                                            data-mode="edit"
-                                            type="button">
+                                    <button
+                                        data-toggle="modal"
+                                        data-target="#modal"
+                                        data-modal-class="modal-sm"
+                                        data-modal-template="training_category"
+                                        data-modal-title="Edit Category"
+                                        data-form-data="{{ json_encode(['name' => $category->name]) }}"
+                                        data-form-action="{{ route('training.category.update', $category->id) }}"
+                                        data-mode="edit"
+                                        type="button"
+                                    >
                                         <span class="fa fa-pencil"></span> Edit
                                     </button>
                                 </li>
                                 <li>
-                                    <button data-submit-ajax="{{ route('training.category.destroy', $category->id) }}"
-                                            data-submit-confirm="Are you sure you want to delete this category? This won't delete any skills."
-                                            data-redirect="true"
-                                            type="button">
+                                    <button
+                                        data-submit-ajax="{{ route('training.category.destroy', $category->id) }}"
+                                        data-submit-confirm="Are you sure you want to delete this category? This won't delete any skills."
+                                        data-redirect="true"
+                                        type="button"
+                                    >
                                         <span class="fa fa-trash"></span> Delete
                                     </button>
                                 </li>

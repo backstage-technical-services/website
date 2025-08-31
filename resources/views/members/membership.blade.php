@@ -43,13 +43,13 @@
                         <div class="name">
                             <a href="{{ route('member.view', ['username' => $member->username]) }}">
                                 {{ $member->name }}
-                                @if($member->nickname)
+                                @if ($member->nickname)
                                     <span class="nickname">({{ $member->nickname }})</span>
                                 @endif
                             </a>
                         </div>
                         <div class="email visible-xs visible-sm">
-                            @if($member->show_email)
+                            @if ($member->show_email)
                                 <a href="mailto:{{ $member->email }}">{{ $member->email }}</a>
                             @else
                                 <em>- hidden -</em>
@@ -57,14 +57,14 @@
                         </div>
                     </td>
                     <td class="email hidden-xs hidden-sm">
-                        @if($member->show_email)
+                        @if ($member->show_email)
                             <a href="mailto:{{ $member->email }}">{{ $member->email }}</a>
                         @else
                             <em>- hidden -</em>
                         @endif
                     </td>
                     <td class="phone text-center hidden-xs hidden-sm">
-                        @if($member->show_phone)
+                        @if ($member->show_phone)
                             {{ $member->phone }}
                         @else
                             <em>- hidden -</em>
