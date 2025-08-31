@@ -28,9 +28,9 @@ class Skill extends Model
      * @var array
      */
     protected static $ValidationRules = [
-        'name'                => 'required',
-        'category_id'         => 'exists:training_categories,id',
-        'description'         => 'required',
+        'name' => 'required',
+        'category_id' => 'exists:training_categories,id',
+        'description' => 'required',
         'requirements_level1' => 'required',
         'requirements_level2' => 'required',
         'requirements_level3' => 'required',
@@ -42,9 +42,9 @@ class Skill extends Model
      * @var array
      */
     protected static $ValidationMessages = [
-        'name.required'                => 'Please enter the skill name',
-        'category_id.exists'           => 'Please choose a valid category',
-        'description.required'         => 'Please enter a brief description of the skill',
+        'name.required' => 'Please enter the skill name',
+        'category_id.exists' => 'Please choose a valid category',
+        'description.required' => 'Please enter a brief description of the skill',
         'requirements_level1.required' => 'Please enter the requirements for Level 1',
         'requirements_level2.required' => 'Please enter the requirements for Level 2',
         'requirements_level3.required' => 'Please enter the requirements for Level 3',
@@ -62,14 +62,7 @@ class Skill extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'category_id',
-        'description',
-        'level1',
-        'level2',
-        'level3',
-    ];
+    protected $fillable = ['name', 'category_id', 'description', 'level1', 'level2', 'level3'];
 
     /**
      * Define the relationship with the training category.
@@ -104,13 +97,12 @@ class Skill extends Model
     {
         // Get all the users
         $users = User::join('training_awarded_skills', 'users.id', '=', 'training_awarded_skills.user_id')
-                     ->where('training_awarded_skills.skill_id', $this->id)
-                     ->active()
-                     ->member()
-                     ->nameOrder()
-                     ->select('users.*', 'training_awarded_skills.level')
-                     ->get();
-
+            ->where('training_awarded_skills.skill_id', $this->id)
+            ->active()
+            ->member()
+            ->nameOrder()
+            ->select('users.*', 'training_awarded_skills.level')
+            ->get();
 
         // Sort the users by level
         $levels = [1 => [], 2 => [], 3 => []];
@@ -150,6 +142,6 @@ class Skill extends Model
      */
     public function isLevelAvailable($level)
     {
-        return $this->{'level' . (int)$level} !== null;
+        return $this->{'level' . (int) $level} !== null;
     }
 }

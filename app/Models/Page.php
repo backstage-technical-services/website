@@ -19,13 +19,7 @@ class Page extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'title',
-        'slug',
-        'content',
-        'published',
-        'user_id',
-    ];
+    protected $fillable = ['title', 'slug', 'content', 'published', 'user_id'];
 
     /**
      * Allow retrieving a page by its slug.
@@ -37,8 +31,8 @@ class Page extends Model
     public static function findBySlug($slug)
     {
         return static::where(['slug' => $slug])
-                     ->get()
-                     ->first();
+            ->get()
+            ->first();
     }
 
     /**
@@ -51,7 +45,7 @@ class Page extends Model
     public static function findBySlugOrFail($slug)
     {
         if (!($page = static::findBySlug($slug))) {
-            throw new NotFoundHttpException;
+            throw new NotFoundHttpException();
         }
 
         return $page;

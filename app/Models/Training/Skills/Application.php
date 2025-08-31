@@ -44,7 +44,7 @@ class Application extends Model
      * @var array
      */
     protected $casts = [
-        'date'         => 'datetime',
+        'date' => 'datetime',
         'awarded_date' => 'datetime',
     ];
 

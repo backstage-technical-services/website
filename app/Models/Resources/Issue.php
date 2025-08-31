@@ -18,12 +18,7 @@ class Issue extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'issue',
-        'resource_id',
-        'author_id',
-        'reason',
-    ];
+    public $fillable = ['issue', 'resource_id', 'author_id', 'reason'];
 
     /**
      * Define the relationship with the resource.

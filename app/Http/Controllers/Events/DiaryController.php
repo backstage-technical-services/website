@@ -24,37 +24,35 @@ class DiaryController extends Controller
     public function view(Request $request, $year = null, $month = null)
     {
         // Get the month of the diary
-        $date       = $year && $month ? Carbon::create($year, $month, 1) : Carbon::now();
+        $date = $year && $month ? Carbon::create($year, $month, 1) : Carbon::now();
         $month_prev = Carbon::create($date->year, $date->month - 1, 1);
         $month_next = Carbon::create($date->year, $date->month + 1, 1);
 
         // Set up the calendar
         $calendar = [];
-        for($i = 1; $i <= $date->daysInMonth; $i++) {
+        for ($i = 1; $i <= $date->daysInMonth; $i++) {
             $date->day = $i;
-            $events    = Event::onDate($date)
-                              ->orderBy('event_times.start', 'ASC');
+            $events = Event::onDate($date)->orderBy('event_times.start', 'ASC');
 
             // Limit to events if not a member
-            if(!$request->user() || !$request->user()->isMember()) {
+            if (!$request->user() || !$request->user()->isMember()) {
                 $events = $events->where('type', Event::TYPE_EVENT);
             }
 
-
             $calendar[$i] = (object) [
-                'today'  => $date->isToday(),
+                'today' => $date->isToday(),
                 'events' => $events->get(),
             ];
         }
 
         // Show the view
         return view('events.diary')->with([
-            'date'         => $date,
-            'calendar'     => $calendar,
-            'month_prev'   => route('event.diary', ['year' => $month_prev->year, 'month' => $month_prev->month]),
-            'month_next'   => route('event.diary', ['year' => $month_next->year, 'month' => $month_next->month]),
+            'date' => $date,
+            'calendar' => $calendar,
+            'month_prev' => route('event.diary', ['year' => $month_prev->year, 'month' => $month_prev->month]),
+            'month_next' => route('event.diary', ['year' => $month_next->year, 'month' => $month_next->month]),
             'blank_before' => (Carbon::create($date->year, $date->month, 1)->dayOfWeek ?: 7) - 1,
-            'blank_after'  => 7 - (Carbon::create($date->year, $date->month, $date->daysInMonth)->dayOfWeek ?: 7),
+            'blank_after' => 7 - (Carbon::create($date->year, $date->month, $date->daysInMonth)->dayOfWeek ?: 7),
         ]);
     }
 
@@ -67,10 +65,10 @@ class DiaryController extends Controller
     public function export(Request $request)
     {
         // Get the data from the request
-        $types    = $request->has('types') ? explode(',', $request->get('types')) : ['event'];
-        $crewing  = $request->has('crewing') ? $request->get('crewing') : '*';
+        $types = $request->has('types') ? explode(',', $request->get('types')) : ['event'];
+        $crewing = $request->has('crewing') ? $request->get('crewing') : '*';
         $username = $request->has('user') ? $request->get('user') : null;
-        $token    = $request->has('token') ? $request->get('token') : null;
+        $token = $request->has('token') ? $request->get('token') : null;
 
         // Convert the event types to their integer IDs
         $types = array_map(function ($value) {
@@ -78,9 +76,9 @@ class DiaryController extends Controller
         }, $types);
 
         // Validate the token
-        if(count($types) > 1 || $types[0] != Event::TYPE_EVENT || $crewing != '*') {
+        if (count($types) > 1 || $types[0] != Event::TYPE_EVENT || $crewing != '*') {
             $user = User::where('username', $username)->first();
-            if(!$user || !$user->hasExportToken() || $token !== hash('sha256', $user->export_token)) {
+            if (!$user || !$user->hasExportToken() || $token !== hash('sha256', $user->export_token)) {
                 throw new TokenMismatchException();
             }
         }
@@ -91,24 +89,25 @@ class DiaryController extends Controller
 
         // Get the events
         $events = Event::whereIn('type', $types);
-        if($crewing == 'true') {
+        if ($crewing == 'true') {
             $events = $events->userOnCrew($user);
         }
         $events = $events->get();
 
         // Add each event time to the calendar
-        foreach($events as $event) {
-            foreach($event->times as $time) {
-                $cal_event = (new CalendarEvent())->setDtStart($time->start)
-                                                  ->setDtEnd($time->end)
-                                                  ->setSummary($event->name . ' - ' . $time->name)
-                                                  ->setLocation($event->venue);
+        foreach ($events as $event) {
+            foreach ($event->times as $time) {
+                $cal_event = new CalendarEvent()
+                    ->setDtStart($time->start)
+                    ->setDtEnd($time->end)
+                    ->setSummary($event->name . ' - ' . $time->name)
+                    ->setLocation($event->venue);
                 $calendar->addComponent($cal_event);
             }
         }
 
         // Return the response
-        return (new Response($calendar->render(), 200))
+        return new Response($calendar->render(), 200)
             ->header('Content-Type', 'text/calendar; charset=utf-8')
             ->header('Content-Disposition', 'attachment; filename="bts_diary.ics"');
     }

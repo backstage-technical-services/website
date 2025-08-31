@@ -33,16 +33,8 @@ class CreateElectionTables extends Migration
             $table->unsignedInteger('position');
             $table->boolean('elected');
 
-            $table->foreign('election_id')
-                  ->references('id')
-                  ->on('elections')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->foreign('election_id')->references('id')->on('elections')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

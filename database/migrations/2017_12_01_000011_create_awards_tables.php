@@ -23,11 +23,7 @@ class CreateAwardsTables extends Migration
             $table->boolean('recurring');
             $table->timestamps();
 
-            $table->foreign('suggested_by')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->foreign('suggested_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::create('award_seasons', function (Blueprint $table) {
@@ -41,16 +37,13 @@ class CreateAwardsTables extends Migration
             $table->unsignedInteger('award_id');
             $table->unsignedInteger('award_season_id');
 
-            $table->foreign('award_id')
-                  ->references('id')
-                  ->on('awards')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('award_season_id')
-                  ->references('id')
-                  ->on('award_seasons')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->foreign('award_id')->references('id')->on('awards')->onUpdate('cascade')->onDelete('cascade');
+            $table
+                ->foreign('award_season_id')
+                ->references('id')
+                ->on('award_seasons')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
 
         Schema::create('award_nominations', function (Blueprint $table) {
@@ -64,21 +57,14 @@ class CreateAwardsTables extends Migration
             $table->unsignedInteger('suggested_by');
             $table->timestamps();
 
-            $table->foreign('award_id')
-                  ->references('id')
-                  ->on('awards')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('award_season_id')
-                  ->references('id')
-                  ->on('award_seasons')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('suggested_by')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->foreign('award_id')->references('id')->on('awards')->onUpdate('cascade')->onDelete('cascade');
+            $table
+                ->foreign('award_season_id')
+                ->references('id')
+                ->on('award_seasons')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('suggested_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::create('award_votes', function (Blueprint $table) {
@@ -88,21 +74,19 @@ class CreateAwardsTables extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('award_season_id')
-                  ->references('id')
-                  ->on('award_seasons')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('nomination_id')
-                  ->references('id')
-                  ->on('award_nominations')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table
+                ->foreign('award_season_id')
+                ->references('id')
+                ->on('award_seasons')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table
+                ->foreign('nomination_id')
+                ->references('id')
+                ->on('award_nominations')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

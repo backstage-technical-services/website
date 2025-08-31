@@ -4,7 +4,7 @@ ul.pagination {
     margin: 0;
     overflow: hidden;
     padding: 1em 0 0 0;
-    
+
     & > li {
         display: inline-block;
         float: left;
@@ -13,12 +13,14 @@ ul.pagination {
         line-height: 1em;
         margin: 0;
         padding: 0;
-        
-        & > span, & > a, & > a:visited {
+
+        & > span,
+        & > a,
+        & > a:visited {
             background: $colour_btn;
             color: #000;
             display: inline-block;
-            
+
             &:hover {
                 color: #000;
                 cursor: pointer;
@@ -30,27 +32,32 @@ ul.pagination {
                 background: $colour_btn_h;
                 color: #000;
             }
-            &:focus, &:active {
+            &:focus,
+            &:active {
                 outline: none;
             }
         }
-        &.disabled, &.active {
+        &.disabled,
+        &.active {
             color: #000;
-            
+
             & > span {
-                background: #AAA;
+                background: #aaa;
                 color: inherit;
             }
-            
+
             &:hover > span {
-                background: #AAA;
+                background: #aaa;
                 color: inherit;
             }
         }
-        &, &.disabled, &.active {
-            & > span, & > a {
+        &,
+        &.disabled,
+        &.active {
+            & > span,
+            & > a {
                 border-color: #000;
-                
+
                 &:hover {
                     border-color: #000;
                 }
@@ -59,7 +66,9 @@ ul.pagination {
         @media (max-width: #{$breakpoint_md - 1px}) {
             display: none !important;
 
-            &.active, &.next-link, &.prev-link {
+            &.active,
+            &.next-link,
+            &.prev-link {
                 display: inline-block !important;
             }
         }

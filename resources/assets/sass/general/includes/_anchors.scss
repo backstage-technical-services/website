@@ -1,7 +1,8 @@
-a, a:visited {
+a,
+a:visited {
     color: $btsyellow;
     text-decoration: none;
-    
+
     &:hover {
         color: $btsyellow;
         cursor: pointer;
@@ -16,22 +17,23 @@ a, a:visited {
     }
     &.grey {
         color: $colour_text;
-        
+
         &:hover {
             color: $btsyellow;
         }
-        &:focus, &:active {
+        &:focus,
+        &:active {
             outline-color: $colour_text;
         }
     }
     &.label {
         font-weight: normal;
-        
+
         &:visited {
-            color: #FFF;
+            color: #fff;
         }
         &:focus {
-            outline-color: #FFF;
+            outline-color: #fff;
         }
     }
 }

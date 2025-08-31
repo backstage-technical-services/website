@@ -23,8 +23,7 @@ class QuoteService
     public function getPaginatedQuotes(int $numPerPage): LengthAwarePaginator
     {
         /** @var LengthAwarePaginator $quotes */
-        $quotes = Quote::orderBy('created_at', 'DESC')
-                       ->paginate($numPerPage);
+        $quotes = Quote::orderBy('created_at', 'DESC')->paginate($numPerPage);
 
         $page = $quotes->currentPage();
         $quotes->map(function (Quote $quote, $i) use ($numPerPage, $page) {
@@ -45,9 +44,11 @@ class QuoteService
     public function createQuote(QuoteRequest $request): Quote
     {
         $quote = new Quote([
-            'culprit'  => clean($request->get('culprit')),
-            'quote'    => clean($request->get('quote')),
-            'date'     => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('date'))->addMinutes((float)$request->header('TZ-OFFSET')),
+            'culprit' => clean($request->get('culprit')),
+            'quote' => clean($request->get('quote')),
+            'date' => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('date'))->addMinutes(
+                (float) $request->header('TZ-OFFSET'),
+            ),
             'added_by' => $request->user()->id,
         ]);
 
@@ -72,7 +73,7 @@ class QuoteService
     public function deleteQuote(int $quoteId): void
     {
         if (!Quote::where('id', $quoteId)->exists()) {
-            throw new ModelNotFoundException(sprintf("Could not find quote with ID %s", $quoteId));
+            throw new ModelNotFoundException(sprintf('Could not find quote with ID %s', $quoteId));
         }
 
         $userId = request()->user()->id;

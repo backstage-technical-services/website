@@ -19,8 +19,7 @@ class LogController extends Controller
     {
         $this->authorizeGate('admin');
 
-        $logs = Log::orderBy('created_at', 'DESC')
-                   ->paginate(100);
+        $logs = Log::orderBy('created_at', 'DESC')->paginate(100);
 
         return view('logs.index')->with([
             'logs' => $logs,

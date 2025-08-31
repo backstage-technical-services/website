@@ -47,11 +47,11 @@ class SimpleCrudController extends Controller
      * @var array
      */
     protected $requireAjax = [
-        'index'  => false,
+        'index' => false,
         'create' => false,
-        'store'  => true,
-        'view'   => false,
-        'edit'   => false,
+        'store' => true,
+        'view' => false,
+        'edit' => false,
         'update' => true,
         'delete' => true,
     ];
@@ -126,10 +126,7 @@ class SimpleCrudController extends Controller
 
         $result = call_user_func([$this->modelClass, 'create'], $this->getAttributes($request, null));
 
-        return [
-            is_object($result),
-            is_object($result) ? $result : null,
-        ];
+        return [is_object($result), is_object($result) ? $result : null];
     }
 
     /**
@@ -181,10 +178,7 @@ class SimpleCrudController extends Controller
         $this->validateWith($this->makeValidator($request, $model), $request);
 
         $status = $model->update($this->getAttributes($request, $model));
-        return [
-            $status,
-            $model,
-        ];
+        return [$status, $model];
     }
 
     /**
@@ -211,13 +205,10 @@ class SimpleCrudController extends Controller
         $this->verifyAjax('delete');
         $this->authorise('delete');
 
-        $model  = $this->getModelFromDatabase($key);
+        $model = $this->getModelFromDatabase($key);
         $status = $model->delete();
 
-        return [
-            $status,
-            $model,
-        ];
+        return [$status, $model];
     }
 
     /**
@@ -236,13 +227,12 @@ class SimpleCrudController extends Controller
         $this->verifyAjax('delete');
         $this->authorise('delete');
 
-        $model  = call_user_func_array([$this->modelClass, 'where'], [$this->keyName, $key])->withTrashed()->firstOrFail();
+        $model = call_user_func_array([$this->modelClass, 'where'], [$this->keyName, $key])
+            ->withTrashed()
+            ->firstOrFail();
         $status = $model->restore();
 
-        return [
-            $status,
-            $model,
-        ];
+        return [$status, $model];
     }
 
     /**
@@ -258,7 +248,7 @@ class SimpleCrudController extends Controller
         return validator(
             $request->all(),
             $this->getValidationRules($request, $model),
-            $this->getValidationMessages($request, $model)
+            $this->getValidationMessages($request, $model),
         );
     }
 
@@ -326,7 +316,7 @@ class SimpleCrudController extends Controller
     {
         if (is_array($this->requireAjax) && isset($this->requireAjax[$method])) {
             return $this->requireAjax[$method];
-        } else if (is_bool($this->requireAjax)) {
+        } elseif (is_bool($this->requireAjax)) {
             return $this->requireAjax;
         } else {
             return false;
@@ -342,7 +332,10 @@ class SimpleCrudController extends Controller
      */
     protected function verifyAjax($method)
     {
-        if ($this->requiresAjax($method) && (!request()->ajax() || in_array($method, ['index', 'create', 'view', 'edit']))) {
+        if (
+            $this->requiresAjax($method) &&
+            (!request()->ajax() || in_array($method, ['index', 'create', 'view', 'edit']))
+        ) {
             app()->abort(404);
         }
     }

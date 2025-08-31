@@ -46,11 +46,11 @@ class CommitteeController extends Controller
 
         // Create the new role
         $role = Role::create([
-            'name'        => clean($request->name),
-            'email'       => clean($request->email),
+            'name' => clean($request->name),
+            'email' => clean($request->email),
             'description' => clean($request->description),
-            'user_id'     => $request->user_id ?? null,
-            'order'       => $order,
+            'user_id' => $request->user_id ?? null,
+            'order' => $order,
         ]);
 
         Log::info("User {$request->user()->id} created committee role {$role->id}");
@@ -84,11 +84,11 @@ class CommitteeController extends Controller
 
         // Update the role
         $role->update([
-            'name'        => clean($request->name),
-            'email'       => clean($request->email),
+            'name' => clean($request->name),
+            'email' => clean($request->email),
             'description' => clean($request->description),
-            'user_id'     => $request->user_id ?? null,
-            'order'       => $order,
+            'user_id' => $request->user_id ?? null,
+            'order' => $order,
         ]);
 
         Log::info("User {$request->user()->id} updated committee role {$role->id}");

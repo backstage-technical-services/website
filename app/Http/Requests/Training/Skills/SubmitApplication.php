@@ -30,10 +30,10 @@ class SubmitApplication extends FormRequest
 
         return $validator->after(function (Validator $validator) {
             $skill = Skill::find($this->get('skill_id'));
-            $user  = $this->user();
+            $user = $this->user();
 
             // Check the user doesn't already have a higher level
-            if ((int)$user->getSkillLevel($skill) >= $this->get('level')) {
+            if ((int) $user->getSkillLevel($skill) >= $this->get('level')) {
                 $validator->errors()->add('level', 'Please choose a level you don\'t already have');
             }
             // Check the user doesn't already have an application pending
@@ -55,8 +55,8 @@ class SubmitApplication extends FormRequest
     public function rules()
     {
         return [
-            'skill_id'  => ['required', 'exists:training_skills,id'],
-            'level'     => ['required', 'in:' . implode(',', array_keys(Skill::LEVEL_NAMES))],
+            'skill_id' => ['required', 'exists:training_skills,id'],
+            'level' => ['required', 'in:' . implode(',', array_keys(Skill::LEVEL_NAMES))],
             'reasoning' => ['required'],
         ];
     }
@@ -69,10 +69,10 @@ class SubmitApplication extends FormRequest
     public function messages()
     {
         return [
-            'skill_id.required'  => 'Please select the skill you\'re applying for',
-            'skill_id.exists'    => 'Please select a valid skill',
-            'level.required'     => 'Please select a level you\'re applying for',
-            'level.in'           => 'Please select a valid level',
+            'skill_id.required' => 'Please select the skill you\'re applying for',
+            'skill_id.exists' => 'Please select a valid skill',
+            'level.required' => 'Please select a level you\'re applying for',
+            'level.in' => 'Please select a valid level',
             'reasoning.required' => 'Please provide some reasoning for your application',
         ];
     }

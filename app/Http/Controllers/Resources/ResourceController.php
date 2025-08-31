@@ -30,21 +30,19 @@ class ResourceController extends Controller
         $this->authorize('index', Resource::class);
 
         // Start the retrieval
-        $resources = Resource::select('resources.*')
-                             ->orderBy('title', 'ASC');
+        $resources = Resource::select('resources.*')->orderBy('title', 'ASC');
 
         // Allow filtering by category or access
         $filter = $searchTools->filter();
         if ($filter) {
             if (preg_match('/^category:(.*)$/', $filter, $matches)) {
                 $resources = $resources->inCategory($matches[1]);
-            } else if (preg_match('/^access:(.*)$/', $filter, $matches)) {
+            } elseif (preg_match('/^access:(.*)$/', $filter, $matches)) {
                 $resources = $resources->where('access', $matches[1]);
             }
         }
 
-        $resources = $resources->paginate(20)
-                               ->withPath($this->paginatorPath());
+        $resources = $resources->paginate(20)->withPath($this->paginatorPath());
         $this->checkPage($resources);
 
         // Render
@@ -73,24 +71,23 @@ class ResourceController extends Controller
     {
         // Create the resource
         $resource = Resource::create([
-            'title'       => clean($request->get('title')),
+            'title' => clean($request->get('title')),
             'description' => $request->has('description') ? clean($request->get('description')) : null,
             'category_id' => $request->has('category_id') ? $request->get('category_id') : null,
-            'event_id'    => $request->has('event_id') ? $request->get('event_id') : null,
-            'type'        => $request->get('type'),
-            'href'        => null,
-            'access'      => $request->get('access'),
+            'event_id' => $request->has('event_id') ? $request->get('event_id') : null,
+            'type' => $request->get('type'),
+            'href' => null,
+            'access' => $request->get('access'),
         ]);
 
         // Set the tags
-        $resource->tags()
-                 ->sync($request->has('tags') ? $request->get('tags') : []);
+        $resource->tags()->sync($request->has('tags') ? $request->get('tags') : []);
 
         // Set the source
         if ($resource->isFile()) {
             File::makeDirectory($resource->getPath(), 0775, true);
             $resource->reissue($request->file('file'), 'Initial issue');
-        } else if ($resource->isGDoc()) {
+        } elseif ($resource->isGDoc()) {
             $resource->update([
                 'href' => clean($request->get('drive_id')),
             ]);
@@ -123,9 +120,7 @@ class ResourceController extends Controller
      */
     public function stream($id)
     {
-        return $this->getResourceWithAccessCheck($id)
-                    ->checkIssueNum()
-                    ->stream();
+        return $this->getResourceWithAccessCheck($id)->checkIssueNum()->stream();
     }
 
     /**
@@ -137,9 +132,7 @@ class ResourceController extends Controller
      */
     public function download($id)
     {
-        return $this->getResourceWithAccessCheck($id)
-                    ->checkIssueNum()
-                    ->download();
+        return $this->getResourceWithAccessCheck($id)->checkIssueNum()->download();
     }
 
     /**
@@ -170,16 +163,15 @@ class ResourceController extends Controller
 
         // Update
         $resource->update([
-            'title'       => clean($request->get('title')),
+            'title' => clean($request->get('title')),
             'description' => $request->has('description') ? clean($request->get('description')) : null,
             'category_id' => $request->has('category_id') ? $request->get('category_id') : null,
-            'event_id'    => $request->has('event_id') ? $request->get('event_id') : null,
-            'access'      => $request->get('access'),
+            'event_id' => $request->has('event_id') ? $request->get('event_id') : null,
+            'access' => $request->get('access'),
         ]);
 
         // Set the tags
-        $resource->tags()
-                 ->sync($request->has('tags') ? $request->get('tags') : []);
+        $resource->tags()->sync($request->has('tags') ? $request->get('tags') : []);
 
         Log::info("User {$request->user()->id} updated resource $id");
         Notify::success('Resource saved');
@@ -227,10 +219,14 @@ class ResourceController extends Controller
         }
 
         // Validate
-        $this->validate($request, [
-            'file'   => 'required|' . ResourceRequest::FILE_RULES,
-            'reason' => 'required',
-        ], ResourceRequest::FILE_MESSAGES + ['reason.required' => 'Please enter a reason for the new issue']);
+        $this->validate(
+            $request,
+            [
+                'file' => 'required|' . ResourceRequest::FILE_RULES,
+                'reason' => 'required',
+            ],
+            ResourceRequest::FILE_MESSAGES + ['reason.required' => 'Please enter a reason for the new issue'],
+        );
 
         // Create the new issue
         $newIssue = $resource->reissue($request->file('file'), $request->get('reason'));
@@ -274,7 +270,7 @@ class ResourceController extends Controller
 
         $resource->delete();
 
-        Log::info("User " . request()->user()->id . " deleted resource $id");
+        Log::info('User ' . request()->user()->id . " deleted resource $id");
 
         Notify::success('Resource deleted');
         return $this->ajaxResponse('Resource deleted');

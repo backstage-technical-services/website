@@ -14,8 +14,7 @@ class PageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')
-             ->except('show');
+        $this->middleware('auth')->except('show');
     }
 
     /**
@@ -27,8 +26,7 @@ class PageController extends Controller
     {
         $this->authorize('index', Page::class);
 
-        $pages = Page::orderBy('title')
-                     ->paginate(15);
+        $pages = Page::orderBy('title')->paginate(15);
         $this->checkPage($pages);
 
         return view('pages.index')->with('pages', $pages);
@@ -44,7 +42,7 @@ class PageController extends Controller
         $this->authorize('create', Page::class);
 
         $page = new Page([
-            'user_id'   => Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'published' => 1,
         ]);
 
@@ -81,8 +79,11 @@ class PageController extends Controller
         // hack as authorisation doesn't support guest users.
         if (!$page->published) {
             if (Auth::check() && Auth::user()->isAdmin()) {
-                Notify::warning('This page will not be viewable by non-admins until it is published.', 'Page not published');
-            } else if (!Auth::check()) {
+                Notify::warning(
+                    'This page will not be viewable by non-admins until it is published.',
+                    'Page not published',
+                );
+            } elseif (!Auth::check()) {
                 return redirect()->guest('login');
             } else {
                 app()->abort(404);

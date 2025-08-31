@@ -28,8 +28,8 @@ class Nominate extends Request
     {
         return [
             'award_id' => 'required|exists:awards,id',
-            'nominee'  => 'required',
-            'reason'   => 'required',
+            'nominee' => 'required',
+            'reason' => 'required',
         ];
     }
 
@@ -42,9 +42,9 @@ class Nominate extends Request
     {
         return [
             'award_id.required' => 'Please select the award',
-            'award_id.exists'   => 'Please select a valid award',
-            'nominee.required'  => 'Please enter the nominee',
-            'reason.required'   => 'Please enter the reason',
+            'award_id.exists' => 'Please select a valid award',
+            'nominee.required' => 'Please enter the nominee',
+            'reason.required' => 'Please enter the reason',
         ];
     }
 }

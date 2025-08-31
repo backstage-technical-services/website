@@ -1,7 +1,7 @@
 form {
     margin-left: auto;
     margin-right: auto;
-    
+
     &:not(.form-horizontal) .control-label {
         font-weight: normal;
     }
@@ -48,7 +48,7 @@ div.bootstrap-datetimepicker-widget {
     top: auto;
     float: none;
     z-index: 9000;
-    
+
     div.datepicker {
         z-index: 9200;
         table {
@@ -57,8 +57,11 @@ div.bootstrap-datetimepicker-widget {
             }
         }
     }
-    
-    a, a:hover, a:focus, a:active {
+
+    a,
+    a:hover,
+    a:focus,
+    a:active {
         color: #000;
     }
 }
@@ -68,7 +71,7 @@ div.g-recaptcha-center {
         display: block;
         text-align: center;
         width: 100%;
-        
+
         & > div {
             display: inline-block;
             margin: 0 auto;

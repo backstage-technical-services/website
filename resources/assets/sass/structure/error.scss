@@ -12,7 +12,7 @@ body {
 div#error-wrapper {
     margin: 0 auto;
     position: relative;
-    
+
     div#error-num {
         color: rgba($btsyellow, 0.1);
         font-size: 23em;
@@ -29,19 +29,19 @@ div#error-wrapper {
         top: 3em;
         width: 100%;
         z-index: 500;
-        
+
         div#error-link-home {
             font-size: 0.8em;
             margin-top: 1em;
             text-align: center;
-            
+
             a {
                 @include transition();
                 color: #fff;
                 display: inline-block;
                 margin: 0 0.25em;
                 opacity: 0.5;
-                
+
                 &:hover {
                     opacity: 1;
                     text-decoration: none;

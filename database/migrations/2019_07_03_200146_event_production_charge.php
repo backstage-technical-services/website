@@ -13,10 +13,8 @@ class EventProductionCharge extends Migration
      */
     public function up()
     {
-        Schema::table('events', function(Blueprint $table) {
-            $table->integer('production_charge')
-                  ->after('venue_type')
-                  ->nullable();
+        Schema::table('events', function (Blueprint $table) {
+            $table->integer('production_charge')->after('venue_type')->nullable();
         });
     }
 
@@ -27,7 +25,7 @@ class EventProductionCharge extends Migration
      */
     public function down()
     {
-        Schema::table('events', function(Blueprint $table) {
+        Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('production_charge');
         });
     }

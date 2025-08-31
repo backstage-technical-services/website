@@ -14,7 +14,7 @@ return [
     | one of the channels defined in the "channels" configuration array.
     |
     */
-    'default'  => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'stack'),
     /*
     |--------------------------------------------------------------------------
     | Log Channels
@@ -29,8 +29,8 @@ return [
     |
     */
     'channels' => [
-        'stack'    => [
-            'driver'   => 'stack',
+        'stack' => [
+            'driver' => 'stack',
             'channels' => ['monolog', 'bugsnag'],
         ],
         'monolog' => [
@@ -41,33 +41,33 @@ return [
             ],
             'formatter' => MonologLogFmtFormatter::class,
         ],
-        'single'   => [
+        'single' => [
             'driver' => 'single',
-            'path'   => '/var/log/app.log',
-            'level'  => 'debug',
+            'path' => '/var/log/app.log',
+            'level' => 'debug',
         ],
-        'daily'    => [
+        'daily' => [
             'driver' => 'daily',
-            'path'   => '/var/log/app.log',
-            'level'  => 'debug',
-            'days'   => 7,
+            'path' => '/var/log/app.log',
+            'level' => 'debug',
+            'days' => 7,
         ],
-        'slack'    => [
-            'driver'   => 'slack',
-            'url'      => env('LOG_SLACK_WEBHOOK_URL'),
+        'slack' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
-            'emoji'    => ':boom:',
-            'level'    => 'critical',
+            'emoji' => ':boom:',
+            'level' => 'critical',
         ],
-        'syslog'   => [
+        'syslog' => [
             'driver' => 'syslog',
-            'level'  => 'debug',
+            'level' => 'debug',
         ],
         'errorlog' => [
             'driver' => 'errorlog',
-            'level'  => 'debug',
+            'level' => 'debug',
         ],
-        'bugsnag'  => [
+        'bugsnag' => [
             'driver' => 'bugsnag',
         ],
     ],

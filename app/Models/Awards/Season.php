@@ -17,12 +17,12 @@ class Season extends Model
      * Define the status constants.
      */
     const STATUS_NOMINATIONS = 1;
-    const STATUS_VOTING      = 2;
-    const STATUS_RESULTS     = 3;
-    const STATUSES           = [
+    const STATUS_VOTING = 2;
+    const STATUS_RESULTS = 3;
+    const STATUSES = [
         self::STATUS_NOMINATIONS => 'Nominations Open',
-        self::STATUS_VOTING      => 'Voting Open',
-        self::STATUS_RESULTS     => 'Results Released',
+        self::STATUS_VOTING => 'Voting Open',
+        self::STATUS_RESULTS => 'Results Released',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Season extends Model
      * @var array
      */
     public static $ValidationRules = [
-        'name'   => 'required',
+        'name' => 'required',
         'status' => 'nullable',
         'awards' => 'required|array|exists:awards,id',
     ];
@@ -42,10 +42,10 @@ class Season extends Model
      * @var array
      */
     public static $ValidationMessages = [
-        'name.required'   => 'Please enter the award season name',
+        'name.required' => 'Please enter the award season name',
         'awards.required' => 'Please select which awards to include in this season',
-        'awards.array'    => 'Please select which awards to include in this season',
-        'awards.exists'   => 'Please select a valid award',
+        'awards.array' => 'Please select which awards to include in this season',
+        'awards.exists' => 'Please select a valid award',
     ];
 
     /**
@@ -60,17 +60,12 @@ class Season extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'name',
-        'status',
-    ];
+    public $fillable = ['name', 'status'];
 
     /**
      * @var array
      */
-    public $appends = [
-        'awards',
-    ];
+    public $appends = ['awards'];
 
     /**
      * Override the boot method to hook into events.
@@ -83,13 +78,18 @@ class Season extends Model
 
         static::updating(function (Season $season) {
             // If changing to results released, determine award winners
-            if ($season->original['status'] != self::STATUS_RESULTS && $season->attributes['status'] == self::STATUS_RESULTS) {
+            if (
+                $season->original['status'] != self::STATUS_RESULTS &&
+                $season->attributes['status'] == self::STATUS_RESULTS
+            ) {
                 $season->calculateWinners();
             }
             // If returning to nominations open, wipe any votes
-            if ($season->original['status'] > self::STATUS_NOMINATIONS && $season->attributes['status'] == self::STATUS_NOMINATIONS) {
-                Vote::forSeason($season)
-                    ->delete();
+            if (
+                $season->original['status'] > self::STATUS_NOMINATIONS &&
+                $season->attributes['status'] == self::STATUS_NOMINATIONS
+            ) {
+                Vote::forSeason($season)->delete();
             }
         });
     }
@@ -164,9 +164,9 @@ class Season extends Model
     {
         if ($this->areNominationsOpen()) {
             return 'Nominations Open';
-        } else if ($this->isVotingOpen()) {
+        } elseif ($this->isVotingOpen()) {
             return 'Voting Open';
-        } else if ($this->areResultsReleased()) {
+        } elseif ($this->areResultsReleased()) {
             return 'Results Released';
         } else {
             return '';
@@ -191,30 +191,27 @@ class Season extends Model
     private function calculateWinners()
     {
         // Set all nominations to have not won
-        $this->nominations()
-             ->update(['won' => false]);
+        $this->nominations()->update(['won' => false]);
 
         // Get all nominations, grouped by award
         $nominations = $this->nominations()
-                            ->get()
-                            ->groupBy(function ($nomination) {
-                                return $nomination->award_id;
-                            });
+            ->get()
+            ->groupBy(function ($nomination) {
+                return $nomination->award_id;
+            });
 
         // Get the total number of votes for each nomination
         $votes = DB::table('award_votes')
-                   ->select(DB::raw('nomination_id, COUNT(*)'))
-                   ->where('award_season_id', $this->id)
-                   ->groupBy('nomination_id')
-                   ->get()
-                   ->mapWithKeys(function ($item) {
-                       return [$item->nomination_id => $item->{'COUNT(*)'}];
-                   });
+            ->select(DB::raw('nomination_id, COUNT(*)'))
+            ->where('award_season_id', $this->id)
+            ->groupBy('nomination_id')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->nomination_id => $item->{'COUNT(*)'}];
+            });
 
         // Get the list of awards that have nominations
-        $awards = $this->awards()
-                       ->whereIn('id', $nominations->keys())
-                       ->get();
+        $awards = $this->awards()->whereIn('id', $nominations->keys())->get();
 
         // For each award, create a list of nominations and their number of votes, and update the ones with the highest to have won.
         foreach ($awards as $award) {
@@ -226,8 +223,7 @@ class Season extends Model
             $winners = array_filter($award_votes, function ($votes) use ($award_votes) {
                 return $votes == max($award_votes) && $votes > 0;
             });
-            Nomination::whereIn('id', array_keys($winners))
-                      ->update(['won' => true]);
+            Nomination::whereIn('id', array_keys($winners))->update(['won' => true]);
         }
     }
 }

@@ -1,24 +1,24 @@
-var $xhttp2 = typeof(window.FormData) != 'undefined';
+var $xhttp2 = typeof window.FormData != 'undefined';
 
 jQuery.ajaxSetup({
-    headers : {
+    headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        'TZ-OFFSET'   : (new Date).getTimezoneOffset(),
+        'TZ-OFFSET': new Date().getTimezoneOffset(),
     },
-    method  : 'GET',
+    method: 'GET',
     dataType: 'json',
 });
 
 function processAjaxErrors(data) {
     var error = {
-        code   : 500,
-        key    : '',
+        code: 500,
+        key: '',
         message: 'Oops, an unknown error has occurred',
-        isList : false,
+        isList: false,
     };
 
     // Check for a detailed error message
-    if (typeof(data.responseJSON) == 'object') {
+    if (typeof data.responseJSON == 'object') {
         var response_error = data.responseJSON;
 
         // Status
@@ -34,7 +34,7 @@ function processAjaxErrors(data) {
             error.message = response_error.error;
         } else if (response_error.errors !== undefined) {
             error.message = response_error.errors;
-            error.isList  = true;
+            error.isList = true;
         } else if (response_error.message !== undefined) {
             error.message = response_error.message;
         }
@@ -45,7 +45,7 @@ function processAjaxErrors(data) {
 
 function renderFormAjaxErrors($form, $errors) {
     if ($errors.isList) {
-        $form.find('input,textarea,select').each(function() {
+        $form.find('input,textarea,select').each(function () {
             var input = $(this);
             if (typeof input.attr('name') != 'undefined') {
                 var name = input.attr('name').replace(/(\[\])/gi, '');
@@ -62,8 +62,12 @@ function renderFormAjaxErrors($form, $errors) {
             }
         });
     } else {
-        $form.prepend($('<div />').addClass('alert alert-warning')
-                                  .attr('data-type', 'ajax-error')
-                                  .prepend('<span class="fa fa-exclamation"></span>').append('<span>' + $errors.message + '</span>'));
+        $form.prepend(
+            $('<div />')
+                .addClass('alert alert-warning')
+                .attr('data-type', 'ajax-error')
+                .prepend('<span class="fa fa-exclamation"></span>')
+                .append('<span>' + $errors.message + '</span>'),
+        );
     }
 }

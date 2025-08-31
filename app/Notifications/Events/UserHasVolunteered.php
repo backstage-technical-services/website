@@ -25,11 +25,11 @@ class UserHasVolunteered extends Notification
     public function __construct(Crew $crew)
     {
         $this->event = [
-            'id'            => $crew->event->id,
-            'name'          => $crew->event->name,
-            'user_name'     => $crew->user->name,
+            'id' => $crew->event->id,
+            'name' => $crew->event->name,
+            'user_name' => $crew->user->name,
             'user_forename' => $crew->user->forename,
-            'user_email'    => $crew->user->email,
+            'user_email' => $crew->user->email,
         ];
     }
 
@@ -50,13 +50,25 @@ class UserHasVolunteered extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->subject('Crew volunteered for \'' . $this->event['name'] . '\'')
-                                ->replyTo($this->event['user_email'], $this->event['user_name'])
-                                ->greeting($notifiable->greeting())
-                                ->line('This is to let you know that **' . $this->event['user_name'] . '** has volunteered to crew your event **'
-                                       . $this->event['name'] . '**.')
-                                ->line('You can get in contact with ' . $this->event['user_forename'] . ' by replying to this email, or you can send an email to all your crew
-        using the [event details page](' . route('event.view', ['id' => $this->event['id'], 'tab' => 'emails']) . ').');
+        return new MailMessage()
+            ->subject('Crew volunteered for \'' . $this->event['name'] . '\'')
+            ->replyTo($this->event['user_email'], $this->event['user_name'])
+            ->greeting($notifiable->greeting())
+            ->line(
+                'This is to let you know that **' .
+                    $this->event['user_name'] .
+                    '** has volunteered to crew your event **' .
+                    $this->event['name'] .
+                    '**.',
+            )
+            ->line(
+                'You can get in contact with ' .
+                    $this->event['user_forename'] .
+                    ' by replying to this email, or you can send an email to all your crew
+        using the [event details page](' .
+                    route('event.view', ['id' => $this->event['id'], 'tab' => 'emails']) .
+                    ').',
+            );
     }
 
     /**
@@ -67,7 +79,7 @@ class UserHasVolunteered extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 }

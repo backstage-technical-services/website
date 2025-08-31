@@ -10,13 +10,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class ResetPasswordAdmin extends Notification
 {
     use Queueable;
-    
+
     /**
      * Variable to store the user's password.
      * @var string
      */
     private $password;
-    
+
     /**
      * Create a new notification instance.
      * @param $password
@@ -25,7 +25,7 @@ class ResetPasswordAdmin extends Notification
     {
         $this->password = $password;
     }
-    
+
     /**
      * Get the notification's delivery channels.
      * @param  mixed $notifiable
@@ -35,7 +35,7 @@ class ResetPasswordAdmin extends Notification
     {
         return ['mail'];
     }
-    
+
     /**
      * Get the mail representation of the notification.
      * @param  mixed $notifiable
@@ -43,14 +43,14 @@ class ResetPasswordAdmin extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return new MailMessage()
             ->subject('Your new password')
             ->line('Your password has been reset by an administrator to: ')
             ->line($this->password)
             ->line('We recommend that you change it to something more memorable')
             ->action('Log in', route('auth.login'));
     }
-    
+
     /**
      * Get the array representation of the notification.
      * @param  mixed $notifiable
@@ -59,7 +59,7 @@ class ResetPasswordAdmin extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 }

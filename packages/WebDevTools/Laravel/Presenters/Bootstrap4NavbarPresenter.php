@@ -39,9 +39,15 @@ class Bootstrap4NavbarPresenter extends Presenter implements PresenterInterface
     public function getMenuWithoutDropdownWrapper($item, $itemClass = 'nav-item nav-link')
     {
         $class = $itemClass . ' ' . $this->getItemClasses($item) . $this->getActiveClass($item);
-        return '<a class="' . trim($class) . '" href="' . $item->getUrl() . '" ' . $item->getAttributes() . '>' .
-               trim($item->getIcon() . ' ' . $item->title) .
-               '</a>';
+        return '<a class="' .
+            trim($class) .
+            '" href="' .
+            $item->getUrl() .
+            '" ' .
+            $item->getAttributes() .
+            '>' .
+            trim($item->getIcon() . ' ' . $item->title) .
+            '</a>';
     }
 
     /**
@@ -76,14 +82,18 @@ class Bootstrap4NavbarPresenter extends Presenter implements PresenterInterface
     public function getMenuWithDropDownWrapper($item)
     {
         $class = 'nav-link dropdown-toggle ' . $this->getItemClasses($item);
-        return '<div class="nav-item dropdown' . $this->getActiveClass($item) . '">' .
-               '<a class="' . trim($class) . '" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' .
-               trim($item->getIcon() . ' ' . $item->title) .
-               '</a>' .
-               '<div class="dropdown-menu">' .
-               $this->getChildMenuItems($item) .
-               '</div>' .
-               '</div>';
+        return '<div class="nav-item dropdown' .
+            $this->getActiveClass($item) .
+            '">' .
+            '<a class="' .
+            trim($class) .
+            '" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' .
+            trim($item->getIcon() . ' ' . $item->title) .
+            '</a>' .
+            '<div class="dropdown-menu">' .
+            $this->getChildMenuItems($item) .
+            '</div>' .
+            '</div>';
     }
 
     /**
@@ -103,7 +113,7 @@ class Bootstrap4NavbarPresenter extends Presenter implements PresenterInterface
 
             if ($child->isHeader()) {
                 $results .= $this->getHeaderWrapper($child);
-            } else if ($child->isDivider()) {
+            } elseif ($child->isDivider()) {
                 $results .= $this->getDividerWrapper();
             } else {
                 $results .= $this->getMenuWithoutDropdownWrapper($child, 'dropdown-item');

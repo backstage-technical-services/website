@@ -10,13 +10,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class Breakage extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     /**
      * Variable to store the breakage.
      * @var array
      */
     private $breakage;
-    
+
     /**
      * Create a new message instance.
      * @param array $data
@@ -25,7 +25,7 @@ class Breakage extends Mailable
     {
         $this->breakage = $data;
     }
-    
+
     /**
      * Build the message.
      * @return $this
@@ -33,8 +33,8 @@ class Breakage extends Mailable
     public function build()
     {
         return $this->replyTo($this->breakage['user_email'], $this->breakage['user_name'])
-                    ->subject('Equipment breakage')
-                    ->markdown('emails.equipment.breakage')
-                    ->with('breakage', $this->breakage);
+            ->subject('Equipment breakage')
+            ->markdown('emails.equipment.breakage')
+            ->with('breakage', $this->breakage);
     }
 }

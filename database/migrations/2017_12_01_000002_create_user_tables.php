@@ -50,10 +50,7 @@ class CreateUserTables extends Migration
             $table->timestamps();
             $table->boolean('status')->default(0);
 
-            $table->foreign('user_group_id')
-                  ->references('id')
-                  ->on('user_groups')
-                  ->onDelete('set null');
+            $table->foreign('user_group_id')->references('id')->on('user_groups')->onDelete('set null');
         });
     }
 

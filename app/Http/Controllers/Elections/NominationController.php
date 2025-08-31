@@ -36,31 +36,41 @@ class NominationController extends Controller
 
         // Check that nominations are open
         if (!$election->canModifyNominations()) {
-            Log::debug("User {$request->user()->id} tried to add nomination for election $electionId but nominations are closed");
+            Log::debug(
+                "User {$request->user()->id} tried to add nomination for election $electionId but nominations are closed",
+            );
             return $this->ajaxError('nominations_closed', 405, 'Nominations are closed and so cannot be deleted.');
         }
 
         // Validate the input
-        $this->validate($request, [
-            'user_id'   => 'required|exists:users,id',
-            'position'  => 'required|in:' . implode(',', array_keys($election->positions)) . '|unique:election_nominations,position,NULL,id,election_id,'
-                           . $election->id . ',user_id,' . $request->get('user_id'),
-            'manifesto' => 'required|mimes:pdf',
-        ], [
-            'user_id.required'   => 'Please select a member',
-            'user_id.exists'     => 'Please select a valid member',
-            'position.required'  => 'Please select a position they are running for',
-            'position.in'        => 'Please select a valid position',
-            'position.unique'    => 'They are already running for this position',
-            'manifesto.required' => 'Please provide their manifesto. If you had, it might be too big to upload (max of 2MB).',
-            'manifesto.mimes'    => 'Only PDFs are currently supported',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'user_id' => 'required|exists:users,id',
+                'position' =>
+                    'required|in:' .
+                    implode(',', array_keys($election->positions)) .
+                    '|unique:election_nominations,position,NULL,id,election_id,' .
+                    $election->id .
+                    ',user_id,' .
+                    $request->get('user_id'),
+                'manifesto' => 'required|mimes:pdf',
+            ],
+            [
+                'user_id.required' => 'Please select a member',
+                'user_id.exists' => 'Please select a valid member',
+                'position.required' => 'Please select a position they are running for',
+                'position.in' => 'Please select a valid position',
+                'position.unique' => 'They are already running for this position',
+                'manifesto.required' =>
+                    'Please provide their manifesto. If you had, it might be too big to upload (max of 2MB).',
+                'manifesto.mimes' => 'Only PDFs are currently supported',
+            ],
+        );
 
         // Create the nomination and upload manifesto
-        $nomination = $election->nominations()
-                               ->create($request->only('user_id', 'position'));
-        $request->file('manifesto')
-                ->move($election->getManifestoPath(), $nomination->getManifestoName());
+        $nomination = $election->nominations()->create($request->only('user_id', 'position'));
+        $request->file('manifesto')->move($election->getManifestoPath(), $nomination->getManifestoName());
 
         Log::info("User {$request->user()->id} created nomination {$nomination->id} for election $electionId");
         Notify::success('Nomination created');
@@ -78,7 +88,7 @@ class NominationController extends Controller
     public function manifesto($id, $nominationId)
     {
         // Get the election and nomination
-        $election   = Election::findOrFail($id); /* @var Election $election */
+        $election = Election::findOrFail($id); /* @var Election $election */
         $nomination = $election->nominations()->where('id', $nominationId)->first(); /* @var Nomination $nomination */
 
         // Authorise
@@ -93,9 +103,9 @@ class NominationController extends Controller
 
         // Return the PDF
         return response(file_get_contents($path), 200, [
-            'Content-Type'        => 'application/pdf',
+            'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="' . $nomination->getManifestoName() . '"',
-            'Content-Length'      => filesize($path),
+            'Content-Length' => filesize($path),
         ]);
     }
 
@@ -120,14 +130,16 @@ class NominationController extends Controller
 
         // Check that nominations are open
         if (!$election->canModifyNominations()) {
-            Log::debug("User " . request()->user()->id . " tried to delete nomination $nominationId for election $id but nominations are closed");
+            Log::debug(
+                'User ' .
+                    request()->user()->id .
+                    " tried to delete nomination $nominationId for election $id but nominations are closed",
+            );
             return $this->ajaxError('nominations_closed', 405, 'Nominations are closed and so cannot be deleted.');
         }
 
         // Get the nomination
-        $nomination = $election->nominations()
-                               ->where('id', $nominationId)
-                               ->first();
+        $nomination = $election->nominations()->where('id', $nominationId)->first();
         if (!$nomination) {
             return $this->ajaxError('404', 404, 'Couldn\'t find that nomination.');
         }
@@ -139,7 +151,7 @@ class NominationController extends Controller
         $nomination->delete();
         File::delete($nomination->getManifestoPath());
 
-        Log::info("User " . request()->user()->id . " deleted nomination $nominationId for election $id");
+        Log::info('User ' . request()->user()->id . " deleted nomination $nominationId for election $id");
 
         Notify::success('Nomination deleted');
         return $this->ajaxResponse(true);

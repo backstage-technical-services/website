@@ -29,13 +29,7 @@ class Role extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'description',
-        'email',
-        'user_id',
-        'order',
-    ];
+    protected $fillable = ['name', 'description', 'email', 'user_id', 'order'];
 
     /**
      * Attach a listener to the 'deleted' event.
@@ -84,9 +78,8 @@ class Role extends Model
             // Look through the database for any other committee roles for
             // the old user. If they exist then we don't want to remove
             // their committee permissions.
-            $old_user            = User::find($old_user_id);
-            $num_committee_roles = Role::where('user_id', '=', $old_user_id)
-                                       ->count();
+            $old_user = User::find($old_user_id);
+            $num_committee_roles = Role::where('user_id', '=', $old_user_id)->count();
             if ($old_user && $old_user->isCommittee() && $num_committee_roles <= 1) {
                 $old_user->makeMember();
             }
@@ -116,29 +109,27 @@ class Role extends Model
         // If the current order attribute is null this is an addition
         // so just increment the order for the following roles.
         if ($currentOrder === null) {
-            DB::table('committee_roles')
-              ->where('order', '>=', $newOrder)
-              ->increment('order');
+            DB::table('committee_roles')->where('order', '>=', $newOrder)->increment('order');
         }
         // If they're different then process the change
         // in order by moving the roles in between.
-        else if ($currentOrder != $newOrder) {
+        elseif ($currentOrder != $newOrder) {
             // If the role has been moved 'later' then decrement the
             // order for the roles in between the two positions
             if ($newOrder > $currentOrder) {
                 $newOrder--;
                 DB::table('committee_roles')
-                  ->where('order', '>', $currentOrder)
-                  ->where('order', '<=', $newOrder)
-                  ->decrement('order');
+                    ->where('order', '>', $currentOrder)
+                    ->where('order', '<=', $newOrder)
+                    ->decrement('order');
             }
             // If the role has been moved 'earlier' then increment the
             // order for the roles in between the two positions
             else {
                 DB::table('committee_roles')
-                  ->where('order', '<', $currentOrder)
-                  ->where('order', '>=', $newOrder)
-                  ->increment('order');
+                    ->where('order', '<', $currentOrder)
+                    ->where('order', '>=', $newOrder)
+                    ->increment('order');
             }
         }
 

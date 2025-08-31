@@ -1,6 +1,7 @@
 &[page-id="index"] {
     table.table {
-        td, th {
+        td,
+        th {
             &[col="venue"] {
                 width: 12em;
             }
@@ -19,8 +20,9 @@
         td {
             padding-top: 1em;
             padding-bottom: 1em;
-            
-            &[col="crew"], &[col="date"] {
+
+            &[col="crew"],
+            &[col="date"] {
                 font-size: 0.867em;
             }
         }
@@ -31,27 +33,27 @@
     div#content {
         position: relative;
     }
-    
+
     div.customise {
         font-size: 12px;
         margin-top: 1em;
         text-align: center;
-        
-        @media(min-width: 768px) {
+
+        @media (min-width: 768px) {
             margin: 0;
             position: absolute;
             right: 0;
             top: 0;
         }
-        
+
         & > .btn-group {
             height: 35px;
             line-height: 35px;
         }
-        
+
         #DiaryPreferences {
             background: #fff;
-            border: 1px solid rgba(0, 0, 0, .15);
+            border: 1px solid rgba(0, 0, 0, 0.15);
             border-radius: 4px;
             color: #000;
             display: none;
@@ -62,7 +64,7 @@
             text-align: left;
             z-index: 900;
             width: 200px;
-            
+
             h2 {
                 color: #000;
                 font-size: 1.083em;
@@ -80,13 +82,14 @@
     }
     div.date-header {
         $height: 35px;
-        
+
         display: table;
         height: $height;
         line-height: $height;
         margin: 0 auto;
-        
-        & > a, & > span {
+
+        & > a,
+        & > span {
             display: table-cell;
             text-align: center;
             vertical-align: middle;
@@ -98,7 +101,7 @@
             line-height: 1;
             padding-top: 0.05em;
             width: $height;
-            
+
             &:hover {
                 background: rgba(255, 255, 255, 0.1);
                 color: $btsyellow;
@@ -126,12 +129,12 @@
         $border_colour: #444;
         margin: 2em 0;
         width: 100%;
-        
+
         .cell {
             @include transition();
             display: block;
             width: 100%;
-            
+
             @media (min-width: 500px) {
                 float: left;
                 width: 50%;
@@ -141,19 +144,19 @@
             }
             @media (min-width: 992px) {
                 width: (100%/7);
-                
             }
         }
-        & > div.day-headers, & > div.calendar {
+        & > div.day-headers,
+        & > div.calendar {
             overflow: hidden;
             width: 100%;
         }
         & > div.day-headers {
             display: none;
-            
+
             @media (min-width: 992px) {
                 display: block;
-                
+
                 .cell {
                     border: none;
                     color: #999;
@@ -173,7 +176,7 @@
                 line-height: 1;
                 padding-top: 2em;
                 position: relative;
-                
+
                 &:not(.blank):hover {
                     background: rgba(255, 255, 255, 0.1);
                     cursor: pointer;
@@ -184,7 +187,7 @@
                     border-right-style: none;
                     display: none;
                     font-size: 0;
-                    
+
                     @media (min-width: 992px) {
                         display: block;
                     }
@@ -192,7 +195,7 @@
                 span.date {
                     box-sizing: border-box;
                     border-radius: 2em;
-                    color: #BBB;
+                    color: #bbb;
                     display: block;
                     font-weight: 100;
                     line-height: 1;
@@ -207,7 +210,7 @@
                         background: rgba(255, 255, 255, 0.25);
                     }
                 }
-                
+
                 // Borders
                 @media (max-width: 499px) {
                     &:not(:last-of-type) {
@@ -218,7 +221,7 @@
                     &:nth-of-type(even) {
                         border-left: none;
                     }
-                    &:nth-of-type(n+3) {
+                    &:nth-of-type(n + 3) {
                         border-top: none;
                     }
                 }
@@ -226,7 +229,7 @@
                     &:not(:nth-of-type(3n-2)) {
                         border-left: none;
                     }
-                    &:nth-of-type(n+4) {
+                    &:nth-of-type(n + 4) {
                         border-top: none;
                     }
                 }
@@ -234,7 +237,7 @@
                     &:not(:nth-child(7n)) {
                         border-right: none;
                     }
-                    &:not(:nth-last-child(-n+7)) {
+                    &:not(:nth-last-child(-n + 7)) {
                         border-bottom: none;
                     }
                     &.blank:first-child {
@@ -252,12 +255,12 @@
                     overflow-y: auto;
                     padding: 0 4px;
                     width: 100%;
-                    
+
                     & > div.event {
                         width: 100%;
                         & > div.name {
                             font-size: 12px;
-                            
+
                             a.grey:hover {
                                 color: $colour_btn_grey;
                             }
@@ -269,26 +272,28 @@
     }
     #modal {
         form.export {
-            &, p.help-block {
+            &,
+            p.help-block {
                 font-size: 13px;
             }
             .export-url {
                 background: #000;
-                color: #FFF;
+                color: #fff;
                 padding: 0.75em;
                 overflow-x: auto;
             }
             div.customise-export {
                 display: table;
                 font-weight: 300;
-                
+
                 & > div {
                     display: table-cell;
                     &:first-child {
                         padding-right: 0.5em;
                     }
                 }
-                .checkbox, .radio {
+                .checkbox,
+                .radio {
                     label {
                         font-weight: 300;
                     }
@@ -303,11 +308,11 @@
     }
     div.event {
         display: table;
-        
+
         &:not(:last-of-type) {
             margin-bottom: 0.417em;
         }
-        
+
         & > div.event-style {
             display: table-cell;
             width: 2px;
@@ -324,7 +329,7 @@
         @media (min-width: 400px) {
             width: 400px;
         }
-        
+
         div#buttons {
             margin-top: 2em;
         }
@@ -345,7 +350,6 @@
             text-align: center;
             li {
                 a {
-                
                 }
                 .badge {
                     background-color: #700;
@@ -373,7 +377,7 @@
         }
         &#event_details {
             .control-label {
-                @media(min-width: 768px) {
+                @media (min-width: 768px) {
                     width: 10.5em;
                 }
             }
@@ -382,14 +386,20 @@
                 margin: 0;
             }
             div.description {
-                h1, h2, h3, h4, h5, h6 {
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6 {
                     color: #eee;
                     font-size: 19px;
                     font-weight: bold;
                     margin: 0.5em 0;
                     text-align: left;
                 }
-                ul, ol {
+                ul,
+                ol {
                     margin: 1em 1.5em;
                 }
                 p {
@@ -409,7 +419,7 @@
                 }
                 @media (min-width: 768px) {
                     margin-bottom: 1.5em;
-                    
+
                     div.form-entry {
                         & > .control-label {
                             padding-right: 1em;
@@ -418,7 +428,7 @@
                         & > div.form-control-static {
                             padding-top: 0;
                             padding-bottom: 0;
-                            
+
                             & > div {
                                 //padding: 0.5em 0;
                             }
@@ -429,56 +439,56 @@
         }
         &#event_times {
             & > div.event-time-wrapper {
-                @media(max-width: 767px) {
+                @media (max-width: 767px) {
                     max-height: 30em;
                     overflow-y: auto;
                 }
-                
+
                 & > div.event-times {
                     display: table;
                     margin: 1em 0 2em;
                     width: 100%;
-                    
+
                     div.event-time {
                         display: table-row;
                         position: relative;
-                        
+
                         & > div {
                             display: table-cell;
                             font-size: 0.933em;
                             padding: 0.7em 0.5em;
                             vertical-align: middle;
-                            
-                            @media(min-width: 786px) {
+
+                            @media (min-width: 786px) {
                                 vertical-align: top;
                             }
                         }
                         & > div.date {
                             font-weight: 100;
                             width: 5em;
-                            
+
                             & > div.day {
                                 color: $btsyellow;
                                 text-align: center;
-                                
+
                                 & > span.weekday {
                                     display: none;
                                 }
                             }
                             & > div.month {
-                                color: #BBB;
+                                color: #bbb;
                                 font-size: 0.857em;
                                 text-align: center;
                             }
-                            
-                            @media(min-width: 768px) {
+
+                            @media (min-width: 768px) {
                                 overflow: hidden;
                                 width: 11em;
-                                
+
                                 & > div.day {
                                     float: right;
                                     width: 3.5em;
-                                    
+
                                     & > span.weekday {
                                         display: inline;
                                     }
@@ -502,23 +512,23 @@
         &#event_emails {
             div.email-wrapper {
                 margin-top: 1em;
-                
+
                 @media (max-width: 767px) {
                     max-height: 800px;
                     overflow-y: auto;
                 }
-                
+
                 div.email {
                     $colour_border: #333;
                     background: #141414;
                     border: 1px solid $colour_border;
                     border-radius: 2px;
                     margin: 1.5em 0;
-                    
+
                     &:last-child {
                         margin-bottom: 0;
                     }
-                    
+
                     & > div.subject {
                         border-bottom: 1px solid $colour_border;
                         color: $btsorange;
@@ -528,19 +538,21 @@
                         padding: 0.75em 1em;
                     }
                     & > div.details {
-                        & > div.sender, & > div.date {
+                        & > div.sender,
+                        & > div.date {
                             border-bottom: 1px solid $colour_border;
                             padding: 0.5em 1em;
-                            
+
                             & > div.heading {
                                 color: $btsorange;
                             }
                         }
-                        
-                        @media(min-width: 768px) {
+
+                        @media (min-width: 768px) {
                             overflow: hidden;
-                            
-                            & > div.sender, & > div.date {
+
+                            & > div.sender,
+                            & > div.date {
                                 width: 50%;
                             }
                             & > div.sender {
@@ -564,16 +576,16 @@
                         overflow: auto;
                         padding: 1.071em;
                         width: 100%;
-                        
-                        @media(min-width: 768px) {
+
+                        @media (min-width: 768px) {
                             max-height: none;
                         }
-                        
+
                         p {
                             line-height: 1.55em;
                             margin-bottom: 1em;
                             width: 100%;
-                            
+
                             &:last-child {
                                 margin-bottom: 0;
                             }
@@ -587,11 +599,11 @@
                 div.paperwork {
                     padding: 0.15em 0 0.15em 3em;
                     position: relative;
-                    
+
                     &:not(:last-child) {
                         margin-bottom: 0.5em;
                     }
-                    
+
                     & > span {
                         font-size: 1.2em;
                         left: 0;
@@ -600,13 +612,13 @@
                         top: 0;
                     }
                     & > div.name {
-                    
                     }
                     & > p.link {
                         font-size: 0.9em;
                         margin: 0;
-                        
-                        &, a {
+
+                        &,
+                        a {
                             color: #777;
                         }
                         span.fa {
@@ -615,7 +627,6 @@
                     }
                 }
             }
-            
         }
     }
     #modal {

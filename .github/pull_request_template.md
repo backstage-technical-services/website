@@ -22,17 +22,17 @@ Ticket: <!-- past the link to the issue or delete this line if there's no issue 
 
 **General**
 
-* [ ] Documentation updated/written (if applicable)
-* [ ] Good coverage of tests
-* [ ] Updated docker config
-* [ ] CI/CD config updated
-* [ ] Docker image builds and boots
+- [ ] Documentation updated/written (if applicable)
+- [ ] Good coverage of tests
+- [ ] Updated docker config
+- [ ] CI/CD config updated
+- [ ] Docker image builds and boots
 
 **Principles**
 
-* [ ] DRY, SOLID and Clean
-* [ ] Follows language code style
-* [ ] Use consistent vocabulary
-* [ ] Any tech debt justified and ticketed where appropriate
-* [ ] All data access audited
-* [ ] Appropriate level of logging
+- [ ] DRY, SOLID and Clean
+- [ ] Follows language code style
+- [ ] Use consistent vocabulary
+- [ ] Any tech debt justified and ticketed where appropriate
+- [ ] All data access audited
+- [ ] Appropriate level of logging

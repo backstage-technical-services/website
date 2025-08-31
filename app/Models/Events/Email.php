@@ -22,8 +22,8 @@ class Email extends Model
      */
     protected static $ValidationRules = [
         'header' => 'required',
-        'body'   => 'required',
-        'crew'   => 'required|in:core,all',
+        'body' => 'required',
+        'crew' => 'required|in:core,all',
     ];
 
     /**
@@ -33,9 +33,9 @@ class Email extends Model
      */
     protected static $ValidationMessages = [
         'header.required' => 'Please enter the email subject',
-        'body.required'   => 'Please enter the email message',
-        'crew.required'   => 'Please select who to send the email to',
-        'crew.in'         => 'Please select who to send the email to',
+        'body.required' => 'Please enter the email message',
+        'crew.required' => 'Please select who to send the email to',
+        'crew.in' => 'Please select who to send the email to',
     ];
 
     /**
@@ -50,21 +50,14 @@ class Email extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'event_id',
-        'sender_id',
-        'header',
-        'body',
-    ];
+    protected $fillable = ['event_id', 'sender_id', 'header', 'body'];
 
     /**
      * Define the attributes to correct the timezone for.
      *
      * @var array
      */
-    protected $correct_tz = [
-        'created_at',
-    ];
+    protected $correct_tz = ['created_at'];
 
     /**
      * Define the foreign key relationship with the event.

@@ -32,8 +32,8 @@ class EmailController extends Controller
         // Create the email object
         $email = $event->emails()->create([
             'sender_id' => $request->user()->id,
-            'header'    => clean($request->get('header')),
-            'body'      => clean($request->get('body')),
+            'header' => clean($request->get('header')),
+            'body' => clean($request->get('body')),
         ]);
 
         // Send the email to the crew

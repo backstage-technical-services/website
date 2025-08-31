@@ -11,8 +11,9 @@ div.form-group + div.tools {
     & > .dropdown {
         font-size: 12px;
         font-style: normal;
-        
-        & > .dropdown, & > .dropup {
+
+        & > .dropdown,
+        & > .dropup {
             & > .btn span:not(.fa) + .fa {
                 margin-left: 0.5em;
             }
@@ -21,10 +22,12 @@ div.form-group + div.tools {
             font-size: 12px;
             padding: 0.5em 0;
             min-width: 0;
-            
+
             & > li {
                 margin: 0;
-                & > a, & > span, & > button {
+                & > a,
+                & > span,
+                & > button {
                     font-size: inherit;
                     padding-right: 3em;
                 }
@@ -34,8 +37,9 @@ div.form-group + div.tools {
     & > .btn-group {
         font-size: 12px;
     }
-    
-    button, .btn {
+
+    button,
+    .btn {
         font-size: inherit;
         margin-top: 0;
         margin-bottom: 0;

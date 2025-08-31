@@ -1,7 +1,7 @@
 form {
     margin-left: auto;
     margin-right: auto;
-    
+
     .input-group {
         &.textarea {
             & > span.input-group-addon {
@@ -9,17 +9,17 @@ form {
                 vertical-align: top;
             }
         }
-        
+
         & ~ .invalid-feedback {
             display: block;
         }
     }
-    
+
     [data-visibility-input] {
         margin-left: 1.25em;
         margin-right: 1.25em;
     }
-    
+
     p.form-text {
         text-align: left;
     }

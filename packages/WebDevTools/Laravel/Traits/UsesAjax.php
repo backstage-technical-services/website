@@ -18,9 +18,9 @@ trait UsesAjax
      */
     protected function ajaxResponse($text, $status = 200, array $data = [], array $headers = [])
     {
-        $data = array_merge($data, [($status == 200 ? 'response' : 'error') => $text]);
+        $data = array_merge($data, [$status == 200 ? 'response' : 'error' => $text]);
 
-        Log::debug("Sending JSON response", ['response' => response()->json($data, $status, $headers)]);
+        Log::debug('Sending JSON response', ['response' => response()->json($data, $status, $headers)]);
 
         return response()->json($data, $status, $headers);
     }
@@ -37,7 +37,7 @@ trait UsesAjax
     {
         $data = [
             'error_code' => $errorCode,
-            '__error'    => true,
+            '__error' => true,
         ];
         $text = $errorText ?: trans('errors.' . $errorCode);
 

@@ -31,7 +31,7 @@ trait CorrectsPaginatorPath
         } else {
             $query = array_merge($includeQuery ? $query : [], $customQuery ?: []);
 
-            return $request->url().count($query) ? ('?'.http_build_query($query)) : '';
+            return $request->url() . count($query) ? '?' . http_build_query($query) : '';
         }
     }
 }

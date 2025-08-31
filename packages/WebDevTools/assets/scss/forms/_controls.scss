@@ -1,6 +1,6 @@
 .form-control {
     color: #000;
-    
+
     &.search-input {
         display: inline-block;
         height: 2em;
@@ -15,7 +15,7 @@
 textarea.form-control {
     max-width: 100%;
     resize: vertical;
-    
+
     &.no-resize {
         resize: none;
     }
@@ -35,8 +35,9 @@ textarea.form-control {
     padding: 0.5em;
     display: none;
     position: relative;
-    
-    label, input {
+
+    label,
+    input {
         font-size: 0.8125em;
     }
     &.show {

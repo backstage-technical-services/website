@@ -47,12 +47,12 @@ class SkillRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => ['required'],
+            'name' => ['required'],
             'category_id' => ['nullable', 'exists:training_categories,id'],
             'description' => ['required'],
-            'level1'      => ['required_with:available.level1'],
-            'level2'      => ['required_with:available.level2'],
-            'level3'      => ['required_with:available.level3'],
+            'level1' => ['required_with:available.level1'],
+            'level2' => ['required_with:available.level2'],
+            'level3' => ['required_with:available.level3'],
         ];
     }
 
@@ -64,8 +64,8 @@ class SkillRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'        => 'Please enter the skill name',
-            'category_id.exists'   => 'Please choose a valid category',
+            'name.required' => 'Please enter the skill name',
+            'category_id.exists' => 'Please choose a valid category',
             'description.required' => 'Please enter a description of the skill',
             'level1.required_with' => 'Please enter the requirements for ' . Skill::LEVEL_NAMES[1],
             'level2.required_with' => 'Please enter the requirements for ' . Skill::LEVEL_NAMES[2],

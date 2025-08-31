@@ -1,85 +1,85 @@
 h3 {
-	font-size: 25px;
-	line-height: 1.5em;
+    font-size: 25px;
+    line-height: 1.5em;
 }
 
 h4 {
-	font-size: 22px;
-	font-weight: 400;
+    font-size: 22px;
+    font-weight: 400;
 }
 
 div.quote {
-	display: table;
-	margin-top: 1em;
-	width: 100%;
+    display: table;
+    margin-top: 1em;
+    width: 100%;
 
-	& > div.quote-number {
-		color: $btsyellow;
-		display: table-cell;
-		font-size: 1.4em;
-		padding-right: 1em;
-		text-align: right;
-		vertical-align: top;
-		width: 2em;
-	}
+    & > div.quote-number {
+        color: $btsyellow;
+        display: table-cell;
+        font-size: 1.4em;
+        padding-right: 1em;
+        text-align: right;
+        vertical-align: top;
+        width: 2em;
+    }
 
-	& > div.quote-details {
-		display: table-cell;
-		padding-top: 3px;
-		vertical-align: top;
+    & > div.quote-details {
+        display: table-cell;
+        padding-top: 3px;
+        vertical-align: top;
 
-		& > div.quote-content {
-			display: block;
-			font-size: 1.1em;
-			line-height: 1.5em;
-			padding-left: 2.3em;
-			position: relative;
+        & > div.quote-content {
+            display: block;
+            font-size: 1.1em;
+            line-height: 1.5em;
+            padding-left: 2.3em;
+            position: relative;
 
-			&:before {
-				color: #444;
-				content: "\275D";
-				font-size: 2.4em;
-				line-height: 0.9em;
-				position: absolute;
-				top: 0;
-				left: 0;
-			}
-			p {
-				margin: 0;
-			}
-		}
-		& > div.quote-date {
-			color: #999;
-			font-size: 13px;
-			font-style: italic;
-			margin: 1em 0 0 0;
-		}
-		& > div.quote-actions {
-			@include transition();
-			opacity: 0;
-			margin-top: 0.5em;
+            &:before {
+                color: #444;
+                content: "\275D";
+                font-size: 2.4em;
+                line-height: 0.9em;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            p {
+                margin: 0;
+            }
+        }
+        & > div.quote-date {
+            color: #999;
+            font-size: 13px;
+            font-style: italic;
+            margin: 1em 0 0 0;
+        }
+        & > div.quote-actions {
+            @include transition();
+            opacity: 0;
+            margin-top: 0.5em;
 
-			span.fa {
-				color: #FFF;
-				font-size: 1em;
-				margin-right: 0.2em;
+            span.fa {
+                color: #fff;
+                font-size: 1em;
+                margin-right: 0.2em;
 
-				&.fa-trash:hover {
-					color: $colour_danger;
-				}
-			}
-			.btn {
-				margin-left: 0;
-				margin-right: 0;
-				padding: 0;
-				& > span.fa {
-					width: auto;
-				}
-			}
-		}
-	}
+                &.fa-trash:hover {
+                    color: $colour_danger;
+                }
+            }
+            .btn {
+                margin-left: 0;
+                margin-right: 0;
+                padding: 0;
+                & > span.fa {
+                    width: auto;
+                }
+            }
+        }
+    }
 
-	&:hover > div.quote-details > div.quote-actions {
-		opacity: 1;
-	}
+    &:hover > div.quote-details > div.quote-actions {
+        opacity: 1;
+    }
 }

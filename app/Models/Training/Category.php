@@ -19,9 +19,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
 
     /**
      * Define the relationship with the training skills.
@@ -30,7 +28,6 @@ class Category extends Model
      */
     public function skills()
     {
-        return $this->hasMany(Skill::class, 'category_id')
-                    ->orderBy('name', 'ASC');
+        return $this->hasMany(Skill::class, 'category_id')->orderBy('name', 'ASC');
     }
 }

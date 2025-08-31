@@ -27,12 +27,12 @@ class AcceptedExternal extends Mailable
     public function __construct(Event $event, Request $request)
     {
         $this->data = [
-            'event_name'  => $event->name,
-            'event_dates' => $event->start_date . ($request->has('one_day') ? '' : (' - ' . $event->end_date)),
-            'em'          => $event->em_id ? $event->em->name : '*none yet*',
-            'client'      => $event->client,
-            'venue'       => $event->venue,
-            'venue_type'  => Event::$VenueTypes[$event->venue_type],
+            'event_name' => $event->name,
+            'event_dates' => $event->start_date . ($request->has('one_day') ? '' : ' - ' . $event->end_date),
+            'em' => $event->em_id ? $event->em->name : '*none yet*',
+            'client' => $event->client,
+            'venue' => $event->venue,
+            'venue_type' => Event::$VenueTypes[$event->venue_type],
             'description' => $event->description,
         ];
     }
@@ -46,8 +46,8 @@ class AcceptedExternal extends Mailable
         return $this->replyTo(config('bts.emails.events.accepted_external.reply'))
             ->from(config('bts.emails.events.accepted_external.from'))
             ->cc(config('bts.emails.events.accepted_external.cc'))
-                    ->subject('Backstage External Off-Campus Event')
-                    ->markdown('emails.events.accepted_external')
-                    ->with($this->data);
+            ->subject('Backstage External Off-Campus Event')
+            ->markdown('emails.events.accepted_external')
+            ->with($this->data);
     }
 }

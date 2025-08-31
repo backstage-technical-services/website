@@ -10,13 +10,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class Booking extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     /**
      * Variable to store the booking request.
      * @var array
      */
     private $booking;
-    
+
     /**
      * Create a new message instance.
      * @param array $data
@@ -34,8 +34,8 @@ class Booking extends Mailable
     public function build()
     {
         return $this->replyTo($this->booking['contact_email'], $this->booking['contact_name'])
-                    ->subject('Booking Request - ' . $this->booking['event_name'] . ' (' . $this->booking['event_dates'] . ')')
-                    ->markdown('emails.contact.booking')
-                    ->with('booking', $this->booking);
+            ->subject('Booking Request - ' . $this->booking['event_name'] . ' (' . $this->booking['event_dates'] . ')')
+            ->markdown('emails.contact.booking')
+            ->with('booking', $this->booking);
     }
 }

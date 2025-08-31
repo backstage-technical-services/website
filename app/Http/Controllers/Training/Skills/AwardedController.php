@@ -46,10 +46,10 @@ class AwardedController extends Controller
      */
     public function award(AwardSkill $request)
     {
-        $skill   = Skill::findOrFail($request->get('skill_id'));
-        $date    = Carbon::now();
-        $members = (array)$request->get('members');
-        $level   = (int)$request->get('level');
+        $skill = Skill::findOrFail($request->get('skill_id'));
+        $date = Carbon::now();
+        $members = (array) $request->get('members');
+        $level = (int) $request->get('level');
 
         // Check for the current member
         if (($key = array_search($request->user()->id, $members)) !== false) {
@@ -59,28 +59,31 @@ class AwardedController extends Controller
 
         // If there are no members to update, just go back to the previous page
         if (count($members) == 0) {
-            return redirect()->back()
-                             ->withInput($request->all());
+            return redirect()->back()->withInput($request->all());
         }
 
         // Award any outstanding applications
         Application::notAwarded()
-                   ->where('skill_id', $skill->id)
-                   ->whereIn('user_id', [$members])
-                   ->where('applied_level', '<=', $level)
-                   ->update([
-                    'awarded_level'   => $level,
-                    'awarded_by'      => $request->user()->id,
-                    'awarded_comment' => 'Awarded using \'Award Skill\' functionality',
-                    'awarded_date'    => $date,
-                ]);
+            ->where('skill_id', $skill->id)
+            ->whereIn('user_id', [$members])
+            ->where('applied_level', '<=', $level)
+            ->update([
+                'awarded_level' => $level,
+                'awarded_by' => $request->user()->id,
+                'awarded_comment' => 'Awarded using \'Award Skill\' functionality',
+                'awarded_date' => $date,
+            ]);
 
         // Update each user if they don't have a higher level already
         foreach ($members as $member) {
             $user = User::find($member);
-            if ((int)$user->getSkillLevel($skill) < $level) {
+            if ((int) $user->getSkillLevel($skill) < $level) {
                 $user->setSkillLevel($skill->id, $level);
-                Logger::log('training-skill.award', true, ['user_id' => $user->id, 'skill_id' => $skill->id, 'level' => $level]);
+                Logger::log('training-skill.award', true, [
+                    'user_id' => $user->id,
+                    'skill_id' => $skill->id,
+                    'level' => $level,
+                ]);
             }
         }
 
@@ -99,7 +102,7 @@ class AwardedController extends Controller
     {
         $this->authorize('revoke', $id ? Skill::find($id) : Skill::class);
         return view('training.skills.revoke')->with([
-            'skill'  => $id === null ? null : Skill::find($id),
+            'skill' => $id === null ? null : Skill::find($id),
             'levels' => [
                 0 => 'Completely revoke',
                 1 => Skill::LEVEL_NAMES[1],
@@ -117,9 +120,9 @@ class AwardedController extends Controller
      */
     public function revoke(AwardSkill $request)
     {
-        $skill   = Skill::findOrFail($request->get('skill_id'));
-        $members = (array)$request->get('members');
-        $level   = (int)$request->get('level');
+        $skill = Skill::findOrFail($request->get('skill_id'));
+        $members = (array) $request->get('members');
+        $level = (int) $request->get('level');
 
         // Check for the current member
         if (($key = array_search($request->user()->id, $members)) !== false) {
@@ -129,26 +132,29 @@ class AwardedController extends Controller
 
         // If there are no members to update, just go back to the previous page
         if (count($members) == 0) {
-            return redirect()->back()
-                             ->withInput($request->all());
+            return redirect()->back()->withInput($request->all());
         }
 
         // Reduce or revoke each member
         $skills = AwardedSkill::where('skill_id', $skill->id)
-                              ->whereIn('user_id', $members)
-                              ->where('level', '>', $level);
+            ->whereIn('user_id', $members)
+            ->where('level', '>', $level);
         if ($level == 0) {
             $skills->delete();
             Notify::success('Skill revoked');
         } else {
             $skills->update([
-                'level'      => $level,
+                'level' => $level,
                 'awarded_by' => $request->user()->id,
             ]);
             Notify::success('Skill level reduced');
         }
         array_walk($members, function ($memberId) use ($skill, $level) {
-            Logger::log('training-skill.revoke', true, ['user_id' => $memberId, 'skill_id' => $skill->id, 'level' => $level]);
+            Logger::log('training-skill.revoke', true, [
+                'user_id' => $memberId,
+                'skill_id' => $skill->id,
+                'level' => $level,
+            ]);
         });
 
         return redirect()->route('training.skill.index');

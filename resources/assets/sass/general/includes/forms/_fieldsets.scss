@@ -1,11 +1,13 @@
-fieldset, div.fieldset {
+fieldset,
+div.fieldset {
     border: 1px solid $btsyellow;
     border-radius: 3px;
     margin: 1em 0;
     padding: 1.5em;
     position: relative;
-    
-    legend, & > h1.legend {
+
+    legend,
+    & > h1.legend {
         background: transparent;
         border: none;
         color: $btsyellow;
@@ -17,7 +19,7 @@ fieldset, div.fieldset {
         padding: 0 0.5em;
         text-align: left;
         width: auto;
-        
+
         & + p {
             margin-top: 0;
         }
@@ -32,7 +34,7 @@ fieldset, div.fieldset {
         font-size: 1.733em;
         text-align: left;
     }
-    
+
     &.alt {
         border-color: #555;
         border-width: 2px;
@@ -40,10 +42,12 @@ fieldset, div.fieldset {
 }
 
 #modal {
-    fieldset, div.fieldset {
+    fieldset,
+    div.fieldset {
         border-color: #000;
-        
-        legend, & > h1.legend {
+
+        legend,
+        & > h1.legend {
             color: #000;
         }
     }

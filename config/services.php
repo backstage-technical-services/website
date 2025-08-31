@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
@@ -37,5 +36,4 @@ return [
     'mandrill' => [
         'secret' => env('MANDRILL_KEY'),
     ],
-
 ];

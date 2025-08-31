@@ -20,10 +20,7 @@ class CreateCommitteeTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('order');
 
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

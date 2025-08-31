@@ -1,4 +1,5 @@
-fieldset, div.fieldset {
+fieldset,
+div.fieldset {
     background-color: $colour_fieldset_bg;
     border: 1px solid $colour_fieldset_border;
     border-radius: 5px;
@@ -6,8 +7,9 @@ fieldset, div.fieldset {
     margin: 1em 0;
     padding: 1em;
     position: relative;
-    
-    legend, & > h1.legend {
+
+    legend,
+    & > h1.legend {
         background: $colour_fieldset_legend_bg;
         border: 1px solid $colour_fieldset_legend_border;
         border-radius: 4px;
@@ -18,7 +20,7 @@ fieldset, div.fieldset {
         padding: 0.4em 0.75em;
         text-align: left;
         width: auto;
-        
+
         & + p {
             margin-top: 0;
         }

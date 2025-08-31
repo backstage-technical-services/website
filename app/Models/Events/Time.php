@@ -16,9 +16,9 @@ class Time extends Model
      * @var array
      */
     protected static $ValidationRules = [
-        'name'  => 'required',
+        'name' => 'required',
         'start' => 'required|date_format:Y-m-d H:i',
-        'end'   => 'required|date_format:Y-m-d H:i|after:start',
+        'end' => 'required|date_format:Y-m-d H:i|after:start',
     ];
 
     /**
@@ -27,13 +27,13 @@ class Time extends Model
      * @var array
      */
     protected static $ValidationMessages = [
-        'name.required'     => 'Please enter a title for the time',
-        'date.required'     => 'Please enter the date',
-        'start.required'    => 'Please enter the start time',
+        'name.required' => 'Please enter a title for the time',
+        'date.required' => 'Please enter the date',
+        'start.required' => 'Please enter the start time',
         'start.date_format' => 'Please enter a valid time',
-        'end.required'      => 'Please enter the end time',
-        'end.date_format'   => 'Please enter a valid time',
-        'end.after'         => 'It cannot end before it\'s begun!',
+        'end.required' => 'Please enter the end time',
+        'end.date_format' => 'Please enter a valid time',
+        'end.after' => 'It cannot end before it\'s begun!',
     ];
 
     /**
@@ -48,12 +48,7 @@ class Time extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'event_id',
-        'name',
-        'start',
-        'end',
-    ];
+    protected $fillable = ['event_id', 'name', 'start', 'end'];
 
     /**
      * Define variable types to cast some attributes to.
@@ -62,7 +57,7 @@ class Time extends Model
      */
     protected $casts = [
         'start' => 'datetime',
-        'end'   => 'datetime',
+        'end' => 'datetime',
     ];
 
     /**
@@ -70,22 +65,14 @@ class Time extends Model
      *
      * @var array
      */
-    protected $visible = [
-        'id',
-        'name',
-        'start',
-        'end',
-    ];
+    protected $visible = ['id', 'name', 'start', 'end'];
 
     /**
      * Define the attributes to correct the timezone for.
      *
      * @var array
      */
-    protected $correct_tz = [
-        'start',
-        'end',
-    ];
+    protected $correct_tz = ['start', 'end'];
 
     /**
      * Define the foreign key relationship with the event.

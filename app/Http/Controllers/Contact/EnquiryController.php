@@ -35,12 +35,10 @@ class EnquiryController extends Controller
     {
         $data = $request->all();
 
-        Mail::to(config('bts.emails.contact.enquiries'))
-            ->queue(new Enquiry($data));
-        Mail::to($request->get('email'), $request->get('name'))
-            ->queue(new EnquiryReceipt($data));
+        Mail::to(config('bts.emails.contact.enquiries'))->queue(new Enquiry($data));
+        Mail::to($request->get('email'), $request->get('name'))->queue(new EnquiryReceipt($data));
 
-        Log::info("General enquiry has been sent");
+        Log::info('General enquiry has been sent');
         Notify::success('Enquiry sent. You should receive a receipt soon.');
         return redirect()->route('home');
     }

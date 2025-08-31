@@ -1,6 +1,7 @@
 This form allows you to create new user accounts that can access the Backstage website.
 
 ### Single vs Multiple
+
 While the default form is pretty it isn't particularly practical for creating lots of users. If you need to create a lot of accounts "in bulk" then switch to "Multiple Users" mode.
 
 Simply enter each user's name and username into the textarea, separated by a new line, in the form `Forename Surname,username`.
@@ -8,7 +9,9 @@ Simply enter each user's name and username into the textarea, separated by a new
 The user's email address will automatically be set to their bath.ac.uk email, using their username, and they will be given a randomly-generated password.
 
 ### User Account Types
+
 Both Single and Multiple User modes allow you to customise the type of account each user will be given.
+
 <dl>
     <dt>Standard</dt>
     <dd>A normal Backstage member. These can access all the usual areas.</dd>

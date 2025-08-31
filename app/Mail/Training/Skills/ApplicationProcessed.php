@@ -27,15 +27,16 @@ class ApplicationProcessed extends Mailable
     public function __construct(Application $application)
     {
         $this->application = [
-            'user'               => $application->user->name,
-            'user_email'         => $application->user->email,
-            'level'              => Skill::LEVEL_NAMES[$application->applied_level],
-            'skill'              => $application->skill->name,
-            'awarder'            => $application->awarder->name,
-            'awarder_forename'   => $application->awarder->forename,
-            'awarded_level'      => $application->awarded_level,
-            'awarded_level_text' => $application->awarded_level > 0 ? Skill::LEVEL_NAMES[$application->awarded_level] : null,
-            'awarded_comment'    => $application->awarded_comment,
+            'user' => $application->user->name,
+            'user_email' => $application->user->email,
+            'level' => Skill::LEVEL_NAMES[$application->applied_level],
+            'skill' => $application->skill->name,
+            'awarder' => $application->awarder->name,
+            'awarder_forename' => $application->awarder->forename,
+            'awarded_level' => $application->awarded_level,
+            'awarded_level_text' =>
+                $application->awarded_level > 0 ? Skill::LEVEL_NAMES[$application->awarded_level] : null,
+            'awarded_comment' => $application->awarded_comment,
         ];
     }
 
@@ -47,8 +48,8 @@ class ApplicationProcessed extends Mailable
     public function build()
     {
         return $this->replyTo(config('bts.emails.training.application_processed'))
-                    ->subject('Your Skill Application')
-                    ->markdown('emails.training.skills.application.processed')
-                    ->with($this->application);
+            ->subject('Your Skill Application')
+            ->markdown('emails.training.skills.application.processed')
+            ->with($this->application);
     }
 }

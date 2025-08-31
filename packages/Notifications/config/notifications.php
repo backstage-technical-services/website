@@ -20,18 +20,18 @@ return [
         /*
          * Define what classes to use for each notification level.
          */
-        'levels'   => [
-            'info'    => 'info',
+        'levels' => [
+            'info' => 'info',
             'success' => 'success',
             'warning' => 'warning',
-            'error'   => 'danger',
+            'error' => 'danger',
         ],
     ],
 
     /*
      * Settings for the graphical icons.
      */
-    'icons'   => [
+    'icons' => [
         /*
          * Define the "provider" for the icons.
          * This is used to set the prefix for the icon class.
@@ -42,16 +42,16 @@ return [
         /*
          * Define what icon classes to use for each notification level.
          */
-        'levels'   => [
-            'info'    => 'info',
+        'levels' => [
+            'info' => 'info',
             'success' => 'check',
             'warning' => 'exclamation',
-            'error'   => 'remove',
+            'error' => 'remove',
         ],
 
         /*
          * Define the icon class to use for the close icon.
          */
-        'close'    => 'remove',
+        'close' => 'remove',
     ],
 ];

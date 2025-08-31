@@ -17,9 +17,9 @@ class Award extends Model
      * @var array
      */
     public static $ValidationRules = [
-        'name'        => 'required',
+        'name' => 'required',
         'description' => 'required',
-        'recurring'   => 'required|boolean',
+        'recurring' => 'required|boolean',
     ];
 
     /**
@@ -28,10 +28,10 @@ class Award extends Model
      * @var array
      */
     public static $ValidationMessages = [
-        'name.required'        => 'Please enter the award name',
+        'name.required' => 'Please enter the award name',
         'description.required' => 'Please enter a description',
-        'recurring.required'   => 'Please select whether this should recur every year',
-        'recurring.boolean'    => 'Please select a valid option',
+        'recurring.required' => 'Please select whether this should recur every year',
+        'recurring.boolean' => 'Please select a valid option',
     ];
 
     /**
@@ -46,12 +46,7 @@ class Award extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'name',
-        'description',
-        'suggested_by',
-        'recurring',
-    ];
+    public $fillable = ['name', 'description', 'suggested_by', 'recurring'];
 
     /**
      * Define the relationship with the user who suggested the award.
@@ -102,9 +97,7 @@ class Award extends Model
      */
     public function approvedSeasonNominations($seasonId)
     {
-        return $this->nominations()
-                    ->approved()
-                    ->where('award_nominations.award_season_id', $seasonId);
+        return $this->nominations()->approved()->where('award_nominations.award_season_id', $seasonId);
     }
 
     /**
@@ -116,8 +109,7 @@ class Award extends Model
      */
     public function hasApprovedNominations($seasonId)
     {
-        return $this->approvedSeasonNominations($seasonId)
-                    ->count() > 0;
+        return $this->approvedSeasonNominations($seasonId)->count() > 0;
     }
 
     /**
@@ -129,8 +121,7 @@ class Award extends Model
      */
     public function getApprovedNominations($seasonId)
     {
-        return $this->approvedSeasonNominations($seasonId)
-                    ->get();
+        return $this->approvedSeasonNominations($seasonId)->get();
     }
 
     /**
@@ -163,9 +154,9 @@ class Award extends Model
     public function votes(Season $season)
     {
         return Vote::select('award_votes.*')
-                   ->where('award_votes.award_season_id', $season->id)
-                   ->join('award_nominations', 'award_votes.nomination_id', '=', 'award_nominations.id')
-                   ->where('award_id', $this->id);
+            ->where('award_votes.award_season_id', $season->id)
+            ->join('award_nominations', 'award_votes.nomination_id', '=', 'award_nominations.id')
+            ->where('award_id', $this->id);
     }
 
     /**
@@ -178,8 +169,6 @@ class Award extends Model
      */
     public function userHasVoted(Season $season, User $user)
     {
-        return $this->votes($season)
-                    ->where('award_votes.user_id', $user->id)
-                    ->count() > 0;
+        return $this->votes($season)->where('award_votes.user_id', $user->id)->count() > 0;
     }
 }

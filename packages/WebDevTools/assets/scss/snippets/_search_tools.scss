@@ -3,10 +3,10 @@
     display: inline-flex;
     flex-direction: row;
     float: right;
-    
+
     & > div {
         margin: 0 5px;
-        
+
         &:first-child {
             margin-left: 0;
         }
@@ -19,7 +19,7 @@
             padding: 0.5em 0.8em;
             margin: 0;
         }
-        
+
         & > .dropdown-menu {
             left: auto;
             right: 0;
@@ -29,17 +29,17 @@
     & > div.search {
         position: relative;
         width: 15em;
-        
-        @media(min-width: 768px) {
+
+        @media (min-width: 768px) {
             width: 15em;
         }
-        
+
         & > .dropdown-menu {
             & > .dropdown-item {
                 margin: 0;
                 padding: 0.3em;
                 position: relative;
-                
+
                 input.form-control {
                     font-size: font-size(13px);
                 }
@@ -61,7 +61,7 @@
             top: 0.6rem;
             width: auto;
             z-index: 500;
-            
+
             @include fa {
                 margin: 0;
             }

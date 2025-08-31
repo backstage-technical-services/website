@@ -29,7 +29,7 @@ class AwardSkill extends FormRequest
 
         return $validator->after(function (Validator $validator) {
             $skill = Skill::find($this->get('skill_id'));
-            if ((int)$this->get('level') > 0 && !$skill->isLevelAvailable($this->get('level'))) {
+            if ((int) $this->get('level') > 0 && !$skill->isLevelAvailable($this->get('level'))) {
                 $validator->errors()->add('level', 'That level isn\'t available for the selected skill');
             }
         });
@@ -44,8 +44,8 @@ class AwardSkill extends FormRequest
     {
         return [
             'skill_id' => ['required', 'exists:training_skills,id'],
-            'level'    => ['required', 'in:' . implode(',', array_keys(Skill::LEVEL_NAMES))],
-            'members'  => ['required', 'array', 'exists:users,id'],
+            'level' => ['required', 'in:' . implode(',', array_keys(Skill::LEVEL_NAMES))],
+            'members' => ['required', 'array', 'exists:users,id'],
         ];
     }
 
@@ -58,12 +58,12 @@ class AwardSkill extends FormRequest
     {
         return [
             'skill_id.required' => 'Please select the skill',
-            'skill_id.exists'   => 'Please select a valid skill',
-            'level.required'    => 'Please select a level',
-            'level.in'          => 'Please select a valid level',
-            'members.required'  => 'Please select at least 1 member',
-            'members.array'     => 'Please provide a valid selection of members',
-            'members.exists'    => 'Please ensure all of the members are valid',
+            'skill_id.exists' => 'Please select a valid skill',
+            'level.required' => 'Please select a level',
+            'level.in' => 'Please select a valid level',
+            'members.required' => 'Please select at least 1 member',
+            'members.array' => 'Please provide a valid selection of members',
+            'members.exists' => 'Please ensure all of the members are valid',
         ];
     }
 }

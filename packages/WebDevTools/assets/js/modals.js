@@ -1,2 +1,2 @@
-window.$modal         = new Modal('#modal');
+window.$modal = new Modal('#modal');
 $modal.errorProcessor = processAjaxErrors;

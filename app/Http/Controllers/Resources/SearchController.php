@@ -21,12 +21,12 @@ class SearchController extends Controller
     public function getSearch(Request $request)
     {
         // Parse the search
-        $search   = $this->parseSearchRequest($request);
-        $query    = isset($search['query']) ? $search['query'] : null;
+        $search = $this->parseSearchRequest($request);
+        $query = isset($search['query']) ? $search['query'] : null;
         $category = isset($search['category']) ? $search['category'] : null;
-        $tags     = isset($search['tag']) ? $search['tag'] : [];
+        $tags = isset($search['tag']) ? $search['tag'] : [];
 
-        if($query == null && $category == null && empty($tags)) {
+        if ($query == null && $category == null && empty($tags)) {
             return $this->viewForm();
         } else {
             return $this->viewResults($query, $category, $tags);
@@ -51,7 +51,7 @@ class SearchController extends Controller
      */
     private function viewResults($query, $category, array $tags): View
     {
-        $search = (object)[
+        $search = (object) [
             'query' => $query,
             'category' => $category,
             'tags' => $tags,
@@ -68,8 +68,7 @@ class SearchController extends Controller
             $resources = $tags ? $resources->withTags($tags) : $resources;
 
             // Access and paginate
-            $resources = $resources->accessible()
-                ->paginate(20);
+            $resources = $resources->accessible()->paginate(20);
             $this->checkPage($resources);
             $resources->appends(request()->only('query', 'category', 'tag'));
 
@@ -87,7 +86,7 @@ class SearchController extends Controller
                 'search' => $search,
                 'category' => null,
                 'CategoryList' => [],
-                'TagList' => []
+                'TagList' => [],
             ]);
         }
     }
@@ -99,7 +98,7 @@ class SearchController extends Controller
      */
     public function postSearch(Request $request)
     {
-        if(!$request->get('query') && !$request->get('category') && !$request->get('tag')) {
+        if (!$request->get('query') && !$request->get('category') && !$request->get('tag')) {
             return redirect()->route('resource.search');
         } else {
             return redirect()->route('resource.search', $this->parseSearchRequest($request));
@@ -114,34 +113,34 @@ class SearchController extends Controller
     private function parseSearchRequest(Request $request)
     {
         // Get the query, category and tags from the request
-        $query    = $request->get('query') ?: null;
+        $query = $request->get('query') ?: null;
         $category = $request->get('category') ?: null;
-        $tags     = $request->get('tag') ?: [];
-        Log::debug("Parsing resource search: " . json_encode(compact('query', 'category', 'tags')));
+        $tags = $request->get('tag') ?: [];
+        Log::debug('Parsing resource search: ' . json_encode(compact('query', 'category', 'tags')));
 
         // Initialise the parsed array
         $params = ['query' => $query];
-        if($category) {
+        if ($category) {
             $params['category'] = $category;
         }
-        if($tags) {
-            foreach($tags as $tag) {
+        if ($tags) {
+            foreach ($tags as $tag) {
                 @$params['tag'][] = $tag;
             }
         }
 
         // Look for a category in the query
         preg_match('/category:([a-z0-9-]+)/i', $query, $matches);
-        if(count($matches) > 0) {
+        if (count($matches) > 0) {
             $params['category'] = $matches[1];
-            $query              = trim(str_replace($matches[0], '', $query));
+            $query = trim(str_replace($matches[0], '', $query));
             Log::debug("Found category {$matches[1]} in query. Query modified to: $query");
         }
 
         // Look for any tags in the query
         preg_match_all('/tag:([a-z0-9-]+)/i', $query, $matches);
-        if(count($matches[0]) > 0) {
-            foreach($matches[1] as $i => $tag) {
+        if (count($matches[0]) > 0) {
+            foreach ($matches[1] as $i => $tag) {
                 @$params['tag'][] = $tag;
                 $query = trim(str_replace($matches[0][$i], '', $query));
                 Log::debug("Found tag $tag in query. Query modified to: $query");
@@ -151,7 +150,7 @@ class SearchController extends Controller
         // Set the query
         $params['query'] = $query;
 
-        Log::debug("Resource query parsed as: " . json_encode($params));
+        Log::debug('Resource query parsed as: ' . json_encode($params));
         return $params;
     }
 }

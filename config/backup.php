@@ -12,25 +12,22 @@ use Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays;
 use Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes;
 
 return [
-
-    'backup'          => [
-
+    'backup' => [
         /*
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name'                                => 'backups',
-        'source'                              => [
-            'files'     => [
-
+        'name' => 'backups',
+        'source' => [
+            'files' => [
                 /*
                  * The list of directories and files that will be included in the backup.
                  */
-                'include'                       => [
+                'include' => [
                     public_path('images/profiles'),
                     resource_path('breakages'),
                     resource_path('resources'),
-                    resource_path('elections')
+                    resource_path('elections'),
                 ],
 
                 /*
@@ -38,7 +35,7 @@ return [
                  *
                  * Directories used by the backup process will automatically be excluded.
                  */
-                'exclude'                       => [
+                'exclude' => [
                     base_path('.git'),
                     base_path('vendor'),
                     base_path('node_modules'),
@@ -50,7 +47,7 @@ return [
                 /*
                  * Determines if symlinks should be followed.
                  */
-                'follow_links'                  => false,
+                'follow_links' => false,
 
                 /*
                  * Determines if it should avoid unreadable folders.
@@ -62,7 +59,7 @@ return [
                  * Set to `null` to include complete absolute path
                  * Example: base_path()
                  */
-                'relative_path'                 => null,
+                'relative_path' => null,
             ],
 
             /*
@@ -95,9 +92,7 @@ return [
              *
              * For a complete list of available customization options, see https://github.com/spatie/db-dumper
              */
-            'databases' => [
-                'mysql',
-            ],
+            'databases' => ['mysql'],
         ],
 
         /*
@@ -111,11 +106,11 @@ return [
          *
          * If you do not want any compressor at all, set it to null.
          */
-        'database_dump_compressor'            => null,
+        'database_dump_compressor' => null,
 
         /*
-        * If specified, the database dumped file name will contain a timestamp (e.g.: 'Y-m-d-H-i-s').
-        */
+         * If specified, the database dumped file name will contain a timestamp (e.g.: 'Y-m-d-H-i-s').
+         */
         'database_dump_file_timestamp_format' => null,
 
         /*
@@ -124,7 +119,7 @@ return [
          * If 'database' (default), the dumped filename will contain the database name.
          * If 'connection', the dumped filename will contain the connection name.
          */
-        'database_dump_filename_base'         => 'database',
+        'database_dump_filename_base' => 'database',
 
         /*
          * The file extension used for the database dump files.
@@ -132,9 +127,9 @@ return [
          * If not specified, the file extension will be .archive for MongoDB and .sql for all other databases
          * The file extension should be specified without a leading .
          */
-        'database_dump_file_extension'        => '',
+        'database_dump_file_extension' => '',
 
-        'destination'         => [
+        'destination' => [
             /*
              * The compression algorithm to be used for creating the zip archive.
              *
@@ -159,19 +154,17 @@ return [
              *
              * Setting of 0 for some algorithms may switch to the strongest compression.
              */
-            'compression_level'  => 9,
+            'compression_level' => 9,
 
             /*
              * The filename prefix used for the backup zip file.
              */
-            'filename_prefix'    => '',
+            'filename_prefix' => '',
 
             /*
              * The disk names on which the backups will be stored.
              */
-            'disks'              => [
-                'local',
-            ],
+            'disks' => ['local'],
         ],
 
         /*
@@ -183,7 +176,7 @@ return [
          * The password to be used for archive encryption.
          * Set to `null` to disable encryption.
          */
-        'password'            => null,
+        'password' => null,
 
         /*
          * The encryption algorithm to be used for archive encryption.
@@ -192,18 +185,18 @@ return [
          * When set to 'default', we'll use ZipArchive::EM_AES_256 if it is
          * available on your system.
          */
-        'encryption'          => false,
+        'encryption' => false,
 
         /*
          * The number of attempts, in case the backup command encounters an exception
          */
-        'tries'               => 1,
+        'tries' => 1,
 
         /*
          * The number of seconds to wait before attempting a new backup if the previous try failed
          * Set to `0` for none
          */
-        'retry_delay'         => 0,
+        'retry_delay' => 0,
     ],
 
     /*
@@ -213,28 +206,28 @@ return [
      * You can also use your own notification classes, just make sure the class is named after one of
      * the `Spatie\Backup\Events` classes.
      */
-    'notifications'   => [
+    'notifications' => [
         'notifications' => [
-            BackupHasFailedNotification::class         => [],
+            BackupHasFailedNotification::class => [],
             UnhealthyBackupWasFoundNotification::class => [],
-            CleanupHasFailedNotification::class        => [],
-            BackupWasSuccessfulNotification::class     => [],
-            HealthyBackupWasFoundNotification::class   => [],
-            CleanupWasSuccessfulNotification::class    => []
+            CleanupHasFailedNotification::class => [],
+            BackupWasSuccessfulNotification::class => [],
+            HealthyBackupWasFoundNotification::class => [],
+            CleanupWasSuccessfulNotification::class => [],
         ],
 
         /*
          * Here you can specify the notifiable to which the notifications should be sent. The default
          * notifiable will use the variables specified in this config file.
          */
-        'notifiable'    => Notifiable::class,
+        'notifiable' => Notifiable::class,
 
         'mail' => [
             'to' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
 
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name'    => env('MAIL_FROM_NAME', 'Example'),
+                'name' => env('MAIL_FROM_NAME', 'Example'),
             ],
         ],
 
@@ -244,7 +237,7 @@ return [
             /*
              * If this is set to null the default channel of the webhook will be used.
              */
-            'channel'     => null,
+            'channel' => null,
 
             'username' => null,
 
@@ -257,12 +250,12 @@ return [
             /*
              * If this is an empty string, the name field on the webhook will be used.
              */
-            'username'    => '',
+            'username' => '',
 
             /*
              * If this is an empty string, the avatar on the webhook will be used.
              */
-            'avatar_url'  => '',
+            'avatar_url' => '',
         ],
     ],
 
@@ -273,10 +266,10 @@ return [
      */
     'monitor_backups' => [
         [
-            'name'          => 'backups',
-            'disks'         => ['local'],
+            'name' => 'backups',
+            'disks' => ['local'],
             'health_checks' => [
-                MaximumAgeInDays::class          => 1,
+                MaximumAgeInDays::class => 1,
                 MaximumStorageInMegabytes::class => 5000,
             ],
         ],
@@ -295,31 +288,30 @@ return [
         'strategy' => DefaultStrategy::class,
 
         'default_strategy' => [
-
             /*
              * The number of days for which backups must be kept.
              */
-            'keep_all_backups_for_days'                            => 7,
+            'keep_all_backups_for_days' => 7,
 
             /*
              * The number of days for which daily backups must be kept.
              */
-            'keep_daily_backups_for_days'                          => 16,
+            'keep_daily_backups_for_days' => 16,
 
             /*
              * The number of weeks for which one weekly backup must be kept.
              */
-            'keep_weekly_backups_for_weeks'                        => 8,
+            'keep_weekly_backups_for_weeks' => 8,
 
             /*
              * The number of months for which one monthly backup must be kept.
              */
-            'keep_monthly_backups_for_months'                      => 4,
+            'keep_monthly_backups_for_months' => 4,
 
             /*
              * The number of years for which one yearly backup must be kept.
              */
-            'keep_yearly_backups_for_years'                        => 2,
+            'keep_yearly_backups_for_years' => 2,
 
             /*
              * After cleaning up the backups remove the oldest backup until
@@ -331,12 +323,12 @@ return [
         /*
          * The number of attempts, in case the cleanup command encounters an exception
          */
-        'tries'            => 1,
+        'tries' => 1,
 
         /*
          * The number of seconds to wait before attempting a new cleanup if the previous try failed
          * Set to `0` for none
          */
-        'retry_delay'      => 0,
+        'retry_delay' => 0,
     ],
 ];

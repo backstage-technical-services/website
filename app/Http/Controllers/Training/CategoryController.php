@@ -42,12 +42,16 @@ class CategoryController extends Controller
         $this->requireAjax();
         $this->authorize('create', Category::class);
 
-        $this->validate($request, [
-            'name' => 'required|unique:training_categories,name',
-        ], [
-            'name.required' => 'Please enter the category name',
-            'name.unique'   => 'A category with that name already exists',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|unique:training_categories,name',
+            ],
+            [
+                'name.required' => 'Please enter the category name',
+                'name.unique' => 'A category with that name already exists',
+            ],
+        );
 
         Category::create([
             'name' => clean($request->get('name')),
@@ -70,12 +74,16 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $this->authorize('update', $category);
 
-        $this->validate($request, [
-            'name' => 'required|unique:training_categories,name,' . $id . ',id',
-        ], [
-            'name.required' => 'Please enter the category name',
-            'name.unique'   => 'A category with that name already exists',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|unique:training_categories,name,' . $id . ',id',
+            ],
+            [
+                'name.required' => 'Please enter the category name',
+                'name.unique' => 'A category with that name already exists',
+            ],
+        );
 
         $category->update([
             'name' => clean($request->get('name')),

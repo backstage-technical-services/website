@@ -3,70 +3,71 @@ span.tool-colours {
     overflow: hidden;
     text-align: center;
     padding: 0 0.25em;
-    
+
     & > span.tool-colour {
         float: left;
         margin: 0 -0.1em;
-        
+
         &.striped {
             overflow: hidden;
             clear: right;
-            
+
             & > span.fa {
                 float: right;
-                
+
                 &:not(:last-child) {
                     margin-left: -0.65em;
                 }
             }
         }
-        
+
         & > span.fa {
             &.red {
-                color: #FF0000;
-                
+                color: #ff0000;
+
                 &.light {
-                    color: lighten(#FF0000, 20%);
+                    color: lighten(#ff0000, 20%);
                 }
             }
             &.blue {
-                color: #007BFF;
-                
+                color: #007bff;
+
                 &.light {
-                    color: lighten(#007BFF, 15%);
+                    color: lighten(#007bff, 15%);
                 }
             }
             &.green {
                 color: #008000;
-                
+
                 &.light {
                     color: lighten(#008000, 25%);
                 }
             }
             &.yellow {
-                color: #FFFF00;
+                color: #ffff00;
             }
             &.white {
-                color: #FFF;
+                color: #fff;
             }
             &.black {
                 color: #000;
                 margin-left: 0.2em;
-                text-shadow: -1px -1px 0 #FFF,
-                1px -1px 0 #FFF,
-                -1px 1px 0 #FFF,
-                1px 1px 0 #FFF;
+                text-shadow:
+                    -1px -1px 0 #fff,
+                    1px -1px 0 #fff,
+                    -1px 1px 0 #fff,
+                    1px 1px 0 #fff;
             }
             &.brown {
                 color: #5e3415;
-                
+
                 &.light {
                     color: lighten(#5e3415, 20%);
                 }
             }
             &.purple {
                 color: #973fff;
-                
+
                 &.light {
                     color: lighten(#973fff, 12%);
                 }
@@ -75,15 +76,15 @@ span.tool-colours {
                 color: #888;
             }
             &.orange {
-                color: #F60;
-                
+                color: #f60;
+
                 &.light {
-                    color: lighten(#F60, 15%);
+                    color: lighten(#f60, 15%);
                 }
             }
             &.pink {
                 color: #ff36b8;
-                
+
                 &.light {
                     color: lighten(#ff36b8, 10%);
                 }

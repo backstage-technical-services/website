@@ -45,35 +45,20 @@ class MemberController extends Controller
     private function dashMember()
     {
         return view('members.dash')->with([
-            'events'    => Event::type(Event::TYPE_EVENT)
-                                ->future()
-                                ->oldestFirst()
-                                ->limit(5)
-                                ->get(),
-            'training'  => Event::type(Event::TYPE_TRAINING)
-                                ->future()
-                                ->oldestFirst()
-                                ->limit(5)
-                                ->get(),
-            'socials'   => Event::type(Event::TYPE_SOCIAL)
-                                ->future()
-                                ->oldestFirst()
-                                ->limit(5)
-                                ->get(),
-            'need_tem'  => Event::type(Event::TYPE_EVENT)
-                                ->future()
-                                ->oldestFirst()
-                                ->whereNull('em_id')
-                                ->get(),
+            'events' => Event::type(Event::TYPE_EVENT)->future()->oldestFirst()->limit(5)->get(),
+            'training' => Event::type(Event::TYPE_TRAINING)->future()->oldestFirst()->limit(5)->get(),
+            'socials' => Event::type(Event::TYPE_SOCIAL)->future()->oldestFirst()->limit(5)->get(),
+            'need_tem' => Event::type(Event::TYPE_EVENT)->future()->oldestFirst()->whereNull('em_id')->get(),
             'paperwork' => Event::type(Event::TYPE_EVENT)
-                                ->where('em_id', auth()->user()->id)
-                                ->whereNested(function ($query) {
-                                    $query->where('paperwork', 'like', '%"risk_assessment":false%')
-                                          ->orWhere('paperwork', 'like', '%"insurance":false%')
-                                          ->orWhere('paperwork', 'like', '%"finance_em":false%')
-                                          ->orWhere('paperwork', 'like', '%"event_report":false%');
-                                })
-                                ->get(),
+                ->where('em_id', auth()->user()->id)
+                ->whereNested(function ($query) {
+                    $query
+                        ->where('paperwork', 'like', '%"risk_assessment":false%')
+                        ->orWhere('paperwork', 'like', '%"insurance":false%')
+                        ->orWhere('paperwork', 'like', '%"finance_em":false%')
+                        ->orWhere('paperwork', 'like', '%"event_report":false%');
+                })
+                ->get(),
         ]);
     }
 
@@ -97,12 +82,11 @@ class MemberController extends Controller
      */
     public function view($username, $tab = 'profile')
     {
-        $user = User::where('username', $username)
-                    ->firstOrFail();
+        $user = User::where('username', $username)->firstOrFail();
 
         return view('members.view')->with([
             'user' => $user,
-            'tab'  => $tab,
+            'tab' => $tab,
         ]);
     }
 
@@ -118,7 +102,7 @@ class MemberController extends Controller
     {
         return view('members.view')->with([
             'user' => $request->user(),
-            'tab'  => $tab,
+            'tab' => $tab,
         ]);
     }
 
@@ -138,19 +122,19 @@ class MemberController extends Controller
 
         if ($update_action == 'personal') {
             return $this->updatePersonal($request);
-        } else if ($update_action == 'contact') {
+        } elseif ($update_action == 'contact') {
             return $this->updateContact($request);
-        } else if ($update_action == 'avatar') {
+        } elseif ($update_action == 'avatar') {
             return $this->updateAvatar($request);
-        } else if ($remove_action == 'avatar') {
+        } elseif ($remove_action == 'avatar') {
             return $this->removeAvatar($request->user());
-        } else if ($update_action == 'password') {
+        } elseif ($update_action == 'password') {
             return $this->updatePassword($request);
-        } else if ($update_action == 'privacy') {
+        } elseif ($update_action == 'privacy') {
             return $this->updatePrivacy($request);
-        } else if ($update_action == 'other') {
+        } elseif ($update_action == 'other') {
             return $this->updateOther($request);
-        } else if ($update_action == 'diary-preferences') {
+        } elseif ($update_action == 'diary-preferences') {
             return $this->updateDiaryPreferences($request);
         } else {
             return $this->ajaxError(404, 404, 'Unknown action');
@@ -196,12 +180,16 @@ class MemberController extends Controller
     {
         $this->authorizeGate('member');
 
-        $this->validate($request, [
-            'avatar' => 'required|file',
-        ], [
-            'avatar.required' => 'Please select an image to use',
-            'avatar.file'     => 'Please select an image to use',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'avatar' => 'required|file',
+            ],
+            [
+                'avatar.required' => 'Please select an image to use',
+                'avatar.file' => 'Please select an image to use',
+            ],
+        );
 
         $request->user()->setAvatar($request->file('avatar'));
         Notify::success('Profile picture changed');
@@ -240,21 +228,25 @@ class MemberController extends Controller
     private function updatePassword(Request $request)
     {
         // Validate the request
-        $validator = validator($request->only('password', 'password_new', 'password_confirm'), [
-            'password'         => 'required',
-            'password_new'     => 'required|min:5',
-            'password_confirm' => 'required|same:password_new',
-        ], [
-            'password.required'         => 'Please enter your current password',
-            'password_new.required'     => 'Please enter your new password',
-            'password_new.min'          => 'Please use at least 5 characters',
-            'password_confirm.required' => 'Please confirm your password',
-            'password_confirm.same'     => 'Your new passwords don\'t match',
-        ]);
+        $validator = validator(
+            $request->only('password', 'password_new', 'password_confirm'),
+            [
+                'password' => 'required',
+                'password_new' => 'required|min:5',
+                'password_confirm' => 'required|same:password_new',
+            ],
+            [
+                'password.required' => 'Please enter your current password',
+                'password_new.required' => 'Please enter your new password',
+                'password_new.min' => 'Please use at least 5 characters',
+                'password_confirm.required' => 'Please confirm your password',
+                'password_confirm.same' => 'Your new passwords don\'t match',
+            ],
+        );
         // Add the check for the current password
         $validator->after(function ($validator) use ($request) {
             $check = auth()->validate([
-                'email'    => $request->user()->email,
+                'email' => $request->user()->email,
                 'password' => $request->get('password'),
             ]);
             if (!$check) {
@@ -284,21 +276,20 @@ class MemberController extends Controller
 
         // Get the request data
         $data = [
-            'show_email'   => $request->has('show_email'),
-            'show_phone'   => $request->has('show_phone'),
+            'show_email' => $request->has('show_email'),
+            'show_phone' => $request->has('show_phone'),
             'show_address' => $request->has('show_address'),
-            'show_age'     => $request->has('show_age'),
+            'show_age' => $request->has('show_age'),
         ];
 
         // Validate
-        $fields   = ['show_email', 'show_phone', 'show_address', 'show_age'];
-        $rules    = User::getValidationRules($fields);
+        $fields = ['show_email', 'show_phone', 'show_address', 'show_age'];
+        $rules = User::getValidationRules($fields);
         $messages = User::getValidationMessages($fields);
         $this->validate($request, $rules, $messages);
 
         // Update
-        $request->user()
-                ->update($data);
+        $request->user()->update($data);
 
         Notify::success('Privacy settings updated');
         return $this->ajaxResponse('Privacy settings updated');
@@ -318,18 +309,18 @@ class MemberController extends Controller
 
         // Validate the request
         $event_types = $request->get('event_types');
-        $crewing     = $request->get('crewing');
+        $crewing = $request->get('crewing');
 
         if (!is_array($event_types) || count($event_types) == 0 || !in_array($crewing, ['*', 'true'])) {
             return $this->ajaxError(422, 422, 'Your preferences could not be saved.');
         }
 
         // Update
-        $user                             = $request->user();
-        $diary_preferences                = $user->diary_preferences;
+        $user = $request->user();
+        $diary_preferences = $user->diary_preferences;
         $diary_preferences['event_types'] = $request->get('event_types');
-        $diary_preferences['crewing']     = $request->get('crewing');
-        $user->diary_preferences          = $diary_preferences;
+        $diary_preferences['crewing'] = $request->get('crewing');
+        $user->diary_preferences = $diary_preferences;
 
         return $user->save() ? $this->ajaxResponse('Saved.') : $this->ajaxError(500, 500, 'An unknown error occurred.');
     }
@@ -369,7 +360,7 @@ class MemberController extends Controller
     private function updateMemberFields(Request $request, array $fields)
     {
         // Set up the validation
-        $rules    = User::getValidationRules($fields);
+        $rules = User::getValidationRules($fields);
         $messages = User::getValidationMessages($fields);
 
         // If validating the user's email, allow their current email address.
@@ -381,8 +372,7 @@ class MemberController extends Controller
         $this->validate($request, $rules, $messages);
 
         // Update
-        return $request->user()
-                       ->update(clean($request->only($fields)));
+        return $request->user()->update(clean($request->only($fields)));
     }
 
     /**
@@ -395,10 +385,7 @@ class MemberController extends Controller
     public function membership(SearchTools $searchTools)
     {
         // Begin the query
-        $members = User::active()
-                       ->member()
-                       ->orderBy('surname', 'ASC')
-                       ->orderBy('forename', 'ASC');
+        $members = User::active()->member()->orderBy('surname', 'ASC')->orderBy('forename', 'ASC');
 
         // Apply the search, if exists
         if ($searchTools->search()) {

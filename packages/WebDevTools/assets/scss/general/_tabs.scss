@@ -1,22 +1,24 @@
-div[role='tabpanel'], .tabpanel {
+div[role="tabpanel"],
+.tabpanel {
     margin: 1em auto;
     z-index: $zindex_tabs;
-    
+
     & > .tab-links {
         background: $colour_tab_header_bg;
         border-radius: 5px 5px 0 0;
         color: $colour_tab_header_text;
-        z-index: $zindex_tabs+500;
-        
+        z-index: $zindex_tabs + 500;
+
         & > .nav-tabs {
             border: none;
             border-radius: 5px 5px 0 0;
             margin: 0;
             padding: 0 1em;
-            
-            .nav-item, .nav-link {
+
+            .nav-item,
+            .nav-link {
                 margin: 0;
-                
+
                 &:first-child {
                     margin-left: 0;
                 }
@@ -32,44 +34,46 @@ div[role='tabpanel'], .tabpanel {
                 color: rgba(255, 255, 255, 0.4);
                 padding: 0.75em 1.5em;
                 position: relative;
-    
+
                 &:after {
                     background: transparent;
                     bottom: 0;
                     content: "";
                     display: block;
-                    height: .3em;
+                    height: 0.3em;
                     left: 0;
                     position: absolute;
                     width: 100%;
                 }
-                &:hover, &:focus {
+                &:hover,
+                &:focus {
                     background: rgba(0, 0, 0, 0.1);
                     color: rgba(255, 255, 255, 0.7);
                 }
                 &.active {
-                    color: #FFF;
-                    
+                    color: #fff;
+
                     &:after {
                         background-color: rgba(0, 0, 0, 0.3);
                     }
                 }
-                
             }
         }
     }
     & > .tab-content {
         border-radius: 0 0 5px 5px;
         border: none;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-        
+        box-shadow:
+            0 2px 5px 0 rgba(0, 0, 0, 0.16),
+            0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
         & > .tab-pane {
             border: none;
             padding: 1em;
-            
+
             &.tab-pane-table {
                 padding: 0;
-    
+
                 & > table {
                     &:first-child {
                         margin-top: 0;
@@ -96,10 +100,10 @@ div[role='tabpanel'], .tabpanel {
         & > .tab-links {
             & > .nav-tabs {
                 padding: 0.75em;
-                
+
                 .nav-item {
-                    margin: 0 .25em;
-                
+                    margin: 0 0.25em;
+
                     &:first-child {
                         margin-left: 0;
                     }
@@ -109,12 +113,13 @@ div[role='tabpanel'], .tabpanel {
                 }
                 .nav-link {
                     border-radius: 3px;
-                    padding: .6em 1.5em;
-                    
+                    padding: 0.6em 1.5em;
+
                     &:after {
                         display: none;
                     }
-                    &:hover, &:focus {
+                    &:hover,
+                    &:focus {
                         background: rgba(255, 255, 255, 0.05);
                     }
                     &.active {

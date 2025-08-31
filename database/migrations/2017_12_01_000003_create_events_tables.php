@@ -25,11 +25,7 @@ class CreateEventsTables extends Migration
             $table->text('paperwork');
             $table->timestamps();
 
-            $table->foreign('em_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+            $table->foreign('em_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
 
         Schema::create('event_times', function (Blueprint $table) {
@@ -40,11 +36,7 @@ class CreateEventsTables extends Migration
             $table->dateTime('end');
             $table->timestamps();
 
-            $table->foreign('event_id')
-                  ->references('id')
-                  ->on('events')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::create('event_crew', function (Blueprint $table) {
@@ -56,16 +48,8 @@ class CreateEventsTables extends Migration
             $table->boolean('em');
             $table->boolean('confirmed');
 
-            $table->foreign('event_id')
-                  ->references('id')
-                  ->on('events')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::create('event_emails', function (Blueprint $table) {
@@ -76,16 +60,8 @@ class CreateEventsTables extends Migration
             $table->text('body');
             $table->timestamps();
 
-            $table->foreign('event_id')
-                  ->references('id')
-                  ->on('events')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('sender_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+            $table->foreign('event_id')->references('id')->on('events')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('sender_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

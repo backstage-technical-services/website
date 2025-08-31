@@ -23,8 +23,7 @@ class ElectionController extends Controller
     {
         $this->authorize('index', Election::class);
 
-        $elections = Election::orderBy('voting_start', 'DESC')
-                             ->paginate(10);
+        $elections = Election::orderBy('voting_start', 'DESC')->paginate(10);
         $this->checkPage($elections);
 
         return view('elections.index')->with('elections', $elections);
@@ -58,14 +57,17 @@ class ElectionController extends Controller
         $this->authorize('create', Election::class);
 
         // Determine the positions
-        $positions = Role::orderBy('order', 'ASC')
-                         ->pluck('name', 'id');
+        $positions = Role::orderBy('order', 'ASC')->pluck('name', 'id');
 
-        return view('elections.create')->with('positions', $positions)
-                                       ->with('election', new Election([
-                                           'type' => $request->old('type') ?: 1,
-                                       ]))
-                                       ->with('route', route('election.store'));
+        return view('elections.create')
+            ->with('positions', $positions)
+            ->with(
+                'election',
+                new Election([
+                    'type' => $request->old('type') ?: 1,
+                ]),
+            )
+            ->with('route', route('election.store'));
     }
 
     /**
@@ -82,16 +84,15 @@ class ElectionController extends Controller
 
         // Create the election
         $request->merge([
-            'positions'         => $positions,
+            'positions' => $positions,
             'nominations_start' => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('nominations_start')),
-            'nominations_end'   => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('nominations_end')),
-            'voting_start'      => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_start')),
-            'voting_end'        => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_end')),
+            'nominations_end' => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('nominations_end')),
+            'voting_start' => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_start')),
+            'voting_end' => Carbon::createFromFormat('Y-m-d H:i:s', $request->get('voting_end')),
         ]);
-        $election = Election::create(array_merge(
-            clean($request->all()),
-            ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
-        )); /* @var Election $election */
+        $election = Election::create(
+            array_merge(clean($request->all()), ['bathstudent_id' => $request->get('bathstudent_id') ?? null]),
+        ); /* @var Election $election */
         File::makeDirectory($election->getManifestoPath(), 0775, true);
 
         Log::info("User {$request->user()->id} created election {$election->id}");
@@ -113,10 +114,10 @@ class ElectionController extends Controller
         $election = Election::findOrFail($id);
         $this->authorize('update', $election);
 
-        return view('elections.edit')->with('election', $election)
-                                     ->with('positions', $election->positions)
-                                     ->with('route', route('election.update', ['id' => $election->id]));
-
+        return view('elections.edit')
+            ->with('election', $election)
+            ->with('positions', $election->positions)
+            ->with('route', route('election.update', ['id' => $election->id]));
     }
 
     /**
@@ -130,14 +131,13 @@ class ElectionController extends Controller
     public function update($id, ElectionRequest $request)
     {
         /* @var Election $election */
-        $election  = Election::findOrFail($id);
+        $election = Election::findOrFail($id);
         $positions = $this->determineElectionPositions($request);
 
-        $request->merge(['positions'    => $positions]);
-        $election->update(array_merge(
-            clean($request->all()),
-            ['bathstudent_id' => $request->get('bathstudent_id') ?? null],
-        ));
+        $request->merge(['positions' => $positions]);
+        $election->update(
+            array_merge(clean($request->all()), ['bathstudent_id' => $request->get('bathstudent_id') ?? null]),
+        );
 
         Log::info("User {$request->user()->id} updated election $id");
 
@@ -167,7 +167,7 @@ class ElectionController extends Controller
         $election->delete();
         File::deleteDirectory($election->getManifestoPath());
 
-        Log::info("User " . request()->user()->id . " deleted election $id");
+        Log::info('User ' . request()->user()->id . " deleted election $id");
         Notify::success('Election deleted');
         return $this->ajaxResponse(true);
     }
@@ -198,13 +198,17 @@ class ElectionController extends Controller
         }
 
         // Validate the request
-        $this->validate($request, [
-            'elected'   => 'array',
-            'elected.*' => 'required',
-        ], [
-            'elected.array'      => 'Please select the elected members',
-            'elected.*.required' => 'Please select the elected members',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'elected' => 'array',
+                'elected.*' => 'required',
+            ],
+            [
+                'elected.array' => 'Please select the elected members',
+                'elected.*.required' => 'Please select the elected members',
+            ],
+        );
 
         // Set those elected
         $elected = $request->get('elected') ?: [];
@@ -214,7 +218,7 @@ class ElectionController extends Controller
             $nomination->update($update);
         }
 
-        Log::info("User " . request()->user()->id . " set the committee for election $id");
+        Log::info('User ' . request()->user()->id . " set the committee for election $id");
 
         Notify::success('Committee saved');
         return $this->ajaxResponse(true);
@@ -231,13 +235,17 @@ class ElectionController extends Controller
     {
         if ($request->get('type') == 2) {
             $positions_checked = $request->get('positions_checked');
-            $positions         = array_values(array_filter($request->get('positions'), function ($index) use ($positions_checked) {
-                return in_array($index, $positions_checked);
-            }, ARRAY_FILTER_USE_KEY));
+            $positions = array_values(
+                array_filter(
+                    $request->get('positions'),
+                    function ($index) use ($positions_checked) {
+                        return in_array($index, $positions_checked);
+                    },
+                    ARRAY_FILTER_USE_KEY,
+                ),
+            );
         } else {
-            $positions = Role::orderBy('order', 'ASC')
-                             ->pluck('name', 'id')
-                             ->toArray();
+            $positions = Role::orderBy('order', 'ASC')->pluck('name', 'id')->toArray();
         }
 
         return $positions;

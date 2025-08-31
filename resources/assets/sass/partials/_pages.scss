@@ -12,7 +12,7 @@
         .page-published {
             font-size: 20px;
             width: 2em;
-            
+
             .fa-check {
                 color: green;
             }
@@ -22,7 +22,8 @@
         }
     }
 }
-&[page-id="create"], &[page-id="edit"] {
+&[page-id="create"],
+&[page-id="edit"] {
     div#content {
         max-width: 700px;
     }

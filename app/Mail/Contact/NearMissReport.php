@@ -27,20 +27,20 @@ class NearMissReport extends Mailable
     public function __construct(NearMissRequest $request)
     {
         $this->report = [
-            'location'               => $request->location,
-            'date'                   => Carbon::createFromFormat('Y-m-d', $request->date),
-            'time'                   => Carbon::createFromFormat('H:i', $request->time),
-            'details'                => trim(clean($request->details)),
+            'location' => $request->location,
+            'date' => Carbon::createFromFormat('Y-m-d', $request->date),
+            'time' => Carbon::createFromFormat('H:i', $request->time),
+            'details' => trim(clean($request->details)),
             'safety_recommendations' => trim(clean($request->safety_recommendations)),
-            'user_name'              => $request->user_name ?: null,
-            'user_email'             => $request->user_email ?: null,
+            'user_name' => $request->user_name ?: null,
+            'user_email' => $request->user_email ?: null,
         ];
     }
 
     public function build()
     {
         return $this->subject('Near miss reported')
-                    ->markdown('emails.contact.near-miss')
-                    ->with('report', $this->report);
+            ->markdown('emails.contact.near-miss')
+            ->with('report', $this->report);
     }
 }

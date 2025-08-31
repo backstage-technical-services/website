@@ -29,14 +29,14 @@ class Handler extends ExceptionHandler
         TokenMismatchException::class,
         ValidationException::class,
     ];
-    
+
     /**
      * Define the route used for logging in.
      *
      * @var string
      */
     protected $loginRoute = '/login';
-    
+
     /**
      * Report or log an exception.
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
     {
         parent::report($e);
     }
-    
+
     /**
      * Render an exception into an HTTP response.
      *
@@ -64,7 +64,7 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $e);
     }
-    
+
     /**
      * Convert an authentication exception into a response.
      *
@@ -77,6 +77,5 @@ class Handler extends ExceptionHandler
         return $request->expectsJson()
             ? response()->json(['message' => $exception->getMessage()], 401)
             : redirect()->guest($exception->redirectTo($request) ?? route('auth.login'));
-        
     }
 }

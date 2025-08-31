@@ -27,8 +27,8 @@ class Tag extends Model
     protected static $ValidationMessages = [
         'name.required' => 'Please enter the tag name',
         'slug.required' => 'Please enter a slug',
-        'slug.regex'    => 'The slug can only include letters, numbers and hyphens',
-        'slug.unique'   => 'That slug is already in use',
+        'slug.regex' => 'The slug can only include letters, numbers and hyphens',
+        'slug.unique' => 'That slug is already in use',
     ];
 
     /**
@@ -43,10 +43,7 @@ class Tag extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'name',
-        'slug',
-    ];
+    public $fillable = ['name', 'slug'];
 
     /**
      * Disable timestamps.

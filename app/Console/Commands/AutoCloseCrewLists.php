@@ -39,15 +39,14 @@ class AutoCloseCrewLists extends Command
     public function handle()
     {
         Event::past()
-             ->where('events.crew_list_status', Event::CREW_LIST_OPEN)
-             ->get()
-             ->map(function ($event) {
-                 $event->update([
-                     'events.crew_list_status' => Event::CREW_LIST_CLOSED,
-                 ]);
-             });
+            ->where('events.crew_list_status', Event::CREW_LIST_OPEN)
+            ->get()
+            ->map(function ($event) {
+                $event->update([
+                    'events.crew_list_status' => Event::CREW_LIST_CLOSED,
+                ]);
+            });
 
         $this->info('Done.');
-
     }
 }

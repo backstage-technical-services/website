@@ -73,11 +73,15 @@ class Validator extends BaseValidator
     {
         $format = isset($parameters[0]) ? $parameters[0] : 'Y-m-d H:i:s';
         $regex = $format;
-        $regex = str_replace(['Y', 'm', 'd', 'H', 'i', 's'], ['[0-9]{4}', '[0-9]{2}', '[0-9]{2}', '[0-9]{2}', '[0-9]{2}', '[0-9]{2}'], $regex);
+        $regex = str_replace(
+            ['Y', 'm', 'd', 'H', 'i', 's'],
+            ['[0-9]{4}', '[0-9]{2}', '[0-9]{2}', '[0-9]{2}', '[0-9]{2}', '[0-9]{2}'],
+            $regex,
+        );
         $regex = str_replace(['[0-9]', '-', ' '], ['[\d]', '\-', '\s'], $regex);
-        $regex = '/^'.$regex.'$/';
+        $regex = '/^' . $regex . '$/';
 
-        return $this->validateDateFormat($attribute, $value, [$format])
-               && $this->validateRegex($attribute, $value, [$regex]);
+        return $this->validateDateFormat($attribute, $value, [$format]) &&
+            $this->validateRegex($attribute, $value, [$regex]);
     }
 }

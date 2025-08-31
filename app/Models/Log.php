@@ -12,17 +12,9 @@ class Log extends Model
 
     protected $table = 'logs';
 
-    protected $fillable = [
-        'user_id',
-        'ip_address',
-        'action',
-        'payload',
-        'status',
-    ];
+    protected $fillable = ['user_id', 'ip_address', 'action', 'payload', 'status'];
 
-    protected $correct_tz = [
-        'created_at',
-    ];
+    protected $correct_tz = ['created_at'];
 
     public function user()
     {

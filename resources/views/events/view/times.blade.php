@@ -17,7 +17,7 @@
 @endcan
 <div class="event-time-wrapper">
     <div class="event-times">
-        <?php $month = '' ?>
+        <?php $month = ''; ?>
         <?php $day = ''; ?>
         @foreach($event->times as $time)
             @can('update', $time)

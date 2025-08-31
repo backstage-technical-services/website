@@ -22,7 +22,7 @@ class UsersController extends Controller
      * @var array
      */
     private static $BulkActions = [
-        'archive'   => 'Archive',
+        'archive' => 'Archive',
         'committee' => 'Make committee',
         'associate' => 'Make associate',
     ];
@@ -33,7 +33,7 @@ class UsersController extends Controller
      * @var array
      */
     private static $BulkActionMap = [
-        'archive'   => 'archived',
+        'archive' => 'archived',
         'committee' => 'given committee access',
         'associate' => 'made associates',
     ];
@@ -59,15 +59,12 @@ class UsersController extends Controller
         // Filter / search results
         if ($filter == 'all') {
             $users = $users->get();
-        } else if ($filter == 'archived') {
-            $users = $users->archived()
-                           ->get();
-        } else if ($filter == 'active') {
-            $users = $users->active()
-                           ->get();
-        } else if (in_array($filter, ['member', 'committee', 'associate', 'staff'])) {
-            $users = $users->inGroup($filter)
-                           ->get();
+        } elseif ($filter == 'archived') {
+            $users = $users->archived()->get();
+        } elseif ($filter == 'active') {
+            $users = $users->active()->get();
+        } elseif (in_array($filter, ['member', 'committee', 'associate', 'staff'])) {
+            $users = $users->inGroup($filter)->get();
         } else {
             if (!is_null($search) && $search) {
                 $users->search($search);
@@ -80,17 +77,16 @@ class UsersController extends Controller
 
         // Set the filter options
         $searchTools->setFilterOptions([
-            'all'       => 'All users',
-            'archived'  => 'Archived',
-            'active'    => 'Active',
-            'member'    => 'Member',
+            'all' => 'All users',
+            'archived' => 'Archived',
+            'active' => 'Active',
+            'member' => 'Member',
             'committee' => 'Committee',
             'associate' => 'Associate',
-            'staff'     => 'Staff',
+            'staff' => 'Staff',
         ]);
 
-        return view('users.index')->with('users', $users)
-                                  ->with('bulkActions', self::$BulkActions);
+        return view('users.index')->with('users', $users)->with('bulkActions', self::$BulkActions);
     }
 
     /**
@@ -135,7 +131,7 @@ class UsersController extends Controller
 
         if ($mode == 'single') {
             return $this->storeSingle($request);
-        } else if ($mode == 'bulk') {
+        } elseif ($mode == 'bulk') {
             return $this->storeBulk($request);
         } else {
             return redirect()->route('user.create');
@@ -152,8 +148,12 @@ class UsersController extends Controller
     private function storeSingle(Request $request)
     {
         // Make the validator
-        $fields    = ['name', 'username', 'type'];
-        $validator = validator($request->only($fields), User::getValidationRules($fields), $this->storeValidationMessages());
+        $fields = ['name', 'username', 'type'];
+        $validator = validator(
+            $request->only($fields),
+            User::getValidationRules($fields),
+            $this->storeValidationMessages(),
+        );
 
         if (!$validator->fails()) {
             // Create the user
@@ -162,9 +162,10 @@ class UsersController extends Controller
             return redirect()->route('user.index');
         } else {
             // Fail with the inputs and errors
-            return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput($request->only('name', 'username', 'type', 'mode'));
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput($request->only('name', 'username', 'type', 'mode'));
         }
     }
 
@@ -177,21 +178,24 @@ class UsersController extends Controller
      */
     private function storeBulk(Request $request)
     {
-        $rules    = User::getValidationRules('name', 'username', 'type');
+        $rules = User::getValidationRules('name', 'username', 'type');
         $messages = $this->storeValidationMessages();
 
         // Validate initially
-        $validator = validator($request->only('users', 'type'), [
-            'type'  => $rules['type'],
-            'users' => 'required|regex:/^[a-z]+\s[a-z]+[,][a-z0-9_\.]+$/im',
-        ], $messages + [
+        $validator = validator(
+            $request->only('users', 'type'),
+            [
+                'type' => $rules['type'],
+                'users' => 'required|regex:/^[a-z]+\s[a-z]+[,][a-z0-9_\.]+$/im',
+            ],
+            $messages + [
                 'users.required' => 'Please enter the list of users to add',
-                'users.regex'    => 'Please enter each user in the format specified in the <a href="#" data-toggle="modal" data-target="#modal" data-modal-template="help">help</a>.',
-            ]);
+                'users.regex' =>
+                    'Please enter each user in the format specified in the <a href="#" data-toggle="modal" data-target="#modal" data-modal-template="help">help</a>.',
+            ],
+        );
         if ($validator->fails()) {
-            return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput($request->only('users', 'type', 'mode'));
+            return redirect()->back()->withErrors($validator)->withInput($request->only('users', 'type', 'mode'));
         }
 
         // Sanitise each user input
@@ -207,27 +211,26 @@ class UsersController extends Controller
             $validator = validator($data, $rules, $messages);
             if ($validator->fails()) {
                 $results[$i] = [
-                    'success'  => false,
+                    'success' => false,
                     'username' => $data['username'] ?: $i,
-                    'message'  => implode(PHP_EOL, Arr::flatten($validator->messages()->getMessages())),
+                    'message' => implode(PHP_EOL, Arr::flatten($validator->messages()->getMessages())),
                 ];
-            } else if ($user = User::create($data)) {
+            } elseif ($user = User::create($data)) {
                 $results[$i] = [
-                    'success'  => true,
+                    'success' => true,
                     'username' => $user->username ?: $i,
-                    'message'  => 'User created successfully',
+                    'message' => 'User created successfully',
                 ];
             } else {
                 $results[$i] = [
-                    'success'  => false,
+                    'success' => false,
                     'username' => $user->username ?: $i,
-                    'message'  => 'Something went wrong when adding this user. Consult the logs for more information.',
+                    'message' => 'Something went wrong when adding this user. Consult the logs for more information.',
                 ];
             }
         }
 
-        return redirect()->route('user.create.summary')
-                         ->with('create_summary', $results);
+        return redirect()->route('user.create.summary')->with('create_summary', $results);
     }
 
     /**
@@ -238,13 +241,13 @@ class UsersController extends Controller
     private function storeValidationMessages()
     {
         return [
-            'name.required'     => 'Please enter the new user\'s name',
-            'name.name'         => 'Please enter their forename and surname',
+            'name.required' => 'Please enter the new user\'s name',
+            'name.name' => 'Please enter their forename and surname',
             'username.required' => 'Please enter the new user\'s BUCS username',
-            'username.regex'    => 'Please enter just their username',
-            'username.unique'   => 'A user with that username already exists',
-            'type.required'     => 'Please select an account type',
-            'type.in'           => 'Please select one of the provided account types',
+            'username.regex' => 'Please enter just their username',
+            'username.unique' => 'A user with that username already exists',
+            'type.required' => 'Please select an account type',
+            'type.in' => 'Please select one of the provided account types',
         ];
     }
 
@@ -270,8 +273,7 @@ class UsersController extends Controller
     public function edit($username)
     {
         $this->authorize('update', User::class);
-        $user = User::where('username', $username)
-                    ->firstOrFail();
+        $user = User::where('username', $username)->firstOrFail();
 
         return view('users.edit')->with('user', $user);
     }
@@ -287,19 +289,18 @@ class UsersController extends Controller
     public function update($username, Request $request)
     {
         $this->authorize('update', User::class);
-        $user = User::where('username', $username)
-                    ->firstOrFail();
+        $user = User::where('username', $username)->firstOrFail();
 
         $action = $request->get('action');
         if ($action == 'save') {
             return $this->updateDetails($user, $request);
-        } else if ($action == 'archive' || $action == 'unarchive') {
+        } elseif ($action == 'archive' || $action == 'unarchive') {
             $this->updateStatus($user, $request);
-        } else if ($action == 'change-pic') {
+        } elseif ($action == 'change-pic') {
             $this->updateAvatar($user, $request);
-        } else if ($action == 'remove-pic') {
+        } elseif ($action == 'remove-pic') {
             $this->updateRemoveAvatar($user);
-        } else if ($action == 'reset-password') {
+        } elseif ($action == 'reset-password') {
             $this->updateResetPassword($user);
         }
 
@@ -317,35 +318,44 @@ class UsersController extends Controller
     private function updateDetails(User $user, Request $request)
     {
         // Set the fields to update
-        $fields = ['name', 'username', 'email', 'phone', 'dob', 'type', 'show_email', 'show_phone', 'show_address', 'show_age'];
+        $fields = [
+            'name',
+            'username',
+            'email',
+            'phone',
+            'dob',
+            'type',
+            'show_email',
+            'show_phone',
+            'show_address',
+            'show_age',
+        ];
         if ($user->isActiveUser()) {
             unset($fields[array_search('username', $fields)]);
             unset($fields[array_search('type', $fields)]);
         }
 
         // Get the request data
-        $data                 = $request->only($fields);
-        $data['dob']          = $data['dob'] ?: null;
-        $data['show_email']   = $request->has('show_email');
-        $data['show_phone']   = $request->has('show_phone');
+        $data = $request->only($fields);
+        $data['dob'] = $data['dob'] ?: null;
+        $data['show_email'] = $request->has('show_email');
+        $data['show_phone'] = $request->has('show_phone');
         $data['show_address'] = $request->has('show_address');
-        $data['show_age']     = $request->has('show_age');
+        $data['show_age'] = $request->has('show_age');
 
         // Make the validator
-        $rules          = User::getValidationRules($fields);
+        $rules = User::getValidationRules($fields);
         $rules['email'] .= ',' . $user->id;
         if (!$user->isActiveUser()) {
             $rules['username'] .= ',' . $user->id;
         }
-        $messages  = User::getValidationMessages($fields);
+        $messages = User::getValidationMessages($fields);
         $validator = validator($data, $rules, $messages);
 
         // Validate
         if ($validator->fails()) {
-            return redirect()->back()
-                             ->withInput($data)
-                             ->withErrors($validator);
-        } else if ($user->update(clean($data))) {
+            return redirect()->back()->withInput($data)->withErrors($validator);
+        } elseif ($user->update(clean($data))) {
             Notify::success('User updated');
             return redirect()->route('user.index');
         } else {
@@ -364,9 +374,9 @@ class UsersController extends Controller
     {
         if ($user->isActiveUser()) {
             Notify::warning('You can\'t modify the status of your own account.');
-        } else if ($request->get('action') == 'archive' && $user->update(['status' => false])) {
+        } elseif ($request->get('action') == 'archive' && $user->update(['status' => false])) {
             Notify::success('User archived');
-        } else if ($request->get('action') == 'unarchive' && $user->update(['status' => true])) {
+        } elseif ($request->get('action') == 'unarchive' && $user->update(['status' => true])) {
             Notify::success('User unarchived');
         } else {
             Notify::error('An error occurred');
@@ -437,7 +447,7 @@ class UsersController extends Controller
         // Archive single user
         if ($request->has('archive-user')) {
             $this->archiveUser($request->get('archive-user'));
-        } else if ($request->has('bulk')) {
+        } elseif ($request->has('bulk')) {
             $this->updateBulk($request);
         }
 
@@ -454,7 +464,7 @@ class UsersController extends Controller
         $user = User::find($userId);
         if ($user && $user->archive()) {
             Notify::success('User successfully archived');
-        } else if (!$user) {
+        } elseif (!$user) {
             Notify::error('Could not find the user to archive');
         }
     }
@@ -468,7 +478,7 @@ class UsersController extends Controller
     {
         // Get the action and users
         $action = $request->get('bulk-action');
-        $users  = $request->get('users');
+        $users = $request->get('users');
 
         // Validate
         if (!$action || !in_array($action, array_keys(self::$BulkActions))) {
@@ -484,10 +494,11 @@ class UsersController extends Controller
         $success = 0;
         foreach ($users as $id) {
             $user = User::find($id);
-            if ($user
-                && (($action == 'archive' && $user->archive())
-                    || ($action == 'committee') && $user->makeCommittee()
-                    || ($action == 'associate') && $user->makeAssociate())
+            if (
+                $user &&
+                (($action == 'archive' && $user->archive()) ||
+                    ($action == 'committee' && $user->makeCommittee()) ||
+                    ($action == 'associate' && $user->makeAssociate()))
             ) {
                 $success++;
             }
@@ -495,11 +506,18 @@ class UsersController extends Controller
 
         // Create the flash message
         if ($success == count($users)) {
-            Notify::success(sprintf("All of the selected users were succesfully %s", self::$BulkActionMap[$action]));
-        } else if ($success > 0) {
-            Notify::warning(sprintf("%s of the %s users were successfully %s", $success, count($users), self::$BulkActionMap[$action]));
+            Notify::success(sprintf('All of the selected users were succesfully %s', self::$BulkActionMap[$action]));
+        } elseif ($success > 0) {
+            Notify::warning(
+                sprintf(
+                    '%s of the %s users were successfully %s',
+                    $success,
+                    count($users),
+                    self::$BulkActionMap[$action],
+                ),
+            );
         } else {
-            Notify::error(sprintf("None of the selected users could be %s", self::$BulkActionMap[$action]));
+            Notify::error(sprintf('None of the selected users could be %s', self::$BulkActionMap[$action]));
         }
     }
 }

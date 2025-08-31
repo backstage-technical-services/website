@@ -24,8 +24,7 @@ class CategoryController extends Controller
         $this->authorize('index', Category::class);
 
         // Get the list of categories
-        $categories = Category::orderBy('name', 'ASC')
-                              ->paginate(20);
+        $categories = Category::orderBy('name', 'ASC')->paginate(20);
         $this->checkPage($categories);
         return view('resources.categories.index')->with('categories', $categories);
     }
@@ -48,11 +47,7 @@ class CategoryController extends Controller
 
         // Validate
         $fields = ['name', 'slug', 'flag'];
-        $this->validate(
-            $request,
-            Category::getValidationRules($fields),
-            Category::getValidationMessages($fields)
-        );
+        $this->validate($request, Category::getValidationRules($fields), Category::getValidationMessages($fields));
 
         // Create
         $category = Category::create(clean($request->only($fields)));
@@ -81,14 +76,10 @@ class CategoryController extends Controller
         $this->createSlug($request);
 
         // Validate
-        $fields        = ['name', 'slug', 'flag'];
-        $rules         = Category::getValidationRules($fields);
+        $fields = ['name', 'slug', 'flag'];
+        $rules = Category::getValidationRules($fields);
         $rules['slug'] .= ",{$id},id";
-        $this->validate(
-            $request,
-            $rules,
-            Category::getValidationMessages($fields)
-        );
+        $this->validate($request, $rules, Category::getValidationMessages($fields));
 
         // Update
         $category->update(clean($request->only($fields)));
@@ -115,7 +106,7 @@ class CategoryController extends Controller
         // Delete
         $category->delete();
 
-        Log::info("User " . request()->user()->id . " deleted resource category $id");
+        Log::info('User ' . request()->user()->id . " deleted resource category $id");
         Notify::success('Category deleted');
         return $this->ajaxResponse('Category deleted');
     }

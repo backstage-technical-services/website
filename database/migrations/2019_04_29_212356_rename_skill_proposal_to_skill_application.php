@@ -14,8 +14,8 @@ class RenameSkillProposalToSkillApplication extends Migration
     public function up()
     {
         Schema::rename('training_skill_proposals', 'training_skill_applications');
-        Schema::table('training_skill_applications', function(Blueprint $table) {
-            $table->renameColumn('proposed_level','applied_level');
+        Schema::table('training_skill_applications', function (Blueprint $table) {
+            $table->renameColumn('proposed_level', 'applied_level');
         });
     }
 
@@ -27,8 +27,8 @@ class RenameSkillProposalToSkillApplication extends Migration
     public function down()
     {
         Schema::rename('training_skill_applications', 'training_skill_proposals');
-        Schema::table('training_skill_proposals', function(Blueprint $table) {
-            $table->renameColumn('applied_level','proposed_level');
+        Schema::table('training_skill_proposals', function (Blueprint $table) {
+            $table->renameColumn('applied_level', 'proposed_level');
         });
     }
 }

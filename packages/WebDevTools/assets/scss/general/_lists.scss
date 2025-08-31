@@ -1,10 +1,11 @@
-ol, ul {
+ol,
+ul {
     margin: 2em;
-    
+
     li {
         list-style-position: inside;
         margin: 0.5em 0;
-        
+
         &:first-child {
             margin-top: 0;
         }
@@ -12,7 +13,8 @@ ol, ul {
             margin-bottom: 0;
         }
     }
-    ol, ul {
+    ol,
+    ul {
         margin-bottom: 0.8em;
         margin-top: 0.8em;
         margin-left: 2.2em;
@@ -57,9 +59,12 @@ ol {
     }
 }
 
-ul, ol {
+ul,
+ol {
     &.no-list {
-        &, & ul, & ol {
+        &,
+        & ul,
+        & ol {
             list-style-type: none;
         }
     }

@@ -45,10 +45,7 @@ class Kernel extends HttpKernel
             //\App\Http\Middleware\AddNotifications::class,
         ],
 
-        'api' => [
-            'throttle:60,1',
-            'bindings',
-        ],
+        'api' => ['throttle:60,1', 'bindings'],
     ];
 
     /**

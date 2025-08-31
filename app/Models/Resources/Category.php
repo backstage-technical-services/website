@@ -14,10 +14,10 @@ class Category extends Model
     /**
      * Define the category flag constants.
      */
-    const FLAG_NONE            = 0;
+    const FLAG_NONE = 0;
     const FLAG_RISK_ASSESSMENT = 1;
-    const FLAG_EVENT_REPORT    = 2;
-    const FLAG_MEETING_AGENDA  = 3;
+    const FLAG_EVENT_REPORT = 2;
+    const FLAG_MEETING_AGENDA = 3;
     const FLAG_MEETING_MINUTES = 4;
 
     /**
@@ -26,10 +26,10 @@ class Category extends Model
      * @var array
      */
     const FLAGS = [
-        self::FLAG_NONE            => 'None',
+        self::FLAG_NONE => 'None',
         self::FLAG_RISK_ASSESSMENT => 'Risk Assessment',
-        self::FLAG_EVENT_REPORT    => 'Event Report',
-        self::FLAG_MEETING_AGENDA  => 'Meeting Agenda',
+        self::FLAG_EVENT_REPORT => 'Event Report',
+        self::FLAG_MEETING_AGENDA => 'Meeting Agenda',
         self::FLAG_MEETING_MINUTES => 'Meeting Minutes',
     ];
 
@@ -51,9 +51,9 @@ class Category extends Model
     protected static $ValidationMessages = [
         'name.required' => 'Please enter the category name',
         'slug.required' => 'Please enter a slug',
-        'slug.regex'    => 'The slug can only include letters, numbers and hyphens',
-        'slug.unique'   => 'That slug is already in use',
-        'flag.in'       => 'Please choose a valid type',
+        'slug.regex' => 'The slug can only include letters, numbers and hyphens',
+        'slug.unique' => 'That slug is already in use',
+        'flag.in' => 'Please choose a valid type',
     ];
 
     /**
@@ -61,11 +61,7 @@ class Category extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'name',
-        'slug',
-        'flag',
-    ];
+    public $fillable = ['name', 'slug', 'flag'];
 
     /**
      * Set the correct table name.
@@ -111,7 +107,7 @@ class Category extends Model
      */
     public function setFlagAttribute($flag)
     {
-        $flag                     = isset(self::FLAGS[$flag]) ? $flag : self::FLAG_NONE;
+        $flag = isset(self::FLAGS[$flag]) ? $flag : self::FLAG_NONE;
         $this->attributes['flag'] = $flag === self::FLAG_NONE ? null : $flag;
     }
 

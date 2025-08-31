@@ -41,9 +41,9 @@ class TimeController extends Controller
 
         // Create the time
         $time = $event->times()->create([
-            'name'  => clean($request->get('name')),
+            'name' => clean($request->get('name')),
             'start' => Carbon::createFromFormat('Y-m-d H:i', $request->get('start')),
-            'end'   => Carbon::createFromFormat('Y-m-d H:i', $request->get('end')),
+            'end' => Carbon::createFromFormat('Y-m-d H:i', $request->get('end')),
         ]);
 
         Log::info("User {$request->user()->id} created event time {$time->id} for event $eventId");
@@ -65,9 +65,7 @@ class TimeController extends Controller
         // Authorise
         $this->requireAjax();
         $event = Event::findOrFail($eventId);
-        $time  = $event->times()
-                       ->where('id', $timeId)
-                       ->firstOrFail();
+        $time = $event->times()->where('id', $timeId)->firstOrFail();
         $this->authorize('update', $time);
 
         // Validate
@@ -76,9 +74,9 @@ class TimeController extends Controller
 
         // Update
         $time->update([
-            'name'  => clean($request->get('name')),
+            'name' => clean($request->get('name')),
             'start' => Carbon::createFromFormat('Y-m-d H:i', $request->get('start')),
-            'end'   => Carbon::createFromFormat('Y-m-d H:i', $request->get('end')),
+            'end' => Carbon::createFromFormat('Y-m-d H:i', $request->get('end')),
         ]);
 
         Log::info("User {$request->user()->id} updated event time $timeId for event $eventId");
@@ -99,14 +97,14 @@ class TimeController extends Controller
     {
         // Authorise
         $event = Event::findOrFail($eventId);
-        $time  = $event->times()
-                       ->where('id', $timeId)
-                       ->firstOrFail();
+        $time = $event->times()->where('id', $timeId)->firstOrFail();
         $this->authorize('delete', $time);
 
         // Check that it isn't the last event time
         if ($event->times()->count() == 1) {
-            Log::warning("User {$request->user()->id} tried to delete event time $timeId but event $eventId has no other event times");
+            Log::warning(
+                "User {$request->user()->id} tried to delete event time $timeId but event $eventId has no other event times",
+            );
             return $this->ajaxError(0, 422, 'An event needs at least 1 event time.');
         }
 

@@ -17,16 +17,16 @@ trait ChecksPaginationPage
     protected function checkPage(LengthAwarePaginator $paginator)
     {
         $request = request();
-        if ((int)$request->input('page') > 1 && $paginator->count() == 0) {
+        if ((int) $request->input('page') > 1 && $paginator->count() == 0) {
             $query = array_merge($request->except('page'), ['page' => 1]);
 
             if ($request->route()->getName()) {
-                $query    = array_merge($request->route()->parameters(), $query);
+                $query = array_merge($request->route()->parameters(), $query);
                 $location = route($request->route()->getName(), $query);
             } else {
                 $location = $request->url() . '?' . http_build_query($query);
             }
-            
+
             app()->abort(Response::HTTP_FOUND, '', ['Location' => $location]);
         }
     }

@@ -4,16 +4,19 @@ ul.pagination {
     margin: 0;
     overflow: hidden;
     padding: 1em 0 0 0;
-    
+
     & > li.page-item {
         display: none;
         margin: 0.5em 0;
-        
-        & > span, & > a, & > a:visited {
+
+        & > span,
+        & > a,
+        & > a:visited {
             color: $colour_pagination_text;
         }
         &.active {
-            &, &:hover {
+            &,
+            &:hover {
                 & > span.page-link {
                     background: $colour_pagination_active_bg;
                     border-color: $colour_pagination_active_bg;
@@ -21,10 +24,12 @@ ul.pagination {
                 }
             }
         }
-        &:first-child, &:last-child, &.active {
+        &:first-child,
+        &:last-child,
+        &.active {
             display: inline-block;
         }
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             display: inline-block;
         }
     }

@@ -24,8 +24,8 @@ class FeedbackRequest extends Request
     public function rules()
     {
         return [
-            'event'                => 'required|string',
-            'feedback'             => 'required|string',
+            'event' => 'required|string',
+            'feedback' => 'required|string',
             'g-recaptcha-response' => 'required|captcha',
         ];
     }
@@ -38,10 +38,10 @@ class FeedbackRequest extends Request
     public function messages()
     {
         return [
-            'event.required'                => 'Please enter the event name',
-            'event.string'                  => 'Please enter the event name',
-            'feedback.required'             => 'Please enter your feedback',
-            'feedback.string'               => 'Please enter your feedback',
+            'event.required' => 'Please enter the event name',
+            'event.string' => 'Please enter the event name',
+            'feedback.required' => 'Please enter your feedback',
+            'feedback.string' => 'Please enter your feedback',
             'g-recaptcha-response.required' => 'Please fill in the CAPTCHA',
         ];
     }

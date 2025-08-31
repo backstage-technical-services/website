@@ -21,7 +21,7 @@ class MenuServiceProvider extends ServiceProvider
         View::composer('contact.shared', ContactMenuComposer::class);
         View::composer('members.view', MemberMenuComposer::class);
     }
-    
+
     /**
      * Register the application services.
      *

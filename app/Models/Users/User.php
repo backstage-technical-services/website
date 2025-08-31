@@ -32,10 +32,10 @@ class User extends Authenticatable
      * @var array
      */
     public static $AccountTypes = [
-        'member'      => 'Standard Member',
-        'committee'   => 'Committee',
-        'associate'   => 'Associate',
-        'staff'       => 'SU / Staff',
+        'member' => 'Standard Member',
+        'committee' => 'Committee',
+        'associate' => 'Associate',
+        'staff' => 'SU / Staff',
         'super_admin' => 'Super Admin',
     ];
 
@@ -45,17 +45,17 @@ class User extends Authenticatable
      * @var array
      */
     public static $ValidationRules = [
-        'name'         => 'required|name',
-        'nickname'     => 'nullable|regex:/^[a-zA-Z _\.]+$/',
-        'username'     => 'required|regex:/^[a-zA-Z0-9_\.]+$/|unique:users,username',
-        'email'        => 'required|email|unique:users,email',
-        'phone'        => 'nullable|phone',
-        'dob'          => 'nullable|date_format:Y-m-d|regex:/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/',
-        'show_email'   => 'sometimes|boolean',
-        'show_phone'   => 'sometimes|boolean',
+        'name' => 'required|name',
+        'nickname' => 'nullable|regex:/^[a-zA-Z _\.]+$/',
+        'username' => 'required|regex:/^[a-zA-Z0-9_\.]+$/|unique:users,username',
+        'email' => 'required|email|unique:users,email',
+        'phone' => 'nullable|phone',
+        'dob' => 'nullable|date_format:Y-m-d|regex:/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/',
+        'show_email' => 'sometimes|boolean',
+        'show_phone' => 'sometimes|boolean',
         'show_address' => 'sometimes|boolean',
-        'show_age'     => 'sometimes|boolean',
-        'type'         => 'required|in:member,committee,associate,staff,super_admin',
+        'show_age' => 'sometimes|boolean',
+        'type' => 'required|in:member,committee,associate,staff,super_admin',
     ];
 
     /**
@@ -64,18 +64,18 @@ class User extends Authenticatable
      * @var array
      */
     public static $ValidationMessages = [
-        'name.required'     => 'Please enter your name',
-        'name.name'         => 'Please enter your forename and surname',
-        'nickname.regex'    => 'Please just use letters',
+        'name.required' => 'Please enter your name',
+        'name.name' => 'Please enter your forename and surname',
+        'nickname.regex' => 'Please just use letters',
         'username.required' => 'Please enter their BUCS username',
-        'username.regex'    => 'Please use only letters and numbers',
-        'username.unique'   => 'A user with that username already exists',
-        'email.required'    => 'Please enter your email address',
-        'email.email'       => 'Please enter a valid email address',
-        'email.unique'      => 'That email address is already in use by another user',
-        'phone.phone'       => 'Please enter a valid phone number',
-        'dob.date_format'   => 'Please enter your DOB in the format YYYY-MM-DD',
-        'dob.regex'         => 'Please enter your DOB in the format YYYY-MM-DD',
+        'username.regex' => 'Please use only letters and numbers',
+        'username.unique' => 'A user with that username already exists',
+        'email.required' => 'Please enter your email address',
+        'email.email' => 'Please enter a valid email address',
+        'email.unique' => 'That email address is already in use by another user',
+        'phone.phone' => 'Please enter a valid phone number',
+        'dob.date_format' => 'Please enter your DOB in the format YYYY-MM-DD',
+        'dob.regex' => 'Please enter your DOB in the format YYYY-MM-DD',
     ];
 
     /**
@@ -119,10 +119,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * Define variable types to cast some attributes to.
@@ -130,12 +127,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'show_email'        => 'boolean',
-        'show_phone'        => 'boolean',
-        'show_address'      => 'boolean',
-        'show_age'          => 'boolean',
+        'show_email' => 'boolean',
+        'show_phone' => 'boolean',
+        'show_address' => 'boolean',
+        'show_age' => 'boolean',
         'diary_preferences' => 'array',
-        'dob'               => 'datetime',
+        'dob' => 'datetime',
     ];
 
     /**
@@ -149,12 +146,14 @@ class User extends Authenticatable
     public static function create(array $attributes = [])
     {
         // Set up the default parameters
-        $password                        = Str::random(15);
-        $attributes['email']             = $attributes['username'] . '@bath.ac.uk';
-        $attributes['password']          = bcrypt($password);
-        $attributes['status']            = true;
-        $attributes['diary_preferences'] = ['event_types'  => ["event","training","social","meeting","hidden"],
-                                            'crewing'      => '*'];
+        $password = Str::random(15);
+        $attributes['email'] = $attributes['username'] . '@bath.ac.uk';
+        $attributes['password'] = bcrypt($password);
+        $attributes['status'] = true;
+        $attributes['diary_preferences'] = [
+            'event_types' => ['event', 'training', 'social', 'meeting', 'hidden'],
+            'crewing' => '*',
+        ];
 
         // Create the new user
         $user = new User($attributes);
@@ -197,13 +196,13 @@ class User extends Authenticatable
         $relation = $this->hasMany('App\Models\Events\Event', 'id', 'id');
 
         $query = DB::table('events')
-                   ->select('events.*')
-                   ->leftJoin('event_crew', 'events.id', '=', 'event_crew.event_id')
-                   ->join('event_times', 'events.id', '=', 'event_times.event_id')
-                   ->where('events.em_id', $this->id)
-                   ->orWhere('event_crew.user_id', $this->id)
-                   ->distinct()
-                   ->orderBy('event_times.end', 'DESC');
+            ->select('events.*')
+            ->leftJoin('event_crew', 'events.id', '=', 'event_crew.event_id')
+            ->join('event_times', 'events.id', '=', 'event_times.event_id')
+            ->where('events.em_id', $this->id)
+            ->orWhere('event_crew.user_id', $this->id)
+            ->distinct()
+            ->orderBy('event_times.end', 'DESC');
 
         $relation->getQuery()->setQuery($query);
 
@@ -259,9 +258,10 @@ class User extends Authenticatable
      */
     public function scopeMember($query)
     {
-        $query->select('users.*')
-              ->join('user_groups', 'users.user_group_id', '=', 'user_groups.id')
-              ->whereIn('user_groups.name', ['member', 'committee', 'associate']);
+        $query
+            ->select('users.*')
+            ->join('user_groups', 'users.user_group_id', '=', 'user_groups.id')
+            ->whereIn('user_groups.name', ['member', 'committee', 'associate']);
     }
 
     /**
@@ -272,9 +272,10 @@ class User extends Authenticatable
      */
     public function scopeInGroup($query, $groupName)
     {
-        $query->select('users.*')
-              ->join('user_groups', 'users.user_group_id', '=', 'user_groups.id')
-              ->where('user_groups.name', $groupName);
+        $query
+            ->select('users.*')
+            ->join('user_groups', 'users.user_group_id', '=', 'user_groups.id')
+            ->where('user_groups.name', $groupName);
     }
 
     /**
@@ -285,9 +286,10 @@ class User extends Authenticatable
      */
     public function scopeCrewingEvent($query, Event $event)
     {
-        $query->select('users.*')
-              ->join('event_crew', 'users.id', '=', 'event_crew.user_id')
-              ->where('event_crew.event_id', $event->id);
+        $query
+            ->select('users.*')
+            ->join('event_crew', 'users.id', '=', 'event_crew.user_id')
+            ->where('event_crew.event_id', $event->id);
     }
 
     /**
@@ -298,12 +300,16 @@ class User extends Authenticatable
      */
     public function scopeNotCrewingEvent($query, Event $event)
     {
-        $query->select('users.*')
-              ->whereNotIn('users.id', self::crewingEvent($event)->lists('id'))
-              ->whereNotIn('users.id', self::select('users.*')
-                                           ->join('events', 'users.id', '=', 'events.em_id')
-                                           ->where('events.id', $event->id)
-                                           ->lists('id'));
+        $query
+            ->select('users.*')
+            ->whereNotIn('users.id', self::crewingEvent($event)->lists('id'))
+            ->whereNotIn(
+                'users.id',
+                self::select('users.*')
+                    ->join('events', 'users.id', '=', 'events.em_id')
+                    ->where('events.id', $event->id)
+                    ->lists('id'),
+            );
     }
 
     /**
@@ -313,8 +319,7 @@ class User extends Authenticatable
      */
     public function scopeNameOrder($query)
     {
-        $query->orderBy('surname', 'ASC')
-              ->orderBy('forename', 'ASC');
+        $query->orderBy('surname', 'ASC')->orderBy('forename', 'ASC');
     }
 
     /**
@@ -326,10 +331,10 @@ class User extends Authenticatable
      */
     public function scopeGetSelect($query)
     {
-        $results           = $query->get();
+        $results = $query->get();
         $results_formatted = [];
         foreach ($results as $result) {
-            $results_formatted[$result->id] = sprintf("%s (%s)", $result->name, $result->username);
+            $results_formatted[$result->id] = sprintf('%s (%s)', $result->name, $result->username);
         }
 
         return $results_formatted;
@@ -345,17 +350,19 @@ class User extends Authenticatable
     {
         if (stripos($term, ' ')) {
             $query->where(function ($query) use ($term) {
-                $query->where('forename', 'LIKE', '%' . substr($term, 0, stripos($term, ' ')) . '%')
-                      ->where('surname', 'LIKE', '%' . substr($term, stripos($term, ' ') + 1) . '%')
-                      ->orWhere('nickname', 'LIKE', '%' . $term . '%');
+                $query
+                    ->where('forename', 'LIKE', '%' . substr($term, 0, stripos($term, ' ')) . '%')
+                    ->where('surname', 'LIKE', '%' . substr($term, stripos($term, ' ') + 1) . '%')
+                    ->orWhere('nickname', 'LIKE', '%' . $term . '%');
             });
         } else {
             $query->where(function ($query) use ($term) {
-                $query->where('username', 'LIKE', '%' . $term . '%')
-                      ->orWhere('nickname', 'LIKE', '%' . $term . '%')
-                      ->orWhere('forename', 'LIKE', '%' . $term . '%')
-                      ->orWhere('surname', 'LIKE', '%' . $term . '%')
-                      ->orWhere('email', 'LIKE', '%' . $term . '%');
+                $query
+                    ->where('username', 'LIKE', '%' . $term . '%')
+                    ->orWhere('nickname', 'LIKE', '%' . $term . '%')
+                    ->orWhere('forename', 'LIKE', '%' . $term . '%')
+                    ->orWhere('surname', 'LIKE', '%' . $term . '%')
+                    ->orWhere('email', 'LIKE', '%' . $term . '%');
             });
         }
     }
@@ -494,7 +501,7 @@ class User extends Authenticatable
     public function setTypeAttribute($value)
     {
         if (!is_int($value)) {
-            $value = Group::where('name', (string)$value)->first()->id;
+            $value = Group::where('name', (string) $value)->first()->id;
         }
         return $this->update(['user_group_id' => $value]);
     }
@@ -508,13 +515,13 @@ class User extends Authenticatable
     {
         if (!$this->status) {
             return 'Archived';
-        } else if ($this->group->name == 'staff') {
+        } elseif ($this->group->name == 'staff') {
             return 'Staff';
-        } else if ($this->group->name == 'associate') {
+        } elseif ($this->group->name == 'associate') {
             return 'Associate';
-        } else if ($this->group->name == 'committee') {
+        } elseif ($this->group->name == 'committee') {
             return 'Committee';
-        } else if ($this->group->name == 'super_admin') {
+        } elseif ($this->group->name == 'super_admin') {
             return 'Admin';
         } else {
             return 'Member';
@@ -531,28 +538,45 @@ class User extends Authenticatable
         // Initialise
         $toolColours = strtolower($this->tool_colours);
         $toolColours = str_replace(['and', ';', '&', ','], ' ', $toolColours);
-        $toolColours = trim(preg_replace("/\s+/", ' ', $toolColours));
-        $recognised  = ["red", "blue", "green", "yellow", "white", "black", "brown", "pink", "purple", "grey", "orange", "earth", "rainbow", "turquoise"];
+        $toolColours = trim(preg_replace('/\s+/', ' ', $toolColours));
+        $recognised = [
+            'red',
+            'blue',
+            'green',
+            'yellow',
+            'white',
+            'black',
+            'brown',
+            'pink',
+            'purple',
+            'grey',
+            'orange',
+            'earth',
+            'rainbow',
+            'turquoise',
+        ];
 
         if (!empty($toolColours)) {
             // Look for initials
             $initials = null;
-            if (preg_match("/(?:with)?\s*initials(\s*\(?([a-z0-9]+)\)?)?/i", $toolColours, $matches)) {
-                $initials    = isset($matches[2]) ? $matches[2] : (substr($this->forename, 0, 1) . substr($this->surname, 0, 1));
-                $toolColours = preg_replace("/with initials(\s*\(?[a-z0-9]+\)?)?/i", '', $toolColours);
+            if (preg_match('/(?:with)?\s*initials(\s*\(?([a-z0-9]+)\)?)?/i', $toolColours, $matches)) {
+                $initials = isset($matches[2])
+                    ? $matches[2]
+                    : substr($this->forename, 0, 1) . substr($this->surname, 0, 1);
+                $toolColours = preg_replace('/with initials(\s*\(?[a-z0-9]+\)?)?/i', '', $toolColours);
             }
 
             // Look for colour entries
             $tool_colours = [];
-            $title        = '';
-            preg_match_all("/(light|fluorescent)?\s*([a-z]+)(\s*\([a-z+\s]+\))?/i", $toolColours, $matches);
+            $title = '';
+            preg_match_all('/(light|fluorescent)?\s*([a-z]+)(\s*\([a-z+\s]+\))?/i', $toolColours, $matches);
             foreach ($matches[0] as $i => $full_colour) {
                 if (!in_array($matches[2][$i], $recognised)) {
                     return $this->tool_colours;
                 }
 
                 // Add support for striped colours
-                $shape   = 'wrench';
+                $shape = 'wrench';
                 $colours = [$matches[2][$i]];
                 switch ($matches[2][$i]) {
                     case 'earth':
@@ -565,18 +589,25 @@ class User extends Authenticatable
                 }
 
                 // Build the html entry
-                $title            .= ($matches[1][$i] ? (ucfirst($matches[1][$i] . ' ')) : '') . ucfirst($matches[2][$i]) . ', ';
+                $title .= ($matches[1][$i] ? ucfirst($matches[1][$i] . ' ') : '') . ucfirst($matches[2][$i]) . ', ';
                 $tool_colours[$i] = '<span class="tool-colour' . (count($colours) > 1 ? ' striped' : '') . '">';
                 for ($j = count($colours) - 1; $j >= 0; $j--) {
-                    $tool_colours[$i] .= '<span class="fa fa-' . $shape . ' ' . trim($colours[$j] . ' ' . ($matches[1][$i] ?: '')) . '"></span>';
+                    $tool_colours[$i] .=
+                        '<span class="fa fa-' .
+                        $shape .
+                        ' ' .
+                        trim($colours[$j] . ' ' . ($matches[1][$i] ?: '')) .
+                        '"></span>';
                 }
                 $tool_colours[$i] .= '</span>';
             }
 
             // End
             $tool_html =
-                '<span class="tool-colours" title="' . trim(rtrim($title, ', ') . ' ' . ($initials ? ((!empty($title) ? 'with ' : '') . 'initials') : ''))
-                . '">' . implode('', $tool_colours);
+                '<span class="tool-colours" title="' .
+                trim(rtrim($title, ', ') . ' ' . ($initials ? (!empty($title) ? 'with ' : '') . 'initials' : '')) .
+                '">' .
+                implode('', $tool_colours);
             if ($initials) {
                 $tool_html .= '<span class="initials">(' . trim($initials) . ')</span>';
             }
@@ -649,7 +680,6 @@ class User extends Authenticatable
             return false;
         }
 
-
         return $this->update([
             'user_group_id' => Group::where('name', $type)->first()->id,
         ]);
@@ -696,11 +726,10 @@ class User extends Authenticatable
     public function getAvatarPath($absolute = false, $checkExists = false)
     {
         $basePath = '/images/profiles/';
-        $imgPath  = $basePath . $this->username . '.jpg';
-        $path     = !$checkExists || $this->hasAvatar() ? $imgPath : ($basePath . 'blank.jpg');
+        $imgPath = $basePath . $this->username . '.jpg';
+        $path = !$checkExists || $this->hasAvatar() ? $imgPath : $basePath . 'blank.jpg';
 
         return $absolute ? base_path('public/' . $path) : $path;
-
     }
 
     /**
@@ -713,9 +742,7 @@ class User extends Authenticatable
     public function setAvatar(UploadedFile $image)
     {
         // Convert, resize and save
-        Image::make($image)
-             ->fit(500, 500)
-             ->save($this->getAvatarPath(true));
+        Image::make($image)->fit(500, 500)->save($this->getAvatarPath(true));
 
         return $this;
     }
@@ -744,9 +771,7 @@ class User extends Authenticatable
         if ($event->isTEM($this)) {
             return true;
         } else {
-            return $event->crew()
-                         ->forUser($this)
-                         ->count() > 0;
+            return $event->crew()->forUser($this)->count() > 0;
         }
     }
 
@@ -762,10 +787,7 @@ class User extends Authenticatable
         if ($this->isTEM($event)) {
             return true;
         } else {
-            return $event->crew()
-                         ->forUser($this)
-                         ->where('em', true)
-                         ->count() > 0;
+            return $event->crew()->forUser($this)->where('em', true)->count() > 0;
         }
     }
 
@@ -786,11 +808,7 @@ class User extends Authenticatable
         $roles = $this->isTEM($event) ? ['TEM'] : [];
 
         // Get any core roles
-        $roles = array_merge($roles, $event->crew()
-                                           ->core()
-                                           ->forUser($this)
-                                           ->pluck('name')
-                                           ->toArray());
+        $roles = array_merge($roles, $event->crew()->core()->forUser($this)->pluck('name')->toArray());
 
         // Check if general
         if ($event->crew()->general()->forUser($this)->count()) {
@@ -843,7 +861,7 @@ class User extends Authenticatable
     {
         if ($preference == 'event_types') {
             return isset($this->diary_preferences['event_types']) ? $this->diary_preferences['event_types'] : null;
-        } else if ($preference == 'crewing') {
+        } elseif ($preference == 'crewing') {
             return isset($this->diary_preferences['crewing']) ? $this->diary_preferences['crewing'] : null;
         } else {
             return null;
@@ -861,8 +879,9 @@ class User extends Authenticatable
     public function isDiaryPreference($preference, $value)
     {
         if ($preference == 'event_types') {
-            return isset($this->diary_preferences['event_types']) && in_array($value, $this->diary_preferences['event_types']);
-        } else if ($preference == 'crewing') {
+            return isset($this->diary_preferences['event_types']) &&
+                in_array($value, $this->diary_preferences['event_types']);
+        } elseif ($preference == 'crewing') {
             return isset($this->diary_preferences['crewing']) && $this->diary_preferences['crewing'] == $value;
         } else {
             return false;
@@ -878,9 +897,7 @@ class User extends Authenticatable
      */
     public function hasSkill(Skill $skill)
     {
-        return $this->skills
-                   ->where('skill_id', $skill->id)
-                   ->count() == 1;
+        return $this->skills->where('skill_id', $skill->id)->count() == 1;
     }
 
     /**
@@ -892,9 +909,7 @@ class User extends Authenticatable
      */
     public function getAwardedSkill(Skill $skill)
     {
-        return $this->skills
-            ->where('skill_id', $skill->id)
-            ->first();
+        return $this->skills->where('skill_id', $skill->id)->first();
     }
 
     /**
@@ -910,8 +925,7 @@ class User extends Authenticatable
             return null;
         }
 
-        return $this->getAwardedSkill($skill)
-            ->level;
+        return $this->getAwardedSkill($skill)->level;
     }
 
     /**
@@ -937,14 +951,14 @@ class User extends Authenticatable
     {
         if ($category === null) {
             return $this->skills()
-                        ->join('training_skills', 'training_awarded_skills.skill_id', '=', 'training_skills.id')
-                        ->whereNull('training_skills.category_id')
-                        ->count();
+                ->join('training_skills', 'training_awarded_skills.skill_id', '=', 'training_skills.id')
+                ->whereNull('training_skills.category_id')
+                ->count();
         } else {
             return $this->skills()
-                        ->join('training_skills', 'training_awarded_skills.skill_id', '=', 'training_skills.id')
-                        ->where('training_skills.category_id', $category->id)
-                        ->count();
+                ->join('training_skills', 'training_awarded_skills.skill_id', '=', 'training_skills.id')
+                ->where('training_skills.category_id', $category->id)
+                ->count();
         }
     }
 
@@ -957,10 +971,7 @@ class User extends Authenticatable
      */
     public function hasApplicationPending(Skill $skill)
     {
-        return Application::notAwarded()
-                          ->where('user_id', $this->id)
-                          ->where('skill_id', $skill->id)
-                          ->count() > 0;
+        return Application::notAwarded()->where('user_id', $this->id)->where('skill_id', $skill->id)->count() > 0;
     }
 
     /**
@@ -973,8 +984,8 @@ class User extends Authenticatable
     {
         // Create array of attributes to set
         $data = [
-            'skill_id'   => $skillId,
-            'level'      => $level,
+            'skill_id' => $skillId,
+            'level' => $level,
             'awarded_by' => Auth::user()->id,
         ];
 
@@ -997,7 +1008,7 @@ class User extends Authenticatable
     {
         if ($this->isAdmin()) {
             return true;
-        } else if ($skill !== null && $this->isMember() && $this->getSkillLevel($skill) == 3) {
+        } elseif ($skill !== null && $this->isMember() && $this->getSkillLevel($skill) == 3) {
             return true;
         }
 

@@ -19,27 +19,18 @@ class Breakage extends Model
      */
     public static $Status = [
         self::STATUS_REPORTED => 'Reported',
-        2                     => 'Diagnosed',
-        3                     => 'Awaiting Parts',
-        4                     => 'Usable (Issue still exists)',
-        5                     => 'Unrepairable',
-        6                     => 'Awaiting Repair',
+        2 => 'Diagnosed',
+        3 => 'Awaiting Parts',
+        4 => 'Usable (Issue still exists)',
+        5 => 'Unrepairable',
+        6 => 'Awaiting Repair',
         self::STATUS_RESOLVED => 'Resolved',
     ];
 
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [
-        'name',
-        'location',
-        'label',
-        'description',
-        'comment',
-        'status',
-        'user_id',
-        'closed',
-    ];
+    protected $fillable = ['name', 'location', 'label', 'description', 'comment', 'status', 'user_id', 'closed'];
 
     /**
      * The database table used by the model.
@@ -62,7 +53,7 @@ class Breakage extends Model
     {
         // save image to /resources/breakages
         $filename = $imageRow->id . '.' . $image->extension();
-        $image->move(resource_path("breakages/"), $filename);
+        $image->move(resource_path('breakages/'), $filename);
     }
 
     /**

@@ -13,8 +13,11 @@ trait UsesSoftDeletes
      */
     public function scopeAutoIncludeTrashed($query)
     {
-        if (method_exists($this, 'restore') &&
-            (request()->exists('withTrashed') && (empty(request()->get('withTrashed')) || request()->get('withTrashed')))) {
+        if (
+            method_exists($this, 'restore') &&
+            (request()->exists('withTrashed') &&
+                (empty(request()->get('withTrashed')) || request()->get('withTrashed')))
+        ) {
             $query->withTrashed();
         }
     }
@@ -28,8 +31,10 @@ trait UsesSoftDeletes
      */
     public function scopeAutoOnlyTrashed($query)
     {
-        if (method_exists($this, 'restore') &&
-            (request()->exists('deleted') && (empty(request()->get('deleted')) || request()->get('deleted')))) {
+        if (
+            method_exists($this, 'restore') &&
+            (request()->exists('deleted') && (empty(request()->get('deleted')) || request()->get('deleted')))
+        ) {
             $query->onlyTrashed();
         }
     }

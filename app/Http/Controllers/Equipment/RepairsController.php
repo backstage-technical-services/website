@@ -27,9 +27,9 @@ class RepairsController extends Controller
         $this->authorize('index', Breakage::class);
 
         $breakages = Breakage::where('status', '<>', Breakage::STATUS_RESOLVED)
-                             ->where('closed', false)
-                             ->orderBy('created_at', 'DESC')
-                             ->paginate(20);
+            ->where('closed', false)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
         $this->checkPage($breakages);
 
         return view('equipment.repairs.index')->with('breakages', $breakages);
@@ -57,34 +57,37 @@ class RepairsController extends Controller
     {
         // Create the breakage
         $breakage = Breakage::create([
-            'name'        => clean($request->get('name')),
-            'label'       => clean($request->get('label')),
-            'location'    => clean($request->get('location')),
+            'name' => clean($request->get('name')),
+            'label' => clean($request->get('label')),
+            'location' => clean($request->get('location')),
             'description' => clean($request->get('description')),
-            'status'      => Breakage::STATUS_REPORTED,
-            'user_id'     => $request->user()->id,
-            'closed'      => false,
-        ]); 
+            'status' => Breakage::STATUS_REPORTED,
+            'user_id' => $request->user()->id,
+            'closed' => false,
+        ]);
         // Save the images
         if ($request->hasFile('images')) {
             $images = $request->file('images');
             foreach ($images as $image) {
                 $imageRow = $breakage->images()->create([
-                    'mime'      => $image->getClientMimeType(),
+                    'mime' => $image->getClientMimeType(),
                     'extension' => $image->extension(),
-                ]);                
+                ]);
                 $breakage->saveImage($image, $imageRow);
             }
         }
 
         // Send the email
-        Mail::to(config('bts.emails.equipment.breakage_reports'))
-            ->queue(new BreakageEmail($breakage->toArray() + [
-                    'user_email'    => $breakage->user->email,
-                    'user_name'     => $breakage->user->name,
+        Mail::to(config('bts.emails.equipment.breakage_reports'))->queue(
+            new BreakageEmail(
+                $breakage->toArray() + [
+                    'user_email' => $breakage->user->email,
+                    'user_name' => $breakage->user->name,
                     'user_username' => $breakage->user->username,
-                    'image_count'   => $breakage->images->count(),
-                ]));
+                    'image_count' => $breakage->images->count(),
+                ],
+            ),
+        );
 
         Log::info("User {$request->user()->id} reported breakage for '{$request->get('name')}'");
 
@@ -125,13 +128,13 @@ class RepairsController extends Controller
 
             $statusString = Breakage::$Status[$request->get('status')];
             Log::info("User {$request->user()->id} updated status of breakage $id to '$statusString'");
-        } else if ($request->get('action') == 'close') {
+        } elseif ($request->get('action') == 'close') {
             $breakage->update([
                 'closed' => true,
             ]);
             Log::info("User {$request->user()->id} closed breakage $id");
             Notify::success('Breakage closed');
-        } else if ($request->get('action') == 'reopen') {
+        } elseif ($request->get('action') == 'reopen') {
             $breakage->update([
                 'closed' => false,
             ]);
@@ -151,31 +154,36 @@ class RepairsController extends Controller
     private function updateBreakageStatus(Breakage $breakage, Request $request)
     {
         // Validate
-        $this->validate($request, [
-            'status' => 'required|in:' . implode(',', array_keys(Breakage::$Status)),
-        ], [
-            'status.required' => 'Please choose a status for the breakage',
-            'status.in'       => 'Please choose a valid status',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'status' => 'required|in:' . implode(',', array_keys(Breakage::$Status)),
+            ],
+            [
+                'status.required' => 'Please choose a status for the breakage',
+                'status.in' => 'Please choose a valid status',
+            ],
+        );
 
         // Update, message and redirect
         $breakage->update([
             'comment' => clean($request->get('comment')),
-            'status'  => clean($request->get('status')),
-            'closed'  => (int)$request->get('status') === Breakage::STATUS_RESOLVED,
+            'status' => clean($request->get('status')),
+            'closed' => (int) $request->get('status') === Breakage::STATUS_RESOLVED,
         ]);
         Notify::success('Breakage updated');
     }
 
     /**
      * Stream an image.
-     * 
+     *
      * @param $id
      * @param $image
-     * 
+     *
      * @return mixed
      */
-    public function streamImage($id, $imageId) {
+    public function streamImage($id, $imageId)
+    {
         $breakage = Breakage::findOrFail($id);
         $this->authorize('view', $breakage);
 
@@ -185,8 +193,8 @@ class RepairsController extends Controller
 
         return response(file_get_contents($path), 200, [
             'Content-Type' => $image->mime,
-            'Content-Disposition' => 'inline; filename="break-' . $breakage->id . '-' . $image->id . '.' . $image->extension . '"',
+            'Content-Disposition' =>
+                'inline; filename="break-' . $breakage->id . '-' . $image->id . '.' . $image->extension . '"',
         ]);
     }
-
 }

@@ -38,20 +38,20 @@ class NotificationHandler
     public function config()
     {
         $config = [
-            'levels'      => [],
-            'classes'     => [],
-            'icons'       => [],
-            'close-class' => $this->getIconPrefix().config('notifications.icons.close'),
-            'timeout'     => config('notifications.timeout'),
+            'levels' => [],
+            'classes' => [],
+            'icons' => [],
+            'close-class' => $this->getIconPrefix() . config('notifications.icons.close'),
+            'timeout' => config('notifications.timeout'),
         ];
 
         foreach (Notification::LEVELS as $level) {
             $config['levels'][] = $level;
-            $config['classes'][$level] = e($this->getClassPrefix().config('notifications.classes.levels.'.$level));
-            $config['icons'][$level] = $this->getIconPrefix().config('notifications.icons.levels.'.$level);
+            $config['classes'][$level] = e($this->getClassPrefix() . config('notifications.classes.levels.' . $level));
+            $config['icons'][$level] = $this->getIconPrefix() . config('notifications.icons.levels.' . $level);
         }
 
-        return '<script>var NotificationConfig = '.json_encode($config).';</script>';
+        return '<script>var NotificationConfig = ' . json_encode($config) . ';</script>';
     }
 
     /**
@@ -67,7 +67,7 @@ class NotificationHandler
     public function notification($message, $level, $title = null, $bag = 'default')
     {
         // Create
-        $notification = (new Notification($message, $level, $this));
+        $notification = new Notification($message, $level, $this);
         $notification->bag($bag);
         $notification->title($title);
 
@@ -185,12 +185,9 @@ class NotificationHandler
 
             $this->session->put('notifications', $session);
 
-            return array_map(
-                function ($notification) {
-                    return $notification->toArray();
-                },
-                $notifications
-            );
+            return array_map(function ($notification) {
+                return $notification->toArray();
+            }, $notifications);
         } else {
             return [];
         }
@@ -235,12 +232,9 @@ class NotificationHandler
     public function bags()
     {
         $bags = array_unique(
-            array_map(
-                function ($notification) {
-                    return $notification->bag();
-                },
-                $this->session->get('notifications')
-            )
+            array_map(function ($notification) {
+                return $notification->bag();
+            }, $this->session->get('notifications')),
         );
 
         return $this->session->has('notifications') ? $bags : [];
@@ -255,7 +249,7 @@ class NotificationHandler
      */
     public function open($bag = 'default')
     {
-        return '<div class="notification-bag" data-type="notification-bag" data-bag="'.$bag.'">';
+        return '<div class="notification-bag" data-type="notification-bag" data-bag="' . $bag . '">';
     }
 
     /**

@@ -1,17 +1,18 @@
 @import "../vars";
 @import "../mixins";
 
-&[page-id="images-index"], &[page-id="images-album"] {
+&[page-id="images-index"],
+&[page-id="images-album"] {
     div#content {
         box-sizing: border-box;
         font-size: 0;
         overflow: hidden;
         text-align: center;
-        
-        @media(min-width: 768px) {
+
+        @media (min-width: 768px) {
             text-align: left;
         }
-        
+
         div.box {
             @include transition();
             box-sizing: border-box;
@@ -19,7 +20,7 @@
             padding: 10px;
             vertical-align: text-top;
             width: 100%;
-            
+
             @media (min-width: 480px) {
                 width: 50%;
             }
@@ -29,18 +30,19 @@
             @media (min-width: 992px) {
                 width: 25%;
             }
-            
+
             &:hover {
                 background: rgba(255, 255, 255, 0.1);
                 cursor: pointer;
             }
-            
+
             a {
                 &:hover {
-                    color: #CCC;
+                    color: #ccc;
                     text-decoration: none;
                 }
-                &:focus, &:active {
+                &:focus,
+                &:active {
                     outline: none;
                 }
             }
@@ -52,7 +54,9 @@
                 height: 150px;
                 width: 100%;
             }
-            div.album-name, div.photo-count, div.comment {
+            div.album-name,
+            div.photo-count,
+            div.comment {
                 text-align: left;
             }
             div.album-name {
@@ -64,10 +68,10 @@
                 font-size: 12px;
             }
         }
-        
+
         div.no-entries {
             text-align: center;
-            
+
             h3 {
                 font-size: 24px;
             }
@@ -76,7 +80,6 @@
             }
         }
     }
-    
 }
 
 &[page-id="images-album"] {
@@ -100,19 +103,19 @@
 
 &[page-id="videos-index"] {
     $width: 100px;
-    $height: $width/16*9;
-    
+    $height: $width/16 * 9;
+
     div.video {
         display: table;
         margin-bottom: 0.5em;
         width: 100%;
-        
+
         @media (min-width: 768px) {
             padding: 0.5em;
         }
         &:hover {
             background: rgba(255, 255, 255, 0.05);
-            
+
             & > div.thumbnail-wrapper {
                 & > a {
                     div.overlay {
@@ -129,19 +132,20 @@
             vertical-align: top;
             height: $height;
             width: $width;
-            
+
             & > a {
-                color: #CCC;
+                color: #ccc;
                 display: block;
                 height: 100%;
                 margin: 0;
                 position: relative;
                 width: 100%;
-                
-                &:focus, &:active {
+
+                &:focus,
+                &:active {
                     outline: none;
                 }
-                
+
                 div.thumb {
                     background-position: 50% 50%;
                     background-repeat: no-repeat;
@@ -150,7 +154,8 @@
                     height: 100%;
                     width: 100%;
                 }
-                div.overlay, div.play-icon {
+                div.overlay,
+                div.play-icon {
                     height: 100%;
                     left: 0;
                     position: absolute;
@@ -164,11 +169,11 @@
                 }
                 div.play-icon {
                     $size: 2.4em;
-                    
+
                     @include transition();
                     background: rgba(0, 0, 0, 0.5);
                     border-radius: $size/2;
-                    color: #FFF;
+                    color: #fff;
                     font-size: 1em;
                     height: $size;
                     left: 50%;
@@ -188,11 +193,11 @@
             display: table-cell;
             padding-left: 1.5em;
             vertical-align: middle;
-            
+
             div.video-details-wrapper {
                 max-height: $height;
                 overflow: hidden;
-                
+
                 a.video-title {
                     color: $btsyellow;
                     display: block;
@@ -204,15 +209,15 @@
                 }
             }
         }
-        
+
         @media (min-width: 768px) {
             $width: 180px;
-            $height: $width/16*9;
-            
+            $height: $width/16 * 9;
+
             & > div.thumbnail-wrapper {
                 height: $height;
                 width: $width;
-                
+
                 a {
                     div.play-icon {
                         font-size: 1.667em;
@@ -221,10 +226,10 @@
             }
             & > div.video-details {
                 vertical-align: top;
-                
+
                 div.video-details-wrapper {
                     max-height: $height;
-                    
+
                     a.video-title {
                         font-size: 1.067em;
                         margin-bottom: 0.5em;
@@ -242,27 +247,27 @@
     div.video {
         margin: 0 auto;
         width: 320px;
-        
+
         iframe {
             display: block;
             height: 180px;
             width: 100%;
         }
-        
-        @media(min-width: 480px) {
+
+        @media (min-width: 480px) {
             $width: 400px;
             width: $width;
-            
+
             iframe {
-                height: $width/16*9;
+                height: $width/16 * 9;
             }
         }
         @media (min-width: 768px) {
             $width: 700px;
             width: $width;
-            
+
             iframe {
-                height: $width/16*9;
+                height: $width/16 * 9;
             }
         }
         div.video-details {
@@ -270,11 +275,11 @@
             font-size: 0.867em;
             margin: 0.5em 0 1.5em;
             overflow: hidden;
-            
+
             & > span {
                 display: block;
             }
-            
+
             @media (min-width: 768px) {
                 span.duration {
                     float: left;
