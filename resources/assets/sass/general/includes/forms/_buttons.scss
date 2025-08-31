@@ -1,10 +1,11 @@
-.btn, a.btn {
+.btn,
+a.btn {
     color: #000;
     display: inline-block;
     font-size: 1em;
     font-weight: 300;
     margin-bottom: 0.5em;
-    
+
     &.btn-bts {
         $btsyellow_darken: darken($btsyellow, 20%);
         background-color: $btsyellow;
@@ -16,8 +17,9 @@
         filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
         background-repeat: repeat-x;
         background-position: 0 1px;
-        
-        &:hover, &:focus {
+
+        &:hover,
+        &:focus {
             background-color: $btsyellow_darken;
             background-position: 0 -15px;
         }
@@ -25,14 +27,18 @@
     &.btn-default {
         color: #000;
     }
-    &.btn-success, &.btn-danger, &.btn-warning, &.btn-primary, &.btn-info {
-        color: #FFF;
+    &.btn-success,
+    &.btn-danger,
+    &.btn-warning,
+    &.btn-primary,
+    &.btn-info {
+        color: #fff;
     }
-    
+
     & > span.fa:not(:last-child) {
         margin: 0 0.5em 0 0;
     }
-    
+
     &.btn-lg {
         font-size: 1.125em;
     }
@@ -56,7 +62,7 @@
 .input-group-btn {
     font-size: 1em;
     height: 100%;
-    
+
     .btn {
         height: 100%;
         margin-bottom: 0;

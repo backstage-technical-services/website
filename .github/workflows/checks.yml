@@ -6,6 +6,19 @@ on:
       - main
 
 jobs:
+  formatting:
+    name: Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - run: yarn install --frozen-lockfile
+      - run: yarn check:format
+
   test:
     name: Tests
     runs-on: ubuntu-latest

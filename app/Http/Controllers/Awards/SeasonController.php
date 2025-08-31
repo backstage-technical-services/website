@@ -21,8 +21,9 @@ class SeasonController extends Controller
     {
         $this->authorize('index', Season::class);
 
-        return view('awards.seasons.index')->with('seasons', Season::orderBy('created_at', 'DESC')->get())
-                                           ->with('awards', Award::approved()->get());
+        return view('awards.seasons.index')
+            ->with('seasons', Season::orderBy('created_at', 'DESC')->get())
+            ->with('awards', Award::approved()->get());
     }
 
     /**
@@ -113,7 +114,7 @@ class SeasonController extends Controller
         $this->authorize('update', $season);
 
         // Validate the status
-        $status = $request->get('status') ? (int)$request->get('status') : null;
+        $status = $request->get('status') ? (int) $request->get('status') : null;
         if ($status !== null && !in_array($status, array_keys(Season::STATUSES))) {
             return $this->ajaxError(0, 422, 'Please select a valid status');
         }
@@ -156,7 +157,7 @@ class SeasonController extends Controller
             Log::withContext(['award' => $awardId, 'nomination' => $nominationId, 'season' => $id]);
             Log::debug("Processing vote for user {$request->user()->id}");
             $nomination = $season->nominations()->find($nominationId);
-            $award      = Award::find($awardId);
+            $award = Award::find($awardId);
 
             if (!$award) {
                 Log::warning("Cannot process vote for user {$request->user()->id} - award $awardId does not exist");
@@ -164,7 +165,9 @@ class SeasonController extends Controller
             }
 
             if (!$nomination) {
-                Log::warning("Cannot process vote for user {$request->user()->id} - nomination $nominationId does not exist for season $id");
+                Log::warning(
+                    "Cannot process vote for user {$request->user()->id} - nomination $nominationId does not exist for season $id",
+                );
                 continue;
             }
 
@@ -183,7 +186,7 @@ class SeasonController extends Controller
 
         if ($successful == count($awards)) {
             Notify::success('Votes recorded');
-        } else if ($successful > 0) {
+        } elseif ($successful > 0) {
             Notify::warning('Only some votes were recorded');
         } else {
             Notify::error('Uh oh! Something went wrong.');
@@ -208,7 +211,7 @@ class SeasonController extends Controller
 
         $season->delete();
 
-        Log::info("User " . request()->user()->id . " deleted award season $id");
+        Log::info('User ' . request()->user()->id . " deleted award season $id");
 
         Notify::success('Award season deleted');
         return $this->ajaxResponse('Award season deleted');

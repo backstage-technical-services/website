@@ -1,7 +1,8 @@
-.btn, a.btn {
+.btn,
+a.btn {
     display: inline-block;
     font-weight: 300;
-    
+
     @include fa_direct {
         &:not(:last-child) {
             margin: 0 0.5em 0 0;
@@ -11,13 +12,16 @@
         display: block;
         width: 100%;
     }
-    
+
     &:hover {
         cursor: pointer;
     }
 }
 
-.btn.btn-highlight, .btn.btn-highlight-light, .btn-group.btn-group-highlight > .btn, .btn-group.btn-group-highlight-light > .btn {
+.btn.btn-highlight,
+.btn.btn-highlight-light,
+.btn-group.btn-group-highlight > .btn,
+.btn-group.btn-group-highlight-light > .btn {
     &:not(:hover):not(:active):not(:focus):not(.btn-no-highlight) {
         color: color-yiq($bootstrap-light);
         @include gradient-bg($bootstrap-light);
@@ -26,7 +30,8 @@
     }
 }
 
-.btn.btn-highlight-dark, .btn-group.btn-group-highlight-dark > .btn {
+.btn.btn-highlight-dark,
+.btn-group.btn-group-highlight-dark > .btn {
     &:not(:hover):not(:active):not(:focus):not(.btn-no-highlight) {
         color: color-yiq($bootstrap-dark);
         @include gradient-bg($bootstrap-dark);
@@ -37,7 +42,7 @@
 
 .input-group-btn {
     height: 100%;
-    
+
     .btn {
         height: 100%;
     }
@@ -46,8 +51,10 @@
 @include media-breakpoint-down(md) {
     .btn-group {
         display: block;
-        
-        & > .btn, & > .btn-group, & > button {
+
+        & > .btn,
+        & > .btn-group,
+        & > button {
             border-radius: $border-radius !important;
             display: block;
             float: none;
@@ -60,17 +67,18 @@
 .form-link {
     font-size: 0.75rem;
     margin: 0 0.75em;
-    
+
     & > a {
         margin: 0 0.25em;
     }
-    
-    .btn-full + &, .d-block + & {
+
+    .btn-full + &,
+    .d-block + & {
         display: block;
         margin: 0.5em 0 0;
         text-align: center;
         width: 100%;
-        
+
         & > a {
             margin: 0;
         }

@@ -5,7 +5,7 @@
     #content {
         max-width: 700px;
     }
-    
+
     table.table {
         td {
             vertical-align: top;
@@ -14,13 +14,14 @@
             font-weight: bold;
             text-align: center;
             width: 4em;
-            
+
             .btn {
                 font-size: 12px;
                 padding: 0.4em 0.8em;
             }
         }
-        [col="status"], [col="date"] {
+        [col="status"],
+        [col="date"] {
             text-align: center;
             width: 8em;
         }
@@ -30,16 +31,16 @@
     }
 }
 &[page-id="repairs-create"] {
-	div#content {
-		@media(min-width: 768px) {
-			margin: 0 auto;
-			width: 550px;
-		}
-	}
+    div#content {
+        @media (min-width: 768px) {
+            margin: 0 auto;
+            width: 550px;
+        }
+    }
 }
 &[page-id="repairs-view"] {
     div#content {
-        @media(min-width:600px) {
+        @media (min-width: 600px) {
             width: 600px;
         }
     }

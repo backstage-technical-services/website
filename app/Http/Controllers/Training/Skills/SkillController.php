@@ -56,12 +56,12 @@ class SkillController extends Controller
     public function store(SkillRequest $request)
     {
         $skill = Skill::create([
-            'name'        => clean($request->get('name')),
+            'name' => clean($request->get('name')),
             'category_id' => clean($request->get('category_id')) ?: null,
             'description' => clean($request->get('description')),
-            'level1'      => $request->has('available.level1') ? clean($request->get('level1')) : null,
-            'level2'      => $request->has('available.level2') ? clean($request->get('level2')) : null,
-            'level3'      => $request->has('available.level3') ? clean($request->get('level3')) : null,
+            'level1' => $request->has('available.level1') ? clean($request->get('level1')) : null,
+            'level2' => $request->has('available.level2') ? clean($request->get('level2')) : null,
+            'level3' => $request->has('available.level3') ? clean($request->get('level3')) : null,
         ]);
         Notify::success('Skill created');
         return redirect()->route('training.skill.view', ['id' => $skill->id]);
@@ -111,12 +111,12 @@ class SkillController extends Controller
     {
         $skill = Skill::findOrFail($id);
         $skill->update([
-            'name'        => clean($request->get('name')),
+            'name' => clean($request->get('name')),
             'category_id' => clean($request->get('category_id')) ?: null,
             'description' => clean($request->get('description')),
-            'level1'      => $request->has('available.level1') ? clean($request->get('level1')) : null,
-            'level2'      => $request->has('available.level2') ? clean($request->get('level2')) : null,
-            'level3'      => $request->has('available.level3') ? clean($request->get('level3')) : null,
+            'level1' => $request->has('available.level1') ? clean($request->get('level1')) : null,
+            'level2' => $request->has('available.level2') ? clean($request->get('level2')) : null,
+            'level3' => $request->has('available.level3') ? clean($request->get('level3')) : null,
         ]);
         Notify::success('Skill updated');
         return redirect()->route('training.skill.view', ['id' => $id]);
@@ -139,7 +139,7 @@ class SkillController extends Controller
         Notify::success('Skill deleted');
         return $this->ajaxResponse(true);
     }
-    
+
     /**
      * View the skills log.
      *
@@ -148,8 +148,7 @@ class SkillController extends Controller
     public function log()
     {
         $this->authorize('log', Skill::class);
-        $skills = AwardedSkill::orderBy('updated_at', 'DESC')
-                              ->paginate(20);
+        $skills = AwardedSkill::orderBy('updated_at', 'DESC')->paginate(20);
         $this->checkPage($skills);
 
         return view('training.skills.log')->with([

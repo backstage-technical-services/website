@@ -7,14 +7,14 @@ use Illuminate\Support\ServiceProvider;
 class SearchToolsServiceProvider extends ServiceProvider
 {
     private string $packageDir;
-    
+
     public function __construct($app)
     {
         parent::__construct($app);
-        
+
         $this->packageDir = base_path('packages/SearchTools');
     }
-    
+
     /**
      * Perform post-registration booting of services.
      *
@@ -24,17 +24,28 @@ class SearchToolsServiceProvider extends ServiceProvider
     {
         // Published views
         $this->loadViewsFrom($this->packageDir . 'resources/views', 'search-tools');
-        $this->publishes([
-            $this->packageDir . '/resources/views' => resource_path('views/vendor/search-tools'),
-        ], 'views');
+        $this->publishes(
+            [
+                $this->packageDir . '/resources/views' => resource_path('views/vendor/search-tools'),
+            ],
+            'views',
+        );
 
         // Published assets
-        $this->publishes([
-            $this->packageDir . '/resources/assets/css' => public_path('css/vendors/search_tools'),
-        ], 'styles');
-        $this->publishes([
-            $this->packageDir . '/resources/assets/js/search_tools.min.js' => public_path('js/vendors/search_tools/search_tools.js'),
-        ], 'scripts');
+        $this->publishes(
+            [
+                $this->packageDir . '/resources/assets/css' => public_path('css/vendors/search_tools'),
+            ],
+            'styles',
+        );
+        $this->publishes(
+            [
+                $this->packageDir . '/resources/assets/js/search_tools.min.js' => public_path(
+                    'js/vendors/search_tools/search_tools.js',
+                ),
+            ],
+            'scripts',
+        );
     }
 
     /**

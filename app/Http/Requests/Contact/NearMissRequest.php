@@ -24,13 +24,13 @@ class NearMissRequest extends Request
     public function rules()
     {
         return [
-            'location'               => ['required'],
-            'date'                   => ['required', 'date_format:Y-m-d'],
-            'time'                   => ['required', 'date_format:H:i'],
-            'details'                => ['required'],
+            'location' => ['required'],
+            'date' => ['required', 'date_format:Y-m-d'],
+            'time' => ['required', 'date_format:H:i'],
+            'details' => ['required'],
             'safety_recommendations' => ['nullable'],
-            'user_name'              => ['nullable', 'required_with:user_email'],
-            'user_email'             => ['nullable', 'email'],
+            'user_name' => ['nullable', 'required_with:user_email'],
+            'user_email' => ['nullable', 'email'],
         ];
     }
 
@@ -42,14 +42,14 @@ class NearMissRequest extends Request
     public function messages()
     {
         return [
-            'location.required'       => 'Please provide the location',
-            'date.required'           => 'Please provide a rough date',
-            'date.date_format'        => 'Please provide a valid date',
-            'time.required'           => 'Please provide a rough time',
-            'time.date_format'        => 'Please provide a valid time',
-            'details.required'        => 'Please provide details of the Near Miss',
+            'location.required' => 'Please provide the location',
+            'date.required' => 'Please provide a rough date',
+            'date.date_format' => 'Please provide a valid date',
+            'time.required' => 'Please provide a rough time',
+            'time.date_format' => 'Please provide a valid time',
+            'details.required' => 'Please provide details of the Near Miss',
             'user_name.required_with' => 'If you are providing your email address, please also provide your name',
-            'user_email.email'        => 'Please provide a valid email',
+            'user_email.email' => 'Please provide a valid email',
         ];
     }
 }

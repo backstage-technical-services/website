@@ -18,10 +18,7 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'title',
-        'name',
-    ];
+    protected $fillable = ['title', 'name'];
 
     /**
      * Define the relationship with the group's users.

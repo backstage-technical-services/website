@@ -16,10 +16,7 @@ class Video
      *
      * @var array
      */
-    private static $SupportedKind = [
-        'youtube#searchResult',
-        'youtube#video',
-    ];
+    private static $SupportedKind = ['youtube#searchResult', 'youtube#video'];
 
     /**
      * The video ID
@@ -109,11 +106,11 @@ class Video
         switch ($video->kind) {
             case 'youtube#searchResult':
                 $this->videoId = $video->id->videoId;
-                $this->src     = Youtube::getVideoInfo($this->videoId);
+                $this->src = Youtube::getVideoInfo($this->videoId);
                 break;
             case 'youtube#video':
                 $this->videoId = $video->id;
-                $this->src     = $video;
+                $this->src = $video;
                 break;
             default:
                 throw new Exception('Could not find ID of video');
@@ -131,12 +128,12 @@ class Video
      */
     private function loadVideoDetails()
     {
-        $this->title       = $this->src->snippet->title;
+        $this->title = $this->src->snippet->title;
         $this->description = $this->src->snippet->description ?? '';
-        $this->tags        = $this->src->snippet->tags ?? [];
-        $this->thumbnail   = '';
-        $this->duration    = CarbonInterval::instance(new DateInterval($this->src->contentDetails->duration));
-        $this->created     = new Carbon($this->src->snippet->publishedAt);
+        $this->tags = $this->src->snippet->tags ?? [];
+        $this->thumbnail = '';
+        $this->duration = CarbonInterval::instance(new DateInterval($this->src->contentDetails->duration));
+        $this->created = new Carbon($this->src->snippet->publishedAt);
 
         foreach (['high', 'medium', 'standard', 'default'] as $quality) {
             if (isset($this->src->snippet->thumbnails->$quality)) {

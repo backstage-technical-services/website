@@ -19,11 +19,11 @@ class FormBuilder extends BaseFormBuilder
     {
         if (is_array($selected)) {
             return in_array($value, $selected, false) && $value !== '' ? 'selected' : null;
-        } else if ($selected instanceof Collection) {
+        } elseif ($selected instanceof Collection) {
             return $selected->contains($value) ? 'selected' : null;
         }
 
-        return ((string)$value == (string)$selected && $value !== '') ? 'selected' : null;
+        return (string) $value == (string) $selected && $value !== '' ? 'selected' : null;
     }
 
     /**

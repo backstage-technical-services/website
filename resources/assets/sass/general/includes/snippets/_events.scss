@@ -1,9 +1,9 @@
-$event: #A00;
-$training: #05F;
+$event: #a00;
+$training: #05f;
 $social: rgb(255, 198, 203);
-$meeting: #0A0;
+$meeting: #0a0;
 $hidden: #999;
-$booking: #F80;
+$booking: #f80;
 
 $event_bg: rgb(255, 170, 170);
 $training_bg: lighten($training, 30%);
@@ -14,7 +14,8 @@ $booking_bg: $hidden;
 
 .event-style {
     &.text {
-        &, &.event {
+        &,
+        &.event {
             color: $event !important;
         }
         &.training {
@@ -35,7 +36,8 @@ $booking_bg: $hidden;
         }
     }
     &.fill {
-        &, &.event {
+        &,
+        &.event {
             background-color: $event;
             border-color: $event;
         }
@@ -61,7 +63,8 @@ $booking_bg: $hidden;
         }
     }
     &.fill-light {
-        &, &.event {
+        &,
+        &.event {
             background-color: $event_bg;
             border-color: $event_bg;
         }
@@ -89,7 +92,6 @@ $booking_bg: $hidden;
     a {
         color: inherit !important;
     }
-    
 }
 
 .event-entry {
@@ -109,7 +111,7 @@ $booking_bg: $hidden;
         position: relative;
         text-align: center;
         text-transform: lowercase;
-        
+
         &:hover {
             cursor: default;
         }
@@ -145,7 +147,7 @@ $booking_bg: $hidden;
 .event-key {
     overflow: hidden;
     width: 100%;
-    
+
     & > .event {
         float: left;
         width: 50%;
@@ -153,17 +155,21 @@ $booking_bg: $hidden;
 }
 
 table.event-list {
-    td, th {
-        &[col="event-type"], &.col--event-type {
+    td,
+    th {
+        &[col="event-type"],
+        &.col--event-type {
             padding: 0;
             width: 5px;
         }
-        &[col="event"], &.col--event {
+        &[col="event"],
+        &.col--event {
             padding-left: 1em;
         }
-        &[col="role"], &.col--role {
+        &[col="role"],
+        &.col--role {
             width: 15em;
-            
+
             @media (max-width: 767px) {
                 display: none;
             }

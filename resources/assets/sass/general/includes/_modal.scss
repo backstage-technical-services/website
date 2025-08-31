@@ -21,19 +21,23 @@ div.modal {
         & > div.modal-content {
             position: relative;
         }
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             color: inherit;
         }
         div.modal-header {
             margin: 0;
             text-align: center;
-    
-            h1, .modal-title {
+
+            h1,
+            .modal-title {
                 font-size: 22px;
                 font-weight: 400;
                 margin: 0.2em 0;
             }
-            
+
             button.close {
                 float: none;
                 position: absolute;
@@ -54,7 +58,11 @@ div.modal {
             font-size: 15px;
             font-weight: bold;
         }
-        h1, h2, h3, h4, h5 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
             &:first-child {
                 margin-top: 0;
             }
@@ -63,7 +71,8 @@ div.modal {
             margin: 1em 0;
             line-height: 1.4em;
         }
-        ul, ol {
+        ul,
+        ol {
             margin-top: 1em;
             margin-bottom: 1em;
         }
@@ -81,16 +90,18 @@ div.modal {
         hr {
             background: #000;
         }
-        .help-block, .invalid-feedback {
+        .help-block,
+        .invalid-feedback {
             color: #666;
             font-style: italic;
         }
         .form-group {
-            &.has-error .help-block[data-type="ajax-error"], .invalid-feedback {
-                    color: $colour_danger !important;
-                    font-style: normal;
-                    margin: 5px 0;
-                }
+            &.has-error .help-block[data-type="ajax-error"],
+            .invalid-feedback {
+                color: $colour_danger !important;
+                font-style: normal;
+                margin: 5px 0;
+            }
         }
         .control-label {
             font-weight: bold;
@@ -116,6 +127,8 @@ div.modal-backdrop {
     }
 }
 
-div[data-type="modal-template"], [data-type="data-editable-source"], [data-type="data-toggle-template"] {
+div[data-type="modal-template"],
+[data-type="data-editable-source"],
+[data-type="data-toggle-template"] {
     display: none !important;
 }

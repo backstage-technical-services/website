@@ -16,7 +16,7 @@ class PageRequest extends Request
     {
         if ($this->route == 'page.store') {
             return $this->user()->can('create', Page::class);
-        } else if ($this->route == 'page.update') {
+        } elseif ($this->route == 'page.update') {
             $page = Page::findBySlug($this->route('slug'));
 
             return $this->user()->can('update', $page);
@@ -47,15 +47,15 @@ class PageRequest extends Request
      */
     public function rules()
     {
-        $route     = $this->route()->getName();
-        $slug_rule = $route == 'page.update' ? ('unique:pages,slug,' . $this->get('slug') . ',slug') : 'unique:pages';
+        $route = $this->route()->getName();
+        $slug_rule = $route == 'page.update' ? 'unique:pages,slug,' . $this->get('slug') . ',slug' : 'unique:pages';
 
         return [
-            'title'     => 'required',
-            'slug'      => 'required|' . $slug_rule . '|alpha_dash',
-            'content'   => 'required',
+            'title' => 'required',
+            'slug' => 'required|' . $slug_rule . '|alpha_dash',
+            'content' => 'required',
             'published' => 'required|boolean',
-            'user_id'   => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
         ];
     }
 
@@ -67,15 +67,15 @@ class PageRequest extends Request
     public function messages()
     {
         return [
-            'title.required'     => 'Please enter the page\'s title',
-            'slug.required'      => 'Please enter the page\'s slug',
-            'slug.unique'        => 'That slug is already used by another page',
-            'slug.alpha_dash'    => 'Please use letters, numbers and dashes only for the slug',
-            'content.required'   => 'Please enter the page\'s content',
+            'title.required' => 'Please enter the page\'s title',
+            'slug.required' => 'Please enter the page\'s slug',
+            'slug.unique' => 'That slug is already used by another page',
+            'slug.alpha_dash' => 'Please use letters, numbers and dashes only for the slug',
+            'content.required' => 'Please enter the page\'s content',
             'published.required' => 'Please select the page\'s published state',
-            'published.boolean'  => 'Please select \'Yes\' or \'No\'',
-            'user_id.required'   => 'Please select the page\'s author',
-            'user_id.exists'     => 'Please select the page\'s author',
+            'published.boolean' => 'Please select \'Yes\' or \'No\'',
+            'user_id.required' => 'Please select the page\'s author',
+            'user_id.exists' => 'Please select the page\'s author',
         ];
     }
 }

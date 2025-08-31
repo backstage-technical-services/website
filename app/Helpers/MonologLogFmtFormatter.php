@@ -38,7 +38,7 @@ class MonologLogFmtFormatter extends NormalizerFormatter
         $pairs = [
             $this->timeKey => $vars['datetime'],
             $this->lvlKey => strtolower($vars['level_name']),
-            $this->msgKey => $vars['message']
+            $this->msgKey => $vars['message'],
         ];
 
         foreach ($vars['context'] as $ctxKey => $ctxVal) {
@@ -61,7 +61,10 @@ class MonologLogFmtFormatter extends NormalizerFormatter
             $pairs[$extraKey] = $extraVal;
         }
 
-        return implode(' ', array_map(fn($k, $v) => $k . '=' . $this->stringifyVal($v), array_keys($pairs), array_values($pairs))) . "\n";
+        return implode(
+            ' ',
+            array_map(fn($k, $v) => $k . '=' . $this->stringifyVal($v), array_keys($pairs), array_values($pairs)),
+        ) . "\n";
     }
 
     /**
@@ -80,7 +83,7 @@ class MonologLogFmtFormatter extends NormalizerFormatter
     protected function stringifyVal($val): string
     {
         if ($this->isValidIdent($val)) {
-            return (string)$val;
+            return (string) $val;
         }
 
         return $this->convertToString($val);

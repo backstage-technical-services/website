@@ -20,14 +20,7 @@ class Nomination extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'award_id',
-        'award_season_id',
-        'nominee',
-        'reason',
-        'approved',
-        'suggested_by',
-    ];
+    public $fillable = ['award_id', 'award_season_id', 'nominee', 'reason', 'approved', 'suggested_by'];
 
     /**
      * Define the relationship with the award.
@@ -90,10 +83,11 @@ class Nomination extends Model
      */
     public function scopeOrdered(Builder $query)
     {
-        $query->select('award_nominations.*')
-              ->join('awards', 'award_nominations.award_id', '=', 'awards.id')
-              ->orderBy('awards.name', 'ASC')
-              ->orderBy('award_nominations.nominee', 'ASC');
+        $query
+            ->select('award_nominations.*')
+            ->join('awards', 'award_nominations.award_id', '=', 'awards.id')
+            ->orderBy('awards.name', 'ASC')
+            ->orderBy('award_nominations.nominee', 'ASC');
     }
 
     /**
@@ -125,8 +119,6 @@ class Nomination extends Model
      */
     public function userVotedFor(User $user)
     {
-        return $this->votes()
-                    ->byUser($user)
-                    ->count() > 0;
+        return $this->votes()->byUser($user)->count() > 0;
     }
 }

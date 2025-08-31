@@ -10,13 +10,13 @@ use App\Notifications\MailMessage;
 class ResetPassword extends Notification
 {
     use Queueable;
-    
+
     /**
      * The password reset token.
      * @var string
      */
     public $token;
-    
+
     /**
      * Create a new notification instance.
      * @param $token
@@ -25,7 +25,7 @@ class ResetPassword extends Notification
     {
         $this->token = $token;
     }
-    
+
     /**
      * Get the notification's delivery channels.
      * @param  mixed $notifiable
@@ -35,7 +35,7 @@ class ResetPassword extends Notification
     {
         return ['mail'];
     }
-    
+
     /**
      * Get the mail representation of the notification.
      * @param  mixed $notifiable
@@ -43,13 +43,15 @@ class ResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return new MailMessage()
             ->subject('Reset your password')
-            ->line('You are receiving this email because you we recently received a request to reset your password. Click the link below to get started.')
+            ->line(
+                'You are receiving this email because you we recently received a request to reset your password. Click the link below to get started.',
+            )
             ->action('Reset Password', route('auth.pwd.reset', ['token' => $this->token]))
             ->line('If you did not request a password reset, you can ignore this email.');
     }
-    
+
     /**
      * Get the array representation of the notification.
      * @param  mixed $notifiable
@@ -57,8 +59,6 @@ class ResetPassword extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-        
-        ];
+        return [];
     }
 }

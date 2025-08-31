@@ -2,7 +2,7 @@
     &.center-block {
         display: inline-block;
         width: auto;
-        
+
         &:after {
             content: "";
             display: block;
@@ -18,8 +18,9 @@
             color: #3c763d;
         }
     }
-    
-    &.has-error, &.has-success {
+
+    &.has-error,
+    &.has-success {
         label {
             a {
                 color: inherit;
@@ -29,7 +30,7 @@
             color: inherit;
         }
         &.no-highlight .checkbox label {
-            color: #CCC;
+            color: #ccc;
         }
     }
     .form-group {
@@ -40,9 +41,10 @@
     }
 }
 
-.form-group, .form-check {
+.form-group,
+.form-check {
     margin: 2em 0;
-    
+
     &:first-child {
         margin-top: 0;
     }
@@ -52,7 +54,8 @@
 }
 
 .text-center {
-    .has-error, .has-success {
+    .has-error,
+    .has-success {
         p {
             text-align: center;
         }

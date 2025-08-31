@@ -1,27 +1,27 @@
 $('select[name="event_id"]').select2({
-    ajax       : {
-        dataType          : 'json',
-        delay             : 250,
-        type              : 'post',
-        data              : function(params) {
+    ajax: {
+        dataType: 'json',
+        delay: 250,
+        type: 'post',
+        data: function (params) {
             return {
                 name: params.term,
             };
         },
-        processResults    : function(data) {
+        processResults: function (data) {
             return {
-                results: $.map(data.response, function(item) {
+                results: $.map(data.response, function (item) {
                     return {
-                        id  : item.id,
+                        id: item.id,
                         text: item.name + ' (' + item.date + ')',
                     };
                 }),
             };
         },
-        cache             : true,
+        cache: true,
         minimumInputLength: 2,
-        url               : $(this).data('ajaxUrl'),
+        url: $(this).data('ajaxUrl'),
     },
     placeholder: 'Start typing to search for an event',
-    theme      : 'bootstrap',
+    theme: 'bootstrap',
 });

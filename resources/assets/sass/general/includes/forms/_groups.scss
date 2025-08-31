@@ -2,54 +2,58 @@
     &.center-block {
         display: inline-block;
         width: auto;
-        
+
         &:after {
             content: "";
             display: block;
         }
     }
-    
-    &.has-error .form-control, .form-control.is-invalid {
+
+    &.has-error .form-control,
+    .form-control.is-invalid {
         border-color: #a94442;
         color: #a94442;
-        
+
         & + .invalid-feedback {
             color: #a94442;
         }
     }
-    
-    &.has-success .form-control, .form-control.is-valid {
+
+    &.has-success .form-control,
+    .form-control.is-valid {
         border-color: #3c763d;
         color: #3c763d;
     }
-    
-    &.has-error, &.has-success {
+
+    &.has-error,
+    &.has-success {
         label {
             a {
                 color: inherit;
             }
         }
-        
+
         .checkbox label {
             color: inherit;
         }
-        
+
         &.no-highlight .checkbox label {
-            color: #CCC;
+            color: #ccc;
         }
     }
-    
+
     .form-group {
         margin-bottom: 0;
     }
-    
+
     &:last-child {
         margin-bottom: 0;
     }
 }
 
 .text-center {
-    .has-error, .has-success {
+    .has-error,
+    .has-success {
         p {
             text-align: center;
         }

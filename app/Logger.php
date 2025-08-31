@@ -20,11 +20,11 @@ abstract class Logger
     public static function log($action, $status = true, $payload = null, User $user = null)
     {
         Log::create([
-            'user_id'    => $user === null ? (auth()->check() ? auth()->user()->id : null) : $user->id,
+            'user_id' => $user === null ? (auth()->check() ? auth()->user()->id : null) : $user->id,
             'ip_address' => request()->ip(),
-            'action'     => $action,
-            'payload'    => is_null($payload) ? null : json_encode($payload),
-            'status'     => (bool)$status,
+            'action' => $action,
+            'payload' => is_null($payload) ? null : json_encode($payload),
+            'status' => (bool) $status,
         ]);
     }
 }

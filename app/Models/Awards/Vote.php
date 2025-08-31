@@ -20,11 +20,7 @@ class Vote extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'award_season_id',
-        'nomination_id',
-        'user_id',
-    ];
+    public $fillable = ['award_season_id', 'nomination_id', 'user_id'];
 
     /**
      * Define the relationship with the award season.

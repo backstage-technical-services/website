@@ -16,13 +16,8 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        BackupDb::class,
-        AutoCloseCrewLists::class,
-        BackupCommand::class,
-        CleanupCommand::class,
-    ];
-    
+    protected $commands = [BackupDb::class, AutoCloseCrewLists::class, BackupCommand::class, CleanupCommand::class];
+
     /**
      * Define the application's command schedule.
      *
@@ -34,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(AutoCloseCrewLists::class)->daily();
     }
-    
+
     /**
      * Register the Closure based commands for the application.
      *

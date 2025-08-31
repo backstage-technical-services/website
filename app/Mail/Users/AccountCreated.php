@@ -9,13 +9,13 @@ use Illuminate\Queue\SerializesModels;
 class AccountCreated extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
     /**
      * Variable to store the user's details.
      * @var array
      */
     private $user;
-    
+
     /**
      * Create a new message instance.
      * @param array $data
@@ -24,7 +24,7 @@ class AccountCreated extends Mailable
     {
         $this->user = $data;
     }
-    
+
     /**
      * Build the message.
      * @return $this
@@ -32,8 +32,8 @@ class AccountCreated extends Mailable
     public function build()
     {
         return $this->replyTo(config('bts.emails.account.created'))
-                    ->subject('Your new Backstage account')
-                    ->markdown('emails.users.created')
-                    ->with('user', $this->user);
+            ->subject('Your new Backstage account')
+            ->markdown('emails.users.created')
+            ->with('user', $this->user);
     }
 }

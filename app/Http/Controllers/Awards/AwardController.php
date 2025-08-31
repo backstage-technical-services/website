@@ -18,8 +18,9 @@ class AwardController extends Controller
     public function index()
     {
         $this->authorize('index', Award::class);
-        $awards = Award::suggested()->get()
-                       ->merge(Award::approved()->get());
+        $awards = Award::suggested()
+            ->get()
+            ->merge(Award::approved()->get());
         return view('awards.awards.index')->with('awards', $awards);
     }
 
@@ -42,10 +43,10 @@ class AwardController extends Controller
 
         // Create the award
         $award = Award::create([
-            'name'         => clean($request->get('name')),
-            'description'  => clean($request->get('description')),
+            'name' => clean($request->get('name')),
+            'description' => clean($request->get('description')),
             'suggested_by' => null,
-            'recurring'    => (bool)$request->get('recurring'),
+            'recurring' => (bool) $request->get('recurring'),
         ]);
 
         Log::info("User {$request->user()->id} created award {$award->id}");
@@ -75,9 +76,9 @@ class AwardController extends Controller
 
         // Update the award
         $award->update([
-            'name'        => clean($request->get('name')),
+            'name' => clean($request->get('name')),
             'description' => clean($request->get('description')),
-            'recurring'   => (bool)$request->get('recurring'),
+            'recurring' => (bool) $request->get('recurring'),
         ]);
 
         Log::info("User {$request->user()->id} updated award $id");
@@ -105,7 +106,7 @@ class AwardController extends Controller
             'suggested_by' => null,
         ]);
 
-        Log::info("User " . request()->user()->id . " approved award $id");
+        Log::info('User ' . request()->user()->id . " approved award $id");
         Notify::success('Award approved');
         return $this->ajaxResponse('Award approved');
     }
@@ -129,10 +130,10 @@ class AwardController extends Controller
 
         // Create the award
         $award = Award::create([
-            'name'         => clean($request->get('name')),
-            'description'  => clean($request->get('description')),
+            'name' => clean($request->get('name')),
+            'description' => clean($request->get('description')),
             'suggested_by' => $request->user()->id,
-            'recurring'    => false,
+            'recurring' => false,
         ]);
 
         Log::info("User {$request->user()->id} suggested award {$award->id}");
@@ -158,7 +159,7 @@ class AwardController extends Controller
         // Delete
         $award->delete();
 
-        Log::info("User " . request()->user()->id . " deleted award $award");
+        Log::info('User ' . request()->user()->id . " deleted award $award");
         Notify::success('Award deleted');
         return $this->ajaxResponse('Award deleted');
     }

@@ -25,12 +25,7 @@ class Quote extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        "culprit",
-        "quote",
-        "date",
-        "added_by",
-    ];
+    protected $fillable = ['culprit', 'quote', 'date', 'added_by'];
 
     /**
      * Define variable types to cast some attributes to.
@@ -38,7 +33,7 @@ class Quote extends Model
      * @var array
      */
     protected $casts = [
-      'date' => 'datetime',
+        'date' => 'datetime',
     ];
 
     /**

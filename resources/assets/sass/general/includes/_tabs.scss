@@ -1,14 +1,15 @@
-div[role='tabpanel'], div.tabpanel {
+div[role="tabpanel"],
+div.tabpanel {
     background: transparent;
     border-radius: 5px;
     text-align: center;
     position: relative;
     z-index: $zindex_tabs;
-    
+
     & > div.tab-links {
         position: inherit;
-        z-index: $zindex_tabs+500;
-        
+        z-index: $zindex_tabs + 500;
+
         ul.nav.nav-tabs {
             @include clearfix();
             background: transparent;
@@ -19,7 +20,7 @@ div[role='tabpanel'], div.tabpanel {
             padding: 0;
             text-align: center;
             white-space: nowrap;
-        
+
             &:before {
                 display: none;
             }
@@ -35,7 +36,7 @@ div[role='tabpanel'], div.tabpanel {
                 padding: 0;
                 @include user_select_none();
                 white-space: normal;
-            
+
                 a {
                     background: transparent;
                     border: none;
@@ -49,7 +50,8 @@ div[role='tabpanel'], div.tabpanel {
                         cursor: pointer;
                         text-decoration: none;
                     }
-                    &:active, &:focus {
+                    &:active,
+                    &:focus {
                         text-decoration: none;
                         outline: none;
                     }
@@ -71,7 +73,7 @@ div[role='tabpanel'], div.tabpanel {
                     border-top-right-radius: $dim_bdr_radius;
                     border-bottom-right-radius: $dim_bdr_radius;
                 }
-            
+
                 @media (max-width: 767px) {
                     border-radius: $dim_bdr_radius;
                     display: block;
@@ -94,8 +96,8 @@ div[role='tabpanel'], div.tabpanel {
             padding: 2.5em 0 0 0;
             position: relative;
             text-align: left;
-            z-index: $zindex_tabs+100;
-            
+            z-index: $zindex_tabs + 100;
+
             @media (max-width: 767px) {
                 border: none;
                 margin-top: 2em;
@@ -108,25 +110,25 @@ div[role='tabpanel'], div.tabpanel {
         margin-left: auto;
         margin-right: auto;
         width: 100%;
-        
+
         & > div.tab-links {
             border-right: 2px solid #222;
             display: table-cell;
             text-align: left;
-            
+
             &.icons {
                 text-align: center;
                 width: 3.5em;
             }
-            
-            @media(max-width: 767px) {
+
+            @media (max-width: 767px) {
                 display: none;
             }
-            
+
             ul.nav-pills {
                 $bg_colour: #161616;
                 margin: 0 0 1em;
-                
+
                 li {
                     margin: 0.25em 0;
                     & > a {
@@ -135,8 +137,10 @@ div[role='tabpanel'], div.tabpanel {
                         border-left: 2px solid transparent;
                         padding: 0.6em 0.75em;
                         position: relative;
-                        
-                        &, &:hover, &:focus {
+
+                        &,
+                        &:hover,
+                        &:focus {
                             background: none;
                             color: $colour_text;
                             outline: none;
@@ -163,8 +167,9 @@ div[role='tabpanel'], div.tabpanel {
                             border-left-color: $btsyellow;
                             background: none;
                             color: $btsyellow;
-                            
-                            &:hover, &:focus {
+
+                            &:hover,
+                            &:focus {
                                 background: $bg_colour;
                                 color: $btsyellow;
                             }
@@ -181,26 +186,27 @@ div[role='tabpanel'], div.tabpanel {
         }
         & > div.tab-content {
             display: table-cell;
-            
-            @media(min-width: 768px) {
+
+            @media (min-width: 768px) {
                 padding-left: 1.5em;
                 padding-right: 1.5em;
             }
-            
+
             div.tab-pane {
                 border-top: none;
                 margin-top: 0;
                 padding-top: 0;
-                
-                @media(max-width: 767px) {
+
+                @media (max-width: 767px) {
                     background: #161616;
                     border-radius: 5px;
                     display: block !important;
                     margin: 1em 0;
                     padding: 1em;
                 }
-                
-                h2, h3 {
+
+                h2,
+                h3 {
                     &:first-child {
                         margin-bottom: 1em;
                         margin-top: 0;
@@ -212,13 +218,14 @@ div[role='tabpanel'], div.tabpanel {
 }
 
 div#modal {
-    div[role='tabpanel'], div.tabpanel {
+    div[role="tabpanel"],
+    div.tabpanel {
         margin: 1em 0;
-        
+
         ul.nav.nav-tabs {
             & > li {
                 @include bg_gradient_grey();
-                
+
                 &.active {
                     @include bg_gradient_grey_inv();
                 }

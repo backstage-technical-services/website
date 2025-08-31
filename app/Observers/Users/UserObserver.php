@@ -19,9 +19,9 @@ class UserObserver extends ModelObserver
 
         if (isset($attributes['status'])) {
             Logger::log('user.' . ($attributes['status'] ? 'unarchive' : 'archive'), true, ['id' => $user->id]);
-        } else if (count($cleaned = $this->cleanForSaving($user, $attributes)) > 1) {
+        } elseif (count($cleaned = $this->cleanForSaving($user, $attributes)) > 1) {
             Logger::log('user.edit', true, $cleaned);
-        } else if (isset($attributes['password'])) {
+        } elseif (isset($attributes['password'])) {
             Logger::log('user.edit-password', true, ['id' => $user->id]);
         }
     }

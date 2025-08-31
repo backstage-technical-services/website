@@ -10,35 +10,36 @@
             width: 75%;
         }
     }
-    
+
     div.position {
         box-sizing: border-box;
         display: table;
         margin: 0 0 2em;
         position: relative;
         width: 100%;
-        
+
         & > a.edit-button {
             @include transition();
             position: absolute;
             right: 0;
             top: 0;
-            
+
             @media (min-width: 768px) {
                 opacity: 0;
             }
         }
-        & > div.left, & > div.right {
+        & > div.left,
+        & > div.right {
             display: table-cell;
             overflow: hidden;
             vertical-align: top;
         }
         & > div.left {
             width: 4em;
-            
+
             & > div.picture {
                 text-align: center;
-                
+
                 & > img {
                     display: inline-block;
                     height: auto;
@@ -51,7 +52,7 @@
                 margin-top: 0.5em;
                 opacity: 0.6;
                 text-align: center;
-                
+
                 & > a {
                     &:hover {
                         text-decoration: none;
@@ -64,7 +65,7 @@
         }
         & > div.right {
             padding: 0 1em;
-            
+
             & > div.title {
                 color: $btsorange;
                 font: bold 1.4em Arial;
@@ -87,14 +88,14 @@
         &:hover > a.edit-button {
             opacity: 1;
         }
-        
+
         @media (min-width: 768px) {
             & > div.left {
                 width: 10em;
-                
+
                 & > div.email {
                     font-size: 0.933em;
-                    
+
                     & > a > span.fa {
                         display: none;
                     }
@@ -102,7 +103,7 @@
             }
             & > div.right {
                 padding-left: 2em;
-                
+
                 & > div.title {
                     font-size: 1.6em;
                 }

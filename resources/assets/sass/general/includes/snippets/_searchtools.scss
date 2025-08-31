@@ -1,24 +1,23 @@
 .search-tools {
     & > div.dropdown {
         display: inline-block;
-        
+
         & > .btn {
             font-size: 0.733em;
             padding: 0.5em 0.8em;
         }
-        
+
         & > ul.dropdown-menu {
-        
         }
         &.search {
             & > ul.dropdown-menu {
                 width: 15em;
-                
+
                 & > li {
                     margin: 0;
                     padding: 0.3em;
                     position: relative;
-    
+
                     input.form-control {
                         box-sizing: border-box;
                         height: auto;
@@ -36,7 +35,7 @@
                         right: 0.5em;
                         top: 0.8em;
                         width: auto;
-                        
+
                         span.fa {
                             margin: 0;
                         }

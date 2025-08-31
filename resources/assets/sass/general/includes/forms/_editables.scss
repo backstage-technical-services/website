@@ -1,7 +1,8 @@
 .editable {
     padding: 0.5em 0.75em;
-    
-    &[data-editable], &.data-editable {
+
+    &[data-editable],
+    &.data-editable {
         border-radius: 2px;
     }
     &[data-editable] {
@@ -11,12 +12,13 @@
         }
     }
 
-    &[data-editable="toggle"], &.data-editable--toggle {
+    &[data-editable="toggle"],
+    &.data-editable--toggle {
         display: inline-block;
         padding: 0;
         text-align: center;
         width: 2em;
-        
+
         &:hover {
             background: none;
         }

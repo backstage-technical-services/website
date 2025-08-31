@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
      * The name of the disk on which the snapshots are stored.
      */

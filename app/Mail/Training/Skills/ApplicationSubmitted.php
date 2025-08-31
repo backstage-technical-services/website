@@ -30,12 +30,12 @@ class ApplicationSubmitted extends Mailable
     public function __construct(Skill $skill, Application $application, User $user)
     {
         $this->application = [
-            'skill'      => $skill->name,
-            'user'       => $user->name,
+            'skill' => $skill->name,
+            'user' => $user->name,
             'user_email' => $user->email,
-            'url'        => route('training.skill.application.view', ['id' => $application->id]),
-            'level'      => Skill::LEVEL_NAMES[$application->applied_level],
-            'reasoning'  => $application->reasoning,
+            'url' => route('training.skill.application.view', ['id' => $application->id]),
+            'level' => Skill::LEVEL_NAMES[$application->applied_level],
+            'reasoning' => $application->reasoning,
         ];
     }
 
@@ -47,8 +47,8 @@ class ApplicationSubmitted extends Mailable
     public function build()
     {
         return $this->replyTo($this->application['user_email'], $this->application['user'])
-                    ->subject('Training Skill Application')
-                    ->markdown('emails.training.skills.application.submitted')
-                    ->with($this->application);
+            ->subject('Training Skill Application')
+            ->markdown('emails.training.skills.application.submitted')
+            ->with($this->application);
     }
 }

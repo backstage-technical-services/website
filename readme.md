@@ -9,7 +9,7 @@
 ### Pre-requisites
 
 Make sure you are familiar with the [Contribution Guide][contribution-guide] and have
-installed [the required prerequisites][prerequisites]. 
+installed [the required prerequisites][prerequisites].
 
 ### Installing
 

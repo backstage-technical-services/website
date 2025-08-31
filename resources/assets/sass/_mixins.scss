@@ -1,17 +1,17 @@
 @import "../../../packages/WebDevTools/assets/scss/mixins";
 
 @mixin bg_gradient_yellow() {
-	@include bg_gradient(#{$btsyellow}, #9E7E00);
+    @include bg_gradient(#{$btsyellow}, #9e7e00);
 }
 
 @mixin bg_gradient_yellow_inv() {
-	@include bg_gradient(#9E7E00, #{$btsyellow});
+    @include bg_gradient(#9e7e00, #{$btsyellow});
 }
 
 @mixin bg_gradient_grey() {
-	@include bg_gradient(#EEE, #BBB);
+    @include bg_gradient(#eee, #bbb);
 }
 
 @mixin bg_gradient_grey_inv() {
-	@include bg_gradient(#BBB, #EEE);
+    @include bg_gradient(#bbb, #eee);
 }

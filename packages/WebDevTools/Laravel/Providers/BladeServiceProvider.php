@@ -25,7 +25,9 @@ class BladeServiceProvider extends ServiceProvider
         });
         Blade::directive('Paginator', function ($arguments) {
             [$name, $style] = array_pad($this->getDirectiveArguments($arguments), 2, null);
-            return "<?php echo get_class({$name}) == 'Illuminate\Pagination\LengthAwarePaginator' ? {$name}->render('pagination::" . ($style ?: 'default') . "') : ''; ?>";
+            return "<?php echo get_class({$name}) == 'Illuminate\Pagination\LengthAwarePaginator' ? {$name}->render('pagination::" .
+                ($style ?: 'default') .
+                "') : ''; ?>";
         });
         Blade::directive('ContentWidth', function () {
             return "<?php echo isset(\$__env) && !empty(trim(\$__env->yieldContent('content-width'))) ? ('w-' . \$__env->yieldContent('content-width')) : ''; ?>";
@@ -47,10 +49,7 @@ class BladeServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-
-    }
+    public function register() {}
 
     /**
      * Convert a string of arguments to an array.

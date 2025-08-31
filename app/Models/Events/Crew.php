@@ -18,8 +18,8 @@ class Crew extends Model
      * @var array
      */
     protected static $ValidationRules = [
-        'user_id'    => 'required|exists:users,id',
-        'name'       => 'nullable|required_if:core,1',
+        'user_id' => 'required|exists:users,id',
+        'name' => 'nullable|required_if:core,1',
         'guest_name' => 'required',
     ];
 
@@ -29,9 +29,9 @@ class Crew extends Model
      * @var array
      */
     protected static $ValidationMessages = [
-        'user_id.required'    => 'Please select a member',
-        'user_id.exists'      => 'Please select a member',
-        'name.required_if'    => 'Please enter a role title',
+        'user_id.required' => 'Please select a member',
+        'user_id.exists' => 'Please select a member',
+        'name.required_if' => 'Please enter a role title',
         'guest_name.required' => 'Please enter the guest\'s name',
     ];
 
@@ -54,14 +54,7 @@ class Crew extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'event_id',
-        'user_id',
-        'name',
-        'em',
-        'confirmed',
-        'guest_name',
-    ];
+    protected $fillable = ['event_id', 'user_id', 'name', 'em', 'confirmed', 'guest_name'];
 
     /**
      * Define the attributes that need type-casting.
@@ -69,7 +62,7 @@ class Crew extends Model
      * @var array
      */
     protected $casts = [
-        'em'        => 'boolean',
+        'em' => 'boolean',
         'confirmed' => 'boolean',
     ];
 
@@ -78,24 +71,14 @@ class Crew extends Model
      *
      * @var array
      */
-    protected $visible = [
-        'id',
-        'user_id',
-        'name',
-        'em',
-        'confirmed',
-        'guest_name',
-        'core',
-    ];
+    protected $visible = ['id', 'user_id', 'name', 'em', 'confirmed', 'guest_name', 'core'];
 
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
-    protected $appends = [
-        'core',
-    ];
+    protected $appends = ['core'];
 
     /**
      * Define the foreign key relationship with the event.
@@ -134,8 +117,7 @@ class Crew extends Model
      */
     public function scopeCore(Builder $query)
     {
-        $query->member()
-              ->where('name', '<>', null);
+        $query->member()->where('name', '<>', null);
     }
 
     /**
@@ -145,8 +127,7 @@ class Crew extends Model
      */
     public function scopeGeneral(Builder $query)
     {
-        $query->member()
-              ->where('name', null);
+        $query->member()->where('name', null);
     }
 
     /**
@@ -188,12 +169,9 @@ class Crew extends Model
     public function scopeOrder(Builder $query)
     {
         if (!$this->alreadyJoined($query, 'users')) {
-            $query->select('event_crew.*')
-                  ->join('users', 'event_crew.user_id', '=', 'users.id');
+            $query->select('event_crew.*')->join('users', 'event_crew.user_id', '=', 'users.id');
         }
-        $query->orderBy('event_crew.name', 'ASC')
-              ->orderBy('users.surname', 'ASC')
-              ->orderBy('users.forename', 'ASC');
+        $query->orderBy('event_crew.name', 'ASC')->orderBy('users.surname', 'ASC')->orderBy('users.forename', 'ASC');
     }
 
     /**
@@ -223,6 +201,6 @@ class Crew extends Model
      */
     public function getCoreAttribute()
     {
-        return (int)($this->name !== null);
+        return (int) ($this->name !== null);
     }
 }

@@ -21,17 +21,16 @@ class Event extends Model
     /**
      * Define the constants for the event type codes.
      */
-    const TYPE_EVENT    = 1;
+    const TYPE_EVENT = 1;
     const TYPE_TRAINING = 2;
-    const TYPE_SOCIAL   = 3;
-    const TYPE_MEETING  = 4;
-    const TYPE_HIDDEN   = 5;
-    const TYPE_BOOKING  = 6;
+    const TYPE_SOCIAL = 3;
+    const TYPE_MEETING = 4;
+    const TYPE_HIDDEN = 5;
+    const TYPE_BOOKING = 6;
 
     const CREW_LIST_HIDDEN = -1;
     const CREW_LIST_CLOSED = 0;
-    const CREW_LIST_OPEN   = 1;
-
+    const CREW_LIST_OPEN = 1;
 
     /**
      * Define the types of events.
@@ -39,11 +38,11 @@ class Event extends Model
      * @var array
      */
     public static $Types = [
-        self::TYPE_EVENT    => 'Event',
+        self::TYPE_EVENT => 'Event',
         self::TYPE_TRAINING => 'Training Session',
-        self::TYPE_SOCIAL   => 'Social',
-        self::TYPE_MEETING  => 'Meeting',
-        self::TYPE_HIDDEN   => 'Hidden / General Info',
+        self::TYPE_SOCIAL => 'Social',
+        self::TYPE_MEETING => 'Meeting',
+        self::TYPE_HIDDEN => 'Hidden / General Info',
     ];
 
     /**
@@ -52,11 +51,11 @@ class Event extends Model
      * @var array
      */
     public static $TypesShort = [
-        self::TYPE_EVENT    => 'event',
+        self::TYPE_EVENT => 'event',
         self::TYPE_TRAINING => 'training',
-        self::TYPE_SOCIAL   => 'social',
-        self::TYPE_MEETING  => 'meeting',
-        self::TYPE_HIDDEN   => 'hidden',
+        self::TYPE_SOCIAL => 'social',
+        self::TYPE_MEETING => 'meeting',
+        self::TYPE_HIDDEN => 'hidden',
     ];
 
     /**
@@ -65,12 +64,12 @@ class Event extends Model
      * @var array
      */
     public static $TypeClasses = [
-        self::TYPE_EVENT    => 'event',
+        self::TYPE_EVENT => 'event',
         self::TYPE_TRAINING => 'training',
-        self::TYPE_SOCIAL   => 'social',
-        self::TYPE_MEETING  => 'meeting',
-        self::TYPE_HIDDEN   => 'bts',
-        self::TYPE_BOOKING  => 'booking',
+        self::TYPE_SOCIAL => 'social',
+        self::TYPE_MEETING => 'meeting',
+        self::TYPE_HIDDEN => 'bts',
+        self::TYPE_BOOKING => 'booking',
     ];
 
     /**
@@ -102,7 +101,7 @@ class Event extends Model
     public static $CrewListStatus = [
         self::CREW_LIST_HIDDEN => 'Hidden',
         self::CREW_LIST_CLOSED => 'Closed',
-        self::CREW_LIST_OPEN   => 'Open',
+        self::CREW_LIST_OPEN => 'Open',
     ];
 
     /**
@@ -112,10 +111,10 @@ class Event extends Model
      */
     public static $Paperwork = [
         'risk_assessment' => 'Risk Assessment',
-        'insurance'       => 'Insurance',
-        'finance_em'      => 'EM Finance',
-        'finance_treas'   => 'Treasurer Finance',
-        'event_report'    => 'Event Report',
+        'insurance' => 'Insurance',
+        'finance_em' => 'EM Finance',
+        'finance_treas' => 'Treasurer Finance',
+        'event_report' => 'Event Report',
     ];
 
     /**
@@ -124,15 +123,16 @@ class Event extends Model
      * @var array
      */
     protected static $ValidationRules = [
-        'name'              => 'required',
-        'em_id'             => 'nullable|exists:users,id',
-        'description'       => 'required',
-        'venue'             => 'required',
-        'crew_list_status'  => 'in:' . self::CREW_LIST_HIDDEN . ',' . self::CREW_LIST_CLOSED . ',' . self::CREW_LIST_OPEN,
-        'date_start'        => 'required|date',
-        'date_end'          => 'required|date|after:date_start',
-        'time_start'        => 'required|date_format:H:i',
-        'time_end'          => 'required|date_format:H:i|after:time_start',
+        'name' => 'required',
+        'em_id' => 'nullable|exists:users,id',
+        'description' => 'required',
+        'venue' => 'required',
+        'crew_list_status' =>
+            'in:' . self::CREW_LIST_HIDDEN . ',' . self::CREW_LIST_CLOSED . ',' . self::CREW_LIST_OPEN,
+        'date_start' => 'required|date',
+        'date_end' => 'required|date|after:date_start',
+        'time_start' => 'required|date_format:H:i',
+        'time_end' => 'required|date_format:H:i|after:time_start',
         'production_charge' => 'nullable|numeric|between:-999999,999999|regex:/^[\-]?\d+(\.\d{1,2})?$/',
     ];
 
@@ -142,30 +142,30 @@ class Event extends Model
      * @var array
      */
     protected static $ValidationMessages = [
-        'name.required'             => 'Please enter the event\'s name',
-        'em_id.exists'              => 'Please select a valid user',
-        'type.required'             => 'Please select an event type',
-        'type.in'                   => 'Please select a valid event type',
-        'description.required'      => 'Please enter the event description',
-        'venue.required'            => 'Please enter the venue',
-        'venue_type.required'       => 'Please select the venue type',
-        'venue_type.in'             => 'Please select a valid venue type',
-        'client_type.required'      => 'Please select a client type',
-        'client_type.in'            => 'Please select a valid client type',
-        'crew_list_status.in'       => 'Please select a status for the crew list',
-        'date_start.required'       => 'Please enter when this event starts',
-        'date_start.date'           => 'Please enter a valid date',
-        'date_end.required'         => 'Please enter when this event ends',
-        'date_end.date'             => 'Please enter a valid date',
-        'date_end.after'            => 'This must be after the start date',
-        'time_start.required'       => 'Please enter the start time',
-        'time_start.date_format'    => 'Please enter a valid time',
-        'time_end.required'         => 'Please enter the end time',
-        'time_end.date_format'      => 'Please enter a valid time',
-        'time_end.after'            => 'This must be after the start time',
+        'name.required' => 'Please enter the event\'s name',
+        'em_id.exists' => 'Please select a valid user',
+        'type.required' => 'Please select an event type',
+        'type.in' => 'Please select a valid event type',
+        'description.required' => 'Please enter the event description',
+        'venue.required' => 'Please enter the venue',
+        'venue_type.required' => 'Please select the venue type',
+        'venue_type.in' => 'Please select a valid venue type',
+        'client_type.required' => 'Please select a client type',
+        'client_type.in' => 'Please select a valid client type',
+        'crew_list_status.in' => 'Please select a status for the crew list',
+        'date_start.required' => 'Please enter when this event starts',
+        'date_start.date' => 'Please enter a valid date',
+        'date_end.required' => 'Please enter when this event ends',
+        'date_end.date' => 'Please enter a valid date',
+        'date_end.after' => 'This must be after the start date',
+        'time_start.required' => 'Please enter the start time',
+        'time_start.date_format' => 'Please enter a valid time',
+        'time_end.required' => 'Please enter the end time',
+        'time_end.date_format' => 'Please enter a valid time',
+        'time_end.after' => 'This must be after the start time',
         'production_charge.numeric' => 'Please enter a valid number',
         'production_charge.between' => 'Charge is out of bounds',
-        'production_charge.regex'   => 'Charge may only have 2 decimal places and no spaces',
+        'production_charge.regex' => 'Charge may only have 2 decimal places and no spaces',
     ];
 
     /**
@@ -191,7 +191,7 @@ class Event extends Model
         'client_type',
         'venue_type',
         'paperwork',
-        'production_charge'
+        'production_charge',
     ];
 
     /**
@@ -217,8 +217,8 @@ class Event extends Model
      */
     public static function getValidationRules()
     {
-        static::$ValidationRules['type']        = 'required|in:' . implode(',', array_keys(static::$Types));
-        static::$ValidationRules['venue_type']  = 'required|in:' . implode(',', array_keys(static::$VenueTypes));
+        static::$ValidationRules['type'] = 'required|in:' . implode(',', array_keys(static::$Types));
+        static::$ValidationRules['venue_type'] = 'required|in:' . implode(',', array_keys(static::$VenueTypes));
         static::$ValidationRules['client_type'] = 'required|in:' . implode(',', array_keys(static::$Clients));
 
         return call_user_func_array('self::traitValidationRules', func_get_args());
@@ -241,8 +241,7 @@ class Event extends Model
      */
     public function times()
     {
-        return $this->hasMany('App\Models\Events\Time')
-                    ->orderBy('start', 'ASC');
+        return $this->hasMany('App\Models\Events\Time')->orderBy('start', 'ASC');
     }
 
     /**
@@ -262,8 +261,7 @@ class Event extends Model
      */
     public function emails()
     {
-        return $this->hasMany('App\Models\Events\Email')
-                    ->orderBy('created_at', 'DESC');
+        return $this->hasMany('App\Models\Events\Email')->orderBy('created_at', 'DESC');
     }
 
     /**
@@ -273,8 +271,7 @@ class Event extends Model
      */
     public function scopeOldestFirst(Builder $query)
     {
-        $this->joinEventTimes($query)
-             ->orderBy('event_times.end', 'ASC');
+        $this->joinEventTimes($query)->orderBy('event_times.end', 'ASC');
     }
 
     /**
@@ -284,8 +281,7 @@ class Event extends Model
      */
     public function scopeNewestFirst(Builder $query)
     {
-        $this->joinEventTimes($query)
-             ->orderBy('event_times.end', 'DESC');
+        $this->joinEventTimes($query)->orderBy('event_times.end', 'DESC');
     }
 
     /**
@@ -298,15 +294,13 @@ class Event extends Model
     {
         // Set the start and end times
         $day_start = $date->setTime(0, 0, 0)->toDateTimeString();
-        $day_end   = $date->setTime(23, 59, 59)->toDateTimeString();
+        $day_end = $date->setTime(23, 59, 59)->toDateTimeString();
 
         // Join the table
         $query = $this->joinEventTimes($query);
 
         // Set the query
-        $query->where('event_times.end', '>=', $day_start)
-              ->where('event_times.start', '<', $day_end)
-              ->distinct();
+        $query->where('event_times.end', '>=', $day_start)->where('event_times.start', '<', $day_end)->distinct();
     }
 
     /**
@@ -318,9 +312,9 @@ class Event extends Model
     public function scopeUserOnCrew(Builder $query, User $user)
     {
         $this->joinEventCrew($query)
-             ->where('events.em_id', $user->id)
-             ->orWhere('event_crew.user_id', $user->id)
-             ->distinct();
+            ->where('events.em_id', $user->id)
+            ->orWhere('event_crew.user_id', $user->id)
+            ->distinct();
     }
 
     /**
@@ -331,8 +325,8 @@ class Event extends Model
     public function scopePast(Builder $query)
     {
         $this->joinEventTimes($query)
-             ->where('event_times.end', '<', Carbon::now()->setTime(0, 0, 0)->toDateTimeString())
-             ->distinct();
+            ->where('event_times.end', '<', Carbon::now()->setTime(0, 0, 0)->toDateTimeString())
+            ->distinct();
     }
 
     /**
@@ -345,8 +339,8 @@ class Event extends Model
     public function scopeFuture(Builder $query)
     {
         $this->joinEventTimes($query)
-             ->where('event_times.start', '>=', Carbon::now()->setTime(0, 0, 0)->toDateTimeString())
-             ->distinct();
+            ->where('event_times.start', '>=', Carbon::now()->setTime(0, 0, 0)->toDateTimeString())
+            ->distinct();
     }
 
     /**
@@ -371,7 +365,7 @@ class Event extends Model
      */
     public function setEmIdAttribute($id)
     {
-        $this->attributes['em_id'] = empty($id) ? null : (int)$id;
+        $this->attributes['em_id'] = empty($id) ? null : (int) $id;
     }
 
     /**
@@ -391,7 +385,9 @@ class Event extends Model
      */
     public function getTypeShortAttribute()
     {
-        return isset(self::$TypesShort[$this->type]) ? self::$TypesShort[$this->type] : self::$TypesShort[self::TYPE_EVENT];
+        return isset(self::$TypesShort[$this->type])
+            ? self::$TypesShort[$this->type]
+            : self::$TypesShort[self::TYPE_EVENT];
     }
 
     /**
@@ -401,7 +397,9 @@ class Event extends Model
      */
     public function getTypeClassAttribute()
     {
-        return isset(self::$TypeClasses[$this->type]) ? self::$TypeClasses[$this->type] : self::$TypeClasses[self::TYPE_EVENT];
+        return isset(self::$TypeClasses[$this->type])
+            ? self::$TypeClasses[$this->type]
+            : self::$TypeClasses[self::TYPE_EVENT];
     }
 
     /**
@@ -471,9 +469,12 @@ class Event extends Model
      */
     public function getCrewMailingListAttribute()
     {
-        return $this->crew()->get()->map(function ($crew) {
-            return $crew->isGuest() ? null : $crew->user->email;
-        })->toArray();
+        return $this->crew()
+            ->get()
+            ->map(function ($crew) {
+                return $crew->isGuest() ? null : $crew->user->email;
+            })
+            ->toArray();
     }
 
     /**
@@ -484,12 +485,12 @@ class Event extends Model
     public function getCoreCrewAttribute()
     {
         return $this->crew()
-                    ->core()
-                    ->order()
-                    ->get()
-                    ->groupBy(function ($item) {
-                        return $item->name;
-                    });
+            ->core()
+            ->order()
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->name;
+            });
     }
 
     /**
@@ -499,10 +500,7 @@ class Event extends Model
      */
     public function getGeneralCrewAttribute()
     {
-        return $this->crew()
-                    ->general()
-                    ->order()
-                    ->get();
+        return $this->crew()->general()->order()->get();
     }
 
     /**
@@ -516,10 +514,7 @@ class Event extends Model
             return [];
         }
 
-        return $this->crew()
-                    ->guest()
-                    ->orderBy('guest_name', 'ASC')
-                    ->get();
+        return $this->crew()->guest()->orderBy('guest_name', 'ASC')->get();
     }
 
     /**
@@ -554,14 +549,21 @@ class Event extends Model
         }
 
         return [
-            'entry.806898027'  => $this->name,
-            'entry.194415760'  => $this->hasEM() ? $this->em->name : null,
+            'entry.806898027' => $this->name,
+            'entry.194415760' => $this->hasEM() ? $this->em->name : null,
             'entry.1260407120' => $this->hasEM() ? $this->em->email : null,
-            'entry.3626157'    => $this->venue,
+            'entry.3626157' => $this->venue,
             'entry.2079484309' => $this->crew()->count(),
-            'entry.1054743347' => implode(PHP_EOL, $this->crew()->core()->get()->map(function ($crew) {
-                return $crew->name . ': ' . $crew->user->name;
-            })->toArray()),
+            'entry.1054743347' => implode(
+                PHP_EOL,
+                $this->crew()
+                    ->core()
+                    ->get()
+                    ->map(function ($crew) {
+                        return $crew->name . ': ' . $crew->user->name;
+                    })
+                    ->toArray(),
+            ),
         ];
     }
 
@@ -604,7 +606,7 @@ class Event extends Model
         // To improve readability, only show pence if non-zero
         $value = number_format($charge, floor($charge) == $charge ? 0 : 2);
 
-        return trim(sprintf("%s £ %s", $sign, $value));
+        return trim(sprintf('%s £ %s', $sign, $value));
     }
 
     /**
@@ -758,9 +760,11 @@ class Event extends Model
         if ($complete === null) {
             return count($this->paperwork);
         } else {
-            return count(array_filter($this->paperwork, function ($value) use ($complete) {
-                return $complete ? $value : !$value;
-            }));
+            return count(
+                array_filter($this->paperwork, function ($value) use ($complete) {
+                    return $complete ? $value : !$value;
+                }),
+            );
         }
     }
 
@@ -776,33 +780,20 @@ class Event extends Model
         // Count the crew list if it hasn't already been counted
         if ($this->crewListCount === null) {
             $this->crewListCount = [
-                'total'     => $this->crew()
-                                    ->count(),
-                'general'   => $this->crew()
-                                    ->general()
-                                    ->count(),
-                'core'      => $this->crew()
-                                    ->core()
-                                    ->count(),
-                'members'   => $this->crew()
-                                    ->member()
-                                    ->count(),
-                'guests'    => $this->crew()
-                                    ->guest()
-                                    ->count(),
-                'em'        => $this->crew()
-                                    ->em()
-                                    ->count(),
-                'confirmed' => $this->crew()
-                                    ->where('confirmed', true)
-                                    ->count(),
+                'total' => $this->crew()->count(),
+                'general' => $this->crew()->general()->count(),
+                'core' => $this->crew()->core()->count(),
+                'members' => $this->crew()->member()->count(),
+                'guests' => $this->crew()->guest()->count(),
+                'em' => $this->crew()->em()->count(),
+                'confirmed' => $this->crew()->where('confirmed', true)->count(),
             ];
         }
 
         // Return the count
         if ($key === null) {
             return $this->crewListCount['total'];
-        } else if (isset($this->crewListCount[$key])) {
+        } elseif (isset($this->crewListCount[$key])) {
             return $this->crewListCount[$key];
         } else {
             return 0;
@@ -824,11 +815,11 @@ class Event extends Model
             return false;
         }
 
-        $fields       = [
-            'data[Event][event_name]'  => $this->name,
-            'data[Event][start_date]'  => Carbon::createFromFormat('d/m/Y', $this->start_date)->format('d-m-Y'),
-            'data[Event][end_date]'    => Carbon::createFromFormat('d/m/Y', $this->end_date)->format('d-m-Y'),
-            'data[Event][verified]'    => 0,
+        $fields = [
+            'data[Event][event_name]' => $this->name,
+            'data[Event][start_date]' => Carbon::createFromFormat('d/m/Y', $this->start_date)->format('d-m-Y'),
+            'data[Event][end_date]' => Carbon::createFromFormat('d/m/Y', $this->end_date)->format('d-m-Y'),
+            'data[Event][verified]' => 0,
             'data[Event][bts_crew_id]' => $this->id,
         ];
         $field_string = http_build_query($fields);
@@ -860,7 +851,10 @@ class Event extends Model
         }
 
         // Check that the event type is allowed
-        if (is_null($user->getDiaryPreference('event_types')) || !in_array($this->type_short, $user->getDiaryPreference('event_types'))) {
+        if (
+            is_null($user->getDiaryPreference('event_types')) ||
+            !in_array($this->type_short, $user->getDiaryPreference('event_types'))
+        ) {
             return false;
         }
 
@@ -883,8 +877,7 @@ class Event extends Model
     private function joinEventTimes(Builder $query)
     {
         if (!$this->alreadyJoined($query, 'event_times')) {
-            $query->select('events.*')
-                  ->join('event_times', 'events.id', '=', 'event_times.event_id');
+            $query->select('events.*')->join('event_times', 'events.id', '=', 'event_times.event_id');
         }
         return $query;
     }
@@ -899,8 +892,7 @@ class Event extends Model
     private function joinEventCrew(Builder $query)
     {
         if (!$this->alreadyJoined($query, 'event_crew')) {
-            $query->select('events.*')
-                  ->join('event_crew', 'events.id', '=', 'event_crew.event_id');
+            $query->select('events.*')->join('event_crew', 'events.id', '=', 'event_crew.event_id');
         }
         return $query;
     }

@@ -22,11 +22,11 @@ class CommitteeRequest extends Request
     public function rules()
     {
         return [
-            'name'        => 'required',
-            'email'       => 'required|email',
+            'name' => 'required',
+            'email' => 'required|email',
             'description' => 'required',
-            'user_id'     => 'nullable|exists:users,id',
-            'order'       => 'required|min:0',
+            'user_id' => 'nullable|exists:users,id',
+            'order' => 'required|min:0',
         ];
     }
 
@@ -38,14 +38,14 @@ class CommitteeRequest extends Request
     public function messages()
     {
         return [
-            'name.required'        => 'Please enter the role\'s name',
-            'email.required'       => 'Please enter the role\'s email address',
-            'email.email'          => 'Please enter a valid email address',
+            'name.required' => 'Please enter the role\'s name',
+            'email.required' => 'Please enter the role\'s email address',
+            'email.email' => 'Please enter a valid email address',
             'description.required' => 'Please enter a role description',
-            'user_id.required'     => 'Please choose the user who holds this role',
-            'user_id.exists'       => 'Please choose a valid user',
-            'order.required'       => 'Please select where this role should appear',
-            'order.min'            => 'Please select a valid position',
+            'user_id.required' => 'Please choose the user who holds this role',
+            'user_id.exists' => 'Please choose a valid user',
+            'order.required' => 'Please select where this role should appear',
+            'order.min' => 'Please select a valid position',
         ];
     }
 }

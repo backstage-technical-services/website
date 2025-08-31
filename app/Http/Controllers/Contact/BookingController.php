@@ -36,12 +36,12 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-        Mail::to(config('bts.emails.contact.bookings'))
-            ->queue(new Booking($data));
-        Mail::to($request->get('contact_email'), $request->get('contact_name'))
-            ->queue(new BookingReceipt($data));
+        Mail::to(config('bts.emails.contact.bookings'))->queue(new Booking($data));
+        Mail::to($request->get('contact_email'), $request->get('contact_name'))->queue(new BookingReceipt($data));
 
-        Log::info("Booking request has been sent: " . json_encode($request->only('event_name', 'event_venue', 'event_dates')));
+        Log::info(
+            'Booking request has been sent: ' . json_encode($request->only('event_name', 'event_venue', 'event_dates')),
+        );
         Notify::success('Thank you for your booking. You should receive a receipt soon.');
         return redirect()->route('home');
     }

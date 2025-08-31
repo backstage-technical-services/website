@@ -49,7 +49,9 @@ trait AccountsForTimezones
         if (function_exists('request') && function_exists('session')) {
             $request = request();
             session([
-                'tz_correction' => $request->has('TZ-OFFSET') ? (float)$request->get('TZ-OFFSET') : (float)$request->header('TZ-OFFSET'),
+                'tz_correction' => $request->has('TZ-OFFSET')
+                    ? (float) $request->get('TZ-OFFSET')
+                    : (float) $request->header('TZ-OFFSET'),
             ]);
         }
     }
@@ -67,17 +69,17 @@ trait AccountsForTimezones
             $session = session();
 
             if ($request->has('TZ-OFFSET')) {
-                return (float)$request->get('TZ-OFFSET');
-            } else if ($request->header('TZ-OFFSET')) {
-                return (float)$request->header('TZ-OFFSET');
-            } else if ($session->has('tz_correction')) {
-                return (float)$session->get('tz_correction');
+                return (float) $request->get('TZ-OFFSET');
+            } elseif ($request->header('TZ-OFFSET')) {
+                return (float) $request->header('TZ-OFFSET');
+            } elseif ($session->has('tz_correction')) {
+                return (float) $session->get('tz_correction');
             }
         }
 
         // Default to assuming the user is in Europe/London
         // and the server is storing values as UTC.
-        $date   = new DateTime('now', new DateTimeZone('Europe/London'));
+        $date = new DateTime('now', new DateTimeZone('Europe/London'));
         $offset = round($date->getOffset() / 60, 2);
 
         return $offset * -1;
@@ -100,9 +102,10 @@ trait AccountsForTimezones
             foreach ($attributes as $attribute) {
                 if (isset($model->attributes[$attribute])) {
                     // Force updating all attributes by resetting the "original". Not pretty, but makes sure they update.
-                    $model->original[$attribute]   = Carbon::create(1970, 1, 1)->format($model->getDateFormat());
-                    $model->attributes[$attribute] = static::correctForDatabase($model->asDateTime($model->attributes[$attribute]))
-                                                           ->format($model->getDateFormat());
+                    $model->original[$attribute] = Carbon::create(1970, 1, 1)->format($model->getDateFormat());
+                    $model->attributes[$attribute] = static::correctForDatabase(
+                        $model->asDateTime($model->attributes[$attribute]),
+                    )->format($model->getDateFormat());
                     if (isset($model->attributes[$attribute . '__uncorrected'])) {
                         unset($model->attributes[$attribute . '__uncorrected']);
                     }
@@ -142,7 +145,6 @@ trait AccountsForTimezones
             }
         }
 
-
         return $model;
     }
 
@@ -156,7 +158,10 @@ trait AccountsForTimezones
      */
     public function uncorrected($attributeName)
     {
-        if ($this->shouldCorrectTimezone($attributeName) && isset($this->attributes[$attributeName . '__uncorrected'])) {
+        if (
+            $this->shouldCorrectTimezone($attributeName) &&
+            isset($this->attributes[$attributeName . '__uncorrected'])
+        ) {
             return $this->asDateTime($this->attributes[$attributeName . '__uncorrected']);
         }
     }
@@ -197,12 +202,13 @@ trait AccountsForTimezones
     {
         if (isset($this->attributes[$attributeName])) {
             $this->attributes[$attributeName . '__uncorrected'] = $this->attributes[$attributeName];
-            $this->attributes[$attributeName]                   = static::correctForDisplay($this->asDateTime($this->attributes[$attributeName]))
-                                                                        ->format($this->getDateFormat());
+            $this->attributes[$attributeName] = static::correctForDisplay(
+                $this->asDateTime($this->attributes[$attributeName]),
+            )->format($this->getDateFormat());
 
             if (isset($this->original[$attributeName])) {
                 $this->original[$attributeName . '__uncorrected'] = $this->attributes[$attributeName];
-                $this->original[$attributeName]                   = $this->attributes[$attributeName];
+                $this->original[$attributeName] = $this->attributes[$attributeName];
             }
         }
     }

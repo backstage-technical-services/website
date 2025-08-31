@@ -32,11 +32,10 @@ class FeedbackController extends Controller
      */
     public function process(FeedbackRequest $request)
     {
-        Mail::to(config('bts.emails.contact.feedback'))
-            ->queue(new Feedback($request->all()));
+        Mail::to(config('bts.emails.contact.feedback'))->queue(new Feedback($request->all()));
         Notify::success('Thank you for providing feedback');
 
-        Log::info("Feedback has been sent");
+        Log::info('Feedback has been sent');
         return redirect()->route('home');
     }
 }

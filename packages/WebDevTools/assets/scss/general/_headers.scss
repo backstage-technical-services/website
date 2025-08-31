@@ -1,10 +1,11 @@
-h1, .h1 {
+h1,
+.h1 {
     color: $colour_h1;
     font-size: 2rem;
     font-weight: 300;
     padding: 0;
     text-align: center;
-    
+
     @include media-breakpoint-up(md) {
         font-size: 2.375rem;
     }
@@ -13,8 +14,9 @@ h1, .h1 {
         border: none;
         margin: 0.75em 0;
 
-        @media(min-width: 768px) {
-            &:after, &:before {
+        @media (min-width: 768px) {
+            &:after,
+            &:before {
                 background: $colour_h1;
                 content: "";
                 display: inline-block;
@@ -27,12 +29,13 @@ h1, .h1 {
     }
 }
 
-h2, .h2 {
+h2,
+.h2 {
     color: $colour_h2;
     font-size: 1.5rem;
     font-weight: 300;
     padding: 0;
-    
+
     @include media-breakpoint-up(md) {
         font-size: 1.75rem;
     }
@@ -44,20 +47,30 @@ h2, .h2 {
     }
 }
 
-h3, .h3 {
+h3,
+.h3 {
     color: $colour_h3;
     //font-size: 19px;
     //font-weight: 300;
 }
 
-h4, .h4 {
+h4,
+.h4 {
     color: $colour_h4;
     //font-size: 17px;
     //font-weight: 400;
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
-    a, a:visited {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
+    a,
+    a:visited {
         &:not(.btn) {
             color: inherit;
         }

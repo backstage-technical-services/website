@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\View\Composers;
-
 
 use App\Models\Users\User;
 use Illuminate\View\View;
@@ -15,17 +13,17 @@ class MemberMenuComposer implements ViewComposer
      * @var Menu
      */
     private $menu;
-    
+
     public function __construct(Menu $menu)
     {
         $this->menu = $menu;
     }
-    
+
     public function compose(View $view)
     {
         /** @var User $user */
         $user = $view->getData()['user'];
-        
+
         $menu = $this->menu->make('membersMenu', function (Builder $menu) use ($user) {
             if ($user->isActiveUser()) {
                 $menu->add('My Details', route('member.profile', ['tab' => 'profile']));
@@ -37,7 +35,7 @@ class MemberMenuComposer implements ViewComposer
                 $menu->add('Training', route('member.view', ['username' => $user->username, 'tab' => 'training']));
             }
         });
-        
+
         $view->with('menu', $menu->asUl(['class' => 'nav nav-tabs']));
     }
 }

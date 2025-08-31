@@ -68,7 +68,7 @@ class UserProvider extends EloquentUserProvider
             if (!self::$MessageCreated) {
                 Notify::error(
                     'Please [contact the secretary](mailto:sec@bts-crew.com) to have your account re-enabled.',
-                    'Account disabled'
+                    'Account disabled',
                 );
                 self::$MessageCreated = true;
             }

@@ -28,12 +28,20 @@ class NearMissController extends Controller
      */
     public function showForm()
     {
-        $request    = request();
-        $user_name  = $request->old('user_name') ? $request->old('user_name') : (auth()->check() ? auth()->user()->name : null);
-        $user_email = $request->old('user_email') ? $request->old('user_email') : (auth()->check() ? auth()->user()->email : null);
+        $request = request();
+        $user_name = $request->old('user_name')
+            ? $request->old('user_name')
+            : (auth()->check()
+                ? auth()->user()->name
+                : null);
+        $user_email = $request->old('user_email')
+            ? $request->old('user_email')
+            : (auth()->check()
+                ? auth()->user()->email
+                : null);
 
         return view('contact.near-miss')->with([
-            'user_name'  => $user_name,
+            'user_name' => $user_name,
             'user_email' => $user_email,
         ]);
     }
@@ -45,10 +53,13 @@ class NearMissController extends Controller
      */
     public function process(NearMissRequest $request)
     {
-        Mail::to(config('bts.emails.safety.near_miss_reports'))
-            ->queue(new NearMissReport($request));
+        Mail::to(config('bts.emails.safety.near_miss_reports'))->queue(new NearMissReport($request));
 
-        Log::info("Near miss has been reported for location '{$request->get('location')}' on {$request->get('date')} at {$request->get('time')}");
+        Log::info(
+            "Near miss has been reported for location '{$request->get('location')}' on {$request->get(
+                'date',
+            )} at {$request->get('time')}",
+        );
         Notify::success('Thank you for reporting the near miss');
         return redirect()->route('home');
     }

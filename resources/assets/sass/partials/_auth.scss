@@ -1,13 +1,14 @@
-&[page-id="password-email"], &[page-id="password-reset"] {
+&[page-id="password-email"],
+&[page-id="password-reset"] {
     div#content {
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             max-width: 400px;
         }
     }
 }
 &[page-id="login"] {
     div#content {
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             max-width: 350px;
         }
         button {

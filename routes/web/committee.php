@@ -1,25 +1,28 @@
 <?php
-    Route::group([
+Route::group(
+    [
         'prefix' => 'committee',
-    ], function () {
+    ],
+    function () {
         // View
         Route::get('', [
-            'as'   => 'committee.view',
+            'as' => 'committee.view',
             'uses' => 'CommitteeController@view',
         ]);
         // Add
         Route::post('add', [
-            'as'   => 'committee.add',
+            'as' => 'committee.add',
             'uses' => 'CommitteeController@store',
         ]);
         // Edit
         Route::post('edit', [
-            'as'   => 'committee.edit',
+            'as' => 'committee.edit',
             'uses' => 'CommitteeController@update',
         ]);
         // Delete
         Route::post('delete', [
-            'as'   => 'committee.delete',
+            'as' => 'committee.delete',
             'uses' => 'CommitteeController@destroy',
         ]);
-    });
+    },
+);

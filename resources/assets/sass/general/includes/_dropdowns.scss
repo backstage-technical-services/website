@@ -6,7 +6,8 @@
 }
 .dropdown-menu {
     & > li {
-        & > a, & > button {
+        & > a,
+        & > button {
             background-color: transparent;
             border: none;
             display: block;
@@ -19,8 +20,9 @@
             text-align: left;
             white-space: nowrap;
             width: 100%;
-            
-            &:hover, &:focus {
+
+            &:hover,
+            &:focus {
                 text-decoration: none;
                 color: #000;
                 background-color: #e8e8e8;
@@ -34,10 +36,14 @@
                 width: 1.5em;
             }
         }
-        
-        &.active, &.current {
-            & > a, & > button {
-                &, &:hover, &:focus {
+
+        &.active,
+        &.current {
+            & > a,
+            & > button {
+                &,
+                &:hover,
+                &:focus {
                     background: transparent;
                     color: #000;
                     font-weight: bold;
@@ -49,14 +55,18 @@
                 }
             }
         }
-        
-        &.disabled > a, &.disabled > button {
-            &, &:hover, &:focus {
+
+        &.disabled > a,
+        &.disabled > button {
+            &,
+            &:hover,
+            &:focus {
                 color: #777;
             }
-            
+
             // Nuke hover/focus effects
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 text-decoration: none;
                 background-color: transparent;
                 background-image: none; // Remove CSS gradient

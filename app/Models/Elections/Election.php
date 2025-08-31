@@ -37,10 +37,10 @@ class Election extends Model
      */
     protected $casts = [
         'nominations_start' => 'datetime',
-        'nominations_end'   => 'datetime',
-        'voting_start'      => 'datetime',
-        'voting_end'        => 'datetime',
-        'hustings_time'     => 'datetime',
+        'nominations_end' => 'datetime',
+        'voting_start' => 'datetime',
+        'voting_end' => 'datetime',
+        'hustings_time' => 'datetime',
     ];
 
     /**
@@ -65,13 +65,7 @@ class Election extends Model
      *
      * @var array
      */
-    protected $correct_tz = [
-        'nominations_start',
-        'nominations_end',
-        'voting_start',
-        'voting_end',
-        'hustings_time',
-    ];
+    protected $correct_tz = ['nominations_start', 'nominations_end', 'voting_start', 'voting_end', 'hustings_time'];
 
     /**
      * Define the relationship with the election's nominations.
@@ -90,7 +84,7 @@ class Election extends Model
      */
     public function getTitleAttribute()
     {
-        return ($this->voting_end->format('Y') . ' ' . ($this->isFull() ? 'Election' : 'By-Election'));
+        return $this->voting_end->format('Y') . ' ' . ($this->isFull() ? 'Election' : 'By-Election');
     }
 
     /**
@@ -151,7 +145,7 @@ class Election extends Model
     public function getPositionSlug($index)
     {
         $position = $this->getPosition($index);
-    
+
         return $position ? Str::slug(strtolower($position)) : null;
     }
 
@@ -165,12 +159,12 @@ class Election extends Model
     public function getNominations($positionIndex)
     {
         return $this->nominations()
-                    ->select('election_nominations.*')
-                    ->where('position', $positionIndex)
-                    ->join('users', 'election_nominations.user_id', '=', 'users.id')
-                    ->orderBy('users.surname', 'ASC')
-                    ->orderBy('users.forename', 'ASC')
-                    ->get();
+            ->select('election_nominations.*')
+            ->where('position', $positionIndex)
+            ->join('users', 'election_nominations.user_id', '=', 'users.id')
+            ->orderBy('users.surname', 'ASC')
+            ->orderBy('users.forename', 'ASC')
+            ->get();
     }
 
     /**
@@ -192,8 +186,7 @@ class Election extends Model
     {
         $now = Carbon::now();
 
-        return $now->gte($this->nominations_start)
-               && $now->lt($this->voting_start);
+        return $now->gte($this->nominations_start) && $now->lt($this->voting_start);
     }
 
     /**
@@ -205,8 +198,7 @@ class Election extends Model
     {
         $now = Carbon::now();
 
-        return $now->gte($this->voting_start)
-               && $now->lte($this->voting_end);
+        return $now->gte($this->voting_start) && $now->lte($this->voting_end);
     }
 
     /**

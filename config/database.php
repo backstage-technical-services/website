@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -32,7 +31,6 @@ return [
     */
 
     'connections' => [
-
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
@@ -59,7 +57,7 @@ return [
             'engine' => null,
             'dump' => [
                 'skip_ssl' => true,
-            ]
+            ],
         ],
 
         'pgsql' => [
@@ -74,7 +72,6 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
-
     ],
 
     /*
@@ -102,7 +99,6 @@ return [
     */
 
     'redis' => [
-
         'client' => 'predis',
 
         'default' => [
@@ -111,7 +107,5 @@ return [
             'port' => env('REDIS_PORT', 6379),
             'database' => 0,
         ],
-
     ],
-
 ];

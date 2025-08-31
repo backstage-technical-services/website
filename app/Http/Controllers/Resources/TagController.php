@@ -24,8 +24,7 @@ class TagController extends Controller
         $this->authorize('index', Tag::class);
 
         // Get the list of categories
-        $tags = Tag::orderBy('name', 'ASC')
-                   ->paginate(20);
+        $tags = Tag::orderBy('name', 'ASC')->paginate(20);
         $this->checkPage($tags);
         return view('resources.tags.index')->with('tags', $tags);
     }
@@ -48,11 +47,7 @@ class TagController extends Controller
 
         // Validate
         $fields = ['name', 'slug'];
-        $this->validate(
-            $request,
-            Tag::getValidationRules($fields),
-            Tag::getValidationMessages($fields)
-        );
+        $this->validate($request, Tag::getValidationRules($fields), Tag::getValidationMessages($fields));
 
         // Create
         $tag = Tag::create(clean($request->only($fields)));
@@ -81,14 +76,10 @@ class TagController extends Controller
         $this->createSlug($request);
 
         // Validate
-        $fields        = ['name', 'slug'];
-        $rules         = Tag::getValidationRules($fields);
+        $fields = ['name', 'slug'];
+        $rules = Tag::getValidationRules($fields);
         $rules['slug'] .= ",{$id},id";
-        $this->validate(
-            $request,
-            $rules,
-            Tag::getValidationMessages($fields)
-        );
+        $this->validate($request, $rules, Tag::getValidationMessages($fields));
 
         // Update
         $tag->update(clean($request->only($fields)));
@@ -115,7 +106,7 @@ class TagController extends Controller
         // Delete
         $tag->delete();
 
-        Log::info("User " . request()->user()->id . " deleted resource tag $id");
+        Log::info('User ' . request()->user()->id . " deleted resource tag $id");
         Notify::success('Tag deleted');
         return $this->ajaxResponse('Tag deleted');
     }

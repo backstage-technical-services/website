@@ -3,7 +3,7 @@
 &[page-id="view-profile"] {
     div#content {
         position: relative;
-        
+
         & > div#edit-tools {
             font-size: 0.8em;
             margin-top: 0;
@@ -11,18 +11,18 @@
             right: 0;
             z-index: 3800;
             top: -3em;
-            
-            @media(min-width: 768px) {
+
+            @media (min-width: 768px) {
                 font-size: 1em;
                 top: 0;
             }
         }
         & > div {
             margin-top: 2em;
-            
+
             & > div.header {
                 margin-bottom: 2em;
-                
+
                 h1 {
                     margin: 0 0 0.3em 0;
                     text-align: center;
@@ -32,8 +32,8 @@
                     margin: 0;
                     text-align: center;
                 }
-                
-                @media(min-width: 768px) {
+
+                @media (min-width: 768px) {
                     div {
                         height: 150px;
                     }
@@ -54,31 +54,31 @@
                 }
             }
             div#profile {
-                @media(min-width: 768px) {
+                @media (min-width: 768px) {
                     margin: 0 auto;
                     width: 500px;
                 }
-                
+
                 div.box {
                     h1 {
                         font-size: 22px;
                         font-weight: 100;
                         text-align: left;
                     }
-                    
+
                     table {
                         width: 100%;
                         td {
                             font-size: 17px;
                             padding: 4px 0;
                             vertical-align: top;
-                            
+
                             &:first-child {
                                 padding-right: 15px;
                                 text-align: right;
                             }
                         }
-                        
+
                         span.tool-colour {
                             font-size: 1.33333em;
                             line-height: 0.75em;
@@ -86,8 +86,9 @@
                         }
                         a {
                             color: inherit;
-                            
-                            &:hover, &:focus {
+
+                            &:hover,
+                            &:focus {
                                 color: $btsyellow;
                             }
                         }
@@ -95,7 +96,7 @@
                 }
             }
             div#events {
-                @media(min-width: 768px) {
+                @media (min-width: 768px) {
                     margin: 0 auto;
                     width: 750px;
                 }
@@ -103,7 +104,7 @@
             div#training-skill-categories {
                 div.tab-links {
                     width: 18em;
-                    
+
                     ul.category-list {
                         font-size: 14px;
                     }
@@ -120,10 +121,10 @@
                 max-width: 150px;
             }
         }
-        
+
         div.checkbox {
             margin-left: 1em;
-            
+
             label {
                 font-weight: normal;
             }
@@ -135,31 +136,33 @@
     .table {
         margin-bottom: 1em;
         width: 100%;
-        
+
         & > tbody > tr {
             height: 3em;
-            
+
             & > td {
                 border: none;
-                
+
                 em {
                     color: inherit;
                 }
             }
         }
-        a, a:visited {
+        a,
+        a:visited {
             color: $colour_text;
-            
+
             &:hover {
                 color: $btsyellow;
                 text-decoration: none;
             }
         }
         .name {
-            span.nickname, div.email a {
+            span.nickname,
+            div.email a {
                 color: #777;
             }
-            
+
             div.email {
                 font-size: 14px;
             }
@@ -168,14 +171,14 @@
             padding-right: 1.5em;
             text-align: center;
             width: 4.5em;
-            
+
             img {
                 max-height: 2.5em;
                 max-width: 2.5em;
             }
         }
         .email {
-            @media(min-width: 768px) {
+            @media (min-width: 768px) {
                 width: 20em;
             }
         }
@@ -191,7 +194,7 @@
             }
             width: 5em;
         }
-        @media(max-width: 768px) {
+        @media (max-width: 768px) {
             em {
                 display: none;
             }
@@ -199,7 +202,7 @@
                 padding-right: 0;
                 text-align: left;
                 width: 3em;
-                
+
                 img {
                     max-height: 2em;
                     max-width: 2em;
@@ -210,7 +213,7 @@
             }
         }
     }
-    
+
     h3.no-members {
         font-size: 1.5em;
         text-align: center;
@@ -224,16 +227,16 @@
     }
     div#dash--upcoming {
         margin-top: 5em;
-        
-        @media(min-width: 768px) {
+
+        @media (min-width: 768px) {
             display: table;
             width: 100%;
-            
+
             & > div.event-list {
                 display: table-cell;
                 padding: 0 1em;
                 width: 33.333%;
-                
+
                 h2 {
                     margin-top: 0;
                 }
@@ -247,10 +250,10 @@
             table {
                 margin: 0;
                 width: 100%;
-                
+
                 td.col--event {
                     padding-left: 0.75em;
-                    
+
                     div.upper {
                         font-size: 14px;
                     }
@@ -259,20 +262,21 @@
         }
     }
     div#dash--central {
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             margin: 0 auto;
             width: 600px;
         }
-        
+
         & > table.event-paperwork {
             margin: 0;
-            
+
             th {
                 font-size: 12px;
                 text-align: center;
                 vertical-align: bottom;
             }
-            th, td {
+            th,
+            td {
                 &.paperwork-status {
                     text-align: center;
                     width: 80px;
@@ -284,11 +288,11 @@
                         color: #aaa;
                         font-size: 13px;
                         margin: 0.5em 0 0 0;
-                        
+
                         li {
                             list-style-type: none;
                             margin: 0 0 0 0.5em;
-                            
+
                             span.fa {
                                 text-align: center;
                                 width: 2em;
@@ -296,13 +300,13 @@
                         }
                     }
                 }
-                
-                @media(min-width: 768px) {
+
+                @media (min-width: 768px) {
                     font-size: 14px;
                 }
             }
-            
-            @media(max-width: 767px) {
+
+            @media (max-width: 767px) {
                 th {
                     display: none;
                 }
@@ -315,12 +319,12 @@
         }
         & > table.event-tem {
             margin: 0;
-            
+
             td {
                 &.col--venue {
                     display: none;
-                    
-                    @media(min-width: 768px) {
+
+                    @media (min-width: 768px) {
                         display: table-cell;
                         width: 200px;
                     }

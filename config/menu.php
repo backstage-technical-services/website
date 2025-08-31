@@ -1,40 +1,37 @@
-<?php return array(
+<?php return [
+    // Global options ------------------------------------------------ /
 
-  // Global options ------------------------------------------------ /
+    // The maximum depth a list can be generated
+    // -1 means no limit
+    'max_depth' => -1,
 
-  // The maximum depth a list can be generated
-  // -1 means no limit
-  'max_depth' => -1,
+    // Items --------------------------------------------------------- /
 
-  // Items --------------------------------------------------------- /
+    // Various options related to Items
+    'item' => [
+        // The default Item element
+        'element' => 'li',
 
-  // Various options related to Items
-  'item' => array(
+        // Various classes to mark active items or children
+        'active_class' => 'active',
+        'active_child_class' => 'active',
+    ],
 
-    // The default Item element
-    'element' => 'li',
+    // ItemLists ----------------------------------------------------- /
 
-    // Various classes to mark active items or children
-    'active_class'       => 'active',
-    'active_child_class' => 'active',
-  ),
+    'item_list' => [
+        // The default ItemList element
+        'element' => 'ul',
 
-  // ItemLists ----------------------------------------------------- /
+        // The default breadcrumb separator, set to '' to not output any separators for
+        // use with bootstrap.
+        'breadcrumb_separator' => '/',
 
-  'item_list' => array(
+        // A prefix to prepend the links URLs with
+        'prefix' => null,
 
-    // The default ItemList element
-    'element' => 'ul',
-
-    // The default breadcrumb separator, set to '' to not output any separators for
-    // use with bootstrap.
-    'breadcrumb_separator' => '/',
-
-    // A prefix to prepend the links URLs with
-    'prefix'         => null,
-
-    // Whether links should inherit their parent/handler's prefix
-    'prefix_parents' => false,
-    'prefix_handler' => false,
-  ),
-);
+        // Whether links should inherit their parent/handler's prefix
+        'prefix_parents' => false,
+        'prefix_handler' => false,
+    ],
+];

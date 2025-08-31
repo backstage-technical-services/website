@@ -1,11 +1,10 @@
-if (typeof(window.console) == 'undefined') {
+if (typeof window.console == 'undefined') {
     var console = {
-        log: function(str) {
-        },
+        log: function (str) {},
     };
 }
-String.prototype.toCamelCase = function() {
-    return this.toLowerCase().replace(/-(.)/g, function(match, group1) {
+String.prototype.toCamelCase = function () {
+    return this.toLowerCase().replace(/-(.)/g, function (match, group1) {
         return group1.toUpperCase();
     });
 };

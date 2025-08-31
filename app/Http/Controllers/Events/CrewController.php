@@ -39,7 +39,9 @@ class CrewController extends Controller
         $event = Event::findOrFail($eventId);
         $this->authorize('update', $event);
 
-        return $this->isGuestAction($event, $request) ? $this->storeGuest($event, $request) : $this->storeMember($event, $request);
+        return $this->isGuestAction($event, $request)
+            ? $this->storeGuest($event, $request)
+            : $this->storeMember($event, $request);
     }
 
     /**
@@ -56,9 +58,7 @@ class CrewController extends Controller
         // Authorise all updates
         $this->requireAjax();
         $event = Event::findOrFail($eventId);
-        $crew  = $event->crew()
-                       ->where('event_crew.id', $crewId)
-                       ->firstOrFail();
+        $crew = $event->crew()->where('event_crew.id', $crewId)->firstOrFail();
         $this->authorize('update', $crew);
 
         if ($request->has('action')) {
@@ -86,15 +86,13 @@ class CrewController extends Controller
     {
         // Authorise
         $event = Event::findOrFail($eventId);
-        $crew  = $event->crew()
-                       ->where('event_crew.id', $crewId)
-                       ->firstOrFail();
+        $crew = $event->crew()->where('event_crew.id', $crewId)->firstOrFail();
         $this->authorize('delete', $crew);
 
         // Delete
         $crew->delete();
 
-        Log::info("User " . request()->user()->id . " removed crew $crewId from event $eventId");
+        Log::info('User ' . request()->user()->id . " removed crew $crewId from event $eventId");
         Notify::success($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
         return $this->ajaxResponse($crew->isGuest() ? 'Guest removed' : 'Crew role deleted');
     }
@@ -136,14 +134,13 @@ class CrewController extends Controller
         $this->validate($request, Crew::getValidationRules($fields), Crew::getValidationMessages($fields));
 
         // Create
-        $crew = $event->crew()
-                      ->create([
-                          'user_id'    => null,
-                          'name'       => null,
-                          'em'         => false,
-                          'confirmed'  => $request->has('confirmed'),
-                          'guest_name' => clean($request->get('guest_name')),
-                      ]);
+        $crew = $event->crew()->create([
+            'user_id' => null,
+            'name' => null,
+            'em' => false,
+            'confirmed' => $request->has('confirmed'),
+            'guest_name' => clean($request->get('guest_name')),
+        ]);
 
         Logger::log('event-crew.create', true, $crew->getAttributes());
 
@@ -169,24 +166,35 @@ class CrewController extends Controller
         $this->validate($request, Crew::getValidationRules($fields), Crew::getValidationMessages($fields));
 
         // Check the member doesn't already have the same crew role
-        if ($event->crew()->where('user_id', $request->get('user_id'))->where('name', $request->get('name') ?: null)->count()) {
-            Log::debug("User {$request->user()->id} tried to add user {$request->get('user_id')} to event {$event->id} but they're already on the crew");
+        if (
+            $event
+                ->crew()
+                ->where('user_id', $request->get('user_id'))
+                ->where('name', $request->get('name') ?: null)
+                ->count()
+        ) {
+            Log::debug(
+                "User {$request->user()->id} tried to add user {$request->get(
+                    'user_id',
+                )} to event {$event->id} but they're already on the crew",
+            );
             return $this->ajaxError(0, 422, $user->forename . ' already has that crew role.');
         }
 
         // Create
-        $crew = $event->crew()
-                      ->create([
-                          'user_id'   => $request->get('user_id'),
-                          'name'      => $request->get('core') ? clean($request->get('name')) : null,
-                          'em'        => $request->get('core') ? $request->has('em') : false,
-                          'confirmed' => $event->isTracked() ? $request->has('confirmed') : false,
-                      ]);
+        $crew = $event->crew()->create([
+            'user_id' => $request->get('user_id'),
+            'name' => $request->get('core') ? clean($request->get('name')) : null,
+            'em' => $request->get('core') ? $request->has('em') : false,
+            'confirmed' => $event->isTracked() ? $request->has('confirmed') : false,
+        ]);
 
         Logger::log('event-crew.create', true, $crew->getAttributes());
 
         // Send an email to the user
-        Log::debug("Sending email to notify user {$request->get('user_id')} they have been added to event {$event->id}");
+        Log::debug(
+            "Sending email to notify user {$request->get('user_id')} they have been added to event {$event->id}",
+        );
         User::find($request->get('user_id'))->notify(new HasBeenVolunteered($event));
 
         Log::info("User {$request->user()->id} added crew {$crew->id} to event {$event->id}");
@@ -207,15 +215,16 @@ class CrewController extends Controller
         $value = $request->has('value') ? $request->get('value') : false;
 
         // Validate the request
-        $this->validate($request, [
-            'field' => [
-                'required',
-                'in:confirmed',
+        $this->validate(
+            $request,
+            [
+                'field' => ['required', 'in:confirmed'],
             ],
-        ], [
-            'field.required' => 'No field specified',
-            'field.in'       => 'No valid field specified',
-        ]);
+            [
+                'field.required' => 'No field specified',
+                'field.in' => 'No valid field specified',
+            ],
+        );
 
         $crew->update([
             $field => $value,
@@ -241,7 +250,7 @@ class CrewController extends Controller
 
         // Update
         $crew->update([
-            'confirmed'  => $request->has('confirmed'),
+            'confirmed' => $request->has('confirmed'),
             'guest_name' => clean($request->get('guest_name')),
         ]);
 
@@ -267,8 +276,8 @@ class CrewController extends Controller
 
         // Update
         $crew->update([
-            'name'      => $request->get('core') ? clean($request->get('name')) : null,
-            'em'        => $request->get('core') ? $request->has('em') : false,
+            'name' => $request->get('core') ? clean($request->get('name')) : null,
+            'em' => $request->get('core') ? $request->has('em') : false,
             'confirmed' => $crew->event->isTracked() ? $request->has('confirmed') : false,
         ]);
 
@@ -289,7 +298,7 @@ class CrewController extends Controller
     {
         // Create the crew role
         $crew = $event->crew()->create([
-            'name'    => null,
+            'name' => null,
             'user_id' => $request->user()->id,
         ]);
 
@@ -301,7 +310,7 @@ class CrewController extends Controller
             $event->em->notify(new UserHasVolunteered($crew));
         }
 
-        Log::debug("Notifying the user that they have volunteered");
+        Log::debug('Notifying the user that they have volunteered');
         $request->user()->notify(new VolunteeredToCrew($event));
 
         Logger::log('event.volunteer', true, $crew->getAttributes());
@@ -329,9 +338,10 @@ class CrewController extends Controller
         }
 
         // Delete all crew entries
-        $event->crew()
-              ->where('user_id', $request->user()->id)
-              ->delete();
+        $event
+            ->crew()
+            ->where('user_id', $request->user()->id)
+            ->delete();
 
         Logger::log('event.unvolunteer', true, ['event_id' => $event->id, 'user_id', $request->user()->id]);
 

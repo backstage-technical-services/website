@@ -19,11 +19,11 @@ class FormBuilder extends CollectiveFormBuilder
     {
         if (is_array($selected)) {
             return in_array($value, $selected, false) && $value != '' ? 'selected' : null;
-        } else if ($selected instanceof Collection) {
+        } elseif ($selected instanceof Collection) {
             return $selected->contains($value) ? 'selected' : null;
         }
 
-        return ((string)$value == (string)$selected && $value != '') ? 'selected' : null;
+        return (string) $value == (string) $selected && $value != '' ? 'selected' : null;
     }
 
     /**
@@ -44,7 +44,7 @@ class FormBuilder extends CollectiveFormBuilder
         if (in_array($type, ['checkbox', 'radio'])) {
             $classes[] = 'form-check-input';
         }
-        if (($errors = session()->get('errors'))) {
+        if ($errors = session()->get('errors')) {
             $classes[] = $errors->default->has($name) ? 'is-invalid' : 'is-valid';
         }
         $options['class'] = implode(' ', $classes);
@@ -111,9 +111,22 @@ class FormBuilder extends CollectiveFormBuilder
      *
      * @return \Illuminate\Support\HtmlString
      */
-    public function select($name, $list = [], $selected = null, array $selectAttributes = [], array $optionsAttributes = [], array $optgroupsAttributes = [])
-    {
-        return parent::select($name, $list, $selected, $this->setBoostrapClasses($name, 'select', $selectAttributes), $optionsAttributes, $optgroupsAttributes);
+    public function select(
+        $name,
+        $list = [],
+        $selected = null,
+        array $selectAttributes = [],
+        array $optionsAttributes = [],
+        array $optgroupsAttributes = [],
+    ) {
+        return parent::select(
+            $name,
+            $list,
+            $selected,
+            $this->setBoostrapClasses($name, 'select', $selectAttributes),
+            $optionsAttributes,
+            $optgroupsAttributes,
+        );
     }
 
     /**
@@ -127,8 +140,13 @@ class FormBuilder extends CollectiveFormBuilder
      *
      * @return \Illuminate\Support\HtmlString
      */
-    public function select2($name, $list = [], $selected = null, array $selectAttributes = [], array $optionsAttributes = [])
-    {
+    public function select2(
+        $name,
+        $list = [],
+        $selected = null,
+        array $selectAttributes = [],
+        array $optionsAttributes = [],
+    ) {
         $selectAttributes['select2'] = 'true';
         return $this->select($name, $list, $selected, $selectAttributes, $optionsAttributes);
     }
@@ -152,9 +170,21 @@ class FormBuilder extends CollectiveFormBuilder
             $minutes[$minute] = sprintf('%02d', $minute);
         }
 
-        return sprintf('%s : %s',
-            $this->select($name . '_hour', $hours, $this->getValueAttribute($name . '_hour', Carbon::now()->hour), $options),
-            $this->select($name . '_minute', $minutes, $this->getValueAttribute($name . '_minute', Carbon::now()->minute), $options));
+        return sprintf(
+            '%s : %s',
+            $this->select(
+                $name . '_hour',
+                $hours,
+                $this->getValueAttribute($name . '_hour', Carbon::now()->hour),
+                $options,
+            ),
+            $this->select(
+                $name . '_minute',
+                $minutes,
+                $this->getValueAttribute($name . '_minute', Carbon::now()->minute),
+                $options,
+            ),
+        );
     }
 
     /**
@@ -173,10 +203,27 @@ class FormBuilder extends CollectiveFormBuilder
             $days[$day] = sprintf('%02d', $day);
         }
 
-        return sprintf('%s / %s / %s',
-            $this->select($name . '_day', $days, $this->getValueAttribute($name . '_day', Carbon::now()->day), $options),
-            $this->selectMonth($name . '_month', $this->getValueAttribute($name . '_month', Carbon::now()->month), $options),
-            $this->selectYear($name . '_year', date('Y') - 1, date('Y') + 1, $this->getValueAttribute($name . '_year', Carbon::now()->year), $options));
+        return sprintf(
+            '%s / %s / %s',
+            $this->select(
+                $name . '_day',
+                $days,
+                $this->getValueAttribute($name . '_day', Carbon::now()->day),
+                $options,
+            ),
+            $this->selectMonth(
+                $name . '_month',
+                $this->getValueAttribute($name . '_month', Carbon::now()->month),
+                $options,
+            ),
+            $this->selectYear(
+                $name . '_year',
+                date('Y') - 1,
+                date('Y') + 1,
+                $this->getValueAttribute($name . '_year', Carbon::now()->year),
+                $options,
+            ),
+        );
     }
 
     /**
@@ -190,9 +237,11 @@ class FormBuilder extends CollectiveFormBuilder
      */
     public function selectDateTime($name, $selected = null, array $options = [])
     {
-        return sprintf('%s&nbsp;&nbsp;%s',
+        return sprintf(
+            '%s&nbsp;&nbsp;%s',
             $this->selectTime($name, $selected, $options),
-            $this->selectDate($name, $selected, $options));
+            $this->selectDate($name, $selected, $options),
+        );
     }
 
     /**
@@ -206,11 +255,14 @@ class FormBuilder extends CollectiveFormBuilder
      */
     public function date($name, $value = null, $options = [])
     {
-        $options = array_merge([
-            'data-input-type'  => 'datetimepicker',
-            'data-date-format' => 'YYYY-MM-DD',
-            'placeholder'      => @$options['data-date-format'] ?: 'YYYY-MM-DD',
-        ], $options);
+        $options = array_merge(
+            [
+                'data-input-type' => 'datetimepicker',
+                'data-date-format' => 'YYYY-MM-DD',
+                'placeholder' => @$options['data-date-format'] ?: 'YYYY-MM-DD',
+            ],
+            $options,
+        );
 
         return $this->text($name, $value, $options);
     }
@@ -226,11 +278,14 @@ class FormBuilder extends CollectiveFormBuilder
      */
     public function time($name, $value = null, $options = [])
     {
-        $options = array_merge([
-            'data-input-type'  => 'datetimepicker',
-            'data-date-format' => 'HH:mm:ss',
-            'placeholder'      => @$options['data-date-format'] ?: 'HH:mm:ss',
-        ], $options);
+        $options = array_merge(
+            [
+                'data-input-type' => 'datetimepicker',
+                'data-date-format' => 'HH:mm:ss',
+                'placeholder' => @$options['data-date-format'] ?: 'HH:mm:ss',
+            ],
+            $options,
+        );
 
         return $this->text($name, $value, $options);
     }
@@ -246,11 +301,14 @@ class FormBuilder extends CollectiveFormBuilder
      */
     public function datetime($name, $value = null, $options = [])
     {
-        $options = array_merge([
-            'data-input-type'  => 'datetimepicker',
-            'data-date-format' => 'YYYY-MM-DD HH:mm:ss',
-            'placeholder'      => @$options['data-date-format'] ?: 'YYYY-MM-DD HH:mm:ss',
-        ], $options);
+        $options = array_merge(
+            [
+                'data-input-type' => 'datetimepicker',
+                'data-date-format' => 'YYYY-MM-DD HH:mm:ss',
+                'placeholder' => @$options['data-date-format'] ?: 'YYYY-MM-DD HH:mm:ss',
+            ],
+            $options,
+        );
 
         return $this->text($name, $value, $options);
     }

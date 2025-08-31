@@ -5,14 +5,17 @@
             min-width: 600px;
         }
         width: 100%;
-        
+
         & > tbody > tr > td {
             vertical-align: middle;
             border: none;
         }
-        
-        td, th {
-            &[col="username"], &[col="membership"], &[col="date"] {
+
+        td,
+        th {
+            &[col="username"],
+            &[col="membership"],
+            &[col="date"] {
                 text-align: center;
                 width: 15%;
             }
@@ -32,28 +35,28 @@
 
 &[page-id="create"] {
     div#content {
-        @media(min-width: 400px) {
+        @media (min-width: 400px) {
             width: 400px;
         }
     }
 }
 
-&[page-id='create-summary'] {
+&[page-id="create-summary"] {
     div#content {
-        @media(min-width: 600px) {
+        @media (min-width: 600px) {
             width: 600px;
         }
-    
+
         div.container-fluid {
             margin-bottom: 2.5em;
             max-height: 30em;
             overflow-y: auto;
-        
+
             & > div.row {
                 color: rgb(51, 51, 51);
                 overflow: hidden;
                 padding: 0.45em 0.667em;
-            
+
                 &:first-of-type {
                     border-radius: 2px 2px 0 0;
                 }
@@ -63,7 +66,7 @@
                 &:not(:last-of-type) {
                     border-bottom: 1px solid #000;
                 }
-            
+
                 &.success {
                     background: #dff0d8;
                     border-color: #3c763d;
@@ -72,21 +75,21 @@
                     background: #f2dede;
                     border-color: #a94442;
                 }
-            
+
                 & > div {
                     float: left;
-                
+
                     &.status {
                         & > span.fa {
                             font-size: 1.267em;
                             line-height: 1.158em;
                             text-align: left;
-                        
+
                             &.fa-check {
                                 color: #007703;
                             }
                             &.fa-remove {
-                                color: #9D0600;
+                                color: #9d0600;
                             }
                         }
                         width: 1.7em;
@@ -97,7 +100,7 @@
                     }
                     &.details {
                         line-height: 1.3em;
-                        @media(max-width: 768px) {
+                        @media (max-width: 768px) {
                             clear: left;
                             float: none;
                             padding-left: 2.4em;
@@ -111,16 +114,16 @@
 
 &[page-id="edit"] {
     div#content {
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             $width: 700px;
             $right_width: 225px;
             $padding: 30px;
-            
+
             width: $width;
-            
+
             div#form-wrapper {
                 overflow: hidden;
-                
+
                 div.left {
                     float: left;
                     width: $width - $right_width - $padding;
@@ -134,11 +137,11 @@
     }
     form {
         margin-bottom: -1.5em;
-        
+
         fieldset#privacy {
             padding-bottom: 1em;
             padding-top: 0;
-            
+
             div.form-group {
                 margin: 0;
             }

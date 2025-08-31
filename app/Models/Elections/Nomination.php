@@ -25,11 +25,7 @@ class Nomination extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'user_id',
-        'position',
-        'elected',
-    ];
+    public $fillable = ['user_id', 'position', 'elected'];
 
     /**
      * Define the relationship with the election.

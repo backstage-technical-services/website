@@ -7,12 +7,7 @@ class Notification
     /**
      * Define the notification levels.
      */
-    const LEVELS = [
-        'info',
-        'success',
-        'warning',
-        'error',
-    ];
+    const LEVELS = ['info', 'success', 'warning', 'error'];
 
     /**
      * @var NotificationHandler
@@ -56,23 +51,26 @@ class Notification
      */
     public function toArray()
     {
-        $attributes = array_merge([
-            'data-close' => 'auto',
-        ], $this->attributes);
+        $attributes = array_merge(
+            [
+                'data-close' => 'auto',
+            ],
+            $this->attributes,
+        );
 
         array_walk($attributes, function (&$value, $key) {
-            $value = $key.'='.e($value);
+            $value = $key . '=' . e($value);
         });
 
         return [
-            'level'      => $this->level,
-            'title'      => $this->title,
-            'message'    => $this->message,
-            'bag'        => $this->bag,
-            'class'      => $this->handler->getClassPrefix().config('notifications.classes.levels.'.$this->level),
-            'icon'       => $this->handler->getIconPrefix().config('notifications.icons.levels.'.$this->level),
+            'level' => $this->level,
+            'title' => $this->title,
+            'message' => $this->message,
+            'bag' => $this->bag,
+            'class' => $this->handler->getClassPrefix() . config('notifications.classes.levels.' . $this->level),
+            'icon' => $this->handler->getIconPrefix() . config('notifications.icons.levels.' . $this->level),
             'attributes' => implode(' ', $attributes),
-            'enclose'    => $this->enclose ?: null,
+            'enclose' => $this->enclose ?: null,
         ];
     }
 
@@ -228,8 +226,7 @@ class Notification
      */
     public function permanent()
     {
-        return $this->bag('permanent')
-                    ->close('manual');
+        return $this->bag('permanent')->close('manual');
     }
 
     /**

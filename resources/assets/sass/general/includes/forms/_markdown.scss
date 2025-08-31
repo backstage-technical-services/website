@@ -2,7 +2,7 @@ div.simplemde {
     div.editor-toolbar {
         background: #fff;
         opacity: 1;
-        
+
         a:focus {
             outline: none;
         }
@@ -14,15 +14,16 @@ div.simplemde {
         height: 300px;
     }
     div.CodeMirror-fullscreen {
-        z-index: $zindex_markdown+100;
+        z-index: $zindex_markdown + 100;
     }
-    div.editor-preview, div.editor-preview-side {
+    div.editor-preview,
+    div.editor-preview-side {
         background: #000;
-        color: #CCC;
+        color: #ccc;
         font-size: 15px;
     }
     div.editor-preview-side {
-        z-index: $zindex_markdown+200;
+        z-index: $zindex_markdown + 200;
     }
 }
 

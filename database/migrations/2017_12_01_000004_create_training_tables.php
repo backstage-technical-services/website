@@ -28,11 +28,12 @@ class CreateTrainingTables extends Migration
             $table->text('level3')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_id')
-                  ->references('id')
-                  ->on('training_categories')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+            $table
+                ->foreign('category_id')
+                ->references('id')
+                ->on('training_categories')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
 
         Schema::create('training_awarded_skills', function (Blueprint $table) {
@@ -43,21 +44,14 @@ class CreateTrainingTables extends Migration
             $table->unsignedInteger('awarded_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('skill_id')
-                  ->references('id')
-                  ->on('training_skills')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('awarded_by')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+            $table
+                ->foreign('skill_id')
+                ->references('id')
+                ->on('training_skills')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('awarded_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
 
         Schema::create('training_skill_proposals', function (Blueprint $table) {
@@ -72,21 +66,14 @@ class CreateTrainingTables extends Migration
             $table->text('awarded_comment')->nullable();
             $table->dateTime('awarded_date')->nullable();
 
-            $table->foreign('skill_id')
-                  ->references('id')
-                  ->on('training_skills')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
-            $table->foreign('awarded_by')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+            $table
+                ->foreign('skill_id')
+                ->references('id')
+                ->on('training_skills')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('awarded_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

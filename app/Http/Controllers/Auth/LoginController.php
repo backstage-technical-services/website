@@ -51,13 +51,17 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request)
     {
-        $this->validate($request, [
-            'username' => 'required',
-            'password' => 'required',
-        ], [
-            'username.required' => 'Please enter your username or email address',
-            'password.required' => 'Please enter your password',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'username' => 'required',
+                'password' => 'required',
+            ],
+            [
+                'username.required' => 'Please enter your username or email address',
+                'password.required' => 'Please enter your password',
+            ],
+        );
     }
 
     /**
@@ -71,8 +75,8 @@ class LoginController extends Controller
     {
         $request->merge(['email' => $request->get($this->username())]);
 
-        return $this->guard()->attempt($request->only('username', 'password'), true)
-               || $this->guard()->attempt($request->only('email', 'password'), true);
+        return $this->guard()->attempt($request->only('username', 'password'), true) ||
+            $this->guard()->attempt($request->only('email', 'password'), true);
     }
 
     /**

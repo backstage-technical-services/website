@@ -18,7 +18,9 @@ class NominationObserver extends ModelObserver
         $attributes = $this->getUpdatedAttributes($nomination);
 
         if (isset($attributes['approved'])) {
-            Logger::log('award-nomination.' . ($attributes['approved'] ? 'approve' : 'unapprove'), true, ['id' => $nomination->id]);
+            Logger::log('award-nomination.' . ($attributes['approved'] ? 'approve' : 'unapprove'), true, [
+                'id' => $nomination->id,
+            ]);
         }
     }
 

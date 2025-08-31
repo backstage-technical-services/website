@@ -19,12 +19,7 @@ class AwardedSkill extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'skill_id',
-        'user_id',
-        'level',
-        'awarded_by',
-    ];
+    protected $fillable = ['skill_id', 'user_id', 'level', 'awarded_by'];
 
     /**
      * Define the relationship with the skill's details.

@@ -41,6 +41,10 @@ class BackupDb extends Command
             'name' => ($name = date('Y-m-d_H-i-s')),
         ]);
 
-        $this->info('Database backed up to \'' . realpath(config('filesystems.disks.snapshots.root') . '/' . $name . '.sql') . '\'.');
+        $this->info(
+            "Database backed up to '" .
+                realpath(config('filesystems.disks.snapshots.root') . '/' . $name . '.sql') .
+                "'.",
+        );
     }
 }

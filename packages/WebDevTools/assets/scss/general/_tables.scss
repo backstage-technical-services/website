@@ -1,22 +1,27 @@
 .table {
     margin: 1em auto;
 
-    & > thead, & > div.thead {
+    & > thead,
+    & > div.thead {
         background: $colour_table_head_bg;
         color: $colour_table_head;
 
-        & > tr, & > div.row {
-            & > th, & > div {
+        & > tr,
+        & > div.row {
+            & > th,
+            & > div {
                 margin: 0 auto;
             }
         }
     }
-    & > tbody, & > div.tbody {
+    & > tbody,
+    & > div.tbody {
         font-size: font-size(15px);
-
     }
-    & > tbody > tr, & > div.tbody > div.row {
-        & > td, & > div {
+    & > tbody > tr,
+    & > div.tbody > div.row {
+        & > td,
+        & > div {
             vertical-align: baseline;
 
             &:first-child:last-child {
@@ -28,11 +33,13 @@
                 }
             }
         }
-        &[onclick]:hover, &.link:hover {
+        &[onclick]:hover,
+        &.link:hover {
             background-color: rgba(0, 0, 0, 0.1) !important;
             cursor: pointer;
         }
-        &.trashed, &.deleted {
+        &.trashed,
+        &.deleted {
             background: $colour_table_trashed;
 
             small {
@@ -49,7 +56,7 @@
         text-align: center;
         width: 2em;
 
-        & > input[type='checkbox'] {
+        & > input[type="checkbox"] {
             margin: 0;
         }
     }
@@ -61,7 +68,8 @@
             display: none;
         }
     }
-    tbody .col--id, div.tbody .col--id {
+    tbody .col--id,
+    div.tbody .col--id {
         color: #999;
         font-size: 0.8125rem;
     }
@@ -69,7 +77,8 @@
         text-align: right;
         width: 0.1em;
 
-        & > button, .dropdown-toggle {
+        & > button,
+        .dropdown-toggle {
             font-size: inherit;
             line-height: 1;
             padding: 0.5em 0.6em;
@@ -77,7 +86,7 @@
     }
     td.dual-layer {
         &.dual-layer-mobile {
-            @media(min-width: 768px) {
+            @media (min-width: 768px) {
                 & > .lower {
                     display: none;
                 }
@@ -101,7 +110,8 @@ div.table {
     div.row {
         display: table-row;
     }
-    div.row > div, div.table-cell {
+    div.row > div,
+    div.table-cell {
         display: table-cell;
     }
 }

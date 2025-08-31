@@ -48,14 +48,16 @@ class NominationController extends Controller
     {
         $season = Season::findOrFail($seasonId);
         $nomination = $season->nominations()->create([
-            'award_id'     => $request->get('award_id'),
-            'nominee'      => clean($request->get('nominee')),
-            'reason'       => clean($request->get('reason')),
-            'approved'     => false,
+            'award_id' => $request->get('award_id'),
+            'nominee' => clean($request->get('nominee')),
+            'reason' => clean($request->get('reason')),
+            'approved' => false,
             'suggested_by' => $request->user()->id,
         ]);
 
-        Log::info("User {$request->user()->id} created nomination {$nomination->id} for award {$nomination->award_id} and season $seasonId");
+        Log::info(
+            "User {$request->user()->id} created nomination {$nomination->id} for award {$nomination->award_id} and season $seasonId",
+        );
 
         Notify::success('Nomination created');
         return redirect()->route('award.season.view', ['id' => $seasonId]);
@@ -76,7 +78,11 @@ class NominationController extends Controller
             'approved' => !$nomination->isApproved(),
         ]);
 
-        Log::info("User " . request()->user()->id . " approved nomination $id for award {$nomination->award_id} and season $seasonId");
+        Log::info(
+            'User ' .
+                request()->user()->id .
+                " approved nomination $id for award {$nomination->award_id} and season $seasonId",
+        );
 
         Notify::success('Nomination ' . ($nomination->isApproved() ? 'approved' : 'unapproved'));
         return $this->ajaxResponse(true);
@@ -95,7 +101,11 @@ class NominationController extends Controller
         $nomination = $this->getNomination($seasonId, $id);
         $nomination->delete();
 
-        Log::info("User " . request()->user()->id . " deleted nomination $id for award {$nomination->award_id} and season $seasonId");
+        Log::info(
+            'User ' .
+                request()->user()->id .
+                " deleted nomination $id for award {$nomination->award_id} and season $seasonId",
+        );
 
         Notify::success('Nomination deleted');
         return $this->ajaxResponse(true);
@@ -112,7 +122,7 @@ class NominationController extends Controller
     private function getNomination($seasonId, $id)
     {
         $this->requireAjax();
-        $season     = Season::findOrFail($seasonId);
+        $season = Season::findOrFail($seasonId);
         $nomination = $season->nominations()->where('id', $id)->firstOrFail();
         $this->authorize('edit', $nomination);
 

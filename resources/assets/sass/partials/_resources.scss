@@ -1,15 +1,15 @@
 form#resource-search {
-    @media(min-width: 768px) {
+    @media (min-width: 768px) {
         margin: 0 auto;
         width: 45em;
     }
     div.search-input {
         font-size: 1.133em;
-        
+
         .input-group-addon {
             margin: 0;
             padding: 0;
-            
+
             button.btn {
                 background: none;
                 border: none;
@@ -28,10 +28,11 @@ form#resource-search {
             margin: 0 1em;
         }
         div.dropdown {
-            @media(min-width: 768px) {
+            @media (min-width: 768px) {
                 display: inline-block;
             }
-            &.categories, &.tags {
+            &.categories,
+            &.tags {
                 & > ul.dropdown-menu {
                     max-height: 15em;
                     overflow-y: auto;
@@ -44,11 +45,11 @@ form#resource-search {
             }
             & > ul.dropdown-menu {
                 margin-top: 0.75em;
-                
+
                 li {
                     & > a {
                         padding: 0.25em 1.25em 0.25em 0.75em;
-                        
+
                         span.fa {
                             margin-left: -0.1em;
                             margin-right: -0.2em;
@@ -70,8 +71,8 @@ div.resource-header {
         font-size: 24px;
         margin-bottom: 0;
         text-align: center;
-        
-        @media(min-width: 768px) {
+
+        @media (min-width: 768px) {
             font-size: 28px;
         }
     }
@@ -79,8 +80,8 @@ div.resource-header {
         font-size: 19px;
         margin-top: 0.5em;
         text-align: center;
-        
-        @media(min-width: 768px) {
+
+        @media (min-width: 768px) {
             font-size: 22px;
         }
     }
@@ -89,7 +90,7 @@ div.resource-header {
 ul.tag-list {
     margin: 0 1em;
     padding: 0.5em;
-    
+
     li {
         display: inline-block;
         line-height: 1.7em;
@@ -98,9 +99,11 @@ ul.tag-list {
     }
 }
 
-&[page-id="create"], &[page-id="edit"], &[page-id="issue"] {
+&[page-id="create"],
+&[page-id="edit"],
+&[page-id="issue"] {
     form {
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             width: 30em;
         }
         .resource-source {
@@ -115,7 +118,7 @@ ul.tag-list {
     div.tools {
         clear: both;
         text-align: center;
-        
+
         & > div.links {
             & > span.form-link {
                 @media (max-width: 767px) {
@@ -127,16 +130,16 @@ ul.tag-list {
         & > div.filter {
             float: right;
             text-align: right;
-            
+
             .btn.dropdown-toggle {
                 font-size: 13px;
             }
-            @media(max-width: 399px) {
+            @media (max-width: 399px) {
                 & > div.btn-group {
                     clear: right;
                     display: block;
                     float: right;
-                    
+
                     &:not(:last-of-type) {
                         margin-bottom: 0.25em;
                     }
@@ -147,7 +150,7 @@ ul.tag-list {
     table {
         td[col="tags"] {
             width: 20em;
-            
+
             ul {
                 margin: 0;
                 padding: 0;
@@ -156,11 +159,13 @@ ul.tag-list {
         td[col="access"] {
             width: 11em;
         }
-        td[col="access"], td[col="tags"] {
+        td[col="access"],
+        td[col="tags"] {
             font-size: 0.8em;
         }
-        @media(max-width: 969px) {
-            [col="tags"], [col="access"] {
+        @media (max-width: 969px) {
+            [col="tags"],
+            [col="access"] {
                 display: none;
             }
         }
@@ -169,7 +174,7 @@ ul.tag-list {
 
 &[page-id="view"] {
     div#content {
-        @media(min-width: 900px) {
+        @media (min-width: 900px) {
             margin: 0 auto;
             width: 900px;
         }
@@ -179,9 +184,8 @@ ul.tag-list {
     }
     div.details-wrapper {
         font-size: 0.867em;
-        
+
         & > div.link {
-        
         }
         & > div.details {
             color: #666;
@@ -192,10 +196,10 @@ ul.tag-list {
                 color: inherit;
             }
         }
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             & > div {
                 width: 50%;
-                
+
                 &.links {
                     float: right;
                     text-align: right;
@@ -238,11 +242,12 @@ ul.tag-list {
         .btn {
             font-size: 13px;
         }
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
             [col="num"] {
                 width: 3em;
             }
-            [col="date"], [col="author"] {
+            [col="date"],
+            [col="author"] {
                 display: none;
             }
         }
@@ -253,15 +258,15 @@ ul.tag-list {
     div.category-tag-summary {
         margin: 2em auto 0;
         overflow: hidden;
-        
+
         & > fieldset {
             display: block;
             padding: 1em 1.5em;
             width: 100%;
-            
-            @media(min-width: 768px) {
+
+            @media (min-width: 768px) {
                 width: 48%;
-                
+
                 &:first-child {
                     float: left;
                 }
@@ -269,20 +274,20 @@ ul.tag-list {
                     float: right;
                 }
             }
-            
+
             legend {
                 margin-bottom: 0;
             }
-            
+
             & > div.summary-wrapper {
                 margin: -0.5em -1.5em;
                 max-height: 250px;
                 overflow-y: auto;
-                
+
                 ul {
                     margin: 0 1em;
                     padding: 0.5em;
-                    
+
                     li {
                         margin: 0;
                         line-height: 1.7em;
@@ -299,29 +304,30 @@ ul.tag-list {
         font-size: 0.867em;
         margin: 3em 0 1em;
     }
-    
+
     div.results-container {
         div.search-result {
             box-sizing: border-box;
             display: table;
             padding: 1em 0;
             width: 100%;
-            
+
             & > div.icon {
                 display: none;
                 font-size: 1.333em;
                 text-align: center;
                 vertical-align: top;
                 width: 2.5em;
-                
-                @media(min-width: 768px) {
+
+                @media (min-width: 768px) {
                     display: table-cell;
                 }
             }
             & > div.details {
                 display: table-cell;
-                
-                & > h1, & > h2 {
+
+                & > h1,
+                & > h2 {
                     margin: 0;
                     padding: 0;
                     text-align: left;
@@ -329,8 +335,8 @@ ul.tag-list {
                 & > h1 {
                     font-size: 1.2em;
                     margin-bottom: 0.3em;
-                    
-                    @media(min-width: 768px) {
+
+                    @media (min-width: 768px) {
                         font-size: 1.333em;
                     }
                 }
@@ -348,7 +354,7 @@ ul.tag-list {
                     @include clearfix();
                     margin: 0.6em 0 0;
                     padding: 0;
-                    
+
                     & > li {
                         display: inline-block;
                         float: left;
@@ -366,14 +372,14 @@ ul.tag-list {
         div.empty {
             margin: 3em 0 0;
             text-align: center;
-            
+
             h2 {
                 color: $btsgold;
             }
             p {
                 color: #666;
                 text-align: center;
-                
+
                 a {
                     color: inherit;
                     outline-color: #666;
@@ -385,16 +391,17 @@ ul.tag-list {
 
 &[page-id="category-index"] {
     div#content {
-        @media(min-width: 800px) {
+        @media (min-width: 800px) {
             width: 800px;
         }
         .table {
             td {
                 vertical-align: middle;
             }
-            
-            @media(max-width: 767px) {
-                [col="slug"], [col="type"] {
+
+            @media (max-width: 767px) {
+                [col="slug"],
+                [col="type"] {
                     display: none;
                 }
             }
@@ -404,15 +411,15 @@ ul.tag-list {
 
 &[page-id="tag-index"] {
     div#content {
-        @media(min-width: 600px) {
+        @media (min-width: 600px) {
             width: 600px;
         }
         .table {
             td {
                 vertical-align: middle;
             }
-            
-            @media(max-width: 767px) {
+
+            @media (max-width: 767px) {
                 [col="slug"] {
                     display: none;
                 }

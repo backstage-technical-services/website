@@ -1,118 +1,128 @@
 .table {
-	border-color: $btsyellow;
-	margin: 1em auto;
+    border-color: $btsyellow;
+    margin: 1em auto;
 
-	& > thead > tr, & > div.thead > div.row {
-		border-color: $btsyellow;
+    & > thead > tr,
+    & > div.thead > div.row {
+        border-color: $btsyellow;
 
-		& > th, & > div {
-			border-color: $btsyellow;
-			color: $btsyellow;
-			font-size: 16px;
-			font-weight: 300;
-			margin: 0 auto;
-		}
-	}
+        & > th,
+        & > div {
+            border-color: $btsyellow;
+            color: $btsyellow;
+            font-size: 16px;
+            font-weight: 300;
+            margin: 0 auto;
+        }
+    }
 
-	& > tbody > tr, & > div.tbody > div.row {
-		& > td, & > div {
-			border-color: $btsyellow;
-			border-top-style: none;
-			vertical-align: top;
-			
-			&[colspan] {
-				text-align: center;
-			}
-			&:first-child:last-child {
-				padding: 1em 0;
-			}
-		}
-		&[onclick]:hover, &.link:hover {
-			background-color: rgba(255, 255, 255, 0.15) !important;
-			cursor: pointer;
-		}
-	}
-	& > tbody > tr:not(:first-of-type) > td, & > div.tbody > div.row:not(:first-of-type) > div.row {
-		border-top-style: solid;
-	}
-	& > thead > tr > th, & > div.tbody > div.row > div {
-		border-bottom: 1px solid;
-	}
-	.check {
-		text-align: center;
-		width: 2em;
+    & > tbody > tr,
+    & > div.tbody > div.row {
+        & > td,
+        & > div {
+            border-color: $btsyellow;
+            border-top-style: none;
+            vertical-align: top;
 
-		& > input[type='checkbox'] {
-			margin: 0;
-		}
-	}
-	.id {
-		text-align: center;
-		width: 4em;
+            &[colspan] {
+                text-align: center;
+            }
+            &:first-child:last-child {
+                padding: 1em 0;
+            }
+        }
+        &[onclick]:hover,
+        &.link:hover {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            cursor: pointer;
+        }
+    }
+    & > tbody > tr:not(:first-of-type) > td,
+    & > div.tbody > div.row:not(:first-of-type) > div.row {
+        border-top-style: solid;
+    }
+    & > thead > tr > th,
+    & > div.tbody > div.row > div {
+        border-bottom: 1px solid;
+    }
+    .check {
+        text-align: center;
+        width: 2em;
 
-		@media(max-width: 767px) {
-			display: none;
-		}
-	}
-	tbody .id, div.tbody .id {
-		color: #666;
-		font-size: 0.867em;
-	}
-	td.admin-tools {
-		font-size: 0.8em;
-		text-align: right;
+        & > input[type="checkbox"] {
+            margin: 0;
+        }
+    }
+    .id {
+        text-align: center;
+        width: 4em;
 
-		&.admin-tools-icon {
-			width: 3em;
-		}
-	}
-	td.dual-layer {
-		& > .upper {
-			display: block;
-		}
-		& > .lower {
-			color: #666;
-			display: block;
-			font-size: 0.867em;
-		}
-	}
-	.slug {
-		width: 20em;
-	}
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+    tbody .id,
+    div.tbody .id {
+        color: #666;
+        font-size: 0.867em;
+    }
+    td.admin-tools {
+        font-size: 0.8em;
+        text-align: right;
 
-	&.table-striped {
-		& > tbody tr, & > div.tbody div.row {
-			&:nth-child(even) {
-				background-color: rgba(255, 255, 255, 0.1);
-			}
-			&:nth-child(odd) {
+        &.admin-tools-icon {
+            width: 3em;
+        }
+    }
+    td.dual-layer {
+        & > .upper {
+            display: block;
+        }
+        & > .lower {
+            color: #666;
+            display: block;
+            font-size: 0.867em;
+        }
+    }
+    .slug {
+        width: 20em;
+    }
+
+    &.table-striped {
+        & > tbody tr,
+        & > div.tbody div.row {
+            &:nth-child(even) {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            &:nth-child(odd) {
                 background-color: transparent;
-			}
-			& > td, & > div {
-				border: none;
-			}
-		}
-	}
+            }
+            & > td,
+            & > div {
+                border: none;
+            }
+        }
+    }
 }
 div.table {
-	display: table;
+    display: table;
 
-	& > div.thead {
-		display: table-header-group;
-	}
-	& > div.tfoot {
-		display: table-footer-group;
-	}
-	& > div.tbody {
-		display: table-row-group;
-	}
-	div.row {
-		display: table-row;
+    & > div.thead {
+        display: table-header-group;
+    }
+    & > div.tfoot {
+        display: table-footer-group;
+    }
+    & > div.tbody {
+        display: table-row-group;
+    }
+    div.row {
+        display: table-row;
 
-		& > div {
-			display: table-cell;
-		}
-	}
+        & > div {
+            display: table-cell;
+        }
+    }
 }
 div.table-wrapper {
     overflow-x: auto;

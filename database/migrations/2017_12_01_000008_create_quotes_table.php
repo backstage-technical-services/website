@@ -20,11 +20,7 @@ class CreateQuotesTable extends Migration
             $table->unsignedInteger('added_by')->nullable();
             $table->timestamps();
 
-            $table->foreign('added_by')
-                  ->references('id')
-                  ->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
+            $table->foreign('added_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

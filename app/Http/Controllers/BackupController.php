@@ -38,14 +38,9 @@ class BackupController extends Controller
     public function index()
     {
         $this->authorizeGate('admin');
-    
+
         $files = Glob::glob(storage_path('app/backups/') . '*.{zip,sql}', Glob::GLOB_BRACE);
-        array_multisort(
-            array_map('filectime', $files),
-            SORT_NUMERIC,
-            SORT_DESC,
-            $files
-        );
+        array_multisort(array_map('filectime', $files), SORT_NUMERIC, SORT_DESC, $files);
 
         return view('backups.index')->with([
             'backups' => array_map(function ($filename) {
@@ -91,7 +86,7 @@ class BackupController extends Controller
         if ($type == 'db') {
             Artisan::call(BackupDb::class);
             Log::info("User {$request->user()->id} created database backup");
-        } else if ($type == 'full') {
+        } elseif ($type == 'full') {
             Artisan::call(BackupCommand::class);
             Log::info("User {$request->user()->id} created full backup");
         }
@@ -121,7 +116,7 @@ class BackupController extends Controller
 
         unlink($file);
 
-        Log::info("User " . request()->user()->id . " deleted backup $filename");
+        Log::info('User ' . request()->user()->id . " deleted backup $filename");
 
         Notify::success('Backup deleted');
         return $this->ajaxResponse(true);

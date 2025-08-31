@@ -18,10 +18,10 @@ class Resource extends Model
     /**
      * Define the access constants
      */
-    const ACCESS_PUBLIC     = 1;
+    const ACCESS_PUBLIC = 1;
     const ACCESS_REGISTERED = 3;
-    const ACCESS_MEMBER     = 4;
-    const ACCESS_COMMITTEE  = 5;
+    const ACCESS_MEMBER = 4;
+    const ACCESS_COMMITTEE = 5;
 
     /**
      * Define the resource types.
@@ -38,10 +38,10 @@ class Resource extends Model
      * @var array
      */
     const ACCESS = [
-        self::ACCESS_PUBLIC     => 'Everyone',
+        self::ACCESS_PUBLIC => 'Everyone',
         self::ACCESS_REGISTERED => 'Registered Users',
-        self::ACCESS_MEMBER     => 'BTS Members',
-        self::ACCESS_COMMITTEE  => 'Committee Only',
+        self::ACCESS_MEMBER => 'BTS Members',
+        self::ACCESS_COMMITTEE => 'Committee Only',
     ];
 
     /**
@@ -56,16 +56,7 @@ class Resource extends Model
      *
      * @var array
      */
-    public $fillable = [
-        'title',
-        'description',
-        'category_id',
-        'event_id',
-        'author_id',
-        'type',
-        'href',
-        'access',
-    ];
+    public $fillable = ['title', 'description', 'category_id', 'event_id', 'author_id', 'type', 'href', 'access'];
 
     /**
      * Sanitised a string to be suitable for a file name.
@@ -96,8 +87,12 @@ class Resource extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Resources\Tag', 'resource_tag', 'resource_id', 'resource_tag_id')
-                    ->orderBy('resource_tags.name', 'ASC');
+        return $this->belongsToMany(
+            'App\Models\Resources\Tag',
+            'resource_tag',
+            'resource_id',
+            'resource_tag_id',
+        )->orderBy('resource_tags.name', 'ASC');
     }
 
     /**
@@ -117,8 +112,7 @@ class Resource extends Model
      */
     public function issues()
     {
-        return $this->hasMany('App\Models\Resources\Issue')
-                    ->orderBy('resource_issues.issue', 'ASC');
+        return $this->hasMany('App\Models\Resources\Issue')->orderBy('resource_issues.issue', 'ASC');
     }
 
     /**
@@ -132,8 +126,12 @@ class Resource extends Model
      */
     public function scopeSearch($query, $searchTerm)
     {
-        $searchTerm = preg_replace('/(\s{2,})/', ' ', preg_replace('/(^|\s)(\w+)(\s|$)/', '$1*$2*$3', preg_replace('/\s/', '  ', $searchTerm)));
-        return $query->whereRaw("MATCH(title, description) AGAINST(? IN BOOLEAN MODE)", [$searchTerm]);
+        $searchTerm = preg_replace(
+            '/(\s{2,})/',
+            ' ',
+            preg_replace('/(^|\s)(\w+)(\s|$)/', '$1*$2*$3', preg_replace('/\s/', '  ', $searchTerm)),
+        );
+        return $query->whereRaw('MATCH(title, description) AGAINST(? IN BOOLEAN MODE)', [$searchTerm]);
     }
 
     /**
@@ -146,11 +144,12 @@ class Resource extends Model
      */
     public function scopeWithTags($query, $tags)
     {
-        return $query->leftJoin('resource_tag', 'resources.id', '=', 'resource_tag.resource_id')
-                     ->leftJoin('resource_tags', 'resource_tag.resource_tag_id', '=', 'resource_tags.id')
-                     ->whereIn('resource_tags.slug', $tags)
-                     ->groupBy('resources.id')
-                     ->havingRaw('COUNT(DISTINCT resource_tags.slug) = ' . count($tags));
+        return $query
+            ->leftJoin('resource_tag', 'resources.id', '=', 'resource_tag.resource_id')
+            ->leftJoin('resource_tags', 'resource_tag.resource_tag_id', '=', 'resource_tags.id')
+            ->whereIn('resource_tags.slug', $tags)
+            ->groupBy('resources.id')
+            ->havingRaw('COUNT(DISTINCT resource_tags.slug) = ' . count($tags));
     }
 
     /**
@@ -163,8 +162,9 @@ class Resource extends Model
      */
     public function scopeInCategory($query, $category)
     {
-        return $query->leftJoin('resource_categories', 'resources.category_id', '=', 'resource_categories.id')
-                     ->where('resource_categories.slug', is_object($category) ? $category->slug : $category);
+        return $query
+            ->leftJoin('resource_categories', 'resources.category_id', '=', 'resource_categories.id')
+            ->where('resource_categories.slug', is_object($category) ? $category->slug : $category);
     }
 
     /**
@@ -179,8 +179,7 @@ class Resource extends Model
     {
         $user = $user === null ? Auth::user() : $user;
 
-        $query->whereNull('access')
-              ->orWhere('access', self::ACCESS_PUBLIC);
+        $query->whereNull('access')->orWhere('access', self::ACCESS_PUBLIC);
 
         if ($user !== null) {
             $query->orWhere('access', self::ACCESS_REGISTERED);
@@ -316,9 +315,7 @@ class Resource extends Model
      */
     public function getTagsAttribute()
     {
-        return $this->tags()
-                    ->pluck('id')
-                    ->toArray();
+        return $this->tags()->pluck('id')->toArray();
     }
 
     /**
@@ -368,9 +365,7 @@ class Resource extends Model
      */
     public function issue()
     {
-        return Issue::where('resource_id', $this->id)
-                    ->orderBy('issue', 'DESC')
-                    ->first();
+        return Issue::where('resource_id', $this->id)->orderBy('issue', 'DESC')->first();
     }
 
     /**
@@ -382,12 +377,11 @@ class Resource extends Model
     public function reissue(UploadedFile $file, $reason)
     {
         // Create the new issue
-        $issue = $this->issues()
-                      ->create([
-                          'issue'     => (int)$this->issue + 1,
-                          'author_id' => Auth::user()->id,
-                          'reason'    => clean($reason),
-                      ]);
+        $issue = $this->issues()->create([
+            'issue' => (int) $this->issue + 1,
+            'author_id' => Auth::user()->id,
+            'reason' => clean($reason),
+        ]);
 
         // Save the file
         $file->move($this->getPath(), $issue->getFileName());
@@ -437,7 +431,7 @@ class Resource extends Model
     {
         if ($this->isFile()) {
             return $this->issue()->getPath();
-        } else if ($this->isGDoc()) {
+        } elseif ($this->isGDoc()) {
             return 'https://drive.google.com/open?id=' . $this->href;
         } else {
             return '';
@@ -464,9 +458,10 @@ class Resource extends Model
     {
         if ($this->isFile()) {
             return [
-                'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="' . (static::sanitised($this->title) . '.' . $this->getFileExtension()) . '"',
-                'Content-Length'      => filesize($this->getFullPath()),
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' =>
+                    'inline; filename="' . (static::sanitised($this->title) . '.' . $this->getFileExtension()) . '"',
+                'Content-Length' => filesize($this->getFullPath()),
             ];
         } else {
             return [];
@@ -481,12 +476,8 @@ class Resource extends Model
     public function stream()
     {
         if ($this->isFile()) {
-            return response(
-                file_get_contents($this->getFullPath()),
-                200,
-                $this->getHeaders()
-            );
-        } else if ($this->isGDoc()) {
+            return response(file_get_contents($this->getFullPath()), 200, $this->getHeaders());
+        } elseif ($this->isGDoc()) {
             return $this->getFullPath();
         } else {
             app()->abort(404);
@@ -504,9 +495,9 @@ class Resource extends Model
             return response()->download(
                 $this->getFullPath(),
                 static::sanitised($this->title) . '.' . $this->getFileExtension(),
-                $this->getHeaders()
+                $this->getHeaders(),
             );
-        } else if ($this->isGDoc()) {
+        } elseif ($this->isGDoc()) {
             return $this->getFullPath();
         } else {
             redirect()->route('resource.search');

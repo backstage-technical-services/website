@@ -13,14 +13,14 @@ class SearchTools
      * @var Request
      */
     protected $request;
-    
+
     /**
      * Variable to store the router object.
      *
      * @var Router
      */
     protected $router;
-    
+
     /**
      * Variable to store which areas of the tool to render.
      *
@@ -30,28 +30,28 @@ class SearchTools
         'filter' => true,
         'search' => true,
     ];
-    
+
     /**
      * Variable to store the request values.
      *
      * @var array
      */
     protected $values = [];
-    
+
     /**
      * Variable to store the filter options.
      *
      * @var array
      */
     protected $filterOptions = [];
-    
+
     /**
      * Variable to store the text for no filter.
      *
      * @var string
      */
     protected $noFilterText = '- no filter -';
-    
+
     /**
      * The constructor. Initialise the object.
      *
@@ -61,14 +61,14 @@ class SearchTools
     public function __construct(Request $request, Router $router)
     {
         $this->request = $request;
-        $this->router  = $router;
-        
+        $this->router = $router;
+
         $this->values = [
             'filter' => $this->getQueryValue('filter') ?: $this->router->current()->parameter('filter'),
             'search' => $this->getQueryValue('search') ?: $this->router->current()->parameter('search'),
         ];
     }
-    
+
     /**
      * Get the value of an entry in the request object.
      *
@@ -80,7 +80,7 @@ class SearchTools
     {
         return $this->request->has($name) && !empty($this->request->get($name)) ? $this->request->get($name) : null;
     }
-    
+
     /**
      * Get the value of the current search query.
      *
@@ -90,7 +90,7 @@ class SearchTools
     {
         return $this->values['search'];
     }
-    
+
     /**
      * Get the value of the current filter query.
      *
@@ -100,7 +100,7 @@ class SearchTools
     {
         return $this->values['filter'];
     }
-    
+
     /**
      * Show a specific tool.
      *
@@ -111,10 +111,10 @@ class SearchTools
     public function show($name)
     {
         $this->show[$name] = true;
-        
+
         return $this;
     }
-    
+
     /**
      * Hide a specific tool.
      *
@@ -125,10 +125,10 @@ class SearchTools
     public function hide($name)
     {
         $this->show[$name] = false;
-        
+
         return $this;
     }
-    
+
     /**
      * Set the filter options array.
      *
@@ -139,10 +139,10 @@ class SearchTools
     public function setFilterOptions(array $options)
     {
         $this->filterOptions = $options;
-        
+
         return $this;
     }
-    
+
     /**
      * Add a single filter option to the array.
      *
@@ -154,10 +154,10 @@ class SearchTools
     public function addFilterOption($filter, $text)
     {
         $this->filterOptions[$filter] = $text;
-        
+
         return $this;
     }
-    
+
     /**
      * Set the text to show for no filter applied.
      *
@@ -168,10 +168,10 @@ class SearchTools
     public function setNoFilterText($text)
     {
         $this->noFilterText = $text;
-        
+
         return $this;
     }
-    
+
     /**
      * Render the view.
      *
@@ -180,11 +180,10 @@ class SearchTools
     public function render()
     {
         // Get the URL
-        $url    = $this->request->url();
+        $url = $this->request->url();
         $params = $this->router->currentRouteName() ? $this->router->current()->parameters() : [];
-        $query  = $this->request->query();
-        
-        
+        $query = $this->request->query();
+
         // Set up the query / parameters
         if (!is_null($this->values['filter'])) {
             if (isset($query['filter'])) {
@@ -210,27 +209,27 @@ class SearchTools
                 unset($params['page']);
             }
         }
-        
+
         // Set the filter values
         if (count($this->filterOptions)) {
             $filter_list = [
                 (object) [
-                    'text'  => $this->noFilterText,
-                    'url'   => $this->createUrl(array_merge($params, $query)),
+                    'text' => $this->noFilterText,
+                    'url' => $this->createUrl(array_merge($params, $query)),
                     'value' => '',
                 ],
             ];
             foreach ($this->filterOptions as $filter => $text) {
                 $filter_list[] = (object) [
-                    'text'  => $text,
-                    'url'   => $this->createUrl(array_merge($params, $query, ['filter' => $filter])),
+                    'text' => $text,
+                    'url' => $this->createUrl(array_merge($params, $query, ['filter' => $filter])),
                     'value' => $filter,
                 ];
             }
         } else {
             $filter_list = [];
         }
-        
+
         // Render the view
         return view('search-tools::bootstrap')
             ->with('FilterValue', $this->values['filter'])
@@ -241,7 +240,7 @@ class SearchTools
             ->with('BaseURL', $url)
             ->with('BaseQuery', $query);
     }
-    
+
     /**
      * Create a valid URL string.
      *
@@ -254,10 +253,10 @@ class SearchTools
         if ($this->router->currentRouteName()) {
             return route($this->router->currentRouteName(), $query);
         } else {
-            return $this->request->url() . count($query) ? ('?' . http_build_query($query)) : '';
+            return $this->request->url() . count($query) ? '?' . http_build_query($query) : '';
         }
     }
-    
+
     /**
      * Include the stylesheet tag.
      *

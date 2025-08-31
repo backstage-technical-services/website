@@ -9,22 +9,19 @@ class FailedJobsTableBatchSupport extends Migration
     public function up(): void
     {
         Schema::table('failed_jobs', function (Blueprint $table) {
-            $table->string('uuid')
-                  ->after('id')
-                  ->nullable()
-                  ->unique();
+            $table->string('uuid')->after('id')->nullable()->unique();
         });
-        
+
         DB::table('failed_jobs')
-          ->whereNull('uuid')
-          ->cursor()
-          ->each(function ($job) {
-              DB::table('failed_jobs')
-                ->where('id', $job->id)
-                ->update(['uuid' => (string) Illuminate\Support\Str::uuid()]);
-          });
+            ->whereNull('uuid')
+            ->cursor()
+            ->each(function ($job) {
+                DB::table('failed_jobs')
+                    ->where('id', $job->id)
+                    ->update(['uuid' => (string) Illuminate\Support\Str::uuid()]);
+            });
     }
-    
+
     public function down(): void
     {
         Schema::table('failed_jobs', function (Blueprint $table) {

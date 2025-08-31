@@ -1,6 +1,7 @@
-.checkbox, .radio {
+.checkbox,
+.radio {
     @include user_select_none();
-    
+
     label {
         font-weight: 300;
     }

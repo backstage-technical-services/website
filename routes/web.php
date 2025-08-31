@@ -1,6 +1,6 @@
 <?php
 
-    /*
+/*
     |--------------------------------------------------------------------------
     | Web Routes
     |--------------------------------------------------------------------------
@@ -11,26 +11,26 @@
     |
     */
 
-    Route::get('/', [
-        'as'   => 'home',
-        'uses' => function () {
-            return view('home');
-        },
-    ]);
+Route::get('/', [
+    'as' => 'home',
+    'uses' => function () {
+        return view('home');
+    },
+]);
 
-    include base_path('routes/web/auth.php');
-    include base_path('routes/web/awards.php');
-    include base_path('routes/web/backups.php');
-    include base_path('routes/web/committee.php');
-    include base_path('routes/web/contact.php');
-    include base_path('routes/web/election.php');
-    include base_path('routes/web/equipment.php');
-    include base_path('routes/web/events.php');
-    include base_path('routes/web/logs.php');
-    include base_path('routes/web/media.php');
-    include base_path('routes/web/members.php');
-    include base_path('routes/web/page.php');
-    include base_path('routes/web/quotes.php');
-    include base_path('routes/web/resources.php');
-    include base_path('routes/web/training.php');
-    include base_path('routes/web/users.php');
+include base_path('routes/web/auth.php');
+include base_path('routes/web/awards.php');
+include base_path('routes/web/backups.php');
+include base_path('routes/web/committee.php');
+include base_path('routes/web/contact.php');
+include base_path('routes/web/election.php');
+include base_path('routes/web/equipment.php');
+include base_path('routes/web/events.php');
+include base_path('routes/web/logs.php');
+include base_path('routes/web/media.php');
+include base_path('routes/web/members.php');
+include base_path('routes/web/page.php');
+include base_path('routes/web/quotes.php');
+include base_path('routes/web/resources.php');
+include base_path('routes/web/training.php');
+include base_path('routes/web/users.php');

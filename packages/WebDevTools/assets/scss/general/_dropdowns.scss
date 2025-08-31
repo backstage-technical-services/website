@@ -1,13 +1,14 @@
-main, footer {
+main,
+footer {
     .dropdown-toggle {
-    
     }
-    
+
     .dropdown-menu {
         font-size: 0.9375rem;
         padding: 0.5em 0;
-    
-        a, button {
+
+        a,
+        button {
             background-color: transparent;
             border: none;
             display: block;
@@ -18,8 +19,9 @@ main, footer {
             text-align: left;
             white-space: nowrap;
             width: 100%;
-        
-            &:hover, &:focus {
+
+            &:hover,
+            &:focus {
                 cursor: pointer;
                 text-decoration: none;
                 color: $colour_dropdown_text;
@@ -36,14 +38,14 @@ main, footer {
                 text-align: center;
                 width: 1.5em;
             }
-        
         }
-        
+
         & > .dropdown-item {
             //margin: 0.3em 0;
             padding: 0.5em 1em;
-            
-            &.active, &:active {
+
+            &.active,
+            &:active {
                 background-color: $colour_dropdown_active_bg;
                 color: $colour_dropdown_active_text;
             }
@@ -51,14 +53,18 @@ main, footer {
                 background: $colour_dropdown_current_bg;
                 color: #fff;
             }
-            
-            &.disabled > a, &.disabled > button {
-                &, &:hover, &:focus {
+
+            &.disabled > a,
+            &.disabled > button {
+                &,
+                &:hover,
+                &:focus {
                     //color: #777;
                 }
-                
+
                 // Nuke hover/focus effects
-                &:hover, &:focus {
+                &:hover,
+                &:focus {
                     //text-decoration: none;
                     //background-color: transparent;
                     //background-image: none; // Remove CSS gradient
@@ -74,14 +80,14 @@ main, footer {
             //overflow-y: auto;
         }
     }
-    
+
     div.dropdown-menu {
         //min-width: 0;
         //padding: 1em;
-        
+
         form {
             //font-size: 13px;
-            
+
             select.form-control {
                 //font-size: 12px;
             }

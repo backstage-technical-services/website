@@ -19,7 +19,6 @@ class FinanceEmail extends Mailable
      */
     private $data = [];
 
-
     /**
      * Variable to store the name of the view to use.
      *
@@ -36,11 +35,11 @@ class FinanceEmail extends Mailable
     public function __construct(Request $request, Event $event)
     {
         $this->template = strtolower($request->get('message'));
-        $this->data     = [
-            'subject'  => $request->get('subject'),
-            'event'    => $event->name,
+        $this->data = [
+            'subject' => $request->get('subject'),
+            'event' => $event->name,
             'event_id' => $request->get('fsid'),
-            'name'     => $event->em->forename,
+            'name' => $event->em->forename,
         ];
     }
 
@@ -52,8 +51,8 @@ class FinanceEmail extends Mailable
     public function build()
     {
         return $this->replyTo(config('bts.emails.finance'))
-                    ->subject($this->data['subject'] . ' (' . $this->data['event'] . ')')
-                    ->markdown('emails.events.finance_db.' . $this->template)
-                    ->with($this->data);
+            ->subject($this->data['subject'] . ' (' . $this->data['event'] . ')')
+            ->markdown('emails.events.finance_db.' . $this->template)
+            ->with($this->data);
     }
 }

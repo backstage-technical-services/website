@@ -29,8 +29,7 @@ class EventController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')
-             ->except(['view']);
+        $this->middleware('auth')->except(['view']);
     }
 
     /**
@@ -52,8 +51,9 @@ class EventController extends Controller
         $search = $searchTools->search();
         if (!is_null($search) && $search) {
             $events = $events->where(function ($query) use ($search) {
-                $query->where('events.name', 'LIKE', '%' . $search . '%')
-                      ->orWhere('events.venue', 'LIKE', '%' . $search . '%');
+                $query
+                    ->where('events.name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('events.venue', 'LIKE', '%' . $search . '%');
             });
         }
 
@@ -87,32 +87,35 @@ class EventController extends Controller
     {
         // Create the event
         $event = Event::create([
-            'name'             => clean($request->get('name')),
-            'venue'            => clean($request->get('venue')),
-            'description'      => clean($request->get('description')),
-            'type'             => clean($request->get('type')),
-            'client_type'      => clean($request->get('type') == Event::TYPE_EVENT ? $request->get('client_type') : null),
-            'venue_type'       => clean($request->get('type') == Event::TYPE_EVENT ? $request->get('venue_type') : null),
+            'name' => clean($request->get('name')),
+            'venue' => clean($request->get('venue')),
+            'description' => clean($request->get('description')),
+            'type' => clean($request->get('type')),
+            'client_type' => clean($request->get('type') == Event::TYPE_EVENT ? $request->get('client_type') : null),
+            'venue_type' => clean($request->get('type') == Event::TYPE_EVENT ? $request->get('venue_type') : null),
             'crew_list_status' => Event::CREW_LIST_OPEN,
-            'em_id'            => clean($request->get('em_id') ?: null),
-            'paperwork'        => [
+            'em_id' => clean($request->get('em_id') ?: null),
+            'paperwork' => [
                 'risk_assessment' => false,
-                'insurance'       => false,
-                'finance_em'      => false,
-                'finance_treas'   => false,
-                'event_report'    => false,
+                'insurance' => false,
+                'finance_em' => false,
+                'finance_treas' => false,
+                'event_report' => false,
             ],
             'production_charge' => clean($request->get('production_charge')),
         ]);
-        Log::debug("Created event {$event->id}: " . json_encode($request->only('name', 'venue', 'type', 'production_charge')));
+        Log::debug(
+            "Created event {$event->id}: " . json_encode($request->only('name', 'venue', 'type', 'production_charge')),
+        );
 
         // Set the event time limits
         $start_time = explode(':', $request->get('time_start'));
-        $end_time   = explode(':', $request->get('time_end'));
-        $date       = Carbon::createFromFormat('Y-m-d', $request->get('date_start'))
-                            ->setTime(0, 0, 0);
-        $date_end   = Carbon::createFromFormat('Y-m-d', $request->has('one_day') ? $request->get('date_start') : $request->get('date_end'))
-                            ->setTime(23, 59, 59);
+        $end_time = explode(':', $request->get('time_end'));
+        $date = Carbon::createFromFormat('Y-m-d', $request->get('date_start'))->setTime(0, 0, 0);
+        $date_end = Carbon::createFromFormat(
+            'Y-m-d',
+            $request->has('one_day') ? $request->get('date_start') : $request->get('date_end'),
+        )->setTime(23, 59, 59);
         Log::debug("Event {$event->id} starts {$date} and ends {$date_end}");
 
         // Create each event time
@@ -122,9 +125,9 @@ class EventController extends Controller
             Log::debug("Creating event time (start = $start, end = $end) on $date for event {$event->id}");
 
             $event->times()->create([
-                'name'  => $event->name,
+                'name' => $event->name,
                 'start' => $start,
-                'end'   => $end,
+                'end' => $end,
             ]);
             $date->day++;
         }
@@ -134,14 +137,13 @@ class EventController extends Controller
 
         // If the event is external and off-campus email the SU
         if ($event->client_type > 1 && $event->venue_type == 2) {
-            Mail::to(config('bts.emails.events.accepted_external.to'))
-                ->queue(new AcceptedExternal($event, $request));
+            Mail::to(config('bts.emails.events.accepted_external.to'))->queue(new AcceptedExternal($event, $request));
             Log::info("Sent email notifying of new external off-campus event {$event->id}");
         }
 
         // Create a flash message and redirect
         Notify::success('Event created');
-        Log::info("User " . request()->user()->id . " created event {$event->id}");
+        Log::info('User ' . request()->user()->id . " created event {$event->id}");
 
         if ($request->get('action') == 'create-another') {
             return redirect()->back();
@@ -171,7 +173,7 @@ class EventController extends Controller
 
         return view('events.view')->with([
             'event' => $event,
-            'tab'   => $request->has('tab') ? $request->get('tab') : 'details',
+            'tab' => $request->has('tab') ? $request->get('tab') : 'details',
         ]);
     }
 
@@ -193,9 +195,13 @@ class EventController extends Controller
         Log::debug("Processing update request '$action' for event $eventId");
         if ($action == 'update') {
             return $this->updateDetails($event, $request);
-        } else if (preg_match('/^clear-crew:(.*)$/', $action, $matches)) {
+        } elseif (preg_match('/^clear-crew:(.*)$/', $action, $matches)) {
             return $this->updateClearCrew($event, $matches[1]);
-        } else if ($action == 'update-field' && $request->ajax() && preg_match('/^paperwork.(.*)$/', $request->get('field'), $matches)) {
+        } elseif (
+            $action == 'update-field' &&
+            $request->ajax() &&
+            preg_match('/^paperwork.(.*)$/', $request->get('field'), $matches)
+        ) {
             return $this->updatePaperwork($event, $matches[1], $request->get('value'));
         } else {
             return redirect()->route('event.view', ['id' => $eventId, 'tab' => 'settings']);
@@ -214,19 +220,19 @@ class EventController extends Controller
     {
         if ($mode == 'all') {
             $event->crew()->delete();
-            Log::info("User " . request()->user()->id . " cleared crew list for event {$event->id}");
+            Log::info('User ' . request()->user()->id . " cleared crew list for event {$event->id}");
             Notify::success('Crew list cleared');
-        } else if ($mode == 'general') {
+        } elseif ($mode == 'general') {
             $event->crew()->general()->delete();
-            Log::info("User " . request()->user()->id . " cleared general crew for event {$event->id}");
+            Log::info('User ' . request()->user()->id . " cleared general crew for event {$event->id}");
             Notify::success('General crew cleared');
-        } else if ($mode == 'core') {
+        } elseif ($mode == 'core') {
             $event->crew()->core()->delete();
-            Log::info("User " . request()->user()->id . " cleared core crew for event {$event->id}");
+            Log::info('User ' . request()->user()->id . " cleared core crew for event {$event->id}");
             Notify::success('Core crew cleared');
-        } else if ($mode == 'guests' && $event->isSocial()) {
+        } elseif ($mode == 'guests' && $event->isSocial()) {
             $event->crew()->guest()->delete();
-            Log::info("User " . request()->user()->id . " cleared guests from event {$event->id}");
+            Log::info('User ' . request()->user()->id . " cleared guests from event {$event->id}");
             Notify::success('Guests cleared');
         }
 
@@ -244,13 +250,7 @@ class EventController extends Controller
     private function updateDetails(Event $event, Request $request)
     {
         // Determine the fields to update
-        $fields = [
-            'name',
-            'type',
-            'venue',
-            'description',
-            'crew_list_status',
-        ];
+        $fields = ['name', 'type', 'venue', 'description', 'crew_list_status'];
         if (!$event->isTEM($request->user()) || $request->user()->isAdmin()) {
             $fields[] = 'em_id';
         }
@@ -261,15 +261,16 @@ class EventController extends Controller
         }
 
         // Set up the validation
-        $rules     = Event::getValidationRules($fields);
-        $messages  = Event::getValidationMessages($fields);
+        $rules = Event::getValidationRules($fields);
+        $messages = Event::getValidationMessages($fields);
         $validator = validator($request->only($fields), $rules, $messages);
 
         // Test validation
         if ($validator->fails()) {
-            return redirect()->route('event.view', ['id' => $event->id, 'tab' => 'settings'])
-                             ->withInput($request->input())
-                             ->withErrors($validator);
+            return redirect()
+                ->route('event.view', ['id' => $event->id, 'tab' => 'settings'])
+                ->withInput($request->input())
+                ->withErrors($validator);
         }
 
         // Update the event
@@ -278,12 +279,10 @@ class EventController extends Controller
         // If the event is no longer a social, remove any guests
         if ($event->type != Event::TYPE_SOCIAL) {
             Log::debug("Event {$event->id} has been changed to a non-social so clearing any guests");
-            $event->crew()
-                  ->guest()
-                  ->delete();
+            $event->crew()->guest()->delete();
         }
 
-        Log::info("User " . request()->user()->id . " updated event {$event->id}");
+        Log::info('User ' . request()->user()->id . " updated event {$event->id}");
         Notify::success('Event updated');
         return redirect()->route('event.view', ['id' => $event->id, 'tab' => 'settings']);
     }
@@ -304,7 +303,7 @@ class EventController extends Controller
         }
 
         $event->setPaperwork($paperwork, $value);
-        Log::info("User " . request()->user()->id . " set paperwork '$paperwork' for event {$event->id} to '$value'");
+        Log::info('User ' . request()->user()->id . " set paperwork '$paperwork' for event {$event->id} to '$value'");
         return $this->ajaxResponse('Paperwork status updated');
     }
 
@@ -321,11 +320,10 @@ class EventController extends Controller
         $this->requireAjax();
         $this->authorize('delete', Event::class);
 
-        Event::findOrFail($eventId)
-             ->delete();
+        Event::findOrFail($eventId)->delete();
 
         Notify::success('Event deleted.');
-        Log::info("User " . request()->user()->id . " deleted event $eventId");
+        Log::info('User ' . request()->user()->id . " deleted event $eventId");
         return $this->ajaxResponse('Event deleted.');
     }
 
@@ -352,18 +350,19 @@ class EventController extends Controller
         }
 
         // Get and sort the results
-        $events = $events->distinct()
-                         ->join('event_times', 'events.id', '=', 'event_times.event_id')
-                         ->orderBy('event_times.end', 'DESC')
-                         ->get()
-                         ->map(function ($event) {
-                             return (object)[
-                                 'id'   => $event->id,
-                                 'name' => $event->name,
-                                 'date' => $event->end->format('M Y'),
-                             ];
-                         })
-                         ->toArray();
+        $events = $events
+            ->distinct()
+            ->join('event_times', 'events.id', '=', 'event_times.event_id')
+            ->orderBy('event_times.end', 'DESC')
+            ->get()
+            ->map(function ($event) {
+                return (object) [
+                    'id' => $event->id,
+                    'name' => $event->name,
+                    'date' => $event->end->format('M Y'),
+                ];
+            })
+            ->toArray();
 
         return $this->ajaxResponse($events);
     }
@@ -383,7 +382,7 @@ class EventController extends Controller
             $this->authorize('update', $event);
 
             if (!$event->isEvent()) {
-                throw new NotFoundHttpException;
+                throw new NotFoundHttpException();
             }
         } else {
             $this->authorizeGate('member');
@@ -407,8 +406,7 @@ class EventController extends Controller
             // Check the event exists
             $event = Event::find($eventId);
             if ($event && $event->hasEM()) {
-                Mail::to($event->em->email, $event->em->name)
-                    ->queue(new FinanceEmail($request, $event));
+                Mail::to($event->em->email, $event->em->name)->queue(new FinanceEmail($request, $event));
 
                 Log::info("Sent finance email for event $eventId: " . json_encode($request));
                 return response()->json(['code' => 200, 'result' => 'success']);

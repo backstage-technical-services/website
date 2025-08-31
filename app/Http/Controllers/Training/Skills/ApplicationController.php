@@ -42,7 +42,10 @@ class ApplicationController extends Controller
     {
         $this->authorize('apply', Application::class);
 
-        $levels = $this->determineSelectableApplicationSkillLevels($skill = $id === null ? null : Skill::find($id), $user = request()->user());
+        $levels = $this->determineSelectableApplicationSkillLevels(
+            $skill = $id === null ? null : Skill::find($id),
+            $user = request()->user(),
+        );
 
         if (count(array_filter($levels)) == 0) {
             Notify::warning('There are no levels left to apply for');
@@ -60,7 +63,7 @@ class ApplicationController extends Controller
         }
 
         return view('training.skills.applications.apply')->with([
-            'skill'           => $id === null ? null : $skill,
+            'skill' => $id === null ? null : $skill,
             'AvailableLevels' => array_keys(array_filter($levels)),
         ]);
     }
@@ -77,23 +80,24 @@ class ApplicationController extends Controller
         $this->authorize('apply', Application::class);
 
         // Create the application
-        $skill    = Skill::find($request->get('skill_id'));
-        $user     = $request->user();
+        $skill = Skill::find($request->get('skill_id'));
+        $user = $request->user();
         $application = Application::create([
-            'skill_id'        => $skill->id,
-            'user_id'         => $user->id,
-            'applied_level'  => clean($request->get('level')),
-            'reasoning'       => clean($request->get('reasoning')),
-            'date'            => Carbon::now(),
-            'awarded_level'   => null,
-            'awarded_by'      => null,
+            'skill_id' => $skill->id,
+            'user_id' => $user->id,
+            'applied_level' => clean($request->get('level')),
+            'reasoning' => clean($request->get('reasoning')),
+            'date' => Carbon::now(),
+            'awarded_level' => null,
+            'awarded_by' => null,
             'awarded_comment' => null,
-            'awarded_date'    => null,
+            'awarded_date' => null,
         ]);
 
         // Email the T&S officer
-        Mail::to(config('bts.emails.training.application_submitted'))
-            ->queue(new ApplicationSubmitted($skill, $application, $user));
+        Mail::to(config('bts.emails.training.application_submitted'))->queue(
+            new ApplicationSubmitted($skill, $application, $user),
+        );
 
         Notify::success('Application submitted');
         return redirect()->route('training.skill.index');
@@ -106,19 +110,14 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $unawarded = Application::notAwarded()
-                                ->orderBy('date', 'ASC')
-                                ->get();
-        $awarded   = Application::awarded()
-                                ->orderBy('awarded_date', 'DESC')
-                                ->paginate(30)
-                                ->appends('tab', 'reviewed');
+        $unawarded = Application::notAwarded()->orderBy('date', 'ASC')->get();
+        $awarded = Application::awarded()->orderBy('awarded_date', 'DESC')->paginate(30)->appends('tab', 'reviewed');
         $this->checkPage($awarded);
 
         return view('training.skills.applications.index')->with([
             'unawarded' => $unawarded,
-            'awarded'   => $awarded,
-            'tab'       => request()->get('tab') == 'reviewed' ? 'reviewed' : 'pending',
+            'awarded' => $awarded,
+            'tab' => request()->get('tab') == 'reviewed' ? 'reviewed' : 'pending',
         ]);
     }
 
@@ -145,7 +144,7 @@ class ApplicationController extends Controller
 
         return view('training.skills.applications.view')->with([
             'application' => $application,
-            'levels'      => $levels,
+            'levels' => $levels,
         ]);
     }
 
@@ -175,28 +174,35 @@ class ApplicationController extends Controller
         }
 
         // Validate the request
-        $this->validateWith(validator($request->all(), [
-            'awarded_level'   => 'required|in:0,1,2,3',
-            'awarded_comment' => 'required_if:awarded_level,0',
-        ], [
-            'awarded_level.required'      => 'Please select the level to award',
-            'awarded_level.in'            => 'Please select the level to award',
-            'awarded_comment.required_if' => 'Please provide a reason why you haven\'t awarded the requested level',
-        ])->after(function (Validator $validator) use ($application, $request) {
-            $skill = Skill::find($application->skill_id);
+        $this->validateWith(
+            validator(
+                $request->all(),
+                [
+                    'awarded_level' => 'required|in:0,1,2,3',
+                    'awarded_comment' => 'required_if:awarded_level,0',
+                ],
+                [
+                    'awarded_level.required' => 'Please select the level to award',
+                    'awarded_level.in' => 'Please select the level to award',
+                    'awarded_comment.required_if' =>
+                        'Please provide a reason why you haven\'t awarded the requested level',
+                ],
+            )->after(function (Validator $validator) use ($application, $request) {
+                $skill = Skill::find($application->skill_id);
 
-            // Check the level awarded is available
-            if ($request->get('awarded_level') > 0 && !$skill->isLevelAvailable($request->get('awarded_level'))) {
-                $validator->errors()->add('awarded_level', 'Please select a level that\'s available');
-            }
-        }));
+                // Check the level awarded is available
+                if ($request->get('awarded_level') > 0 && !$skill->isLevelAvailable($request->get('awarded_level'))) {
+                    $validator->errors()->add('awarded_level', 'Please select a level that\'s available');
+                }
+            }),
+        );
 
         // Update the application
         $attributes = [
-            'awarded_level'   => $request->get('awarded_level'),
-            'awarded_by'      => $user->id,
+            'awarded_level' => $request->get('awarded_level'),
+            'awarded_by' => $user->id,
             'awarded_comment' => clean($request->get('awarded_comment')),
-            'awarded_date'    => Carbon::now(),
+            'awarded_date' => Carbon::now(),
         ];
         $application->update($attributes);
         Logger::log('training-skill-application.process', true, ['id' => $application->id] + $attributes);
@@ -207,8 +213,7 @@ class ApplicationController extends Controller
         }
 
         // Email the user
-        Mail::to($application->user->email, $application->user->name)
-            ->queue(new ApplicationProcessed($application));
+        Mail::to($application->user->email, $application->user->name)->queue(new ApplicationProcessed($application));
 
         Notify::success('Application processed');
         return redirect()->route('training.skill.application.index');

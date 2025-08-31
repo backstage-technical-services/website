@@ -5,11 +5,11 @@
 
 // Abbreviations
 abbr {
-	border-bottom: 1px dotted $btsyellow;
-	
-	&:hover {
-		cursor: default;
-	}
+    border-bottom: 1px dotted $btsyellow;
+
+    &:hover {
+        cursor: default;
+    }
 }
 
 @import "includes/dropdowns";
@@ -18,24 +18,24 @@ abbr {
 
 // Horizontal rules
 hr {
-	border: none;
-	background: $btsyellow;
-	height: 1px;
-	margin: 1.5em 0;
-	
-	&.grey {
-		background: #666;
-	}
-	& + * {
-		margin-top: 0;
-	}
+    border: none;
+    background: $btsyellow;
+    height: 1px;
+    margin: 1.5em 0;
+
+    &.grey {
+        background: #666;
+    }
+    & + * {
+        margin-top: 0;
+    }
 }
 
 // Labels
 .label {
-	& > span.fa {
-		margin-right: 0.3em;
-	}
+    & > span.fa {
+        margin-right: 0.3em;
+    }
 }
 
 @import "includes/lists";
