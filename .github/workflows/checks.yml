@@ -63,7 +63,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: Test Report
           report-path: 'tests/results/junit.xml'
           integrations-config: |
             {
@@ -77,7 +76,11 @@ jobs:
                 }
               }
             }
-          pull-request-report: 'true'
-          update-comment: 'true'
-          overwrite-comment: 'true'
-          comment-tag: 'ctrf-test-report'
+          pull-request: true
+          use-suite-name: true
+          collapse-large-reports: true
+          group-by: suite
+          always-group-by: true
+          overwrite-comment: true
+          always-latest-comment: true
+          comment-tag: ctrf-test-report
