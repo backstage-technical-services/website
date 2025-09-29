@@ -7,13 +7,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button
-            class="btn btn-success"
-            data-action="save"
-            data-type="submit-modal"
-            data-redirect="true"
-            type="button"
-        >
+        <button class="btn btn-success"
+                data-action="save"
+                data-type="submit-modal"
+                data-redirect="true"
+                type="button">
             <span class="fa fa-check"></span>
             <span>Add category</span>
         </button>

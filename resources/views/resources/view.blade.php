@@ -9,19 +9,17 @@
         <h2>{{ $resource->title }}</h2>
         <h4>{{ $resource->category_name }}</h4>
     </div>
-    <iframe
-        src="{{ route('resource.stream', ['id' => $resource->id]) }}"
-        width="100%"
-        height="600"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-    >Loading...
+    <iframe src="{{ route('resource.stream', ['id' => $resource->id]) }}"
+            width="100%"
+            height="600"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0">Loading...
     </iframe>
     <div class="details-wrapper">
         <div class="links">
             <div class="btn-group">
-                @if ($resource->isFile())
+                @if($resource->isFile())
                     <a class="btn btn-success" href="{{ route('resource.download', ['id' => $resource->id]) }}">
                         <span class="fa fa-cloud-download"></span>
                         <span>Download</span>
@@ -34,7 +32,9 @@
                 @endif
                 @can('update', $resource)
                     <div class="btn-group">
-                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button">
+                        <button class="btn btn-primary dropdown-toggle"
+                                data-toggle="dropdown"
+                                type="button">
                             <span class="fa fa-pencil"></span>
                             <span>Edit</span>
                         </button>
@@ -44,7 +44,7 @@
                                     <span class="fa fa-pencil"></span> Edit information
                                 </a>
                             </li>
-                            @if ($resource->isFile())
+                            @if($resource->isFile())
                                 <li>
                                     <a href="{{ route('resource.issue', ['id' => $resource->id]) }}">
                                         <span class="fa fa-upload"></span> Issue new version
@@ -55,24 +55,21 @@
 
                     </div>
                 @endcan
-                @can('delete', $resource)
-                    <a
-                        class="btn btn-danger"
-                        data-submit-ajax="{{ route('resource.destroy', ['id' => $resource->id]) }}"
-                        data-submit-confirm="Are you sure you want to delete this resource?"
-                        data-redirect="true"
-                        data-redirect-location="{{ route('resource.search') }}"
-                    >
-                        <span class="fa fa-trash"></span> Delete
-                    </a>
-                @endcan
+                    @can('delete', $resource)
+                        <a class="btn btn-danger"
+                           data-submit-ajax="{{ route('resource.destroy', ['id' => $resource->id]) }}"
+                           data-submit-confirm="Are you sure you want to delete this resource?"
+                           data-redirect="true"
+                           data-redirect-location="{{ route('resource.search') }}">
+                            <span class="fa fa-trash"></span> Delete
+                        </a>
+                    @endcan
             </div>
         </div>
         <div class="details">
-            @if ($resource->isIssuable())
+            @if($resource->isIssuable())
                 <p>
-                    Issue {{ $resource->issue }} added by {{ $resource->author->name }}
-                    {{ $resource->issue()->created_at->diffForHumans() }} |
+                    Issue {{ $resource->issue }} added by {{ $resource->author->name }} {{ $resource->issue()->created_at->diffForHumans() }} |
                     <a href="{{ route('resource.history', ['id' => $resource->id]) }}">View history</a>
                 </p>
             @else
@@ -81,25 +78,22 @@
                     Last updated {{ $resource->updated_at->diffForHumans() }}
                 </p>
             @endif
-            @if ($resource->isAttachedToEvent())
-                <p>
-                    Related event:
-                    <a class="grey" href="{{ route('event.view', ['id' => $resource->event->id]) }}" target="_blank">
-                        {{ $resource->event->name }}
-                    </a>
-                </p>
+            @if($resource->isAttachedToEvent())
+                <p>Related event: <a class="grey"
+                                     href="{{ route('event.view', ['id' => $resource->event->id]) }}"
+                                     target="_blank">{{ $resource->event->name }}</a></p>
             @endif
         </div>
     </div>
     <div class="clearfix"></div>
-    @if ($resource->description)
+    @if($resource->description)
         <div class="description">
             {!! Markdown::convertToHtml($resource->description) !!}
         </div>
     @endif
-    @if ($resource->tags()->count() > 0)
+    @if($resource->tags()->count() > 0)
         <ul class="tag-list">
-            @foreach ($resource->tags()->get() as $tag)
+            @foreach($resource->tags()->get() as $tag)
                 <li>@include('resources.tags.partial')</li>
             @endforeach
         </ul>

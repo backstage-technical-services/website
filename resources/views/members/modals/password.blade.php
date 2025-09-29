@@ -18,13 +18,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button
-            class="btn btn-success"
-            data-type="submit-modal"
-            data-redirect="true"
-            name="update"
-            value="password"
-        >
+        <button class="btn btn-success"
+                data-type="submit-modal"
+                data-redirect="true"
+                name="update"
+                value="password">
             <span class="fa fa-check"></span>
             <span>Change password</span>
         </button>

@@ -8,12 +8,12 @@
 
 @section('scripts')
     $('#modeTab').find('ul.nav > li').on('click', function() {
-    var $this = $(this);
-    $('input[name="mode"]').val($this.data('mode'));
-    $('#submit-form').find('span:last').text($this.data('btnText'));
+        var $this = $(this);
+        $('input[name="mode"]').val($this.data('mode'));
+        $('#submit-form').find('span:last').text($this.data('btnText'));
     });
 
-    @if (request()->old('mode') == 'bulk')
+    @if(request()->old('mode') == 'bulk')
         $('ul.nav > li[data-mode="bulk"]').trigger('click');
     @endif
 @endsection
@@ -45,22 +45,11 @@
 
     <div class="form-group">
         <div class="btn-group">
-            <button
-                class="btn btn-success"
-                id="submit-form"
-                disable-submit="Adding user ..."
-                type="submit"
-            >
+            <button class="btn btn-success" id="submit-form" disable-submit="Adding user ..." type="submit">
                 <span class="fa fa-user-plus"></span>
                 <span>Add User</span>
             </button>
-            <a
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modal"
-                data-modal-template="help"
-                href="#"
-            >
+            <a class="btn btn-primary" data-toggle="modal" data-target="#modal" data-modal-template="help" href="#">
                 <span class="fa fa-question-circle"></span>
                 <span>Help</span>
             </a>

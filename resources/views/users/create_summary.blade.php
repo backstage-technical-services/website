@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
-        @foreach ($results as $i => $result)
+        @foreach($results as $i => $result)
             <div class="row {{ $result['success'] ? 'success' : 'error' }}">
                 <div class="status">
                     <span class="fa {{ $result['success'] ? 'fa-check' : 'fa-remove' }}"></span>

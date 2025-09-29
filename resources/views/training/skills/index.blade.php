@@ -11,7 +11,7 @@
             <nav>
                 <ul class="nav nav-pills nav-stacked category-list" role="tablist">
                     <li style="display: none !important;"><a role="button"></a></li>
-                    @foreach ($SkillCategories as $category)
+                    @foreach($SkillCategories as $category)
                         <li>
                             <a role="button">{{ $category->name }}</a>
                         </li>
@@ -31,7 +31,7 @@
             <div class="tab-pane active">
                 @include('training.skills.panes.welcome')
             </div>
-            @foreach ($SkillCategories as $category)
+            @foreach($SkillCategories as $category)
                 <div class="tab-pane">
                     @include('training.skills.panes.category')
                 </div>
@@ -43,7 +43,7 @@
                         <span>Apply for Skill</span>
                     </a>
                 @endcan
-                @if (Auth::user()->isAdmin())
+                @if(Auth::user()->isAdmin())
                     <a class="btn btn-success" href="{{ route('training.skill.award.form') }}">
                         <span class="fa fa-plus"></span>
                         <span>Award Skill</span>

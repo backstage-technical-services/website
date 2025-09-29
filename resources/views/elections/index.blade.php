@@ -29,11 +29,11 @@
                         {!! link_to_route('election.view', $election->title, ['id' => $election->id]) !!}
                     </td>
                     <td class="positions">
-                        @if ($election->isFull())
+                        @if($election->isFull())
                             Entire Committee ({{ count($election->positions) }} positions)
                         @else
                             <ul class="position-list">
-                                @foreach ($election->positions as $position)
+                                @foreach($election->positions as $position)
                                     <li>{{ $position }}</li>
                                 @endforeach
                             </ul>
@@ -54,9 +54,8 @@
                                     @can('delete', $election)
                                         <li>
                                             <a data-submit-ajax="{{ route('election.destroy', ['id' => $election->id]) }}"
-                                                data-submit-confirm="Are you sure you want to delete this election?"
-                                                data-redirect="true"
-                                            >
+                                               data-submit-confirm="Are you sure you want to delete this election?"
+                                               data-redirect="true">
                                                 <span class="fa fa-trash"></span> Delete
                                             </a>
                                         </li>

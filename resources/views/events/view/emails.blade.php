@@ -2,31 +2,22 @@
 @can('update', $event)
     <div class="top-buttons">
         <div class="btn-group">
-            <button
-                class="btn btn-success"
-                data-toggle="modal"
-                data-target="#modal"
-                data-modal-template="event_email"
-                data-mode="create"
-                type="button"
-            >
+            <button class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#modal"
+                    data-modal-template="event_email"
+                    data-mode="create"
+                    type="button">
                 <span class="fa fa-envelope"></span>
                 <span>Email crew</span>
             </button>
-            <button
-                class="btn btn-success dropdown-toggle"
-                data-toggle="dropdown"
-                type="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a
-                        href="mailto:{{ implode(',', $event->crew_mailing_list) }}?subject=[Backstage Website] {{ $event->name }}">
+                    <a href="mailto:{{ implode(',', $event->crew_mailing_list) }}?subject=[Backstage Website] {{ $event->name }}">
                         <span class="fa fa-external-link"></span>
                         <span>Use mail client</span>
                     </a>

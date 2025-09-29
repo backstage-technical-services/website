@@ -6,14 +6,12 @@
 @section('header-main', 'Backups')
 
 @section('content')
-    <button
-        class="btn btn-success"
-        data-toggle="modal"
-        data-target="#modal"
-        data-modal-template="backups"
-        data-modal-class="sm"
-        type="button"
-    >
+    <button type="button"
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target="#modal"
+            data-modal-template="backups"
+            data-modal-class="sm">
         <span class="fa fa-plus"></span>
         <span>Create Backup</span>
     </button>
@@ -28,7 +26,7 @@
             @forelse($backups as $backup)
                 <tr>
                     <td class="col--type">
-                        @if ($backup->getExtension() == 'sql')
+                        @if($backup->getExtension() == 'sql')
                             <span class="fa fa-database" title="Database only"></span>
                         @elseif($backup->getExtension() == 'zip')
                             <span class="fa fa-sitemap" title="Database and resources"></span>
@@ -56,12 +54,10 @@
                                         <span class="fa fa-download"></span>
                                         <span>Download</span>
                                     </a>
-                                    <button
-                                        data-submit-ajax="{{ route('backup.destroy', ['filename' => $backup->getFilename()]) }}"
-                                        data-submit-confirm="Are you sure you want to delete this backup?"
-                                        data-redirect="true"
-                                        type="button"
-                                    >
+                                    <button data-submit-ajax="{{ route('backup.destroy', ['filename' => $backup->getFilename()]) }}"
+                                            data-submit-confirm="Are you sure you want to delete this backup?"
+                                            data-redirect="true"
+                                            type="button">
                                         <span class="fa fa-trash"></span>
                                         <span>Delete</span>
                                     </button>

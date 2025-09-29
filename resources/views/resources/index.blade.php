@@ -30,9 +30,9 @@
                     <li class="{{ SearchTools::filter() == null ? 'active' : '' }}">
                         <a href="{{ route('resource.index') }}">-- All Categories --</a>
                     </li>
-                    @foreach ($ResourceCategories as $category)
-                        <li class="{{ SearchTools::filter() == 'category:' . $category->slug ? 'active' : '' }}">
-                            <a href="{{ route('resource.index', ['filter' => 'category:' . $category->slug]) }}">
+                    @foreach($ResourceCategories as $category)
+                        <li class="{{ SearchTools::filter() == 'category:'.$category->slug ? 'active' : '' }}">
+                            <a href="{{ route('resource.index', ['filter' => 'category:'.$category->slug]) }}">
                                 {{ $category->name }}
                             </a>
                         </li>
@@ -48,9 +48,9 @@
                     <li class="{{ SearchTools::filter() == null ? 'active' : '' }}">
                         <a href="{{ route('resource.index') }}">-- All Access Levels --</a>
                     </li>
-                    @foreach ($AccessLevels as $access => $name)
-                        <li class="{{ SearchTools::filter() == 'access:' . $access ? 'active' : '' }}">
-                            <a href="{{ route('resource.index', ['filter' => 'access:' . $access]) }}">
+                    @foreach($AccessLevels as $access => $name)
+                        <li class="{{ SearchTools::filter() == 'access:'.$access ? 'active' : '' }}">
+                            <a href="{{ route('resource.index', ['filter' => 'access:'.$access]) }}">
                                 {{ $name }}
                             </a>
                         </li>
@@ -75,17 +75,16 @@
                     <td class="id">{{ $resource->id }}</td>
                     <td class="dual-layer" col="name">
                         <div class="upper">
-                            <a class="grey"
-                                href="{{ route('resource.view', ['id' => $resource->id]) }}">{{ $resource->title }}</a>
+                            <a class="grey" href="{{ route('resource.view', ['id' => $resource->id]) }}">{{ $resource->title }}</a>
                         </div>
                         <div class="lower">
                             {{ $resource->category_name }}
                         </div>
                     </td>
                     <td col="tags">
-                        @if ($resource->tags()->count())
+                        @if($resource->tags()->count())
                             <ul class="tag-list">
-                                @foreach ($resource->tags()->get() as $tag)
+                                @foreach($resource->tags()->get() as $tag)
                                     <li>
                                         @include('resources.tags.partial')
                                     </li>
@@ -107,9 +106,8 @@
                                 </li>
                                 <li>
                                     <a data-submit-ajax="{{ route('resource.destroy', ['id' => $resource->id]) }}"
-                                        data-submit-confirm="Are you sure you want to delete this resource?"
-                                        data-redirect="true"
-                                    >
+                                       data-submit-confirm="Are you sure you want to delete this resource?"
+                                       data-redirect="true">
                                         <span class="fa fa-trash"></span> Delete
                                     </a>
                                 </li>
@@ -124,7 +122,7 @@
             @endforelse
         </tbody>
     </table>
-    @if (get_class($resources) == 'Illuminate\Pagination\LengthAwarePaginator')
+    @if(get_class($resources) == 'Illuminate\Pagination\LengthAwarePaginator')
         {{ $resources }}
     @endif
 @endsection

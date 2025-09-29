@@ -1,8 +1,6 @@
 {!! Form::model(new \App\Models\Equipment\Breakage(), ['route' => 'equipment.repairs.store', 'files' => true]) !!}
-<p>
-    If you discover a piece of equipment is broken please fill in the form form below, so that the Equipment Officer is
-    informed of the breakage. Please also label the equipment and, if necessary, take it out of service.
-</p>
+<p>If you discover a piece of equipment is broken please fill in the form form below, so that the Equipment Officer is informed of the breakage. Please also
+    label the equipment and, if necessary, take it out of service.</p>
 
 {{-- Equipment name --}}
 <div class="form-group @InputClass('name')">
@@ -19,10 +17,7 @@
     {!! Form::label('location', 'Equipment Location:', ['class' => 'control-label']) !!}
     <div class="input-group">
         <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
-        {!! Form::text('location', null, [
-            'class' => 'form-control',
-            'placeholder' => 'Where is the equipment currently?',
-        ]) !!}
+        {!! Form::text('location', null, ['class' => 'form-control', 'placeholder' => 'Where is the equipment currently?']) !!}
     </div>
     @InputError('location')
 </div>
@@ -42,11 +37,7 @@
     {!! Form::label('description', 'Damage Description:', ['class' => 'control-label']) !!}
     <div class="input-group textarea">
         <span class="input-group-addon"><span class="fa fa-quote-left"></span></span>
-        {!! Form::textarea('description', null, [
-            'class' => 'form-control',
-            'placeholder' => 'What is wrong with it? Please be specific',
-            'rows' => 5,
-        ]) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'What is wrong with it? Please be specific','rows' => 5]) !!}
     </div>
     @InputError('description')
 </div>
@@ -62,6 +53,7 @@
     @InputError('images')
     @InputError('images.*')
 </div>
+
 
 {{-- Buttons --}}
 <div class="form-group">

@@ -6,10 +6,8 @@
 @section('header-main', 'Report an Accident')
 
 @section('content')
-    <p>
-        Use this form to report an accident that occurred during a Backstage-supported event or activity. Please note that
-        this form is automatically sent to the Students' Union as well as Backstage.
-    </p>
+    <p>Use this form to report an accident that occurred during a Backstage-supported event or activity. Please note that this form is automatically sent to the
+        Students' Union as well as Backstage.</p>
 
     {!! Form::open() !!}
     <fieldset>
@@ -42,10 +40,8 @@
         <!-- Details -->
         <div class="form-group @InputClass('details')">
             {!! Form::label('details', 'Details:') !!}
-            {!! Form::textarea('details', null, [
-                'rows' => 6,
-                'placeholder' => 'Please provide a brief description of the injury or injuries and how they were obtained.',
-            ]) !!}
+            {!! Form::textarea('details', null,
+            ['rows' => 6, 'placeholder' => 'Please provide a brief description of the injury or injuries and how they were obtained.']) !!}
             @InputError('details')
         </div>
 
@@ -59,10 +55,7 @@
         <!-- Absence Details -->
         <div class="form-group @InputClass('absence_details')" data-visibility-input="severity" data-visibility-value="1 2 3">
             {!! Form::label('absence_details', 'Absence:') !!}
-            {!! Form::textarea('absence_details', null, [
-                'rows' => 4,
-                'placeholder' => 'Details of any absence as a result of the accident',
-            ]) !!}
+            {!! Form::textarea('absence_details', null, ['rows' => 4, 'placeholder' => 'Details of any absence as a result of the accident']) !!}
             @InputError('absence_details')
         </div>
     </fieldset>
@@ -94,10 +87,7 @@
     <fieldset>
         <legend>Contact Details</legend>
 
-        <p>
-            This should be someone who knows about the injury and is willing to be contacted by Backstage or the Students'
-            Union for more information.
-        </p>
+        <p>This should be someone who knows about the injury and is willing to be contacted by Backstage or the Students' Union for more information.</p>
         <!-- Name -->
         <div class="form-group @InputClass('contact_name')">
             {!! Form::label('contact_name', 'Name:') !!}

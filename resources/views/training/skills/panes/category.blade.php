@@ -9,19 +9,18 @@
                 <td col="skill-buttons">
                     <div class="btn-group btn-group-sm">
                         @can('edit', $skill)
-                            <a class="btn btn-warning btn-sm" href="{{ route('training.skill.edit', ['id' => $skill->id]) }}">
+                            <a class="btn btn-warning btn-sm"
+                               href="{{ route('training.skill.edit', ['id' => $skill->id]) }}">
                                 <span class="fa fa-pencil"></span>
                             </a>
                         @endcan
                         @can('delete', $skill)
-                            <button
-                                class="btn btn-danger btn-sm"
-                                data-submit-ajax="{{ route('training.skill.destroy', $skill->id) }}"
-                                data-submit-confirm="Are you sure you want to delete this skill?"
-                                data-redirect="true"
-                                data-redirect-location="{{ request()->url() }}"
-                                type="button"
-                            >
+                            <button class="btn btn-danger btn-sm"
+                                    data-submit-ajax="{{ route('training.skill.destroy', $skill->id) }}"
+                                    data-submit-confirm="Are you sure you want to delete this skill?"
+                                    data-redirect="true"
+                                    data-redirect-location="{{ request()->url() }}"
+                                    type="button">
                                 <span class="fa fa-remove"></span>
                             </button>
                         @endcan

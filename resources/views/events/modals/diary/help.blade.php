@@ -3,10 +3,7 @@
         <h1>Help</h1>
     </div>
     <div class="modal-body">
-        <p>
-            The Events Diary is a calendar of all of the events, training sessions, socials and meetings that are
-            currently scheduled.
-        </p>
+        <p>The Events Diary is a calendar of all of the events, training sessions, socials and meetings that are currently scheduled.</p>
         <h2>Key</h2>
         <div class="event-key">
             <div class="event">
@@ -32,12 +29,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button
-            class="btn btn-success"
-            data-toggle="modal"
-            data-target="#modal"
-            type="button"
-        >
+        <button class="btn btn-success" data-toggle="modal" data-target="#modal" type="button">
             <span class="fa fa-thumbs-up"></span>
             <span>Ok, got it</span>
         </button>

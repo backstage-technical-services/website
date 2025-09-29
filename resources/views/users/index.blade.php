@@ -6,11 +6,8 @@
 @section('title', 'User Accounts')
 
 @section('content')
-    <p>
-        This table lists all user accounts entered into the database, including non-members and archived accounts. To ensure
-        that all past events display properly it is not possible to delete users; instead use the archive function to
-        disable their account and remove them from any signup lists.
-    </p>
+    <p>This table lists all user accounts entered into the database, including non-members and archived accounts. To ensure that all past events display
+        properly it is not possible to delete users; instead use the archive function to disable their account and remove them from any signup lists.</p>
     <div>
         <a class="btn btn-success" href="{{ route('user.create') }}">
             <span class="fa fa-user-plus"></span>
@@ -54,7 +51,7 @@
                                         <span class="fa fa-pencil"></span> Edit
                                     </a>
                                 </li>
-                                @if ($user->status && $user->id != Auth::user()->id)
+                                @if($user->status && $user->id != Auth::user()->id)
                                     <li>
                                         <button name="archive-user" title="Archive" value="{{ $user->id }}">
                                             <span class="fa fa-archive"></span> Archive
@@ -69,27 +66,20 @@
                 <tr>
                     <td colspan="7">No users matched your query</td>
                 </tr>
-            @endif
+                @endif
         </tbody>
     </table>
     <div class="form-group bulk-actions">
-        {!! Form::select('bulk-action', ['' => '-- Select Action --'] + $bulkActions, null, [
-            'class' => 'form-control input-sm',
-        ]) !!}
-        <button
-            class="btn btn-success btn-sm"
-            data-disable="click"
-            data-disable-text="Applying..."
-            name="bulk"
-            value="1"
-        >
+        {!! Form::select('bulk-action', ['' => '-- Select Action --'] + $bulkActions, null, ['class' => 'form-control input-sm'])
+         !!}
+        <button class="btn btn-success btn-sm" name="bulk" value="1" data-disable="click" data-disable-text="Applying...">
             <span class="fa fa-check"></span>
             <span>Apply to selected users</span>
         </button>
     </div>
     {!! Form::close() !!}
 
-    @if (get_class($users) == 'Illuminate\Pagination\LengthAwarePaginator')
+    @if(get_class($users) == 'Illuminate\Pagination\LengthAwarePaginator')
         {{ $users }}
     @endif
 @endsection

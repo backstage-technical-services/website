@@ -32,7 +32,7 @@
                     </td>
                     <td col="venue">{{ $event->venue }}</td>
                     <td col="em">
-                        @if ($event->hasEM())
+                        @if($event->hasEM())
                             {{ $event->em->name }}
                         @else
                             <em>- none -</em>
@@ -46,12 +46,10 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <button
-                                        data-submit-ajax="{{ route('event.destroy', ['id' => $event->id]) }}"
-                                        data-submit-confirm="Are you sure you want to delete this event?"
-                                        data-redirect="true"
-                                        type="button"
-                                    >
+                                    <button data-submit-ajax="{{ route('event.destroy', ['id' => $event->id]) }}"
+                                            data-submit-confirm="Are you sure you want to delete this event?"
+                                            data-redirect="true"
+                                            type="button">
                                         <span class="fa fa-trash"></span>
                                         <span>Delete</span>
                                     </button>
