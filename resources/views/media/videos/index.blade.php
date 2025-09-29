@@ -20,8 +20,7 @@
             </div>
             <div class="video-details">
                 <div class="video-details-wrapper">
-                    <a class="video-title"
-                        href="{{ route('media.videos.show', ['id' => $video->id]) }}">{{ $video->title }}</a>
+                    <a class="video-title" href="{{ route('media.videos.show', ['id' => $video->id]) }}">{{ $video->title }}</a>
                     <div class="video-description">{!! nl2br(clean($video->description)) !!}</div>
                 </div>
             </div>

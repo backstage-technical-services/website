@@ -33,13 +33,11 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button
-            class="btn btn-success"
-            data-type="submit-modal"
-            data-redirect="true"
-            name="update"
-            value="personal"
-        >
+        <button class="btn btn-success"
+                data-type="submit-modal"
+                data-redirect="true"
+                name="update"
+                value="personal">
             <span class="fa fa-check"></span>
             <span>Save changes</span>
         </button>

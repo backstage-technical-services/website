@@ -40,7 +40,9 @@
         </label>
     </div>
 </div>
-<button class="btn btn-success" id="DiaryPreferences-save" data-update-url="{{ route('member.update') }}">
+<button class="btn btn-success"
+        data-update-url="{{ route('member.update') }}"
+        id="DiaryPreferences-save">
     <span>Save Preferences</span>
 </button>
 {!! Form::input('hidden', 'update', 'diary-preferences') !!}

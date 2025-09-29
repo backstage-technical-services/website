@@ -1,28 +1,27 @@
 <div class="award-list">
-    @foreach ($season->awards()->get() as $award)
+    @foreach($season->awards()->get() as $award)
         <div class="panel panel-default">
             <div class="panel-heading">
                 {{ $award->name }}
                 <p class="description">{{ $award->description }}</p>
             </div>
-            @if ($award->hasApprovedNominations($season->id))
+            @if($award->hasApprovedNominations($season->id))
                 <?php $nominations = $award->getApprovedNominations($season->id); ?>
                 <table class="table">
                     <tbody>
-                        @foreach ($nominations as $nomination)
+                        @foreach($nominations as $nomination)
                             <tr>
-                                @if ($season->isVotingOpen())
+                                @if($season->isVotingOpen())
                                     <td class="vote">
-                                        @if (!$award->userHasVoted($season, Auth::user()))
+                                        @if(!$award->userHasVoted($season, Auth::user()))
                                             {!! Form::radio('awards[' . $award->id . ']', $nomination->id) !!}
                                         @elseif($nomination->userVotedFor(Auth::user()))
-                                            <span class="fa fa-check success"
-                                                title="You voted for this nomination"></span>
+                                            <span class="fa fa-check success" title="You voted for this nomination"></span>
                                         @endif
                                     </td>
                                 @elseif($season->areResultsReleased())
                                     <td class="result">
-                                        @if ($nomination->hasWon())
+                                        @if($nomination->hasWon())
                                             <span class="fa fa-check success" title="This nomination won"></span>
                                         @elseif(Auth::user()->can('update', $season))
                                             <span class="fa fa-remove danger"></span>

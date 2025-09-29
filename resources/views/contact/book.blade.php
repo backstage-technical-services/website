@@ -12,11 +12,9 @@
 @endsection
 
 @section('tab')
-    <p>
-        Please use the following form if you wish to request a quote or enquire about booking Backstage. You will receive an
-        acknowledgement of your request but please note that this is not a confirmation that Backstage will crew your event.
-        The Production Manager will get back to you with a definite answer as soon as possible.
-    </p>
+    <p>Please use the following form if you wish to request a quote or enquire about booking Backstage. You will receive an acknowledgement of your request but
+        please note that this is not a confirmation that Backstage will crew your event. The Production Manager will get back to you with a definite answer as
+        soon as possible.</p>
 
     {!! Form::open() !!}
     <fieldset class="row">
@@ -42,11 +40,7 @@
 
         <div class="form-group @InputClass('event_description')">
             {!! Form::label('event_description', 'Description:', ['class' => 'control-label']) !!}
-            {!! Form::textarea('event_description', null, [
-                'class' => 'form-control',
-                'placeholder' => 'Briefly describe what the event is about',
-                'rows' => 5,
-            ]) !!}
+            {!! Form::textarea('event_description', null, ['class' => 'form-control', 'placeholder' => 'Briefly describe what the event is about', 'rows' => 5]) !!}
             @InputError('event_description')
         </div>
 
@@ -112,10 +106,7 @@
             {!! Form::label('contact_email', 'Contact Email:', ['class' => 'control-label']) !!}
             <div class="input-group">
                 <span class="input-group-addon"><span class="fa fa-at"></span></span>
-                {!! Form::input('email', 'contact_email', null, [
-                    'class' => 'form-control',
-                    'placeholder' => 'We\'ll use this to discuss your booking',
-                ]) !!}
+                {!! Form::input('email', 'contact_email', null, ['class' => 'form-control', 'placeholder' => 'We\'ll use this to discuss your booking']) !!}
             </div>
             @InputError('contact_email')
         </div>
@@ -133,9 +124,7 @@
     <fieldset class="row" style="padding-bottom: 0.9em;">
         <legend>Additional Info</legend>
         <div class="form-group @InputClass('additional')">
-            {!! Form::label('additional', 'Please include any additional requests you may have', [
-                'class' => 'control-label',
-            ]) !!}
+            {!! Form::label('additional', 'Please include any additional requests you may have', ['class' => 'control-label']) !!}
             {!! Form::textarea('additional', null, ['class' => 'form-control', 'placeholder' => '', 'rows' => 5]) !!}
             @InputError('additional')
         </div>
@@ -150,17 +139,13 @@
         <div class="checkbox">
             <label>
                 {!! Form::checkbox('terms', 1, null) !!}
-                I agree to the <a
-                    id="show_terms"
-                    data-toggle="modal"
-                    data-target="#modal"
-                    data-modal-template="terms"
-                    data-modal-title="Terms and Conditions for the Provision of Services"
-                    href="{{ route('contact.book.terms') }}"
-                    target="_blank"
-                >
-                    Terms and Conditions
-                </a>.
+                I agree to the <a href="{{ route('contact.book.terms') }}"
+                                  id="show_terms"
+                                  data-toggle="modal"
+                                  data-target="#modal"
+                                  data-modal-template="terms"
+                                  data-modal-title="Terms and Conditions for the Provision of Services"
+                                  target="_blank">Terms and Conditions</a>.
             </label>
         </div>
     </div>

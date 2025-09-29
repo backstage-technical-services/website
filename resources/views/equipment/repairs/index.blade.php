@@ -19,9 +19,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://docs.google.com/forms/d/1iEeYXmItGGWwjsqbv1w1yRXKsvnfwBMdhAujCC5VKfI/viewform"
-                        target="_blank"
-                    >
+                    <a href="https://docs.google.com/forms/d/1iEeYXmItGGWwjsqbv1w1yRXKsvnfwBMdhAujCC5VKfI/viewform" target="_blank">
                         <span class="fa fa-external-link"></span> EMP Audio kit
                     </a>
                 </li>
@@ -42,16 +40,14 @@
         <tbody>
             @forelse($breakages as $breakage)
                 <tr onclick="">
-                    <td class="dual-layer" col="item">
+                    <td col="item" class="dual-layer">
                         <span class="upper">{{ $breakage->name }}</span>
                         <span class="lower">{{ $breakage->location }}</span>
                     </td>
                     <td col="date">{{ $breakage->created_at->diffForHumans() }}</td>
                     <td col="status">{{ \App\Models\Equipment\Breakage::$Status[$breakage->status] }}</td>
                     <td col="button">
-                        <a class="btn btn-primary" href="{{ route('equipment.repairs.view', ['id' => $breakage->id]) }}"
-                            title="View breakage"
-                        >
+                        <a class="btn btn-primary" href="{{ route('equipment.repairs.view', ['id' => $breakage->id]) }}" title="View breakage">
                             <span class="fa fa-angle-double-right"></span>
                         </a>
                     </td>

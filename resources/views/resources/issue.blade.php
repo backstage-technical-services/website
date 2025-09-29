@@ -19,11 +19,7 @@
     </div>
     <div class="form-group @InputClass('reason')">
         {!! Form::label('reason', 'Reason for issue:', ['class' => 'control-label']) !!}
-        {!! Form::textarea('reason', null, [
-            'class' => 'form-control',
-            'rows' => 6,
-            'placeholder' => 'Please describe why a new version is being issued',
-        ]) !!}
+        {!! Form::textarea('reason', null, ['class' => 'form-control', 'rows' => 6, 'placeholder' => 'Please describe why a new version is being issued']) !!}
         @InputError('reason')
         <p class="help-block alt">This supports {!! link_to('https://simplemde.com/markdown-guide', 'markdown', ['target' => '_blank']) !!}.</p>
     </div>

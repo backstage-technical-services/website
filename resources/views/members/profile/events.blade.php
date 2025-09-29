@@ -1,7 +1,7 @@
 <div id="events">
     <div class="pagination-count">
-        Showing {{ ($events->currentPage() - 1) * $events->perPage() + 1 }} -
-        {{ ($events->currentPage() - 1) * $events->perPage() + $events->count() }} of {{ $events->total() }} events
+        Showing {{ ($events->currentPage() - 1) * $events->perPage() + 1 }} - {{ ($events->currentPage() - 1) * $events->perPage() + $events->count() }} of {{
+    $events->total() }} events
     </div>
     <table class="table table-striped event-list">
         <thead>

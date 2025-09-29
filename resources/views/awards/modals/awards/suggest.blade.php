@@ -7,22 +7,17 @@
         </div>
         <div class="form-group">
             {!! Form::label('description', 'Description', ['class' => 'control-label']) !!}
-            {!! Form::textarea('description', null, [
-                'class' => 'form-control',
-                'placeholder' => 'Describe what this is about or what sort of thing should be nominated',
-                'rows' => 4,
-            ]) !!}
+            {!! Form::textarea('description', null, ['class' => 'form-control',
+            'placeholder' => 'Describe what this is about or what sort of thing should be nominated', 'rows' => 4]) !!}
         </div>
     </div>
     <div class="modal-footer">
         <div class="btn-group">
-            <button
-                class="btn btn-success"
-                data-action="save"
-                data-type="submit-modal"
-                data-redirect="true"
-                type="button"
-            >
+            <button class="btn btn-success"
+                    data-action="save"
+                    data-type="submit-modal"
+                    data-redirect="true"
+                    type="button">
                 <span class="fa fa-check"></span>
                 <span>Suggest Award</span>
             </button>

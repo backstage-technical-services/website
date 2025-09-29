@@ -12,8 +12,8 @@
     <h1>{{ $event->name }}</h1>
     <h2>
         {{ $event->start->format('jS M Y') }}
-        @if ($event->start_date != $event->end_date)
-            &mdash; {{ $event->end->format('jS M Y') }}
+        @if($event->start_date != $event->end_date)
+        &mdash; {{ $event->end->format('jS M Y') }}
         @endif
     </h2>
     <div class="tab-vertical" role="tabpanel">
@@ -25,7 +25,7 @@
                             <span class="fa fa-info"></span>
                         </a>
                     </li>
-                    @if (!$event->isCrewListHidden() || (Auth::check() && Auth::user()->isAdmin()))
+                    @if(!$event->isCrewListHidden() || (Auth::check() && Auth::user()->isAdmin()))
                         <li {{ $tab == 'crew' ? ' class=active' : '' }} title="Event Crew">
                             <a href="{{ route('event.view', ['id' => $event->id, 'tab' => 'crew']) }}">
                                 <span class="fa fa-users"></span>
@@ -37,19 +37,19 @@
                             <span class="fa fa-clock-o"></span>
                         </a>
                     </li>
-                    @if (Auth::check() && Auth::user()->isCrew($event))
+                    @if(Auth::check() && Auth::user()->isCrew($event))
                         <li {{ $tab == 'emails' ? ' class=active' : '' }} title="Event Emails">
                             <a href="{{ route('event.view', ['id' => $event->id, 'tab' => 'emails']) }}">
                                 <span class="fa fa-inbox"></span>
                             </a>
                         </li>
                     @endif
-                    @if (Auth::check() && Auth::user()->isMember())
+                    @if(Auth::check() && Auth::user()->isMember())
                         <li {{ $tab == 'paperwork' ? ' class=active' : '' }} title="Event Paperwork">
                             <a href="{{ route('event.view', ['id' => $event->id, 'tab' => 'paperwork']) }}">
                                 <span class="fa fa-folder"></span>
                             </a>
-                            @if (($incomplete = $event->countPaperwork(false)) > 0)
+                            @if(($incomplete = $event->countPaperwork(false)) > 0)
                                 <span class="badge">{{ $incomplete }}</span>
                             @endif
                         </li>
@@ -70,23 +70,23 @@
                 @include('events.view.details')
             </div>
             {{-- Event crew --}}
-            @if (!$event->isCrewListHidden() || (Auth::check() && Auth::user()->isAdmin()))
+            @if(!$event->isCrewListHidden() || (Auth::check() && Auth::user()->isAdmin()))
                 <div class="tab-pane{{ $tab == 'crew' ? ' active' : '' }}" id="event_crew">
                     @include('events.view.crew')
                 </div>
             @endif
-            {{-- Event times --}}
+            {{-- Event times--}}
             <div class="tab-pane{{ $tab == 'times' ? ' active' : '' }}" id="event_times">
                 @include('events.view.times')
             </div>
             {{-- Event emails --}}
-            @if (Auth::check() && Auth::user()->isCrew($event))
+            @if(Auth::check() && Auth::user()->isCrew($event))
                 <div class="tab-pane{{ $tab == 'emails' ? ' active' : '' }}" id="event_emails">
                     @include('events.view.emails')
                 </div>
             @endif
             {{-- Event paperwork --}}
-            @if (Auth::check() && Auth::user()->isMember())
+            @if(Auth::check() && Auth::user()->isMember())
                 <div class="tab-pane{{ $tab == 'paperwork' ? ' active' : '' }}" id="event_paperwork">
                     @include('events.view.paperwork')
                 </div>
@@ -106,7 +106,7 @@
         @include('events.modals.view.crew')
         @include('events.modals.view.time')
         @include('events.modals.view.email')
-        @if ($event->isSocial())
+        @if($event->isSocial())
             @include('events.modals.view.guest')
         @endif
         @include('events.modals.view.crew_list_help')

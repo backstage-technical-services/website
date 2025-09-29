@@ -6,8 +6,8 @@
 @section('page-id', 'password-email')
 
 @section('content')
-    <p>If you have forgotten the password for your Backstage account, simply enter your email address into the field below.
-        You will be sent a code which will allow you to change your password.</p>
+    <p>If you have forgotten the password for your Backstage account, simply enter your email address into the field below. You will be sent a code which
+        will allow you to change your password.</p>
     {!! Form::open() !!}
     <div class="form-group @InputClass('email')">
         <div class="input-group">
@@ -23,9 +23,9 @@
             <span>Send Reset Link</span>
         </button>
         <span class="form-link">
-            or
-            <a href="{{ route('auth.login') }}">Cancel</a>
-        </span>
+                or
+                <a href="{{ route('auth.login') }}">Cancel</a>
+            </span>
     </div>
     {!! Form::close() !!}
 @endsection

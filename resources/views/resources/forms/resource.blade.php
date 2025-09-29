@@ -7,25 +7,19 @@
 {{-- Description --}}
 <div class="form-group @InputClass('description')">
     {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}
-    {!! Form::textarea('description', null, [
-        'class' => 'form-control',
-        'rows' => 4,
-        'placeholder' => 'Briefly describe the resource',
-    ]) !!}
+    {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'Briefly describe the resource']) !!}
     @InputError('description')
     <p class="help-block alt">This supports {!! link_to('https://simplemde.com/markdown-guide', 'markdown', ['target' => '_blank']) !!}.</p>
 </div>
 {{-- Source --}}
-@if ($mode == 'create')
+@if($mode == 'create')
     <div class="resource-source @InputClass('file')">
         <div class="form-group">
             {!! Form::label('source', 'Source:', ['class' => 'control-label']) !!}
             {{-- Type --}}
             {!! Form::select('type', $ResourceTypes, null, ['class' => 'form-control', 'data-type' => 'toggle-visibility']) !!}
             {{-- File --}}
-            <div class="form-group source-input @InputClass('file')" data-visibility-input="type"
-                data-visibility-value="{{ \App\Models\Resources\Resource::TYPE_FILE }}"
-            >
+            <div class="form-group source-input @InputClass('file')" data-visibility-input="type" data-visibility-value="{{ \App\Models\Resources\Resource::TYPE_FILE }}">
                 {!! Form::file('file') !!}
                 @InputError('file')
             </div>
@@ -39,12 +33,7 @@
         <div class="col-md-6">
             <div class="form-group @InputClass('category_id')">
                 {!! Form::label('category_id', 'Category:', ['class' => 'control-label']) !!}
-                {!! Form::select(
-                    'category_id',
-                    ['' => '-- Uncategorised --'] + $ResourceCategories->pluck('name', 'id')->all(),
-                    null,
-                    ['class' => 'form-control'],
-                ) !!}
+                {!! Form::select('category_id', ['' => '-- Uncategorised --'] + $ResourceCategories->pluck('name', 'id')->all(), null, ['class' => 'form-control']) !!}
                 @InputError('category_id')
             </div>
         </div>
@@ -52,11 +41,7 @@
         <div class="col-md-6">
             <div class="form-group @InputClass('tags')">
                 {!! Form::label('tags[]', 'Tags:', ['class' => 'control-label']) !!}
-                {!! Form::select('tags[]', $ResourceTags->pluck('name', 'id')->all(), null, [
-                    'class' => 'form-control',
-                    'multiple' => 'multiple',
-                    'select2' => 'Use this to group similar documents',
-                ]) !!}
+                {!! Form::select('tags[]', $ResourceTags->pluck('name', 'id')->all(), null, ['class' => 'form-control', 'multiple' => 'multiple', 'select2' => 'Use this to group similar documents']) !!}
                 @InputError('tags')
             </div>
         </div>
@@ -72,11 +57,11 @@
 {{-- Event --}}
 <div class="form-group @InputClass('event_id')">
     {!! Form::label('event_id', 'Link to event:', ['class' => 'control-label']) !!}
-    <select class="form-control" data-ajax-url="{{ route('event.search') }}" name="event_id">
-        @if ($mode == 'edit' && $resource->isAttachedToEvent())
-            <option value="{{ $resource->event->id }}" selected>
-                {{ $resource->event->name }} ({{ $resource->event->end->format('M Y') }})
-            </option>
+    <select class="form-control"
+            data-ajax-url="{{ route('event.search') }}"
+            name="event_id">
+        @if($mode == 'edit' && $resource->isAttachedToEvent())
+            <option value="{{ $resource->event->id }}" selected>{{ $resource->event->name }} ({{ $resource->event->end->format('M Y') }})</option>
         @endif
     </select>
     @InputError('event_id')

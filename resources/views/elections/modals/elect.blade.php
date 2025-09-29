@@ -5,7 +5,7 @@
     </div>
     <div class="modal-body elect-body">
         <div class="container-fluid">
-            @foreach ($election->positions as $i => $position)
+            @foreach($election->positions as $i => $position)
                 <div class="row position">
                     <div class="col-xs-6 text-right">{{ $position }}:</div>
                     <div class="col-xs-6">
@@ -29,12 +29,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button
-            class="btn btn-success"
-            data-type="submit-modal"
-            data-form-action="{{ route('election.elect', ['id' => $election->id]) }}"
-            data-redirect="true"
-        >
+        <button class="btn btn-success"
+                data-type="submit-modal"
+                data-form-action="{{ route('election.elect', ['id' => $election->id]) }}"
+                data-redirect="true">
             <span class="fa fa-check"></span>
             <span>Save</span>
         </button>

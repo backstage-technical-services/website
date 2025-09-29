@@ -8,17 +8,15 @@
 
 @section('content')
     <div>
-        <button
-            class="btn btn-success"
-            data-toggle="modal"
-            data-target="#modal"
-            data-modal-class="modal-sm"
-            data-modal-template="category"
-            data-modal-title="Create Category"
-            data-form-action="{{ route('resource.category.store') }}"
-            data-mode="create"
-            type="button"
-        >
+        <button class="btn btn-success"
+                data-toggle="modal"
+                data-target="#modal"
+                data-modal-class="modal-sm"
+                data-modal-template="category"
+                data-modal-title="Create Category"
+                data-form-action="{{ route('resource.category.store') }}"
+                data-mode="create"
+                type="button">
             <span class="fa fa-plus"></span>
             <span>Add a category</span>
         </button>
@@ -50,23 +48,20 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <button
-                                        data-toggle="modal"
-                                        data-target="#modal"
-                                        data-modal-class="modal-sm"
-                                        data-modal-template="category"
-                                        data-modal-title="Edit Category"
-                                        data-mode="edit"
-                                        data-form-data="{{ json_encode($category) }}"
-                                        data-form-action="{{ route('resource.category.update', ['id' => $category->id]) }}"
-                                    >
+                                    <button data-toggle="modal"
+                                            data-target="#modal"
+                                            data-modal-class="modal-sm"
+                                            data-modal-template="category"
+                                            data-modal-title="Edit Category"
+                                            data-mode="edit"
+                                            data-form-data="{{ json_encode($category) }}"
+                                            data-form-action="{{ route('resource.category.update', ['id' => $category->id]) }}">
                                         <span class="fa fa-pencil"></span> Edit
                                     </button>
                                 </li>
                                 <li>
                                     <a data-submit-ajax="{{ route('resource.category.destroy', $category->id) }}"
-                                        data-submit-confirm="Are you sure you want to delete this category?"
-                                    >
+                                       data-submit-confirm="Are you sure you want to delete this category?">
                                         <span class="fa fa-trash"></span> Delete
                                     </a>
                                 </li>

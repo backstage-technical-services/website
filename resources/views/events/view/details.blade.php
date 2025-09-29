@@ -5,31 +5,31 @@
         <div class="form-control-static">{!! $event->em ? $event->em->name : '<em>&ndash; not yet assigned &ndash;</em>' !!}</div>
     </div>
     <div class="form-entry">
-        <label class="control-label" for="type">Type:</label>
+        <label for="type" class="control-label">Type:</label>
         <div class="form-control-static">
             <span class="event-entry tag upper {{ $event->type_class }}">{{ $event->type_string }}</span>
         </div>
     </div>
-    @if ($event->isEvent())
+    @if($event->isEvent())
         <div class="form-entry">
-            <label class="control-label" for="client">Client:</label>
+            <label for="client" class="control-label">Client:</label>
             <div class="form-control-static">{{ $event->client }}</div>
         </div>
     @endif
     <div class="form-entry">
-        <label class="control-label" for="venue">Venue:</label>
+        <label for="venue" class="control-label">Venue:</label>
         <p class="form-control-static">{{ $event->venue }}</p>
     </div>
     @can('update', $event)
-        @if ($event->isEvent())
+        @if($event->isEvent())
             <div class="form-entry">
-                <label class="control-label" for="production_charge">Production Charge:</label>
+                <label for="production_charge" class="control-label">Production Charge:</label>
                 <div class="form-control-static">{!! $event->pretty_production_charge ?: '<em>&ndash; none &ndash;</em>' !!}</div>
             </div>
         @endif
     @endcan
     <div class="form-entry">
-        <label class="control-label" for="description">Description:</label>
+        <label for="description" class="control-label">Description:</label>
         <div class="form-control-static description">
             {!! Markdown::convertToHtml($event->description) !!}
         </div>

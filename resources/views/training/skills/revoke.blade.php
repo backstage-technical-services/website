@@ -10,7 +10,7 @@
     {!! Form::open() !!}
     <div class="form-group @InputClass('skill_id')">
         {!! Form::label('skill_id', 'Select skill:', ['class' => 'control-label']) !!}
-        @if ($skill === null)
+        @if($skill === null)
             {!! Form::select('skill_id', $SkillList, null, ['class' => 'form-control']) !!}
             @InputError('skill_id')
         @else

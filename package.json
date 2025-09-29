@@ -13,7 +13,6 @@
     },
     "devDependencies": {
         "@prettier/plugin-php": "^0.24.0",
-        "@shufo/prettier-plugin-blade": "^1.16.1",
         "axios": "^0.15.3",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^3.2.3",

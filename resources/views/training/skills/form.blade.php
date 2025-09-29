@@ -12,11 +12,7 @@
     </div>
     <div class="form-group @InputClass('description')">
         {!! Form::label('description', 'Description:', ['class' => 'control-label']) !!}
-        {!! Form::textarea('description', null, [
-            'class' => 'form-control',
-            'rows' => 6,
-            'placeholder' => 'Use this to describe what the skill is for and what it allows you to do',
-        ]) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 6, 'placeholder' => 'Use this to describe what the skill is for and what it allows you to do']) !!}
         <p class="help-block alt">You can format this with markdown.</p>
         @InputError('description')
     </div>
@@ -24,7 +20,7 @@
 
 <fieldset id="level-requirements">
     <legend>Levels</legend>
-    @if ($errors->has('levels'))
+    @if($errors->has('levels'))
         <div class="form-group has-error">
             <p class="help-block">{{ $errors->first('levels') }}</p>
         </div>
@@ -37,14 +33,7 @@
                 {!! Form::checkbox('available[level1]', true, null, ['data-type' => 'toggle-visibility']) !!} {{ $LevelNames[1] }} is available
             </label>
         </div>
-        {!! Form::textarea('level1', null, [
-            'class' => 'form-control',
-            'rows' => 4,
-            'placeholder' =>
-                'This is generally for the ability to perform the task while supervised by a member who is ' . $LevelNames[3],
-            'data-visibility-input' => 'available[level1]',
-            'data-visibility-state' => 'checked',
-        ]) !!}
+        {!! Form::textarea('level1', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'This is generally for the ability to perform the task while supervised by a member who is ' . $LevelNames[3], 'data-visibility-input' => 'available[level1]', 'data-visibility-state' => 'checked']) !!}
         @InputError('level1')
     </div>
 
@@ -55,13 +44,7 @@
                 {!! Form::checkbox('available[level2]', true, null, ['data-type' => 'toggle-visibility']) !!} {{ $LevelNames[2] }} is available
             </label>
         </div>
-        {!! Form::textarea('level2', null, [
-            'class' => 'form-control',
-            'rows' => 4,
-            'placeholder' => 'This is generally for the ability to perform the task while unsupervised',
-            'data-visibility-input' => 'available[level2]',
-            'data-visibility-state' => 'checked',
-        ]) !!}
+        {!! Form::textarea('level2', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'This is generally for the ability to perform the task while unsupervised', 'data-visibility-input' => 'available[level2]', 'data-visibility-state' => 'checked']) !!}
         @InputError('level2')
     </div>
 
@@ -72,13 +55,7 @@
                 {!! Form::checkbox('available[level3]', true, null, ['data-type' => 'toggle-visibility']) !!} {{ $LevelNames[3] }} is available
             </label>
         </div>
-        {!! Form::textarea('level3', null, [
-            'class' => 'form-control',
-            'rows' => 4,
-            'placeholder' => 'This is generally for the ability to teach, supervise and approve other members',
-            'data-visibility-input' => 'available[level3]',
-            'data-visibility-state' => 'checked',
-        ]) !!}
+        {!! Form::textarea('level3', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'This is generally for the ability to teach, supervise and approve other members', 'data-visibility-input' => 'available[level3]', 'data-visibility-state' => 'checked']) !!}
         @InputError('level3')
     </div>
 </fieldset>

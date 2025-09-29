@@ -26,12 +26,10 @@
     {!! Form::close() !!}
 </div>
 <div class="modal-footer">
-    <button
-        class="btn btn-success"
-        data-form-action="{{ route('quotes.store') }}"
-        data-redirect="true"
-        data-type="submit-modal"
-    >
+    <button class="btn btn-success"
+            data-form-action="{{ route('quotes.store') }}"
+            data-redirect="true"
+            data-type="submit-modal">
         <span class="fa fa-check"></span>
         <span>Add quote</span>
     </button>

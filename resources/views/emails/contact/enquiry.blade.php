@@ -1,22 +1,22 @@
 @component('mail::message')
-    # Hello!
+# Hello!
 
-    We have recently received an enquiry from {{ $enquiry['name'] }}:
+We have recently received an enquiry from {{ $enquiry['name'] }}:
 
-    @component('mail::panel')
-        {{ $enquiry['message'] }}
-    @endcomponent
+@component('mail::panel')
+{{ $enquiry['message'] }}
+@endcomponent
 
-    {{ ucfirst($forename) }} can be contacted by:
+{{ ucfirst($forename) }} can be contacted by:
 
-    **Email:** [{{ $enquiry['email'] }}](mailto:{{ $enquiry['email'] }})
+**Email:**  [{{ $enquiry['email'] }}](mailto:{{ $enquiry['email'] }})
 
-    @if (isset($enquiry['phone']) && @$enquiry['phone'])
-        **Phone:** {{ $enquiry['phone'] }}
-    @endif
+@if(isset($enquiry['phone']) && @$enquiry['phone'])
+**Phone:** {{ $enquiry['phone'] }}
+@endif
 
-    To respond to this enquiry, simply reply to this email.
+To respond to this enquiry, simply reply to this email.
 
-    Regards,<br>
-    {{ config('app.name') }}
+Regards,<br>
+{{ config('app.name') }}
 @endcomponent

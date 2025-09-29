@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    {!! Form::model($resource, ['route' => ['resource.update', $resource->id], 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::model($resource, ['route' => ['resource.update', $resource->id],'enctype' => 'multipart/form-data']) !!}
     @include('resources.forms.resource', ['mode' => 'edit'])
     {{-- Buttons --}}
     <div class="form-group">
@@ -20,8 +20,8 @@
             <span>Save Changes</span>
         </button>
         <span class="form-link">
-            or {!! link_to_route('resource.view', 'Cancel', ['id' => $resource->id], ['onclick' => 'return history.back();']) !!}
-        </span>
+        or {!! link_to_route('resource.view', 'Cancel', ['id' => $resource->id], ['onclick' => 'return history.back();']) !!}
+    </span>
     </div>
     {!! Form::close() !!}
 @endsection

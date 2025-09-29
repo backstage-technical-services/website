@@ -17,8 +17,8 @@
             </tr>
         </thead>
         <tbody>
-            @if (count($pages))
-                @foreach ($pages as $page)
+            @if(count($pages))
+                @foreach($pages as $page)
                     <tr>
                         <td class="id hidden-xs">{{ $page->id }}</td>
                         <td class="page-title dual-layer">
@@ -27,7 +27,7 @@
                         </td>
                         <td class="text-center page-author hidden-xs">{{ $page->author->name }}</td>
                         <td class="text-center page-published">
-                            @if ($page->published)
+                            @if($page->published)
                                 <span class="fa fa-check success" title="Published"></span>
                             @else
                                 <span class="fa fa-remove danger" title="Not published"></span>
@@ -45,9 +45,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('page.destroy', $page->slug) }}"
-                                            onclick="return confirm('Are you sure you wish to delete this page?');"
-                                        >
+                                        <a href="{{ route('page.destroy', $page->slug) }}" onclick="return confirm('Are you sure you wish to delete this page?');">
                                             <span class="fa fa-trash"></span> Delete
                                         </a>
                                     </li>
