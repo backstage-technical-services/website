@@ -302,8 +302,6 @@ class UsersController extends Controller
             $this->updateAvatar($user, $request);
         } elseif ($action == 'remove-pic') {
             $this->updateRemoveAvatar($user);
-        } elseif ($action == 'reset-password') {
-            $this->updateResetPassword($user);
         }
 
         return redirect()->route('user.edit', ['username' => $username]);
@@ -418,21 +416,6 @@ class UsersController extends Controller
                 Notify::error('Could not remove the profile picture');
             }
         }
-    }
-
-    /**
-     * Reset the user's password.
-     *
-     * @param User $user
-     */
-    private function updateResetPassword(User $user)
-    {
-        $password = Str::random(15);
-        app(KeycloakClient::class)->users->resetPassword($user->keycloak_user_id, $password, true);
-        $user->notify(new ResetPasswordAdmin($password));
-        Logger::log('user.edit-password', true, ['id' => $user->id]);
-        Log::info('User ' . request()->user()->id . ' reset the password for user ' . $user->id);
-        Notify::success('Password reset');
     }
 
     /**
