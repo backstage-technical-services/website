@@ -47,7 +47,7 @@ class ResetPasswordAdmin extends Notification
             ->subject('Your new password')
             ->line('Your password has been reset by an administrator to: ')
             ->line($this->password)
-            ->line('We recommend that you change it to something more memorable')
+            ->line('You\'ll be asked to update this to something more memorable when you next log in.')
             ->action('Log in', route('auth.login'));
     }
 

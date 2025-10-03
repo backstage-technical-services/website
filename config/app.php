@@ -8,6 +8,7 @@ use Package\Notifications\Facades\Notify;
 use Package\SearchTools\Facades\SearchTools;
 use Package\WebDevTools\Laravel\Providers\BladeServiceProvider;
 use Package\WebDevTools\Laravel\Providers\ValidationServiceProvider;
+use SocialiteProviders\Manager\ServiceProvider as SocialiteServiceProvider;
 use Spatie\DbSnapshots\DbSnapshotsServiceProvider;
 
 return [
@@ -185,6 +186,7 @@ return [
         BladeServiceProvider::class,
         ValidationServiceProvider::class,
         DbSnapshotsServiceProvider::class,
+        SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
+use App\Logger;
 use App\Models\Users\User;
-use App\Notifications\Users\ResetPasswordAdmin;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Package\Keycloak\KeycloakClient;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\SearchTools;
 
@@ -426,10 +428,10 @@ class UsersController extends Controller
     private function updateResetPassword(User $user)
     {
         $password = Str::random(15);
-        $user->update(['password' => bcrypt($password)]);
-
+        app(KeycloakClient::class)->users->resetPassword($user->keycloak_user_id, $password, true);
         $user->notify(new ResetPasswordAdmin($password));
-
+        Logger::log('user.edit-password', true, ['id' => $user->id]);
+        Log::info('User ' . request()->user()->id . ' reset the password for user ' . $user->id);
         Notify::success('Password reset');
     }
 

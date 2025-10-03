@@ -5,10 +5,6 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            {!! Form::label('password', 'Current Password:', ['class' => 'control-label']) !!}
-            {!! Form::input('password', 'password', null, ['class' => 'form-control']) !!}
-        </div>
-        <div class="form-group">
             {!! Form::label('password_new', 'New Password:', ['class' => 'control-label']) !!}
             {!! Form::input('password', 'password_new', null, ['class' => 'form-control']) !!}
         </div>

@@ -7,7 +7,6 @@ use App\Models\Training\Category;
 use App\Models\Training\Skills\Application;
 use App\Models\Training\Skills\AwardedSkill;
 use App\Models\Training\Skills\Skill;
-use App\Notifications\Auth\ResetPassword;
 use App\Notifications\Users\UserAccountCreated;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,8 +15,11 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Package\Keycloak\KeycloakClient;
+use Keycloak\User\Entity\NewUser;
 use Package\Notifications\Facades\Notify;
 use Package\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
 use Package\WebDevTools\Laravel\Traits\ValidatableModel;
@@ -99,7 +101,6 @@ class User extends Authenticatable
         'name', // Pseudo
         'nickname',
         'email',
-        'password',
         'status',
         'phone',
         'address',
@@ -112,6 +113,7 @@ class User extends Authenticatable
         'user_group_id',
         'type', // Pseudo
         'diary_preferences',
+        'keycloak_user_id',
     ];
 
     /**
@@ -137,18 +139,16 @@ class User extends Authenticatable
 
     /**
      * Override the default ::create method to automatically assign some attributes.
-     * This also automatically sets up the role and sends the new user an email.
+     * This also automatically sets up the role, adds the user to Keycloak and
+     * sends the new user an email.
      *
-     * @param array $attributes
-     *
-     * @return mixed
+     * @throws \JsonException
      */
-    public static function create(array $attributes = [])
+    public static function create(array $attributes = []): User
     {
         // Set up the default parameters
-        $password = Str::random(15);
+        $password = null;
         $attributes['email'] = $attributes['username'] . '@bath.ac.uk';
-        $attributes['password'] = bcrypt($password);
         $attributes['status'] = true;
         $attributes['diary_preferences'] = [
             'event_types' => ['event', 'training', 'social', 'meeting', 'hidden'],
@@ -160,9 +160,39 @@ class User extends Authenticatable
         $user->save();
         $user->type = $attributes['type'];
 
+        // Create the user in Keycloak, or link if they already have one
+        try {
+            /* @var $keycloak KeycloakClient */
+            $keycloak = app(KeycloakClient::class);
+            $matchingKeycloakUsers = $keycloak->users->findAll(['email' => $attributes['email']]);
+            $existingKeycloakUser = array_shift($matchingKeycloakUsers);
+
+            if ($existingKeycloakUser === null) {
+                Log::debug("Creating user in Keycloak for user {$user->id}");
+                $password = Str::random(15);
+                $keycloakUserId = $keycloak->users->create(
+                    new NewUser($user->username, $user->forename, $user->surname, $user->email),
+                );
+                $keycloak->users->resetPassword($keycloakUserId, $password, true);
+                $keycloak->attachAccessRole($keycloakUserId);
+                $user->update(['keycloak_user_id' => $keycloakUserId]);
+                Log::debug("Created user $keycloakUserId in Keycloak for user {$user->id}");
+            } else {
+                Log::debug("Found user {$existingKeycloakUser->id} in Keycloak for user {$user->id}");
+                $keycloak->attachAccessRole($existingKeycloakUser->id);
+                $user->update(['keycloak_user_id' => $existingKeycloakUser->id]);
+            }
+        } catch (\Exception $exception) {
+            Log::error("An error occurred when adding user {$user->id} to Keycloak: {$exception->getMessage()}");
+            $user->delete();
+            throw $exception;
+        }
+
         // Send the email
+        Log::debug("Sending account created email for user {$user->id}");
         $user->notify(new UserAccountCreated($password));
 
+        Log::info("User {$user->id} created");
         return $user;
     }
 
@@ -237,18 +267,6 @@ class User extends Authenticatable
     public function scopeArchived($query)
     {
         $query->where('status', false);
-    }
-
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string $token
-     *
-     * @return void
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPassword($token));
     }
 
     /**

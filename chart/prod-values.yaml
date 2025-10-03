@@ -3,6 +3,9 @@ domains:
   - bts-crew.com
   - www.bts-crew.com
 
+auth:
+  realm: prod
+
 smtp:
   host: smtp.gmail.com
   port: 587
