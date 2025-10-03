@@ -32,10 +32,10 @@
                     </button>
                 </li>
                 <li>
-                    <button data-toggle="modal" data-target="#modal" data-modal-template="password" data-modal-class="modal-sm" type="button">
+                    <a href="{{ config('services.keycloak.base_url') }}/realms/{{ config('services.keycloak.realms') }}/account/account-security/signing-in" target="_blank">
                         <span class="fa fa-key"></span>
                         <span>Password</span>
-                    </button>
+                    </a>
                 </li>
                 <li>
                     <button data-toggle="modal" data-target="#modal" data-modal-template="privacy" data-modal-class="modal-sm" type="button">
@@ -89,7 +89,6 @@
     @include('members.modals.avatar')
     @include('members.modals.contact')
     @include('members.modals.other')
-    @include('members.modals.password')
     @include('members.modals.personal')
     @include('members.modals.privacy')
 @endsection

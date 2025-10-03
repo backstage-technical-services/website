@@ -131,8 +131,6 @@ class MemberController extends Controller
             return $this->updateAvatar($request);
         } elseif ($remove_action == 'avatar') {
             return $this->removeAvatar($request->user());
-        } elseif ($update_action == 'password') {
-            return $this->updatePassword($request);
         } elseif ($update_action == 'privacy') {
             return $this->updatePrivacy($request);
         } elseif ($update_action == 'other') {
@@ -219,42 +217,6 @@ class MemberController extends Controller
                 return $this->ajaxError(0, 422, 'Could not remove your profile picture');
             }
         }
-    }
-
-    /**
-     * Update the member's password.
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    private function updatePassword(Request $request)
-    {
-        // Validate the request
-        $this->validate(
-            $request,
-            [
-                'password_new' => 'required|min:5',
-                'password_confirm' => 'required|same:password_new',
-            ],
-            [
-                'password_new.required' => 'Please enter your new password',
-                'password_new.min' => 'Please use at least 5 characters',
-                'password_confirm.required' => 'Please confirm your password',
-                'password_confirm.same' => 'Your new passwords don\'t match',
-            ],
-        );
-
-        // Update
-        app(KeycloakClient::class)->users->resetPassword(
-            $request->user()->keycloak_user_id,
-            $request->get('password_new'),
-            false,
-        );
-        Notify::success('Password updated');
-        Logger::log('user.edit-password', true, ['id' => $request->user()->id]);
-        Log::info('Updated password for user ' . $request->user()->id);
-        return $this->ajaxResponse('Password updated');
     }
 
     /**
