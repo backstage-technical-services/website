@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
-use App\Logger;
 use App\Models\Users\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Package\Keycloak\KeycloakClient;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\SearchTools;
 
