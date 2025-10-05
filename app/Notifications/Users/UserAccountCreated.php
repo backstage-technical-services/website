@@ -10,17 +10,13 @@ class UserAccountCreated extends Notification
 {
     use Queueable;
 
-    /**
-     * Variable to store the user's password.
-     * @var string
-     */
-    private $password;
+    private ?string $password;
 
     /**
      * Create a new notification instance.
      * @param $password
      */
-    public function __construct($password)
+    public function __construct(?string $password)
     {
         $this->password = $password;
     }
@@ -37,7 +33,7 @@ class UserAccountCreated extends Notification
 
     /**
      * Get the mail representation of the notification.
-     * @param  mixed $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -52,9 +48,11 @@ class UserAccountCreated extends Notification
                     ').',
             )
             ->line(
-                'Your password has been set to "' .
-                    $this->password .
-                    '", although we recommend you set it to something more memorable.',
+                match ($this->password) {
+                    null => 'You can log in using your existing Backstage identity.',
+                    default
+                        => "Your temporary password is `{$this->password}`. You will be prompted to update this to something more memorable the first time you log in.",
+                },
             )
             ->action('Log in', route('auth.login'))
             ->line('If you have any questions you can get in contact with the Secretary by replying to this email.');

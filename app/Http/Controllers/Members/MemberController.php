@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
+use App\Logger;
 use App\Models\Events\Event;
 use App\Models\Users\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Package\Keycloak\KeycloakClient;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\SearchTools;
 
@@ -128,8 +131,6 @@ class MemberController extends Controller
             return $this->updateAvatar($request);
         } elseif ($remove_action == 'avatar') {
             return $this->removeAvatar($request->user());
-        } elseif ($update_action == 'password') {
-            return $this->updatePassword($request);
         } elseif ($update_action == 'privacy') {
             return $this->updatePrivacy($request);
         } elseif ($update_action == 'other') {
@@ -216,51 +217,6 @@ class MemberController extends Controller
                 return $this->ajaxError(0, 422, 'Could not remove your profile picture');
             }
         }
-    }
-
-    /**
-     * Update the member's password.
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    private function updatePassword(Request $request)
-    {
-        // Validate the request
-        $validator = validator(
-            $request->only('password', 'password_new', 'password_confirm'),
-            [
-                'password' => 'required',
-                'password_new' => 'required|min:5',
-                'password_confirm' => 'required|same:password_new',
-            ],
-            [
-                'password.required' => 'Please enter your current password',
-                'password_new.required' => 'Please enter your new password',
-                'password_new.min' => 'Please use at least 5 characters',
-                'password_confirm.required' => 'Please confirm your password',
-                'password_confirm.same' => 'Your new passwords don\'t match',
-            ],
-        );
-        // Add the check for the current password
-        $validator->after(function ($validator) use ($request) {
-            $check = auth()->validate([
-                'email' => $request->user()->email,
-                'password' => $request->get('password'),
-            ]);
-            if (!$check) {
-                $validator->errors()->add('password', 'Your current password is incorrect');
-            }
-        });
-        $this->validateWith($validator);
-
-        // Update
-        $request->user()->update([
-            'password' => bcrypt($request->get('password_new')),
-        ]);
-        Notify::success('Password updated');
-        return $this->ajaxResponse('Password updated');
     }
 
     /**

@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
 use App\Models\Users\User;
-use App\Notifications\Users\ResetPasswordAdmin;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\SearchTools;
@@ -300,8 +298,6 @@ class UsersController extends Controller
             $this->updateAvatar($user, $request);
         } elseif ($action == 'remove-pic') {
             $this->updateRemoveAvatar($user);
-        } elseif ($action == 'reset-password') {
-            $this->updateResetPassword($user);
         }
 
         return redirect()->route('user.edit', ['username' => $username]);
@@ -416,21 +412,6 @@ class UsersController extends Controller
                 Notify::error('Could not remove the profile picture');
             }
         }
-    }
-
-    /**
-     * Reset the user's password.
-     *
-     * @param User $user
-     */
-    private function updateResetPassword(User $user)
-    {
-        $password = Str::random(15);
-        $user->update(['password' => bcrypt($password)]);
-
-        $user->notify(new ResetPasswordAdmin($password));
-
-        Notify::success('Password reset');
     }
 
     /**

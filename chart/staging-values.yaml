@@ -8,4 +8,7 @@ smtp:
   encryption: none
   auth: false
 
+auth:
+  realm: nonprod
+
 google-analytics-code: UA-150311689-1

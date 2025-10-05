@@ -1,6 +1,10 @@
 environment: ''
 domains: []
 
+auth:
+  domain: auth.bts-crew.com
+  realm: ''
+
 image:
   tag: ''
 
