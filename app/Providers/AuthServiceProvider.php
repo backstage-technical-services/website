@@ -44,6 +44,7 @@ use App\Policies\Training\Skills\SkillPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Package\Keycloak\KeycloakClient;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -74,6 +75,20 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
     ];
 
+    public function register()
+    {
+        parent::register();
+
+        $this->app->singleton(KeycloakClient::class, function () {
+            return new KeycloakClient(
+                config('services.keycloak.client_id'),
+                config('services.keycloak.client_secret'),
+                config('services.keycloak.realms'),
+                config('services.keycloak.base_url'),
+            );
+        });
+    }
+
     /**
      * Register any authentication / authorization services.
      *
@@ -94,10 +109,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function registerAuthGates()
     {
-        Gate::define('admin', function ($user) {
+        Gate::define('admin', function (User $user) {
             return $user->isAdmin();
         });
-        Gate::define('member', function ($user) {
+        Gate::define('member', function (User $user) {
             return $user->isMember();
         });
     }

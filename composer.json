@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": "^8.4.0",
+        "ext-zip": "*",
+        "acsystems/keycloak-php-sdk": "^4.4",
         "alaouy/youtube": "^2.0",
         "anhskohbo/no-captcha": "^3.0",
         "bugsnag/bugsnag-laravel": "^2.0",
@@ -20,6 +22,7 @@
         "konekt/html": "^6.5",
         "laminas/laminas-stdlib": "^3.0",
         "laravel/framework": "^11.0",
+        "laravel/socialite": "^5.23",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "lavary/laravel-menu": "^1.7",
@@ -27,11 +30,11 @@
         "moment/moment": "^2.17",
         "nunomaduro/collision": "^8.1",
         "select2/select2": "^4.0",
+        "socialiteproviders/keycloak": "^5.3",
         "spatie/laravel-backup": "^9.1",
         "spatie/laravel-db-snapshots": "^2.6",
         "spatie/laravel-ignition": "^2.0",
-        "twbs/bootstrap": "^3.3",
-        "ext-zip": "*"
+        "twbs/bootstrap": "^3.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
