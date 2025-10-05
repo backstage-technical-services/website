@@ -43,15 +43,10 @@ class AuthController extends Controller
         return $user ? redirect('/members') : redirect('/');
     }
 
-    /**
-     * This is responsible for logging the user out of both the application and Keycloak. If the user is not logged in,
-     * we just skip this and redirect them to the home page.
-     *
-     * @param Request $request
-     * @return Response
-     */
     function logout(Request $request): Response
     {
-        return $this->service->logout($request) ? redirect($this->service->getKeycloakLogoutUrl()) : redirect('/');
+        $this->service->logout($request);
+
+        return redirect('/');
     }
 }

@@ -5,7 +5,6 @@ namespace App\Auth;
 use App\Helpers\Redact;
 use App\Logger;
 use App\Models\Users\User;
-use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
@@ -20,7 +19,6 @@ readonly class AuthService
 
     public function __construct(
         private AuthFactory $auth,
-        private readonly ConfigRepository $config,
         private NotificationHandler $notifications,
         private LogManager $logger,
         Factory $socialite,
@@ -68,8 +66,7 @@ readonly class AuthService
     }
 
     /**
-     * This is responsible for logging the user out of both the application and Keycloak. If the user is not logged in,
-     * we just skip this and redirect them to the home page.
+     * This is responsible for logging the user out of the application.
      *
      * @param Request $request
      * @return bool
@@ -90,14 +87,6 @@ readonly class AuthService
         $this->notifications->success('Logged out');
 
         return true;
-    }
-
-    function getKeycloakLogoutUrl(): string
-    {
-        return $this->keycloak->getLogoutUrl(
-            $this->config->get('app.url'),
-            $this->config->get('services.keycloak.client_id'),
-        );
     }
 
     /**
