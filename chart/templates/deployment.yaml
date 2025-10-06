@@ -36,9 +36,9 @@ spec:
               mountPath: /var/www/resources/breakages
           resources:
             requests:
-              memory: '{{ .Values.resources.memory }}'
+              memory: '256Mi'
             limits:
-              memory: '{{ .Values.resources.memory }}'
+              memory: '1Gi'
       # volumes need to be declared using a PVC and PV in the storage.yaml file
       volumes:
         - name: backups
