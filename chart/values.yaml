@@ -18,6 +18,3 @@ logging:
   driver: monolog
 
 google-analytics-code: ''
-
-resources:
-  memory: ''
