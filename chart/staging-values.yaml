@@ -9,6 +9,3 @@ smtp:
   auth: false
 
 google-analytics-code: UA-150311689-1
-
-resources:
-  memory: '256Mi'
