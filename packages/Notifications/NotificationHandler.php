@@ -2,33 +2,14 @@
 
 namespace Package\Notifications;
 
-use Illuminate\Session\Store;
-
 class NotificationHandler
 {
-    /**
-     * Store the session object.
-     *
-     * @var Store
-     */
-    private $session;
-
     /**
      * Store the array of notifications.
      *
      * @var array
      */
     private $notifications = [];
-
-    /**
-     * Notifications constructor.
-     *
-     * @param Store $session
-     */
-    public function __construct(Store $session)
-    {
-        $this->session = $session;
-    }
 
     /**
      * Output the configuration for the JS to be able to use.
@@ -143,7 +124,7 @@ class NotificationHandler
      */
     public function sync()
     {
-        $session = $this->session->pull('notifications') ?: [];
+        $session = session()->pull('notifications') ?: [];
         $synced = [];
 
         // Update the notifications that already exist in the session
@@ -161,7 +142,7 @@ class NotificationHandler
             $session[] = $this->notifications[$index];
         }
 
-        $this->session->flash('notifications', $session);
+        session()->flash('notifications', $session);
     }
 
     /**
@@ -173,8 +154,8 @@ class NotificationHandler
      */
     public function get($bag = 'default')
     {
-        if ($this->session->has('notifications')) {
-            $session = $this->session->get('notifications');
+        if (session()->has('notifications')) {
+            $session = session()->get('notifications');
             $notifications = [];
             foreach ($session as $index => $notification) {
                 if ($notification->bag() == $bag) {
@@ -183,7 +164,7 @@ class NotificationHandler
                 }
             }
 
-            $this->session->put('notifications', $session);
+            session()->put('notifications', $session);
 
             return array_map(function ($notification) {
                 return $notification->toArray();
@@ -221,7 +202,7 @@ class NotificationHandler
      */
     public function has($bag = null)
     {
-        return $bag === null ? $this->session->has('notifications') : in_array($bag, $this->bags());
+        return $bag === null ? session()->has('notifications') : in_array($bag, $this->bags());
     }
 
     /**
@@ -234,10 +215,10 @@ class NotificationHandler
         $bags = array_unique(
             array_map(function ($notification) {
                 return $notification->bag();
-            }, $this->session->get('notifications')),
+            }, session()->get('notifications')),
         );
 
-        return $this->session->has('notifications') ? $bags : [];
+        return session()->has('notifications') ? $bags : [];
     }
 
     /**

@@ -15,7 +15,7 @@ data:
   DB_DATABASE: 'website_v4_{{ .Values.environment }}'
   BROADCAST_DRIVER: 'log'
   CACHE_DRIVER: 'file'
-  SESSION_DRIVER: 'file'
+  SESSION_DRIVER: 'database'
   QUEUE_DRIVER: 'database'
   MAIL_DRIVER: 'smtp'
   MAIL_HOST: '{{ .Values.smtp.host }}'
