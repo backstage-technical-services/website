@@ -17,7 +17,7 @@ data:
   KEYCLOAK_REALM: '{{ .Values.auth.realm }}'
   BROADCAST_DRIVER: 'log'
   CACHE_DRIVER: 'file'
-  SESSION_DRIVER: 'file'
+  SESSION_DRIVER: 'database'
   QUEUE_DRIVER: 'database'
   MAIL_DRIVER: 'smtp'
   MAIL_HOST: '{{ .Values.smtp.host }}'
