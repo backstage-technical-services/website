@@ -4,7 +4,7 @@ domains:
 
 smtp:
   host: maildev
-  port: 25
+  port: 1025
   encryption: none
   auth: false
 
