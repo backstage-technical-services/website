@@ -7,7 +7,7 @@
 
 @section('content')
     <p>Use this form to report an accident that occurred during a Backstage-supported event or activity. Please note that this form is automatically sent to the
-        Students' Union as well as Backstage.</p>
+        Chair, Training & Safety and the Students' Union. It may be shared with other committee members as necessary.</p>
 
     {!! Form::open() !!}
     <fieldset>
