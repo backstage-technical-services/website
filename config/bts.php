@@ -54,12 +54,13 @@ return [
 
         'safety' => [
             'accident_reports' => [
+                'chair@bts-crew.com',
                 'safety@bts-crew.com',
                 'P.Hawker@bath.ac.uk',
                 'su-healthandsafety@bath.ac.uk',
             ],
             'accident_receipt' => ['safety@bts-crew.com'],
-            'near_miss_reports' => ['safety@bts-crew.com', 'su-healthandsafety@bath.ac.uk'],
+            'near_miss_reports' => ['chair@bts-crew.com', 'safety@bts-crew.com', 'su-healthandsafety@bath.ac.uk'],
         ],
 
         'training' => [
