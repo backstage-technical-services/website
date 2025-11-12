@@ -11,13 +11,6 @@
     |
     */
 
-Route::get('/', [
-    'as' => 'home',
-    'uses' => function () {
-        return view('home');
-    },
-]);
-
 include base_path('routes/web/auth.php');
 include base_path('routes/web/awards.php');
 include base_path('routes/web/backups.php');
@@ -29,7 +22,6 @@ include base_path('routes/web/events.php');
 include base_path('routes/web/logs.php');
 include base_path('routes/web/media.php');
 include base_path('routes/web/members.php');
-include base_path('routes/web/page.php');
 include base_path('routes/web/quotes.php');
 include base_path('routes/web/resources.php');
 include base_path('routes/web/training.php');
