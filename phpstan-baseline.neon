@@ -6853,6 +6853,24 @@ parameters:
 			path: database/migrations/2017_12_01_000006_create_resources_tables.php
 
 		-
+			message: '#^Binary operation "\." between non\-falsy\-string and list\<string\>\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: modules/StaticPage/app/Providers/StaticPageServiceProvider.php
+
+		-
+			message: '#^Method Modules\\StaticPage\\Providers\\StaticPageServiceProvider\:\:getPublishableViewPaths\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: modules/StaticPage/app/Providers/StaticPageServiceProvider.php
+
+		-
+			message: '#^Method Modules\\StaticPage\\Providers\\StaticPageServiceProvider\:\:provides\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: modules/StaticPage/app/Providers/StaticPageServiceProvider.php
+
+		-
 			message: '#^Cannot call method close\(\) on Package\\Notifications\\Notification\|string\.$#'
 			identifier: method.nonObject
 			count: 1
