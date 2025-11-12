@@ -43,6 +43,12 @@ parameters:
 			path: app/Exceptions/Handler.php
 
 		-
+			message: '#^Invalid array key type float\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: app/Helpers/File.php
+
+		-
 			message: '#^Method App\\Helpers\\MonologLogFmtFormatter\:\:convertToString\(\) has parameter \$data with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -3319,6 +3325,12 @@ parameters:
 			path: app/Models/Committee/Role.php
 
 		-
+			message: '#^Property App\\Models\\Committee\\Role\:\:\$order \(int\<0, max\>\) does not accept int\<\-1, max\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/Committee/Role.php
+
+		-
 			message: '#^Access to an undefined property object\:\:\$original\.$#'
 			identifier: property.notFound
 			count: 1
@@ -4735,12 +4747,6 @@ parameters:
 			path: app/Models/Quote.php
 
 		-
-			message: '#^Method App\\Models\\Quote\:\:getHtmlAttribute\(\) should return string but returns list\<string\>\|string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Models/Quote.php
-
-		-
 			message: '#^PHPDoc type array of property App\\Models\\Quote\:\:\$casts is not covariant with PHPDoc type array\<string, string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$casts\.$#'
 			identifier: property.phpDocType
 			count: 1
@@ -5071,7 +5077,7 @@ parameters:
 			path: app/Models/Resources/Resource.php
 
 		-
-			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, list\<string\>\|string\|null given\.$#'
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, array\<string\>\|string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Models/Resources/Resource.php
@@ -5491,7 +5497,7 @@ parameters:
 			path: app/Models/Users/User.php
 
 		-
-			message: '#^Method App\\Models\\Users\\User\:\:getTypeAttribute\(\) should return int but returns int\|null\.$#'
+			message: '#^Method App\\Models\\Users\\User\:\:getTypeAttribute\(\) should return int but returns int\<0, max\>\|null\.$#'
 			identifier: return.type
 			count: 1
 			path: app/Models/Users/User.php
@@ -5715,6 +5721,12 @@ parameters:
 		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: app/Models/Users/User.php
+
+		-
+			message: '#^Offset 0\|1\|2\|3\|4\|5 might not exist on array\{''red'', ''orange'', ''yellow'', ''green'', ''blue'', ''purple''\}\|array\{0\: ''black''\|''blue''\|''brown''\|''earth''\|''green''\|''grey''\|''orange''\|''pink''\|''purple''\|''rainbow''\|''red''\|''turquoise''\|''white''\|''yellow'', 1\?\: ''green''\}\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
 			path: app/Models/Users/User.php
 
@@ -6667,7 +6679,7 @@ parameters:
 			path: app/Services/QuoteService.php
 
 		-
-			message: '#^Binary operation "\." between ''/\^'' and list\<string\>\|string results in an error\.$#'
+			message: '#^Binary operation "\." between ''/\^'' and array\<string\>\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: app/Validation/Validator.php
@@ -6853,7 +6865,7 @@ parameters:
 			path: database/migrations/2017_12_01_000006_create_resources_tables.php
 
 		-
-			message: '#^Binary operation "\." between non\-falsy\-string and list\<string\>\|string results in an error\.$#'
+			message: '#^Binary operation "\." between non\-falsy\-string and array\<string\>\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: modules/StaticPage/app/Providers/StaticPageServiceProvider.php
@@ -7579,7 +7591,7 @@ parameters:
 			path: packages/WebDevTools/Laravel/Traits/UsesSoftDeletes.php
 
 		-
-			message: '#^Binary operation "\." between ''/\^'' and list\<string\>\|string results in an error\.$#'
+			message: '#^Binary operation "\." between ''/\^'' and array\<string\>\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: packages/WebDevTools/Laravel/Validation/Validator.php
