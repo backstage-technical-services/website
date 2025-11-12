@@ -1,0 +1,22 @@
+{
+    "name": "backstagetechnicalservices/staticpage",
+    "description": "",
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\StaticPage\\": "app/",
+            "Modules\\StaticPage\\Database\\Factories\\": "database/factories/",
+            "Modules\\StaticPage\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\StaticPage\\Tests\\": "tests/"
+        }
+    }
+}

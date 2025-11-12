@@ -1,0 +1,9 @@
+{
+    "name": "StaticPage",
+    "alias": "staticpage",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": ["Modules\\StaticPage\\Providers\\StaticPageServiceProvider"],
+    "files": []
+}

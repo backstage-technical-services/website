@@ -39,10 +39,10 @@
             <ul>
                 <li><a href="{{ route('contact.enquiries') }}">Contact Us</a></li>
                 <li><a href="{{ route('contact.book') }}">Book Us</a></li>
-                <li><a href="{{ route('page.show', ['slug' => 'links']) }}">Useful Links</a></li>
-                <li><a href="{{ route('page.show', ['slug' => 'faq']) }}">FAQ</a></li>
+                <li><a href="{{ route('page.links') }}">Useful Links</a></li>
+                <li><a href="{{ route('page.faq') }}">FAQ</a></li>
                 <li><a href="{{ route('contact.book.terms') }}">Terms and Conditions</a></li>
-                <li><a href="{{ route('page.show', ['slug' => 'privacy-policy']) }}">Privacy Policy</a></li>
+                <li><a href="{{ route('page.privacy-policy') }}">Privacy Policy</a></li>
             </ul>
 
         </div>

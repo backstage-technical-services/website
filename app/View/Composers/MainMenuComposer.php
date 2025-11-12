@@ -47,7 +47,7 @@ class MainMenuComposer implements ViewComposer
     {
         $mainMenu = $this->menu->make('mainMenu', function (Builder $menu) {
             $menu->add('Home', route('home'));
-            $menu->add('About Us', route('page.show', ['slug' => 'about']));
+            $menu->add('About Us', route('page.about'));
             $this->addMediaMenu($menu);
             $menu->add('The Committee', route('committee.view'));
             $this->addEventsMenu($menu);
@@ -151,7 +151,6 @@ class MainMenuComposer implements ViewComposer
                 }
                 if ($this->isAdmin) {
                     $miscMenu->add('Backups', route('backup.index'));
-                    $miscMenu->add('Webpages', route('page.index'));
                 }
 
                 // H&S reporting
@@ -180,7 +179,7 @@ class MainMenuComposer implements ViewComposer
             $resourcesMenu->add('Meeting Agendas', route('resource.search', ['category' => 'meeting-agendas']));
         }
 
-        $resourcesMenu->add('Links', route('page.show', ['slug' => 'links']));
-        $resourcesMenu->add('FAQ', route('page.show', ['slug' => 'faq']));
+        $resourcesMenu->add('Links', route('page.links'));
+        $resourcesMenu->add('FAQ', route('page.faq'));
     }
 }
