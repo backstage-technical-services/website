@@ -16,6 +16,8 @@
         please note that this is not a confirmation that Backstage will crew your event. The Production Manager will get back to you with a definite answer as
         soon as possible.</p>
 
+    <p>Suppliers should contact <a href="mailto:hires@bts-crew.com">hires@bts-crew.com</a> for dry hires.</p>
+
     {!! Form::open() !!}
     <fieldset class="row">
         <legend>Event Details</legend>
