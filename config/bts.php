@@ -20,7 +20,7 @@ return [
         'network_management' => 'https://librenms.bts-crew.com',
         'skills_matrix' => 'https://docs.google.com/spreadsheets/d/1Xq3JVDMIE52_0iWZiymMsDvMINEfz0p0G0x2WdImSHo',
         'telephony' => 'https://telephony.bts-crew.com',
-        'nextcloud' => 'https://nextcloud.bts-crew.com'
+        'nextcloud' => 'https://nextcloud.bts-crew.com',
     ],
 
     // Emails
