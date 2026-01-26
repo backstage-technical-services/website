@@ -116,6 +116,9 @@ class MainMenuComposer implements ViewComposer
                 // Wiki
                 $membersMenu->add('Wiki', config('bts.links.wiki'));
 
+                // Nextcloud
+                $membersMenu->add('Network Drive', config('bts.links.nextcloud'));
+
                 // Equipment
                 $equipMenu = $membersMenu->add('Equipment', '#')->attr('class', 'dropdown equipment');
                 $equipMenu->add('Asset register', route('equipment.assets'));
