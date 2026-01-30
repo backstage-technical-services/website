@@ -12,6 +12,12 @@
 **Name:** {{ $report['injured_name'] }}<br>
 **Category:** {{ $report['person_type_email'] }}<br>
 
+@if(@$report['monitor_name'])
+## Monitoring contact details
+**Name:** {{ $report['monitor_name'] }}<br>
+**Email:** {{ $report['monitor_email'] }}<br>
+@endif
+
 ## Contact details
 **Name:** {{ $report['contact_name'] }}<br>
 **Email:** [{{ $report['contact_email'] }}](mailto:{{ $report['contact_email'] }})<br>

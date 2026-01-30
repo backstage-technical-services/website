@@ -7,7 +7,7 @@
 
 @section('content')
     <p>Use this form to report an accident that occurred during a Backstage-supported event or activity. Please note that this form is automatically sent to the
-        Students' Union as well as Backstage.</p>
+        Chair, Training & Safety and the Students' Union. It may be shared with other committee members as necessary.</p>
 
     {!! Form::open() !!}
     <fieldset>
@@ -82,6 +82,34 @@
             {!! Form::text('person_type_other', null, ['placeholder' => 'If other, please specify']) !!}
             @InputError('person_type')
             @InputError('person_type_other')
+        </div>
+    </fieldset>
+    <fieldset data-visibility-input="severity" data-visibility-value="1">
+        <legend>Monitor Contact Details</legend>
+
+        <p>The details of someone who agrees to monitor the injuried party's condition following the injury. They will be sent a copy of this report.</p>
+        <!-- Name -->
+        <div class="form-group @InputClass('monitor_name')">
+            {!! Form::label('monitor_name', 'Name:') !!}
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-user"></span>
+                </span>
+                {!! Form::text('monitor_name', null, ['placeholder' => 'The name of the contact']) !!}
+            </div>
+            @InputError('monitor_name')
+        </div>
+
+        <!-- Email -->
+        <div class="form-group @InputClass('monitor_email')">
+            {!! Form::label('monitor_email', 'Email:') !!}
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <span class="fa fa-at"></span>
+                </span>
+                {!! Form::text('monitor_email', null, ['placeholder' => 'Their email address']) !!}
+            </div>
+            @InputError('monitor_email')
         </div>
     </fieldset>
     <fieldset>
