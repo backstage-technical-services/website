@@ -25,6 +25,6 @@ backstage.uk/component: website-v4
 
 {{- define "website-v4.ingress-middleware" -}}
 {{- $middlewares := list "default-redirect-http-to-https@kubernetescrd" }}
-{{- if not (eq "prod" .Values.environment) }}{{ $middlewares = append $middlewares "backstage-basic-auth@kubernetescrd" }}{{ end }}
+{{- if not (eq "prod" .Values.environment) }}{{ $middlewares = append $middlewares "backstage-ip-allowlist-trusted@kubernetescrd" }}{{ end }}
 {{- join "," $middlewares }}
 {{- end }}
