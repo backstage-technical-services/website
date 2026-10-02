@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Package\Keycloak\KeycloakClient;
 use Package\Notifications\Facades\Notify;
 use Package\SearchTools\SearchTools;
 

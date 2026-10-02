@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.4.0",
         "ext-zip": "*",
-        "acsystems/keycloak-php-sdk": "^4.4",
         "alaouy/youtube": "^2.0",
         "anhskohbo/no-captcha": "^3.0",
         "bugsnag/bugsnag-laravel": "^2.0",

@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Package\Keycloak\KeycloakClient;
-use Keycloak\User\Entity\NewUser;
 use Package\Notifications\Facades\Notify;
 use Package\WebDevTools\Laravel\Traits\CorrectsDistinctPagination;
 use Package\WebDevTools\Laravel\Traits\ValidatableModel;
@@ -164,27 +163,28 @@ class User extends Authenticatable
         try {
             /* @var $keycloak KeycloakClient */
             $keycloak = app(KeycloakClient::class);
-            $matchingKeycloakUsers = array_merge(
-                $keycloak->users->findAll(['username' => $attributes['username']]),
-                $keycloak->users->findAll(['email' => $attributes['email']]),
-            );
-            $existingKeycloakUser = array_shift($matchingKeycloakUsers);
+            $existingKeycloakUser = $keycloak->findUser($user->username, $user->email);
 
             if ($existingKeycloakUser === null) {
                 Log::debug("Creating user in Keycloak for user {$user->id}");
                 $password = Str::random(15);
-                $keycloakUserId = $keycloak->users->create(
-                    new NewUser($user->username, $user->forename, $user->surname, $user->email),
+                $keycloakUserId = $keycloak->createUser(
+                    $user->username,
+                    $user->forename,
+                    $user->surname,
+                    $user->email,
+                    $password,
                 );
-                $keycloak->users->resetPassword($keycloakUserId, $password, true);
-                $keycloak->attachAccessRole($keycloakUserId);
-                $user->update(['keycloak_user_id' => $keycloakUserId]);
-                Log::debug("Created user $keycloakUserId in Keycloak for user {$user->id}");
+                Log::debug("Created user {$keycloakUserId} in Keycloak for user {$user->id}");
             } else {
-                Log::debug("Found user {$existingKeycloakUser->id} in Keycloak for user {$user->id}");
-                $keycloak->attachAccessRole($existingKeycloakUser->id);
-                $user->update(['keycloak_user_id' => $existingKeycloakUser->id]);
+                $keycloakUserId = $existingKeycloakUser->id;
+                Log::debug("Found user {$keycloakUserId} in Keycloak for user {$user->id}");
             }
+
+            $keycloak->attachAccessRole($keycloakUserId);
+
+            Log::debug("Updating user {$user->id} with Keycloak user ID {$keycloakUserId}");
+            $user->update(['keycloak_user_id' => $keycloakUserId]);
         } catch (\Exception $exception) {
             Log::error("An error occurred when adding user {$user->id} to Keycloak: {$exception->getMessage()}");
             $user->delete();
