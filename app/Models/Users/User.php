@@ -164,7 +164,10 @@ class User extends Authenticatable
         try {
             /* @var $keycloak KeycloakClient */
             $keycloak = app(KeycloakClient::class);
-            $matchingKeycloakUsers = $keycloak->users->findAll(['email' => $attributes['email']]);
+            $matchingKeycloakUsers = array_merge(
+                $keycloak->users->findAll(['username' => $attributes['username']]),
+                $keycloak->users->findAll(['email' => $attributes['email']]),
+            );
             $existingKeycloakUser = array_shift($matchingKeycloakUsers);
 
             if ($existingKeycloakUser === null) {
