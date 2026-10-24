@@ -4,6 +4,7 @@
 bootstrap/cache/*.php
 !config
 !database
+!modules
 !packages
 !public
 !resources/assets
@@ -15,6 +16,7 @@ bootstrap/cache/*.php
 !artisan
 !composer.json
 !composer.lock
+!modules_statuses.json
 !package.json
 !webpack.mix.js
 !yarn.lock
