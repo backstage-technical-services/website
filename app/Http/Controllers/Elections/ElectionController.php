@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\File;
 class ElectionController extends Controller
 {
     /**
+     * Require that the user is logged in for all methods.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * View the list of elections.
      *
      * @return $this
@@ -163,6 +171,9 @@ class ElectionController extends Controller
             return $this->ajaxError('404', 404, 'Couldn\'t find that election.');
         }
 
+        // Authorise
+        $this->authorize('delete', $election);
+
         // Delete
         $election->delete();
         File::deleteDirectory($election->getManifestoPath());
@@ -190,6 +201,9 @@ class ElectionController extends Controller
         if (!$election) {
             return $this->ajaxError('404', 404, 'Couldn\'t find that election.');
         }
+
+        // Authorise
+        $this->authorize('update', $election);
 
         // Check that voting has closed
         if (!$election->canModifyResults()) {

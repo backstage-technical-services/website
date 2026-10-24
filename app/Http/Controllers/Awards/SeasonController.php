@@ -156,17 +156,24 @@ class SeasonController extends Controller
         foreach ($awards as $awardId => $nominationId) {
             Log::withContext(['award' => $awardId, 'nomination' => $nominationId, 'season' => $id]);
             Log::debug("Processing vote for user {$request->user()->id}");
-            $nomination = $season->nominations()->find($nominationId);
-            $award = Award::find($awardId);
-
+            $award = $season->awards()->find($awardId);
             if (!$award) {
-                Log::warning("Cannot process vote for user {$request->user()->id} - award $awardId does not exist");
+                Log::warning(
+                    "Cannot process vote for user {$request->user()->id} - award $awardId does not exist for season $id",
+                );
                 continue;
             }
 
+            // The "already voted" check below is per award, so the nomination must be for this award
+            $nomination = $season
+                ->nominations()
+                ->approved()
+                ->where('award_id', $award->id)
+                ->whereKey($nominationId)
+                ->first();
             if (!$nomination) {
                 Log::warning(
-                    "Cannot process vote for user {$request->user()->id} - nomination $nominationId does not exist for season $id",
+                    "Cannot process vote for user {$request->user()->id} - nomination $nominationId is not an approved nomination for award $awardId in season $id",
                 );
                 continue;
             }

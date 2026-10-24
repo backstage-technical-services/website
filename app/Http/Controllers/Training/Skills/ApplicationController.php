@@ -110,6 +110,8 @@ class ApplicationController extends Controller
      */
     public function index()
     {
+        $this->authorize('index', Application::class);
+
         $unawarded = Application::notAwarded()->orderBy('date', 'ASC')->get();
         $awarded = Application::awarded()->orderBy('awarded_date', 'DESC')->paginate(30)->appends('tab', 'reviewed');
         $this->checkPage($awarded);
