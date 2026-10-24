@@ -1,6 +1,30 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Property App\\Auth\\AuthController\:\:\$keycloak \(SocialiteProviders\\Keycloak\\Provider\) does not accept Laravel\\Socialite\\Contracts\\Provider\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Auth/AuthController.php
+
+		-
+			message: '#^Cannot access property \$id on App\\Models\\Users\\User\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Auth/AuthService.php
+
+		-
+			message: '#^Parameter \#1 \$email of static method App\\Helpers\\Redact\:\:email\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Auth/AuthService.php
+
+		-
+			message: '#^Property App\\Auth\\AuthService\:\:\$keycloak \(SocialiteProviders\\Keycloak\\Provider\) does not accept Laravel\\Socialite\\Contracts\\Provider\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Auth/AuthService.php
+
+		-
 			message: '#^Method App\\Auth\\UserProvider\:\:checkUserStatus\(\) has parameter \$user with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -1443,6 +1467,12 @@ parameters:
 		-
 			message: '#^Call to an undefined method App\\Models\\Users\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Users\\User\>\:\:makeCommittee\(\)\.$#'
 			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/Members/UsersController.php
+
+		-
+			message: '#^Elseif condition is always true\.$#'
+			identifier: elseif.alwaysTrue
 			count: 1
 			path: app/Http/Controllers/Members/UsersController.php
 

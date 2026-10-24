@@ -23,9 +23,7 @@ readonly class AuthService
         private LogManager $logger,
         Factory $socialite,
     ) {
-        /** @var Provider $keycloak */
-        $keycloak = $socialite->driver('keycloak');
-        $this->keycloak = $keycloak;
+        $this->keycloak = $socialite->driver('keycloak');
     }
 
     /**
@@ -79,7 +77,7 @@ readonly class AuthService
             return false;
         }
 
-        Log::info("User {$this->auth->guard()->id()} logged out");
+        Log::info("User {$request->user()->id} logged out");
         Logger::log('auth.logout');
 
         // Log out of the app
@@ -126,11 +124,10 @@ readonly class AuthService
             return $user;
         }
 
-        $email = (string) $kcUser->getEmail();
-        $this->logger->debug('Searching for user by email ' . Redact::email($email));
-        $user = User::where('email', $email)->first();
+        $this->logger->debug('Searching for user by email ' . Redact::email($kcUser->getEmail()));
+        $user = User::where('email', $kcUser->getEmail())->first();
         if ($user !== null) {
-            $this->logger->debug("Found user {$user->id} for email " . Redact::email($email));
+            $this->logger->debug("Found user {$user->id} for email " . Redact::email($kcUser->getEmail()));
             return $user;
         }
 
