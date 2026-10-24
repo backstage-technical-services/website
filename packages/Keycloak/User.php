@@ -4,9 +4,7 @@ namespace Package\Keycloak;
 
 readonly class User
 {
-    public function __construct(
-        public string $id,
-    ) {}
+    public function __construct(public string $id) {}
 
     /**
      * @param array<string, mixed> $user
