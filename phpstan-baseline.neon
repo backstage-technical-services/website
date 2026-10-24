@@ -217,7 +217,13 @@ parameters:
 			path: app/Http/Controllers/Awards/SeasonController.php
 
 		-
-			message: '#^Call to an undefined method App\\Models\\Awards\\Award\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Awards\\Award\>\:\:userHasVoted\(\)\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|\(Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\)\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Awards/SeasonController.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Awards\\Season\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Awards\\Season\>\:\:awards\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Http/Controllers/Awards/SeasonController.php
@@ -241,7 +247,13 @@ parameters:
 			path: app/Http/Controllers/Awards/SeasonController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|Illuminate\\Database\\Eloquent\\Model\:\:votes\(\)\.$#'
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\|\(Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\Pivot\}\)\:\:userHasVoted\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/Awards/SeasonController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany\:\:approved\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/Http/Controllers/Awards/SeasonController.php

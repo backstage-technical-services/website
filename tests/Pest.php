@@ -1,5 +1,14 @@
 <?php
 
+use App\Models\Users\Group;
+use App\Models\Users\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
+use Symfony\Component\HttpFoundation\Response;
+
+use function Pest\Laravel\post;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -34,3 +43,47 @@ pest()->extend(Tests\TestCase::class)->use(Illuminate\Foundation\Testing\Refresh
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+
+/**
+ * Create an active user in the given group (eg, member, committee, super_admin). This doesn't use User::create() as
+ * that also creates the user in Keycloak and sends them an email.
+ *
+ * @param array<string, mixed> $attributes
+ */
+function createUser(string $group = 'member', array $attributes = []): User
+{
+    $groupId =
+        Group::where('name', $group)->value('id') ??
+        DB::table('user_groups')->insertGetId(['title' => User::$AccountTypes[$group], 'name' => $group]);
+    $username = $attributes['username'] ?? Str::lower(Str::random(10));
+
+    $user = new User();
+    $user->forceFill(
+        $attributes + [
+            'username' => $username,
+            'email' => "{$username}@example.com",
+            'password' => '',
+            'forename' => 'Test',
+            'surname' => 'User',
+            'diary_preferences' => [],
+            'status' => true,
+            'user_group_id' => $groupId,
+        ],
+    );
+    $user->save();
+
+    return $user;
+}
+
+/**
+ * Make a POST request in the same way as the site's JavaScript (a jQuery JSON request), as some endpoints only accept
+ * AJAX requests.
+ *
+ * @param array<string, mixed> $data
+ *
+ * @return TestResponse<Response>
+ */
+function postAjax(string $uri, array $data = []): TestResponse
+{
+    return post($uri, $data, ['X-Requested-With' => 'XMLHttpRequest', 'Accept' => 'application/json']);
+}

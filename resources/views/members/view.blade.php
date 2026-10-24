@@ -86,9 +86,12 @@
 @endsection
 
 @section('modal')
-    @include('members.modals.avatar')
-    @include('members.modals.contact')
-    @include('members.modals.other')
-    @include('members.modals.personal')
-    @include('members.modals.privacy')
+    {{-- These forms are pre-filled with the user's private details, so only include them on your own profile --}}
+    @if($user->isActiveUser())
+        @include('members.modals.avatar')
+        @include('members.modals.contact')
+        @include('members.modals.other')
+        @include('members.modals.personal')
+        @include('members.modals.privacy')
+    @endif
 @endsection

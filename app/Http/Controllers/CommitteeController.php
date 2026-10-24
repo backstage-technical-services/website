@@ -11,6 +11,14 @@ use Illuminate\Http\Request;
 class CommitteeController extends Controller
 {
     /**
+     * Require that the user is logged in for everything except viewing the committee.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['view']);
+    }
+
+    /**
      * View the committee.
      *
      * @return Response
@@ -113,6 +121,9 @@ class CommitteeController extends Controller
         if (!$role) {
             return $this->ajaxError('', 422, 'Could not find the committee role.');
         }
+
+        // Authorise
+        $this->authorize('delete', $role);
 
         // Delete the role
         $role->delete();

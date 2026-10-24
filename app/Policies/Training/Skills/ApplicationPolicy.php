@@ -11,6 +11,18 @@ class ApplicationPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view the list of applications.
+     *
+     * @param \App\Models\Users\User $user
+     *
+     * @return bool
+     */
+    public function index(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can apply for a skill level.
      *
      * @param \App\Models\Users\User $user

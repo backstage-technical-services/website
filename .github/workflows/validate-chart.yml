@@ -49,8 +49,11 @@ jobs:
       - id: validate
         name: validate
         uses: mathiasvr/command-output@v2.0.0
+        env:
+          # the rendered chart comes from the PR, so pass it via env rather than interpolating it into the script
+          TEMPLATE_OUTPUT: ${{ steps.template.outputs.stdout }}
         with:
-          run: echo "${{ steps.template.outputs.stdout }}" | kubeconform -summary -ignore-missing-schemas
+          run: printf '%s\n' "$TEMPLATE_OUTPUT" | kubeconform -summary -ignore-missing-schemas
       - name: post comment
         if: always()
         uses: thollander/actions-comment-pull-request@v2
