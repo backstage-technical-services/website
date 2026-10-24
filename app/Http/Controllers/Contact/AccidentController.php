@@ -59,7 +59,15 @@ class AccidentController extends Controller
             'severity_email' => AccidentRequest::$Severities[$request->get('severity')],
         ]);
 
-        Mail::to(config('bts.emails.safety.accident_reports'))->queue(new AccidentReport($request->all()));
+        Mail::to(config('bts.emails.safety.accident_reports'))->queue(
+            new AccidentReport($request->all())
+        );
+        if ($request->get('monitor_email'))
+        {
+            Mail::to($request->get('monitor_email'), $request->get('monitor_name'))->queue(
+                new AccidentReport($request->all())
+            );
+        }
         Mail::to($request->get('contact_email'), $request->get('contact_name'))->queue(
             new AccidentReportReceipt($request->all()),
         );
