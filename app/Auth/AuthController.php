@@ -18,7 +18,9 @@ class AuthController extends Controller
         private readonly AuthService $service,
         Factory $socialite,
     ) {
-        $this->keycloak = $socialite->driver('keycloak');
+        /** @var Provider $keycloak */
+        $keycloak = $socialite->driver('keycloak');
+        $this->keycloak = $keycloak;
     }
 
     /**

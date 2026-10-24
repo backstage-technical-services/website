@@ -213,17 +213,12 @@ class UsersController extends Controller
                     'username' => $data['username'] ?: $i,
                     'message' => implode(PHP_EOL, Arr::flatten($validator->messages()->getMessages())),
                 ];
-            } elseif ($user = User::create($data)) {
+            } else {
+                $user = User::create($data);
                 $results[$i] = [
                     'success' => true,
                     'username' => $user->username ?: $i,
                     'message' => 'User created successfully',
-                ];
-            } else {
-                $results[$i] = [
-                    'success' => false,
-                    'username' => $user->username ?: $i,
-                    'message' => 'Something went wrong when adding this user. Consult the logs for more information.',
                 ];
             }
         }

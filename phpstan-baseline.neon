@@ -67,30 +67,6 @@ parameters:
 			path: app/Helpers/MonologLogFmtFormatter.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\Users\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Controllers/Auth/LoginController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\Auth\\LoginController\:\:logout\(\) should return Illuminate\\Http\\Response but returns Illuminate\\Http\\JsonResponse\|Illuminate\\Http\\RedirectResponse\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Controllers/Auth/LoginController.php
-
-		-
-			message: '#^Cannot access property \$id on App\\Models\\Users\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Controllers/Auth/ResetPasswordController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\Auth\\ResetPasswordController\:\:sendResetResponse\(\) should return Illuminate\\Http\\RedirectResponse but returns Illuminate\\Http\\JsonResponse\|Illuminate\\Http\\RedirectResponse\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Controllers/Auth/ResetPasswordController.php
-
-		-
 			message: '#^Call to an undefined method App\\Models\\Awards\\Award\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Awards\\Award\>\:\:delete\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -1363,12 +1339,6 @@ parameters:
 			path: app/Http/Controllers/Members/MemberController.php
 
 		-
-			message: '#^Cannot access property \$email on App\\Models\\Users\\User\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Http/Controllers/Members/MemberController.php
-
-		-
 			message: '#^Cannot access property \$export_token on App\\Models\\Users\\User\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -1407,7 +1377,7 @@ parameters:
 		-
 			message: '#^Cannot call method update\(\) on App\\Models\\Users\\User\|null\.$#'
 			identifier: method.nonObject
-			count: 3
+			count: 2
 			path: app/Http/Controllers/Members/MemberController.php
 
 		-
@@ -1473,12 +1443,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method App\\Models\\Users\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Users\\User\>\:\:makeCommittee\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: app/Http/Controllers/Members/UsersController.php
-
-		-
-			message: '#^Cannot access property \$username on array\|float\|int\|string\|false\|null\.$#'
-			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Members/UsersController.php
 
@@ -1580,12 +1544,6 @@ parameters:
 
 		-
 			message: '#^Method App\\Http\\Controllers\\Members\\UsersController\:\:updateRemoveAvatar\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Members/UsersController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\Members\\UsersController\:\:updateResetPassword\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/Members/UsersController.php
@@ -5857,24 +5815,6 @@ parameters:
 			path: app/Models/Users/User.php
 
 		-
-			message: '#^Method App\\Notifications\\Auth\\ResetPassword\:\:__construct\(\) has parameter \$token with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Notifications/Auth/ResetPassword.php
-
-		-
-			message: '#^Method App\\Notifications\\Auth\\ResetPassword\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Notifications/Auth/ResetPassword.php
-
-		-
-			message: '#^Method App\\Notifications\\Auth\\ResetPassword\:\:via\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Notifications/Auth/ResetPassword.php
-
-		-
 			message: '#^Cannot access property \$email on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -5987,30 +5927,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Notifications/Events/VolunteeredToCrew.php
-
-		-
-			message: '#^Method App\\Notifications\\Users\\ResetPasswordAdmin\:\:__construct\(\) has parameter \$password with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Notifications/Users/ResetPasswordAdmin.php
-
-		-
-			message: '#^Method App\\Notifications\\Users\\ResetPasswordAdmin\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Notifications/Users/ResetPasswordAdmin.php
-
-		-
-			message: '#^Method App\\Notifications\\Users\\ResetPasswordAdmin\:\:via\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Notifications/Users/ResetPasswordAdmin.php
-
-		-
-			message: '#^Method App\\Notifications\\Users\\UserAccountCreated\:\:__construct\(\) has parameter \$password with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Notifications/Users/UserAccountCreated.php
 
 		-
 			message: '#^Method App\\Notifications\\Users\\UserAccountCreated\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
