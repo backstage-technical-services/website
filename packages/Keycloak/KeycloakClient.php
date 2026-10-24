@@ -12,7 +12,7 @@ readonly class KeycloakClient
     private const ACCESS_ROLE = 'client-access';
 
     private Client $_http;
-    /* @var Role[] $_clientAccessRoles */
+    /** @var Role[] */
     private array $_clientAccessRoles;
     private string $_clientUuid;
 
@@ -133,7 +133,7 @@ readonly class KeycloakClient
 
     /**
      * @param array<string, mixed> $query
-     * @return array<string, mixed>
+     * @return list<array<string, mixed>>
      */
     private function get(string $path, array $query = []): array
     {
