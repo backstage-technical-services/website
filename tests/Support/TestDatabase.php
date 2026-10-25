@@ -64,6 +64,8 @@ final class TestDatabase
      */
     private static function start(): array
     {
+        fwrite(STDERR, "Starting database...\n");
+
         $labels = ['bts-v4-tests' => bin2hex(random_bytes(8))];
         $ryuk = self::startRyuk($labels);
         $container = new MariaDBContainer('10.4')
@@ -82,9 +84,13 @@ final class TestDatabase
             }
         });
 
+        $host = $container->getHost();
+        $port = self::mappedPort($container, 3306);
+        fwrite(STDERR, "Database started on {$host}:{$port}\n");
+
         return [
-            'host' => $container->getHost(),
-            'port' => self::mappedPort($container, 3306),
+            'host' => $host,
+            'port' => $port,
             'database' => self::DATABASE,
             'username' => self::USERNAME,
             'password' => self::PASSWORD,
