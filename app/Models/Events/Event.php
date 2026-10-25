@@ -3,6 +3,7 @@
 namespace App\Models\Events;
 
 use App\Models\Users\User;
+use App\Services\FinanceDb;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -822,15 +823,8 @@ class Event extends Model
             'data[Event][verified]' => 0,
             'data[Event][bts_crew_id]' => $this->id,
         ];
-        $field_string = http_build_query($fields);
 
-        // Send the data using cURL
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, config('bts.finance_db.url'));
-        curl_setopt($ch, CURLOPT_POST, count($fields));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $field_string);
-        curl_exec($ch);
-        curl_close($ch);
+        app(FinanceDb::class)->addEvent($fields);
 
         Log::info("Sent event {$this->id} to finance database");
         return true;

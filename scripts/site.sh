@@ -143,7 +143,9 @@ function _watchAssets() {
 function _test() {
   _requireRunning
 
-  _artisan test
+  _docker up --detach --wait --wait-timeout 60 test-database
+
+  _docker exec --user www-data:www-data --env DB_HOST=test-database --env DB_PORT=3306 site php artisan test "$@"
 }
 
 function _update() {
@@ -229,7 +231,7 @@ watch-assets)
   _watchAssets
   ;;
 test)
-  _test
+  _test "$@"
   ;;
 update)
   _update

@@ -20,6 +20,30 @@ services:
     restart: unless-stopped
     mem_limit: 1g
 
+  test-database:
+    image: mariadb:10.4
+    container_name: bts-v4-test-database
+    profiles:
+      - test
+    networks:
+      - main
+    ports:
+      - '127.0.0.1:6003:3306'
+    environment:
+      MYSQL_DATABASE: backstage_test
+      MYSQL_ROOT_PASSWORD: developer
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: developer
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '--host', '127.0.0.1', '--silent']
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+    mem_limit: 1g
+
   mail:
     image: djfarrelly/maildev
     container_name: bts-v4-mail
