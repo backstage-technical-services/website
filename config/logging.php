@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\MonologLogFmtFormatter;
+use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 
 return [
@@ -69,6 +70,10 @@ return [
         ],
         'bugsnag' => [
             'driver' => 'bugsnag',
+        ],
+        'null' => [
+            'driver' => 'monolog',
+            'handler' => NullHandler::class,
         ],
     ],
 ];

@@ -55,7 +55,8 @@ EOF
 }
 
 function _docker() {
-  docker compose -f "$rootDir/docker-compose.yml" "$@"
+  DOCKER_GID="$(stat -c %g /var/run/docker.sock 2>/dev/null || stat -f %g /var/run/docker.sock 2>/dev/null)" \
+    docker compose -f "$rootDir/docker-compose.yml" "$@"
 }
 
 function _start() {
@@ -143,7 +144,7 @@ function _watchAssets() {
 function _test() {
   _requireRunning
 
-  _artisan test
+  _docker exec --user www-data:www-data site php artisan test "$@"
 }
 
 function _update() {
@@ -229,7 +230,7 @@ watch-assets)
   _watchAssets
   ;;
 test)
-  _test
+  _test "$@"
   ;;
 update)
   _update

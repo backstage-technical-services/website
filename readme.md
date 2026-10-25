@@ -47,7 +47,7 @@ site:
 - `scripts/site.sh install` to install any dependencies.
 - `scripts/site.sh watch-assets` to build JS/CSS assets and automatically re-build any changes.
 - `scripts/site.sh artisan COMMAND` to run any artisan command.
-- `scripts/site.sh test` to run any PHPUnit tests.
+- `scripts/site.sh test` to run the tests (see [the tests' readme](tests/README.md)).
 - `scripts/site.sh update` to update your copy of the site and install any new dependencies.
 - `scripts/site.sh rebuild` to rebuild the container (eg, if the version of PHP changes).
 - `scripts/site.sh help` to see more information.

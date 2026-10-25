@@ -6,10 +6,12 @@ use App\Models\Awards\Award;
 use App\Models\Awards\Nomination;
 use App\Models\Awards\Season;
 use App\Models\Awards\Vote;
+use App\Models\Log;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\from;
 use function Pest\Laravel\post;
 
 function createVotingSeason(): Season
@@ -115,3 +117,84 @@ it('should not record a vote for an unapproved nomination', function () {
 
     assertDatabaseCount('award_votes', 0);
 });
+
+it('should only let members vote while voting is open', function (string $group, int $status, int $code) {
+    $season = Season::create(['name' => 'Awards 2026', 'status' => $status]);
+    $award = createAward($season);
+    $nomination = createAwardNomination($season, $award);
+    loginAs($group);
+
+    post(route('award.season.vote', ['id' => $season->id]), [
+        'awards' => [$award->id => $nomination->id],
+    ])->assertStatus($code);
+})->with([['staff', 2, 403], ['member', 2, 302], ['super_admin', 2, 403], ['member', 1, 403], ['member', 3, 403]]);
+
+it('should record a vote for each award at once', function () {
+    $season = createVotingSeason();
+    $first = createAward($season);
+    $second = createAward($season);
+    $firstNomination = createAwardNomination($season, $first);
+    $secondNomination = createAwardNomination($season, $second);
+    loginAs('member');
+
+    from(route('award.season.view', ['id' => $season->id]))
+        ->post(route('award.season.vote', ['id' => $season->id]), [
+            'awards' => [$first->id => $firstNomination->id, $second->id => $secondNomination->id],
+        ])
+        ->assertRedirect(route('award.season.view', ['id' => $season->id]));
+
+    assertDatabaseCount('award_votes', 2);
+    expectNotification('success', 'Votes recorded');
+});
+
+it('should say when only some of the votes were recorded', function () {
+    $season = createVotingSeason();
+    $award = createAward($season);
+    $nomination = createAwardNomination($season, $award);
+    $unapproved = createAwardNomination($season, createAward($season), approved: false);
+    loginAs('member');
+
+    post(route('award.season.vote', ['id' => $season->id]), [
+        'awards' => [$award->id => $nomination->id, $unapproved->award_id => $unapproved->id],
+    ])->assertRedirect();
+
+    expectNotification('warning', 'Only some votes were recorded');
+});
+
+it('should not let members change their vote', function () {
+    $season = createVotingSeason();
+    $award = createAward($season);
+    $first = createAwardNomination($season, $award);
+    $second = createAwardNomination($season, $award);
+    loginAs('member');
+
+    post(route('award.season.vote', ['id' => $season->id]), ['awards' => [$award->id => $first->id]]);
+    post(route('award.season.vote', ['id' => $season->id]), [
+        'awards' => [$award->id => $second->id],
+    ])->assertRedirect();
+
+    assertDatabaseCount('award_votes', 1);
+    assertDatabaseHas('award_votes', ['nomination_id' => $first->id]);
+    expectNotification('error', 'Uh oh! Something went wrong.');
+});
+
+it('should ask members to choose some nominations', function () {
+    $season = createVotingSeason();
+    loginAs('member');
+
+    post(route('award.season.vote', ['id' => $season->id]), [])->assertRedirect();
+
+    expectNotification('warning', 'Please select some nominations to vote for');
+});
+
+it('should log who voted for which nomination', function () {
+    $season = createVotingSeason();
+    $award = createAward($season);
+    $nomination = createAwardNomination($season, $award);
+    $member = loginAs('member');
+
+    post(route('award.season.vote', ['id' => $season->id]), ['awards' => [$award->id => $nomination->id]]);
+
+    $log = Log::where('action', 'award.vote')->latest('id')->first();
+    expect($log?->payload)->toMatchArray(['nomination_id' => $nomination->id, 'user_id' => $member?->id]);
+})->group('known-bug', 'bug:ballots-logged');

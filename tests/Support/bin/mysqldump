@@ -1,0 +1,3 @@
+#!/bin/sh
+for argument; do database="$argument"; done
+echo "-- Fake dump of $database"
