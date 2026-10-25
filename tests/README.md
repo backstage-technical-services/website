@@ -1,38 +1,41 @@
 # Tests
 
 The tests use [Pest](https://pestphp.com). Most of them are HTTP-level _characterisation_ tests: they pin down what v4
-does today, bugs included, so that any change to its behaviour (moving to Postgres, upgrading Laravel, fixing a bug) is
-a deliberate one.
+does today, bugs included, so that any change to its behaviour (upgrading Laravel or MariaDB, fixing a bug) is a
+deliberate one.
 
 ## Running the tests
 
 The feature tests run against a real MariaDB 10.4 database, the same version as production. v4 relies on MariaDB's
 non-strict mode, case-insensitive collation and FULLTEXT search, and SQLite would hide all three.
 
+The tests start the database themselves, in a Docker container (with [Testcontainers](https://testcontainers.com)), so
+all they need is Docker:
+
 ```bash
-docker compose up -d test-database
 ./vendor/bin/pest
 ```
 
-Or, to run them in the site container, use `scripts/site.sh test`, which starts the database for you.
+Or, to run them in the site container, use `scripts/site.sh test`. The site container uses your Docker through its
+socket, so if you started the site before this was set up, run `scripts/site.sh start` again to recreate it.
 
-- The test database listens on `127.0.0.1:6003` and is called `backstage_test` (user and password `developer`). It keeps
-  its data in memory, so restarting the container empties it.
-- `phpunit.xml` points the tests at it, but environment variables take priority (for example
-  `DB_PORT=3306 ./vendor/bin/pest`).
-- The tests wipe the database, so they refuse to run against one without "test" in its name.
+- The database starts with the first test (which takes about 10 seconds), keeps its data in memory, and is removed when
+  the tests finish. The tests point the connection at it after the configuration has loaded, so they can't reach any
+  other database, even with a cached configuration.
+- If the tests are killed (for example with Ctrl-C), Ryuk, a container that the tests start alongside the
+  database, removes the database a few seconds later. Set `TESTCONTAINERS_RYUK_DISABLED=true` to turn it off.
 - Use `--filter` to run some of the tests, or `--group` to run a group (see [Known bugs](#known-bugs)).
-- `--parallel` doesn't work, as it needs a database for each process and the test user can't create them.
+- `--parallel` doesn't work, as Laravel creates a database for each process and the test user can't.
 
-CI starts the same `test-database` service with Docker Compose (see `.github/workflows/checks.yml`), so it runs the
-tests in the same way as you do locally.
+CI runs `./vendor/bin/pest` in the same way (see `.github/workflows/checks.yml`), so the tests start their own database
+there too.
 
 ## Structure
 
 - `Feature/<Area>/`: the tests for each area of the site, such as `Feature/Events/`. Each file has its own namespace,
   so that helper functions in different files don't clash.
 - `Pest.php`: the helpers that every test can use.
-- `Support/`: what the tests run on: the application class, the fakes and the user groups seeder.
+- `Support/`: what the tests run on: the application class, the test database, the fakes and the user groups seeder.
 - `Support/bin/`: the fake command-line tools (see [Outside services](#outside-services)).
 - `../database/factories/`: a factory for every table (except the join tables, which the factories fill in).
 - `../modules/*/tests/`: the tests for each Laravel module, such as the static pages.
@@ -105,8 +108,7 @@ Every test gets fakes of the services that v4 calls over the network, so no test
 
 - reCAPTCHA passes only for `FakeCaptcha::PASS`.
 - Backups run `mysqldump`, which is replaced with `Support/bin/mysqldump`. It writes a one-line dump of the database
-  (`-- Fake dump of backstage_test`), so the tests don't depend on which database client is installed. A Postgres run
-  would need a `pg_dump` alongside it.
+  (`-- Fake dump of backstage`), so the tests don't depend on which database client is installed.
 - v4 only sends events to the finance database in production, so set the environment to `prod` to test that.
 - Logging in through Keycloak isn't faked: the tests log in with `loginAs()` instead. To test the login callback itself,
   fake Socialite.
@@ -148,8 +150,7 @@ Tests that depend on how MariaDB behaves (FULLTEXT search, non-strict mode, case
 `mariadb` group.
 
 FULLTEXT indexes only see committed rows, but each test runs in a transaction that's rolled back. So the search tests
-call `commitTestData()` first, which commits the test's data and empties the tables after the test. The suite doesn't depend on MariaDB otherwise, so a Postgres run can be added to CI by setting
-`DB_CONNECTION=pgsql` and the other `DB_` variables. The `mariadb` tests then show what would need porting.
+call `commitTestData()` first, which commits the test's data and empties the tables after the test.
 
 ## What the tests don't cover
 

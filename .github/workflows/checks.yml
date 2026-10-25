@@ -68,8 +68,6 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
-      - name: Start test database
-        run: docker compose up --detach --wait test-database
       - name: Run tests
         env:
           XDEBUG_MODE: coverage

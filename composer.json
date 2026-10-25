@@ -47,7 +47,8 @@
         "pestphp/pest-plugin-laravel": "^4.0",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpunit/php-code-coverage": "^12"
+        "phpunit/php-code-coverage": "^12",
+        "testcontainers/testcontainers": "^1.2"
     },
     "autoload": {
         "psr-4": {

@@ -16,7 +16,7 @@ use function Pest\Laravel\post;
  * The admin list of events (/events), searching events for the resources "link to event" picker, and deleting events.
  *
  * The list and the search use SELECT DISTINCT with an ORDER BY on event_times, which isn't in the SELECT list. MariaDB
- * allows that but Postgres doesn't, so those tests are in the mariadb group.
+ * allows that, so those tests are in the mariadb group.
  */
 
 describe('the list of events', function () {
