@@ -4,7 +4,9 @@ namespace Tests\Support;
 
 use RuntimeException;
 use Testcontainers\Container\GenericContainer;
+use Testcontainers\Container\StartedGenericContainer;
 use Testcontainers\Modules\MariaDBContainer;
+use Testcontainers\Wait\WaitForExec;
 use Testcontainers\Wait\WaitForLog;
 use Throwable;
 
@@ -50,7 +52,10 @@ final class TestDatabase
         try {
             return self::$connection ??= self::start();
         } catch (Throwable $exception) {
-            throw (self::$failure = $exception);
+            throw (self::$failure = new RuntimeException(
+                "The tests couldn't start their database: {$exception->getMessage()}",
+                previous: $exception,
+            ));
         }
     }
 
@@ -64,9 +69,12 @@ final class TestDatabase
         $container = new MariaDBContainer('10.4')
             ->withMariaDBDatabase(self::DATABASE)
             ->withMariaDBUser(self::USERNAME, self::PASSWORD)
+            ->withEnvironment(['MARIADB_INITDB_SKIP_TZINFO' => '1'])
+            ->withCommand(['--skip-name-resolve'])
             ->withTmpfs('/var/lib/mysql')
             ->withLabels($labels)
             ->withAutoRemove(true)
+            ->withWait(new WaitForExec(['mariadb-admin', 'ping', '-h', '127.0.0.1'], null, 60000))
             ->start();
 
         register_shutdown_function(function () use ($container, $ryuk) {
@@ -77,8 +85,8 @@ final class TestDatabase
         });
 
         return [
-            'host' => $container->getHost(),
-            'port' => $container->getFirstMappedPort(),
+            'host' => self::host(),
+            'port' => self::mappedPort($container, 3306),
             'database' => self::DATABASE,
             'username' => self::USERNAME,
             'password' => self::PASSWORD,
@@ -109,12 +117,40 @@ final class TestDatabase
             ->withWait(new WaitForLog('msg=Started'))
             ->start();
 
-        $connection = fsockopen($ryuk->getHost(), $ryuk->getFirstMappedPort(), $errorCode, $error, 10);
+        $connection = fsockopen(self::host(), self::mappedPort($ryuk, 8080), $errorCode, $error, 10);
         $filters = implode('&', array_map(fn($key, $value) => "label={$key}={$value}", array_keys($labels), $labels));
         if ($connection === false || fwrite($connection, "{$filters}\n") === false || fgets($connection) !== "ACK\n") {
             throw new RuntimeException("Couldn't connect to Ryuk: {$error}");
         }
 
         return $connection;
+    }
+
+    /**
+     * Where the containers' ports are published: this machine, unless the tests run in a container (like the site's),
+     * which sets TESTCONTAINERS_HOST_OVERRIDE.
+     */
+    private static function host(): string
+    {
+        return getenv('TESTCONTAINERS_HOST_OVERRIDE') ?: '127.0.0.1';
+    }
+
+    /**
+     * Get the port on the host that a container's port is published on. Docker can take a moment to report it after
+     * the container starts (especially on GitHub's runners), so this asks again until it does.
+     */
+    private static function mappedPort(StartedGenericContainer $container, int $port): int
+    {
+        for ($attempt = 0; $attempt < 50; $attempt++) {
+            $ports = $container->getClient()->containerInspect($container->getId())?->getNetworkSettings()?->getPorts();
+            $binding = ($ports ?? [])["{$port}/tcp"][0] ?? null;
+            $hostPort = $binding?->getHostPort();
+            if ($hostPort !== null && $hostPort !== '') {
+                return (int) $hostPort;
+            }
+            usleep(200_000);
+        }
+
+        throw new RuntimeException("Docker didn't publish port {$port} of {$container->getName()}.");
     }
 }

@@ -28,7 +28,8 @@ socket, so if you started the site before this was set up, run `scripts/site.sh 
 - `--parallel` doesn't work, as Laravel creates a database for each process and the test user can't.
 
 CI runs `./vendor/bin/pest` in the same way (see `.github/workflows/checks.yml`), so the tests start their own database
-there too.
+there too. It collects line coverage with PCOV: Xdebug's coverage, and path coverage especially, made each test take
+seconds rather than milliseconds.
 
 ## Structure
 

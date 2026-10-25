@@ -7,7 +7,7 @@
          failOnRisky="true"
          failOnNotice="true"
 >
-    <coverage includeUncoveredFiles="true" pathCoverage="true" />
+    <coverage includeUncoveredFiles="true" />
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
