@@ -2,12 +2,12 @@
 
 namespace Tests\Support;
 
+use Docker\API\Runtime\Client\Client;
+use Illuminate\Support\Arr;
 use RuntimeException;
-use Testcontainers\Container\GenericContainer;
 use Testcontainers\Container\StartedGenericContainer;
 use Testcontainers\Modules\MariaDBContainer;
 use Testcontainers\Wait\WaitForExec;
-use Testcontainers\Wait\WaitForLog;
 use Throwable;
 
 /**
@@ -69,8 +69,6 @@ final class TestDatabase
         $container = new MariaDBContainer('10.4')
             ->withMariaDBDatabase(self::DATABASE)
             ->withMariaDBUser(self::USERNAME, self::PASSWORD)
-            ->withEnvironment(['MARIADB_INITDB_SKIP_TZINFO' => '1'])
-            ->withCommand(['--skip-name-resolve'])
             ->withTmpfs('/var/lib/mysql')
             ->withLabels($labels)
             ->withAutoRemove(true)
@@ -85,7 +83,7 @@ final class TestDatabase
         });
 
         return [
-            'host' => self::host(),
+            'host' => $container->getHost(),
             'port' => self::mappedPort($container, 3306),
             'database' => self::DATABASE,
             'username' => self::USERNAME,
@@ -107,17 +105,9 @@ final class TestDatabase
             return null;
         }
 
-        $ryuk = new GenericContainer('testcontainers/ryuk:0.12.0')
-            ->withExposedPorts(8080)
-            ->withMount(
-                getenv('TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE') ?: '/var/run/docker.sock',
-                '/var/run/docker.sock',
-            )
-            ->withAutoRemove(true)
-            ->withWait(new WaitForLog('msg=Started'))
-            ->start();
+        $ryuk = new RyukContainer()->start();
 
-        $connection = fsockopen(self::host(), self::mappedPort($ryuk, 8080), $errorCode, $error, 10);
+        $connection = fsockopen($ryuk->getHost(), self::mappedPort($ryuk, RyukContainer::PORT), $errorCode, $error, 10);
         $filters = implode('&', array_map(fn($key, $value) => "label={$key}={$value}", array_keys($labels), $labels));
         if ($connection === false || fwrite($connection, "{$filters}\n") === false || fgets($connection) !== "ACK\n") {
             throw new RuntimeException("Couldn't connect to Ryuk: {$error}");
@@ -127,30 +117,42 @@ final class TestDatabase
     }
 
     /**
-     * Where the containers' ports are published: this machine, unless the tests run in a container (like the site's),
-     * which sets TESTCONTAINERS_HOST_OVERRIDE.
-     */
-    private static function host(): string
-    {
-        return getenv('TESTCONTAINERS_HOST_OVERRIDE') ?: '127.0.0.1';
-    }
-
-    /**
      * Get the port on the host that a container's port is published on. Docker can take a moment to report it after
-     * the container starts (especially on GitHub's runners), so this asks again until it does.
+     * the container starts (testcontainers/testcontainers-php#50), and Testcontainers only looks once, so this asks
+     * again until it does.
      */
     private static function mappedPort(StartedGenericContainer $container, int $port): int
     {
         for ($attempt = 0; $attempt < 50; $attempt++) {
-            $ports = $container->getClient()->containerInspect($container->getId())?->getNetworkSettings()?->getPorts();
-            $binding = ($ports ?? [])["{$port}/tcp"][0] ?? null;
-            $hostPort = $binding?->getHostPort();
-            if ($hostPort !== null && $hostPort !== '') {
-                return (int) $hostPort;
+            $inspect = self::inspect($container);
+            $bindings = Arr::get($inspect, "NetworkSettings.Ports.{$port}/tcp");
+            foreach (is_array($bindings) ? $bindings : [] as $binding) {
+                $hostPort = is_array($binding) ? (int) ($binding['HostPort'] ?? 0) : 0;
+                if ($hostPort > 0) {
+                    return $hostPort;
+                }
             }
             usleep(200_000);
         }
 
-        throw new RuntimeException("Docker didn't publish port {$port} of {$container->getName()}.");
+        throw new RuntimeException(
+            "Docker didn't publish port {$port} of {$container->getName()}: " .
+                json_encode([
+                    'status' => Arr::get($inspect, 'State.Status'),
+                    'published' => Arr::get($inspect, 'NetworkSettings.Ports'),
+                    'requested' => Arr::get($inspect, 'HostConfig.PortBindings'),
+                ]),
+        );
+    }
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    private static function inspect(StartedGenericContainer $container): array
+    {
+        $response = $container->getClient()->containerInspect($container->getId(), [], Client::FETCH_RESPONSE);
+        $inspect = json_decode((string) $response->getBody(), true);
+
+        return is_array($inspect) ? $inspect : [];
     }
 }
