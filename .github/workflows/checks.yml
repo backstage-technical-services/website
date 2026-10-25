@@ -98,6 +98,10 @@ jobs:
               }
             }
           pull-request: true
+          summary-report: true
+          failed-report: true
+          flaky-report: true
+          skipped-report: true
           use-suite-name: true
           collapse-large-reports: true
           group-by: suite
