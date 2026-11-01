@@ -29,7 +29,7 @@ class AccidentReportReceipt extends Mailable
      * Build the message.
      * @return $this
      */
-    public function build()
+    public function build() 
     {
         [$forename] = explode(' ', $this->report['contact_name']);
 
