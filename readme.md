@@ -1,8 +1,11 @@
 # Website (v4)
 
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/backstage-technical-services/website/deploy.yml?branch=main)](https://github.com/backstage-technical-services/website/actions)
-[![chat](https://img.shields.io/badge/chat-on%20slack-brightgreen)](https://bts-website.slack.com)
 [![license](https://img.shields.io/badge/license-Apache%20v2-blue)](./licence.md)
+
+
+## Managing Issues
+[Issues and features should be made atomic into an issue, and the lifecycles of said issues should be tracked with the project tracker.](https://github.com/orgs/backstage-technical-services/projects/8/)
 
 ## 🏁 Getting Started
 
