@@ -8,6 +8,8 @@ enum AuthError
     case MissingEmail;
     case EmailNotVerified;
     case AccountDisabled;
+    case KeycloakError;
+    case InvalidState;
 
     public function getNotificationDetails(): ?string
     {
@@ -25,6 +27,8 @@ enum AuthError
             AuthError::MissingEmail => 'user does not have an associated email address',
             AuthError::EmailNotVerified => 'user\'s email address is not verified',
             AuthError::AccountDisabled => 'the user\'s account is disabled',
+            AuthError::KeycloakError => 'Keycloak returned an error',
+            AuthError::InvalidState => 'the state does not match the session',
         };
     }
 }

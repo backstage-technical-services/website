@@ -36,9 +36,13 @@ class AuthController extends Controller
         return $this->keycloak->redirect();
     }
 
-    function callback(): Response
+    function callback(Request $request): Response
     {
-        $user = $this->service->login();
+        if ($this->auth->guard()->check()) {
+            return redirect('/members');
+        }
+
+        $user = $this->service->login($request);
 
         return $user ? redirect('/members') : redirect('/');
     }
