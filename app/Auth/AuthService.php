@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Log\LogManager;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Contracts\Factory;
+use Laravel\Socialite\Two\InvalidStateException;
 use Package\Notifications\NotificationHandler;
 use SocialiteProviders\Keycloak\Provider;
 
@@ -34,11 +35,26 @@ readonly class AuthService
      * If the user is found and their account is active they are logged in. Their email and username are automatically
      * synced with their Keycloak profile.
      *
+     * The login fails if Keycloak returns an error, or if the state doesn't match the one in the session.
+     *
+     * @param Request $request
      * @return User|null
      */
-    function login(): ?User
+    function login(Request $request): ?User
     {
-        $kcUser = $this->keycloak->user();
+        if ($request->filled('error')) {
+            return $this->handledFailedAuth(
+                null,
+                AuthError::KeycloakError,
+                $request->only(['error', 'error_description']),
+            );
+        }
+
+        try {
+            $kcUser = $this->keycloak->user();
+        } catch (InvalidStateException) {
+            return $this->handledFailedAuth(null, AuthError::InvalidState);
+        }
 
         $authError = $this->verifyKeycloakUser($kcUser);
         if ($authError !== null) {
@@ -154,13 +170,18 @@ readonly class AuthService
     }
 
     /**
-     * @param \Laravel\Socialite\Contracts\User $kcUser
+     * @param \Laravel\Socialite\Contracts\User|null $kcUser
      * @param AuthError $error
+     * @param array<string, mixed> $context
      * @return null
      */
-    private function handledFailedAuth(\Laravel\Socialite\Contracts\User $kcUser, AuthError $error): null
-    {
-        $this->logger->warning("Failed log in attempt for user {$kcUser->getId()}: {$error->getLogMessage()}");
+    private function handledFailedAuth(
+        ?\Laravel\Socialite\Contracts\User $kcUser,
+        AuthError $error,
+        array $context = [],
+    ): null {
+        $forUser = $kcUser === null ? '' : " for user {$kcUser->getId()}";
+        $this->logger->warning("Failed log in attempt{$forUser}: {$error->getLogMessage()}", $context);
         $this->notifications->error(
             implode(' - ', array_filter(['Log in failed', $error->getNotificationDetails() ?? ''])),
         );

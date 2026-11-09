@@ -178,6 +178,38 @@ describe('the login callback', function () {
         expectNotification('error', 'Log in failed');
     });
 
+    it('should refuse the login if Keycloak returns an error', function () {
+        createUser('member', ['keycloak_user_id' => 'keycloak-id']);
+        keycloakReturns();
+
+        get(route('auth.callback', ['error' => 'access_denied', 'state' => 'abc']))->assertRedirect('/');
+
+        assertGuest();
+        expectNotification('error', 'Log in failed');
+    });
+
+    it('should refuse the login if the state doesn\'t match the session', function () {
+        get(route('auth.callback', ['state' => 'abc', 'code' => 'xyz']))->assertRedirect('/');
+
+        assertGuest();
+        expectNotification('error', 'Log in failed');
+    });
+
+    it('should send users who are already logged in to the members\' area', function () {
+        loginAs('member');
+
+        get(
+            route('auth.callback', [
+                'error' => 'temporarily_unavailable',
+                'error_description' => 'authentication_expired',
+                'state' => 'abc',
+            ]),
+        )->assertRedirect('/members');
+
+        assertAuthenticated();
+        expect(notifications())->toBeEmpty();
+    });
+
     it('should not go back to the page that was asked for', function () {
         $user = createUser('member', ['keycloak_user_id' => 'keycloak-id']);
         keycloakReturns();
