@@ -15,7 +15,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: lts/*
       - run: yarn install --frozen-lockfile
       - run: yarn check:format
 
@@ -60,7 +60,7 @@ jobs:
           ini-values: 'pcov.directory=., pcov.exclude="~/(vendor|node_modules|storage|tests)/~"'
       - uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: lts/*
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Install JS dependencies
