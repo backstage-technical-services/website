@@ -1,4 +1,4 @@
-FROM ghcr.io/backstage-technical-services/php-docker:8.4.27 AS builder
+FROM ghcr.io/backstage-technical-services/php-docker:8.4.28 AS builder
 
 USER root
 
@@ -19,7 +19,7 @@ RUN composer install --prefer-dist --no-dev --no-scripts
 RUN yarn install \
     && yarn run production
 
-FROM ghcr.io/backstage-technical-services/php-docker:8.4.27
+FROM ghcr.io/backstage-technical-services/php-docker:8.4.28
 
 # Copy mariadb-client
 RUN apk add --no-cache mariadb-client

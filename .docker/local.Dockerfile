@@ -1,4 +1,4 @@
-FROM ghcr.io/backstage-technical-services/php-docker:8.4.27
+FROM ghcr.io/backstage-technical-services/php-docker:8.4.28
 
 ARG USER_ID
 ARG GROUP_ID
