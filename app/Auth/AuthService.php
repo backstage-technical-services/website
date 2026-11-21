@@ -30,7 +30,7 @@ readonly class AuthService
     /**
      * This is responsible for handling the authentication response from Keycloak. It verifies that the user is properly
      * configured before searching for the user entry in the database (first by the keycloak subject, falling back to
-     * their email address).
+     * their username and then their email address).
      *
      * If the user is found and their account is active they are logged in. Their email and username are automatically
      * synced with their Keycloak profile.
@@ -126,7 +126,7 @@ readonly class AuthService
 
     /**
      * Finds the user associated with the given Keycloak user. This will try their Keycloak ID (subject) first, before
-     * falling back to their email address.
+     * falling back to their username and then their email address.
      *
      * @param \Laravel\Socialite\Contracts\User $kcUser
      * @return User|null
@@ -138,6 +138,15 @@ readonly class AuthService
         if ($user !== null) {
             $this->logger->debug("Found user {$user->id} for keycloak ID {$kcUser->getId()}");
             return $user;
+        }
+
+        if ($kcUser->getNickname() !== null) {
+            $this->logger->debug("Searching for user by username {$kcUser->getNickname()}");
+            $user = User::where('username', $kcUser->getNickname())->first();
+            if ($user !== null) {
+                $this->logger->debug("Found user {$user->id} for username {$kcUser->getNickname()}");
+                return $user;
+            }
         }
 
         $this->logger->debug('Searching for user by email ' . Redact::email($kcUser->getEmail()));
