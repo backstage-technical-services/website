@@ -50,7 +50,7 @@ function editForm(User $user, array $changes = []): array
                 'dob' => '',
                 'address' => (string) $user->address,
                 'tool_colours' => (string) $user->tool_colours,
-                'type' => 'member',
+                'type' => $user->type,
                 'show_email' => $user->show_email ? '1' : null,
             ],
             $changes,
@@ -419,15 +419,14 @@ describe('editing a user', function () {
         get('/users/first.last/edit')->assertNotFound();
     })->group('known-bug', 'bug:dotted-usernames');
 
-    it('should not select the user\'s account type in the form', function () {
+    it('should select the user\'s account type in the form', function () {
         $user = createUser('committee');
         loginAs('committee');
 
         get(route('user.edit', ['username' => $user->username]))
             ->assertOk()
-            ->assertSee('<option value="committee">Committee</option>', false)
-            ->assertDontSee('selected="selected"', false);
-    })->group('known-bug', 'bug:edit-user-demotes');
+            ->assertSee('<option value="committee" selected="selected">Committee</option>', false);
+    });
 
     it('should only let admins change a user', function (string $group, int $status) {
         $user = createUser('member', ['forename' => 'Old']);
@@ -474,7 +473,7 @@ describe('editing a user', function () {
         expectNotification('success', 'User updated');
     });
 
-    it('should demote the user to a member when the form is saved as it is', function () {
+    it('should keep the user\'s account type when the form is saved as it is', function () {
         $user = createUser('committee');
         loginAs('committee');
 
@@ -482,8 +481,8 @@ describe('editing a user', function () {
             route('user.index'),
         );
 
-        expect(groupOf($user))->toBe('member');
-    })->group('known-bug', 'bug:edit-user-demotes');
+        expect(groupOf($user))->toBe('committee');
+    });
 
     it('should ignore changes to the nickname, address and tool colours', function () {
         $user = createUser('member', ['nickname' => 'Old', 'address' => 'Old Road', 'tool_colours' => 'Red']);
