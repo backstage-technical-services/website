@@ -89,14 +89,46 @@ describe('the login callback', function () {
         expect(Log::where('action', 'auth.login')->where('user_id', $user->id)->exists())->toBeTrue();
     });
 
+    it('should log in the user with that username on their first login, and link their Keycloak ID', function () {
+        $user = createUser('member', ['username' => 'abc123', 'email' => 'old@bath.ac.uk']);
+        keycloakReturns();
+
+        get(route('auth.callback'))->assertRedirect('/members');
+
+        assertAuthenticatedAs($user);
+        assertDatabaseHas('users', [
+            'id' => $user->id,
+            'keycloak_user_id' => 'keycloak-id',
+            'email' => 'abc123@bath.ac.uk',
+        ]);
+    });
+
+    it('should match the username whatever its case', function () {
+        $user = createUser('member', ['username' => 'ABC123']);
+        keycloakReturns();
+
+        get(route('auth.callback'))->assertRedirect('/members');
+
+        assertAuthenticatedAs($user);
+    })->group('mariadb');
+
     it('should log in the user with that email on their first login, and link their Keycloak ID', function () {
-        $user = createUser('member', ['email' => 'abc123@bath.ac.uk']);
+        $user = createUser('member', ['username' => 'other', 'email' => 'abc123@bath.ac.uk']);
         keycloakReturns();
 
         get(route('auth.callback'))->assertRedirect('/members');
 
         assertAuthenticatedAs($user);
         assertDatabaseHas('users', ['id' => $user->id, 'keycloak_user_id' => 'keycloak-id']);
+    });
+
+    it('should fall back to the email if Keycloak doesn\'t have a username', function () {
+        $user = createUser('member', ['email' => 'abc123@bath.ac.uk']);
+        keycloakReturns(username: null);
+
+        get(route('auth.callback'))->assertRedirect('/members');
+
+        assertAuthenticatedAs($user);
     });
 
     it('should match the email whatever its case', function () {
