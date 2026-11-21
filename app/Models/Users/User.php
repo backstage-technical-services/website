@@ -505,11 +505,11 @@ class User extends Authenticatable
     /**
      * Get the user's role as an "account type".
      *
-     * @return int
+     * @return string
      */
     public function getTypeAttribute()
     {
-        return $this->user_group_id;
+        return $this->group->name;
     }
 
     /**
