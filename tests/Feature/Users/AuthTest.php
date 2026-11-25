@@ -242,12 +242,12 @@ describe('the login callback', function () {
         expect(notifications())->toBeEmpty();
     });
 
-    it('should not go back to the page that was asked for', function () {
+    it('should go back to the page that was asked for', function () {
         $user = createUser('member', ['keycloak_user_id' => 'keycloak-id']);
         keycloakReturns();
 
         get(route('event.index'))->assertRedirect(route('auth.login'));
-        get(route('auth.callback'))->assertRedirect('/members');
+        get(route('auth.callback'))->assertRedirect(route('event.index'));
 
         assertAuthenticatedAs($user);
     });

@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         $user = $this->service->login($request);
 
-        return $user ? redirect('/members') : redirect('/');
+        return $user ? redirect()->intended('/members') : redirect('/');
     }
 
     function logout(Request $request): Response
